@@ -9,13 +9,13 @@ import java.util.Objects;
 public class Rule {
     public enum eType{HARD,SOFT}
 
-    private final Integer m_Id;
+    private final String m_Id;
     private eType m_Type;
     private List<String> m_Configuration;
 
     public Rule(ETTRule i_ETTRule)
     {
-        m_Id=Integer.getInteger(i_ETTRule.getETTRuleId());
+        m_Id=i_ETTRule.getETTRuleId();
         m_Type=eType.valueOf(i_ETTRule.getType().toUpperCase());
         m_Configuration=i_ETTRule.getETTConfiguration();
     }

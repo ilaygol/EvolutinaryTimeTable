@@ -65,7 +65,7 @@ public class ConsoleUserInterfaceManager {
     }
 
     private void LoadFile() {
-        System.out.println(m_LogicEngineManager.LoadFile());
+        m_LogicEngineManager.LoadFile("LogicEngine/src/ParsedClasses/small.xml");
     }
 
     private eMainMenu GetMainMenuUserInput()
