@@ -1,5 +1,7 @@
 package DataClasses;
 
+import ParsedClasses.ETTRule;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -11,11 +13,11 @@ public class Rule {
     private eType m_Type;
     private List<String> m_Configuration;
 
-    public Rule(Integer i_Id, String i_Type, List<String> i_Configuration)
+    public Rule(ETTRule i_ETTRule)
     {
-        m_Id=i_Id;
-        m_Type=eType.valueOf(i_Type.toUpperCase());
-        m_Configuration=i_Configuration;
+        m_Id=Integer.getInteger(i_ETTRule.getETTRuleId());
+        m_Type=eType.valueOf(i_ETTRule.getType().toUpperCase());
+        m_Configuration=i_ETTRule.getETTConfiguration();
     }
 
     @Override

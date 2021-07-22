@@ -1,23 +1,21 @@
 package DataClasses;
 
+import ParsedClasses.ETTTeacher;
+import ParsedClasses.ETTTeachers;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Teachers {
     private List<Teacher> m_TeachersList;
 
-    public Teachers()
+    public Teachers(ETTTeachers i_ETTTeachers)
     {
         m_TeachersList=new ArrayList<>();
-    }
-
-    public List<Teacher> getTeachersList()
-    {
-        return m_TeachersList;
-    }
-
-    public void addTeacherToList(Teacher i_Teacher)
-    {
-        m_TeachersList.add(i_Teacher);
+        List<ETTTeacher> ettTeachers = i_ETTTeachers.getETTTeacher();
+        for(ETTTeacher teacher:ettTeachers)
+        {
+            m_TeachersList.add(new Teacher(teacher));
+        }
     }
 }
