@@ -21,6 +21,15 @@ public class Rule {
     }
 
     @Override
+    public String toString() {
+        return "Rule{" +
+                "m_Id=" + m_Id +
+                ", m_Type=" + m_Type +
+                ", m_Configuration=" + m_Configuration +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

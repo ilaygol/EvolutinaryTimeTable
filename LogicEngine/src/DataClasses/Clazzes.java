@@ -17,6 +17,12 @@ public class Clazzes {
         {
             m_ClassesList.add(new Clazz(ettClass));
         }
+    }
 
+    @Override
+    public String toString() {
+        return "Clazzes{" +
+                "m_ClassesList=" + m_ClassesList +
+                '}';
     }
 }

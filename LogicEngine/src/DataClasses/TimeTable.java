@@ -22,4 +22,16 @@ public class TimeTable {
         m_Hours=i_ETTTimeTable.getHours();
         m_Days=i_ETTTimeTable.getDays();
     }
+
+    @Override
+    public String toString() {
+        return "TimeTable{" +
+                "m_Teachers=" + m_Teachers +
+                ", m_Subjects=" + m_Subjects +
+                ", m_Clazzes=" + m_Clazzes +
+                ", m_Rules=" + m_Rules +
+                ", m_Hours=" + m_Hours +
+                ", m_Days=" + m_Days +
+                '}';
+    }
 }

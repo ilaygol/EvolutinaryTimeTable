@@ -17,6 +17,12 @@ public class Subjects {
         {
             m_SubjectsList.add(new Subject(subject));
         }
+    }
 
+    @Override
+    public String toString() {
+        return "Subjects{" +
+                "m_SubjectsList=" + m_SubjectsList +
+                '}';
     }
 }

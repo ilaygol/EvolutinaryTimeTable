@@ -17,6 +17,12 @@ public class Requirements {
         {
             m_StudyList.add(new Study(ettStudy));
         }
+    }
 
+    @Override
+    public String toString() {
+        return "Requirements{" +
+                "m_StudyList=" + m_StudyList +
+                '}';
     }
 }

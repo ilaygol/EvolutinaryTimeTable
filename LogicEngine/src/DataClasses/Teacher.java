@@ -25,6 +25,15 @@ public class Teacher {
     }
 
     @Override
+    public String toString() {
+        return "Teacher{" +
+                "m_FullName=" + m_FullName +
+                ", m_SubjectsIDList=" + m_SubjectsIDList +
+                ", m_Id=" + m_Id +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

@@ -18,4 +18,11 @@ public class Teachers {
             m_TeachersList.add(new Teacher(teacher));
         }
     }
+
+    @Override
+    public String toString() {
+        return "Teachers{" +
+                "m_TeachersList=" + m_TeachersList +
+                '}';
+    }
 }

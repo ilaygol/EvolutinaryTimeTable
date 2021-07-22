@@ -20,4 +20,12 @@ public class Rules {
             m_RulesList.add(new Rule(rule));
         }
     }
+
+    @Override
+    public String toString() {
+        return "Rules{" +
+                "m_RulesList=" + m_RulesList +
+                ", m_HardRulesWeight=" + m_HardRulesWeight +
+                '}';
+    }
 }
