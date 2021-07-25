@@ -1,107 +1,20 @@
 
 package AlgorithmClasses;
 
+import ParsedClasses.ETTEvolutionEngine;
+
 public class EvolutionEngine {
 
-    protected InitialPopulation initialPopulation;
-    protected Selection selection;
-    protected Crossover crossover;
-    protected Mutations mutations;
+    private Integer m_InitialPopulation;
+    private Selection m_Selection;
+    private Crossover m_Crossover;
+    private Mutations m_Mutations;
 
-    /**
-     * Gets the value of the InitialPopulation property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link InitialPopulation }
-     *     
-     */
-    public InitialPopulation getInitialPopulation() {
-        return initialPopulation;
+    public EvolutionEngine(ETTEvolutionEngine i_ETTEvolutionEngine)
+    {
+        m_InitialPopulation=i_ETTEvolutionEngine.getETTInitialPopulation().getSize();
+        m_Selection=new Selection(i_ETTEvolutionEngine.getETTSelection());
+        m_Crossover=new Crossover(i_ETTEvolutionEngine.getETTCrossover());
+        m_Mutations=new Mutations(i_ETTEvolutionEngine.getETTMutations());
     }
-
-    /**
-     * Sets the value of the InitialPopulation property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link InitialPopulation }
-     *     
-     */
-    public void setInitialPopulation(InitialPopulation value) {
-        this.initialPopulation = value;
-    }
-
-    /**
-     * Gets the value of the Selection property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Selection }
-     *     
-     */
-    public Selection getSelection() {
-        return selection;
-    }
-
-    /**
-     * Sets the value of the Selection property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Selection }
-     *     
-     */
-    public void setSelection(Selection value) {
-        this.selection = value;
-    }
-
-    /**
-     * Gets the value of the Crossover property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Crossover }
-     *     
-     */
-    public Crossover getCrossover() {
-        return crossover;
-    }
-
-    /**
-     * Sets the value of the Crossover property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Crossover }
-     *     
-     */
-    public void setCrossover(Crossover value) {
-        this.crossover = value;
-    }
-
-    /**
-     * Gets the value of the Mutations property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Mutations }
-     *     
-     */
-    public Mutations getMutations() {
-        return mutations;
-    }
-
-    /**
-     * Sets the value of the Mutations property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Mutations }
-     *     
-     */
-    public void setMutations(Mutations value) {
-        this.mutations = value;
-    }
-
 }
