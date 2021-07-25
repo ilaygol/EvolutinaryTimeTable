@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -65,7 +66,21 @@ public class ConsoleUserInterfaceManager {
     }
 
     private void LoadFile() {
-        m_LogicEngineManager.LoadFile("LogicEngine/src/ParsedClasses/small.xml");
+        String fileName;
+        boolean isCorrect=false;
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Please enter the file name:");
+        while(!isCorrect) {
+            fileName = scanner.nextLine();
+            try {
+                m_LogicEngineManager.LoadFile(fileName);
+                isCorrect=true;
+            } catch (FileNotFoundException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Please enter a correct file name:");
+            }
+        }
+        System.out.println("The file has been loaded successfully!");
     }
 
     private eMainMenu GetMainMenuUserInput()

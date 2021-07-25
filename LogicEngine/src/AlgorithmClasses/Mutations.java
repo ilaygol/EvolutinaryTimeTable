@@ -1,10 +1,7 @@
-
 package AlgorithmClasses;
 
-import DataClasses.Rule;
 import ParsedClasses.ETTMutation;
 import ParsedClasses.ETTMutations;
-import ParsedClasses.ETTRule;
 
 import java.util.ArrayList;
 import java.util.List;

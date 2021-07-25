@@ -6,6 +6,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 public class LogicEngineManager {
     private Descriptor m_Descriptor;
@@ -28,7 +29,7 @@ public class LogicEngineManager {
         return 2;
     }
 
-    public void LoadFile(String i_FileName) {
+    public void LoadFile(String i_FileName) throws FileNotFoundException {
         try {
             File file=new File(i_FileName);
             JAXBContext jaxbContext = JAXBContext.newInstance("ParsedClasses");
@@ -37,7 +38,7 @@ public class LogicEngineManager {
             m_Descriptor=new Descriptor(ettDescriptor);
         }
         catch (JAXBException e) {
-            e.printStackTrace();
+            throw new FileNotFoundException("The file has not found!");
         }
     }
 }
