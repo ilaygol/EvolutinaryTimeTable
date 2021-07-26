@@ -3,7 +3,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.jar.JarException;
 
 public class ConsoleUserInterfaceManager {
     private LogicEngineManager m_LogicEngineManager;
@@ -72,7 +71,7 @@ public class ConsoleUserInterfaceManager {
         boolean isCorrect=false;
         Scanner scanner=new Scanner(System.in);
         while(!isCorrect) {
-            System.out.println("Please enter the full file path:");
+            System.out.println("Please enter the file name:");
             fileName = scanner.nextLine();
             try {
                 m_LogicEngineManager.LoadFile(fileName);

@@ -1,4 +1,5 @@
 import AlgorithmClasses.Descriptor;
+import DataClasses.CheckValidData;
 import ParsedClasses.ETTDescriptor;
 
 import javax.xml.bind.JAXBContext;
@@ -31,17 +32,17 @@ public class LogicEngineManager {
     public void LoadFile(String i_FileName) throws FileNotFoundException, JAXBException {
         try {
             File file=new File(i_FileName);
-            if(!file.exists())
+            if (!file.exists())
                 throw new FileNotFoundException("The file has not found!");
             JAXBContext jaxbContext = JAXBContext.newInstance("ParsedClasses");
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             ETTDescriptor ettDescriptor = (ETTDescriptor) jaxbUnmarshaller.unmarshal(file);
-            //valid
+            CheckValidData checker=new CheckValidData(ettDescriptor);
+            checker.checkFile();
             m_Descriptor=new Descriptor(ettDescriptor);
-
         }
         catch (JAXBException e) {
-            throw new JAXBException("Error wile unmarshalling the file");
+            throw new JAXBException("Error: an error with unmarshalling the file");
         }
     }
 }
