@@ -83,6 +83,10 @@ public class ConsoleUserInterfaceManager {
             {
                 System.out.println(e.getMessage());
             }
+            catch (RuntimeException e)
+            {
+                System.out.println(e.getMessage());
+            }
         }
         System.out.println("The file has been loaded successfully!");
     }
