@@ -1,6 +1,4 @@
-import javax.xml.bind.JAXBException;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -76,15 +74,7 @@ public class ConsoleUserInterfaceManager {
             try {
                 m_LogicEngineManager.LoadFile(fileName);
                 isCorrect=true;
-            } catch (FileNotFoundException e) {
-                System.out.println(e.getMessage());
-            }
-            catch (JAXBException e)
-            {
-                System.out.println(e.getMessage());
-            }
-            catch (RuntimeException e)
-            {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
