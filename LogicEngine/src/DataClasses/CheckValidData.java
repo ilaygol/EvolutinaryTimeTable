@@ -1,6 +1,8 @@
 package DataClasses;
 
 import ParsedClasses.*;
+
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -8,14 +10,17 @@ import java.util.TreeSet;
 
 public class CheckValidData {
     private ETTDescriptor m_Descriptor;
-    private Set<Integer> checkingSet;
-
+    private Set<Integer> m_SubjIDSet;
+    private Set<Integer> m_TeachersIDSet;
+    private Set<Integer> m_ClassIDSet;
 
     //constructor
     public CheckValidData(ETTDescriptor i_descriptor)
     {
         m_Descriptor=i_descriptor;
-        checkingSet=new TreeSet<>();
+        m_SubjIDSet=new TreeSet<>();
+        m_TeachersIDSet=new TreeSet<>();
+        m_ClassIDSet=new TreeSet<>();
     }
 
 
@@ -24,6 +29,8 @@ public class CheckValidData {
         checkSubjectsId();
         checkTeachersId();
         checkClassId();
+        checkRuleAppearOnce();
+
 
 
 
@@ -36,16 +43,15 @@ public class CheckValidData {
         int subListLength=subjList.toArray().length;
 
         for(ETTSubject s:subjList) {
-            if(checkingSet.contains(s.getId()))
+            if(m_SubjIDSet.contains(s.getId()))
                 throw new Exception("Error: There is more than one Subject with same id!");
-            checkingSet.add(s.getId());
+            m_SubjIDSet.add(s.getId());
         }
 
         for(int i=1;i<=subListLength;i++) {
-            if (!checkingSet.contains(i))
+            if (!m_SubjIDSet.contains(i))
                 throw new Exception("Error: Subject's ID doesnt appear in serial order!");
         }
-        checkingSet.clear();
 
     }
 
@@ -55,17 +61,15 @@ public class CheckValidData {
         int teachersListLength=teachersList.toArray().length;
 
         for(ETTTeacher t:teachersList) {
-            if(checkingSet.contains(t.getId()))
+            if(m_TeachersIDSet.contains(t.getId()))
                 throw new Exception("Error: There is more than one Teacher with same id!");
-            checkingSet.add(t.getId());
+            m_TeachersIDSet.add(t.getId());
         }
 
         for(int i=1;i<=teachersListLength;i++) {
-            if (!checkingSet.contains(i))
+            if (!m_TeachersIDSet.contains(i))
                 throw new Exception("Error: Teacher's ID doesnt appear in serial order!");
         }
-
-        checkingSet.clear();
     }
 
     //a method to check class id (if they appear in order and no Duplication)
@@ -74,17 +78,28 @@ public class CheckValidData {
         int classListLength=classList.toArray().length;
 
         for(ETTClass c:classList) {
-            if(checkingSet.contains(c.getId()))
+            if(m_ClassIDSet.contains(c.getId()))
                 throw new Exception("Error: There is more than one Class with same id!");
-            checkingSet.add(c.getId());
+            m_ClassIDSet.add(c.getId());
         }
 
         for(int i=1;i<=classListLength;i++) {
-            if (!checkingSet.contains(i))
+            if (!m_ClassIDSet.contains(i))
                 throw new Exception("Error: Classes ID doesnt appear in serial order!");
         }
+    }
 
-        checkingSet.clear();
+    //a method to check if same rule doesnt appear Twice
+    private void checkRuleAppearOnce() throws Exception
+    {
+        List<ETTRule> ruleList= m_Descriptor.getETTTimeTable().getETTRules().getETTRule();
+        Set<ETTRule> rulesSet=new HashSet<>();
+        for(ETTRule r:ruleList) {
+            if(rulesSet.contains(r))
+                throw new Exception("Error: Same rule appear twice!");
+            rulesSet.add(r);
+        }
+
     }
 
 
