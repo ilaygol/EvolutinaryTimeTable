@@ -36,7 +36,9 @@ public class LogicEngineManager {
             JAXBContext jaxbContext = JAXBContext.newInstance("ParsedClasses");
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             ETTDescriptor ettDescriptor = (ETTDescriptor) jaxbUnmarshaller.unmarshal(file);
+            //valid
             m_Descriptor=new Descriptor(ettDescriptor);
+
         }
         catch (JAXBException e) {
             throw new JAXBException("Error wile unmarshalling the file");
