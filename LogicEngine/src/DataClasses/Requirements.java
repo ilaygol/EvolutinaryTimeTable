@@ -25,4 +25,8 @@ public class Requirements {
                 "m_StudyList=" + m_StudyList +
                 '}';
     }
+
+    public List<Study> getStudyList() {
+        return m_StudyList;
+    }
 }

@@ -36,4 +36,12 @@ public class Subject {
     public int hashCode() {
         return Objects.hash(m_Id);
     }
+
+    public List<String> getFullName() {
+        return m_FullName;
+    }
+
+    public Integer getId() {
+        return m_Id;
+    }
 }

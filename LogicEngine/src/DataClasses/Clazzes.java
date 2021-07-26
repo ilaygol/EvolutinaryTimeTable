@@ -25,4 +25,8 @@ public class Clazzes {
                 "m_ClassesList=" + m_ClassesList +
                 '}';
     }
+
+    public List<Clazz> getClassesList() {
+        return m_ClassesList;
+    }
 }

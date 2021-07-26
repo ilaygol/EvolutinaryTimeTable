@@ -25,4 +25,8 @@ public class Teachers {
                 "m_TeachersList=" + m_TeachersList +
                 '}';
     }
+
+    public List<Teacher> getTeachersList() {
+        return m_TeachersList;
+    }
 }

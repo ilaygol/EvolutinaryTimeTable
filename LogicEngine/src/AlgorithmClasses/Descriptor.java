@@ -14,4 +14,8 @@ public class Descriptor {
         m_TimeTable=new TimeTable(i_ETTDescriptor.getETTTimeTable());
         m_EvolutionEngine=new EvolutionEngine(i_ETTDescriptor.getETTEvolutionEngine());
     }
+
+    public TimeTable getTimeTable() {
+        return m_TimeTable;
+    }
 }

@@ -5,6 +5,7 @@ import ParsedClasses.ETTSubjects;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Subjects {
     private List<Subject> m_SubjectsList;
@@ -24,5 +25,15 @@ public class Subjects {
         return "Subjects{" +
                 "m_SubjectsList=" + m_SubjectsList +
                 '}';
+    }
+
+    public Subject getSubjectById(Integer i_Id)
+    {
+        Optional<Subject> first = m_SubjectsList.stream().filter(subject -> subject.getId().equals(i_Id)).findFirst();
+        return first.get();
+    }
+
+    public List<Subject> getSubjectsList() {
+        return m_SubjectsList;
     }
 }

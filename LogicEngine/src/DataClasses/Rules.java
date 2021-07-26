@@ -28,4 +28,12 @@ public class Rules {
                 ", m_HardRulesWeight=" + m_HardRulesWeight +
                 '}';
     }
+
+    public List<Rule> getRulesList() {
+        return m_RulesList;
+    }
+
+    public Integer getHardRulesWeight() {
+        return m_HardRulesWeight;
+    }
 }

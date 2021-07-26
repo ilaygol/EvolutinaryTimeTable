@@ -45,4 +45,16 @@ public class Teacher {
     public int hashCode() {
         return Objects.hash(m_Id);
     }
+
+    public List<String> getFullName() {
+        return m_FullName;
+    }
+
+    public List<Integer> getSubjectsIDList() {
+        return m_SubjectsIDList;
+    }
+
+    public Integer getId() {
+        return m_Id;
+    }
 }

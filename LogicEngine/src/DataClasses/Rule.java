@@ -41,4 +41,16 @@ public class Rule {
     public int hashCode() {
         return Objects.hash(m_Id);
     }
+
+    public String getId() {
+        return m_Id;
+    }
+
+    public eType getType() {
+        return m_Type;
+    }
+
+    public List<String> getConfiguration() {
+        return m_Configuration;
+    }
 }

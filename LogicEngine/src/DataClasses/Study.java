@@ -34,4 +34,12 @@ public class Study {
     public int hashCode() {
         return Objects.hash(m_SubjectId);
     }
+
+    public Integer getSubjectId() {
+        return m_SubjectId;
+    }
+
+    public Integer getHours() {
+        return m_Hours;
+    }
 }
