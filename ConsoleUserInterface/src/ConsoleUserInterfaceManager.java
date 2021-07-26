@@ -1,7 +1,9 @@
+import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.jar.JarException;
 
 public class ConsoleUserInterfaceManager {
     private LogicEngineManager m_LogicEngineManager;
@@ -69,15 +71,18 @@ public class ConsoleUserInterfaceManager {
         String fileName;
         boolean isCorrect=false;
         Scanner scanner=new Scanner(System.in);
-        System.out.println("Please enter the file name:");
         while(!isCorrect) {
+            System.out.println("Please enter the full file path:");
             fileName = scanner.nextLine();
             try {
                 m_LogicEngineManager.LoadFile(fileName);
                 isCorrect=true;
             } catch (FileNotFoundException e) {
                 System.out.println(e.getMessage());
-                System.out.println("Please enter a correct file name:");
+            }
+            catch (JAXBException e)
+            {
+                System.out.println(e.getMessage());
             }
         }
         System.out.println("The file has been loaded successfully!");

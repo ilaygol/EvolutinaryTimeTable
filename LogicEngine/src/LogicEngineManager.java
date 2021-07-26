@@ -1,5 +1,4 @@
 import AlgorithmClasses.Descriptor;
-import DataClasses.TimeTable;
 import ParsedClasses.ETTDescriptor;
 
 import javax.xml.bind.JAXBContext;
@@ -29,16 +28,18 @@ public class LogicEngineManager {
         return 2;
     }
 
-    public void LoadFile(String i_FileName) throws FileNotFoundException {
+    public void LoadFile(String i_FileName) throws FileNotFoundException, JAXBException {
         try {
             File file=new File(i_FileName);
+            if(!file.exists())
+                throw new FileNotFoundException("The file has not found!");
             JAXBContext jaxbContext = JAXBContext.newInstance("ParsedClasses");
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             ETTDescriptor ettDescriptor = (ETTDescriptor) jaxbUnmarshaller.unmarshal(file);
             m_Descriptor=new Descriptor(ettDescriptor);
         }
         catch (JAXBException e) {
-            throw new FileNotFoundException("The file has not found!");
+            throw new JAXBException("Error wile unmarshalling the file");
         }
     }
 }
