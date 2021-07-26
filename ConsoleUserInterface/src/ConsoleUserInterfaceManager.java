@@ -69,7 +69,7 @@ public class ConsoleUserInterfaceManager {
         boolean isCorrect=false;
         Scanner scanner=new Scanner(System.in);
         while(!isCorrect) {
-            System.out.println("Please enter the file name:");
+            System.out.println("Please enter the file's full path:");
             fileName = scanner.nextLine();
             try {
                 m_LogicEngineManager.LoadFile(fileName);

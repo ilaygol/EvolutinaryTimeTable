@@ -33,7 +33,7 @@ public class LogicEngineManager {
         try {
             File file=new File(i_FileName);
             if (!file.exists())
-                throw new FileNotFoundException("The file has not found!");
+                throw new FileNotFoundException("Error: the file has not found");
             JAXBContext jaxbContext = JAXBContext.newInstance("ParsedClasses");
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             ETTDescriptor ettDescriptor = (ETTDescriptor) jaxbUnmarshaller.unmarshal(file);
