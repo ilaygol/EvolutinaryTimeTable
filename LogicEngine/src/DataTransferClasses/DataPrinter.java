@@ -6,6 +6,7 @@ public class DataPrinter {
     private Map<Integer,String> m_SubjectMap;
     private Map<Integer,Map<Integer,String>> m_TeachersMap;
     private Map<Integer,Map<Integer,String>> m_ClassesMap;
+    private Map<Integer,Map<Integer,Integer>> m_ClassReqHoursMap;
     private Map<String,String> m_RulesMap;
 
     public DataPrinter()
@@ -13,6 +14,7 @@ public class DataPrinter {
         m_SubjectMap=new TreeMap<>();
         m_TeachersMap=new TreeMap<>();
         m_ClassesMap=new TreeMap<>();
+        m_ClassReqHoursMap=new TreeMap<>();
         m_RulesMap=new HashMap<>();
     }
 
@@ -39,6 +41,13 @@ public class DataPrinter {
     public void AddToClassesMap(Integer i_Key, Map<Integer,String> i_Value) {
         m_ClassesMap.put(i_Key,i_Value);
     }
+
+    public Map<Integer, Map<Integer, Integer>> getClassReqHoursMap() {
+        return m_ClassReqHoursMap;
+    }
+
+    public void AddToReqHoursMap(Integer i_Key, Map<Integer,Integer> i_Value) {
+        m_ClassReqHoursMap.put(i_Key,i_Value);}
 
     public Map<String, String> getRulesMap() {
         return m_RulesMap;

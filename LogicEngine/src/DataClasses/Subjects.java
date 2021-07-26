@@ -29,8 +29,8 @@ public class Subjects {
 
     public Subject getSubjectById(Integer i_Id)
     {
-        Optional<Subject> first = m_SubjectsList.stream().filter(subject -> subject.getId().equals(i_Id)).findFirst();
-        return first.get();
+        Optional<Subject> subj = m_SubjectsList.stream().filter(subject -> subject.getId().equals(i_Id)).findFirst();
+        return subj.get();
     }
 
     public List<Subject> getSubjectsList() {

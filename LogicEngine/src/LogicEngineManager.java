@@ -1,8 +1,5 @@
 import AlgorithmClasses.Descriptor;
-import DataClasses.CheckValidData;
-import DataClasses.Subject;
-import DataClasses.Teacher;
-import DataClasses.Teachers;
+import DataClasses.*;
 import DataTransferClasses.DataPrinter;
 import ParsedClasses.ETTDescriptor;
 
@@ -45,14 +42,33 @@ public class LogicEngineManager {
         List<Teacher> teachersList = m_Descriptor.getTimeTable().getTeachers().getTeachersList();
         for(Teacher t:teachersList)
         {
-            Map<Integer,String> subjectsMap=new TreeMap<>();
-            List<Integer> subjectsIDList = t.getSubjectsIDList();
-            for(Integer i:subjectsIDList)
+            Map<Integer,String> teachersSubjectsMap=new TreeMap<>();
+            List<Integer> teacherSubjectsIDList = t.getSubjectsIDList();
+            for(Integer i:teacherSubjectsIDList)
             {
-                subjectsMap.put(i,dataPrinter.getSubjectMap().get(i));
+                teachersSubjectsMap.put(i,dataPrinter.getSubjectMap().get(i));
             }
-            dataPrinter.AddToTeachersMap(t.getId(),subjectsMap);
+            dataPrinter.AddToTeachersMap(t.getId(),teachersSubjectsMap);
         }
+
+        //Class map
+        List<Clazz> classesList = m_Descriptor.getTimeTable().getClazzes().getClassesList();
+        for(Clazz c:classesList)
+        {
+            Map<Integer,String> classesSubjectsMap=new TreeMap<>();
+            Map<Integer,Integer> classesReqHoursMap=new TreeMap<>();
+            List<Study> classesSubjectsIDList=c.getRequirements().getStudyList();
+            for(Study i:classesSubjectsIDList)
+            {
+                classesSubjectsMap.put(i.getSubjectId(),dataPrinter.getSubjectMap().get(i));
+                classesReqHoursMap.put(i.getSubjectId(),c.getRequirements().getReqHoursBySubjId(i.getSubjectId()));
+            }
+            dataPrinter.AddToClassesMap(c.getId(),classesSubjectsMap);
+            dataPrinter.AddToReqHoursMap(c.getId(),classesReqHoursMap);
+        }
+
+
+
 
         return dataPrinter;
     }

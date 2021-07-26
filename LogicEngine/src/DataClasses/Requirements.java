@@ -5,6 +5,7 @@ import ParsedClasses.ETTStudy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Requirements {
     private List<Study> m_StudyList;
@@ -19,6 +20,13 @@ public class Requirements {
         }
     }
 
+    public Integer getReqHoursBySubjId(Integer i_Id)
+    {
+        Optional<Study> study = m_StudyList.stream().filter(lesson -> lesson.getHours().equals(i_Id)).findFirst();
+        return study.get().getHours();
+    }
+
+
     @Override
     public String toString() {
         return "Requirements{" +
@@ -29,4 +37,6 @@ public class Requirements {
     public List<Study> getStudyList() {
         return m_StudyList;
     }
+
+
 }
