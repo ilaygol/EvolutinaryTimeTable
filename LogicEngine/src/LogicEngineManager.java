@@ -31,48 +31,18 @@ public class LogicEngineManager {
 
     public DataPrinter PrintFileData() {
         DataPrinter dataPrinter=new DataPrinter();
-        //Subject map
-        List<Subject> subjectsList = m_Descriptor.getTimeTable().getSubjects().getSubjectsList();
-        for(Subject s:subjectsList)
-        {
-            dataPrinter.AddToSubjectMap(s.getId(),s.getFullName().toString());
-        }
+        //building Subject map
+        dataPrinter.setID2SubjectMap(m_Descriptor.getTimeTable().getSubjects().getID2SubjNameMap());
+        //building Teachers Map
+        dataPrinter.setTeachersID2SubjMap(m_Descriptor.getTimeTable().getTeachers().getTeachersID2SubjMap(dataPrinter.getID2SubjectMap()));
 
-        //Teachers Map
-        List<Teacher> teachersList = m_Descriptor.getTimeTable().getTeachers().getTeachersList();
-        for(Teacher t:teachersList)
-        {
-            Map<Integer,String> teachersSubjectsMap=new TreeMap<>();
-            List<Integer> teacherSubjectsIDList = t.getSubjectsIDList();
-            for(Integer i:teacherSubjectsIDList)
-            {
-                teachersSubjectsMap.put(i,dataPrinter.getSubjectMap().get(i));
-            }
-            dataPrinter.AddToTeachersMap(t.getId(),teachersSubjectsMap);
-        }
+        //building Class map
+        dataPrinter.setClassesID2SubjMap(m_Descriptor.getTimeTable().getClazzes().getClassesID2SubjMap(dataPrinter.getID2SubjectMap()));
+        dataPrinter.setClassID2ReqHoursMap(m_Descriptor.getTimeTable().getClazzes().getClassesID2ReqSubjHoursMap());
+        //building Rules map
+        dataPrinter.setRulesNames2TypeMap(m_Descriptor.getTimeTable().getRules().getRulesNames2TypeMap());
 
-        //Class map
-        List<Clazz> classesList = m_Descriptor.getTimeTable().getClazzes().getClassesList();
-        for(Clazz c:classesList)
-        {
-            Map<Integer,String> classesSubjectsMap=new TreeMap<>();
-            Map<Integer,Integer> classesReqHoursMap=new TreeMap<>();
-            List<Study> classesSubjectsIDList=c.getRequirements().getStudyList();
-            for(Study i:classesSubjectsIDList)
-            {
-                classesSubjectsMap.put(i.getSubjectId(),dataPrinter.getSubjectMap().get(i.getSubjectId()));
-                classesReqHoursMap.put(i.getSubjectId(),i.getHours());
-            }
-            dataPrinter.AddToClassesMap(c.getId(),classesSubjectsMap);
-            dataPrinter.AddToReqHoursMap(c.getId(),classesReqHoursMap);
-        }
 
-        //Rules map
-        List<Rule> rulesList=m_Descriptor.getTimeTable().getRules().getRulesList();
-        for(Rule r:rulesList)
-        {
-            dataPrinter.AddToRulesMap(r.getId().toString(),r.getType().toString());
-        }
         return dataPrinter;
     }
 

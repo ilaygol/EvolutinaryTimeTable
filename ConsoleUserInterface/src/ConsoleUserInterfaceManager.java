@@ -65,8 +65,6 @@ public class ConsoleUserInterfaceManager {
     private void PrintFileData() {
        DataPrinter data= m_LogicEngineManager.PrintFileData();
        data.Print();
-
-
     }
 
     private void LoadFile() {

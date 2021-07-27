@@ -39,7 +39,7 @@ public class CheckValidData {
     //a method to check subjects id (if they appear in order and no Duplication)
     private void checkSubjectsId() throws RuntimeException {
         List<ETTSubject> subjList= m_Descriptor.getETTTimeTable().getETTSubjects().getETTSubject();
-        int subListLength=subjList.toArray().length;
+        int subListLength=subjList.size();
 
         for(ETTSubject s:subjList) {
             if(m_SubjIDSet.contains(s.getId()))
@@ -57,7 +57,7 @@ public class CheckValidData {
     //a method to check teachers id (if they appear in order and no Duplication)
     private void checkTeachersId() throws RuntimeException {
         List<ETTTeacher> teachersList= m_Descriptor.getETTTimeTable().getETTTeachers().getETTTeacher();
-        int teachersListLength=teachersList.toArray().length;
+        int teachersListLength=teachersList.size();
 
         for(ETTTeacher t:teachersList) {
             if(m_TeachersIDSet.contains(t.getId()))
@@ -74,7 +74,7 @@ public class CheckValidData {
     //a method to check class id (if they appear in order and no Duplication)
     private void checkClassId() throws RuntimeException {
         List<ETTClass> classList= m_Descriptor.getETTTimeTable().getETTClasses().getETTClass();
-        int classListLength=classList.toArray().length;
+        int classListLength=classList.size();
 
         for(ETTClass c:classList) {
             if(m_ClassIDSet.contains(c.getId()))

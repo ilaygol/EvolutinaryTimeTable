@@ -1,79 +1,98 @@
 package DataTransferClasses;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class DataPrinter {
-    private Map<Integer, String> m_SubjectMap;
-    private Map<Integer, Map<Integer, String>> m_TeachersMap;
-    private Map<Integer, Map<Integer, String>> m_ClassesMap;
-    private Map<Integer, Map<Integer, Integer>> m_ClassReqHoursMap;
-    private Map<String, String> m_RulesMap;
+    private Map<Integer, String> m_ID2SubjectMap;
+    private Map<Integer, Map<Integer, String>> m_TeachersID2SubjMap;
+    private Map<Integer, Map<Integer, String>> m_ClassesID2SubjMap;
+    private Map<Integer, Map<Integer, Integer>> m_ClassID2ReqHoursMap;
+    private Map<String, String> m_RulesNames2TypeMap;
 
     public DataPrinter() {
-        m_SubjectMap = new TreeMap<>();
-        m_TeachersMap = new TreeMap<>();
-        m_ClassesMap = new TreeMap<>();
-        m_ClassReqHoursMap = new TreeMap<>();
-        m_RulesMap = new HashMap<>();
+        m_ID2SubjectMap = new TreeMap<>();
+        m_TeachersID2SubjMap = new TreeMap<>();
+        m_ClassesID2SubjMap = new TreeMap<>();
+        m_ClassID2ReqHoursMap = new TreeMap<>();
+        m_RulesNames2TypeMap = new HashMap<>();
     }
 
-    public Map<Integer, String> getSubjectMap() {
-        return m_SubjectMap;
+    public Map<Integer, String> getID2SubjectMap() {
+        return m_ID2SubjectMap;
     }
-
+    public void setID2SubjectMap(Map<Integer, String> i_ID2SubjectMap) {
+        this.m_ID2SubjectMap = i_ID2SubjectMap;
+    }
     public void AddToSubjectMap(Integer i_Key, String i_Value) {
-        m_SubjectMap.put(i_Key, i_Value);
+        m_ID2SubjectMap.put(i_Key, i_Value);
     }
 
-    public Map<Integer, Map<Integer, String>> getTeachersMap() {
-        return m_TeachersMap;
+
+
+    public Map<Integer, Map<Integer, String>> getTeachersID2SubjMap() {
+        return m_TeachersID2SubjMap;
+    }
+    public void setTeachersID2SubjMap(Map<Integer, Map<Integer, String>> i_TeachersID2SubjMap) {
+        this.m_TeachersID2SubjMap = i_TeachersID2SubjMap;
+    }
+    public void AddToTeachersID2SubjMap(Integer i_Key, Map<Integer, String> i_Value) {
+        m_TeachersID2SubjMap.put(i_Key, i_Value);
     }
 
-    public void AddToTeachersMap(Integer i_Key, Map<Integer, String> i_Value) {
-        m_TeachersMap.put(i_Key, i_Value);
+
+
+    public Map<Integer, Map<Integer, String>> getClassesID2SubjMap() {
+        return m_ClassesID2SubjMap;
+    }
+    public void setClassesID2SubjMap(Map<Integer, Map<Integer, String>> i_ClassesID2SubjMap) {
+        this.m_ClassesID2SubjMap = i_ClassesID2SubjMap;
+    }
+    public void AddToClassesID2SubjMap(Integer i_Key, Map<Integer, String> i_Value) {
+        m_ClassesID2SubjMap.put(i_Key, i_Value);
     }
 
-    public Map<Integer, Map<Integer, String>> getClassesMap() {
-        return m_ClassesMap;
+
+
+    public Map<Integer, Map<Integer, Integer>> getClassID2ReqHoursMap() {
+        return m_ClassID2ReqHoursMap;
+    }
+    public void setClassID2ReqHoursMap(Map<Integer, Map<Integer, Integer>> i_ClassID2ReqHoursMap) {
+        this.m_ClassID2ReqHoursMap = i_ClassID2ReqHoursMap;
+    }
+    public void AddToClassID2ReqHoursMap(Integer i_Key, Map<Integer, Integer> i_Value) {
+        m_ClassID2ReqHoursMap.put(i_Key, i_Value);
     }
 
-    public void AddToClassesMap(Integer i_Key, Map<Integer, String> i_Value) {
-        m_ClassesMap.put(i_Key, i_Value);
+
+
+    public Map<String, String> getRulesNames2TypeMap() {
+        return m_RulesNames2TypeMap;
+    }
+    public void setRulesNames2TypeMap(Map<String, String> i_RulesNames2TypeMap) {
+        this.m_RulesNames2TypeMap = i_RulesNames2TypeMap;
+    }
+    public void AddToRulesNames2TypeMap(String i_Key, String i_Value) {
+        m_RulesNames2TypeMap.put(i_Key, i_Value);
     }
 
-    public Map<Integer, Map<Integer, Integer>> getClassReqHoursMap() {
-        return m_ClassReqHoursMap;
-    }
 
-    public void AddToReqHoursMap(Integer i_Key, Map<Integer, Integer> i_Value) {
-        m_ClassReqHoursMap.put(i_Key, i_Value);
-    }
-
-    public Map<String, String> getRulesMap() {
-        return m_RulesMap;
-    }
-
-    public void AddToRulesMap(String i_Key, String i_Value) {
-        m_RulesMap.put(i_Key, i_Value);
-    }
 
     public void Print()
     {
         System.out.println("File information -"+System.lineSeparator()+"The Subjects are:");
-        m_SubjectMap.forEach((subjCode, subjName) -> System.out.println("Code:"+subjCode + " Name:" + subjName));
+        m_ID2SubjectMap.forEach((subjCode, subjName) -> System.out.println("Code:"+subjCode + " Name:" + subjName));
         System.out.println("The Teachers are:");
-        for(Integer teacherID:m_TeachersMap.keySet())
+        for(Integer teacherID: m_TeachersID2SubjMap.keySet())
         {
-            Map<Integer, String> teacherSubjects = m_TeachersMap.get(teacherID);
+            Map<Integer, String> teacherSubjects = m_TeachersID2SubjMap.get(teacherID);
             System.out.println("Teacher ID:"+teacherID+" The Subjects he teaches are:");
             teacherSubjects.forEach((subjCode,subjName)-> System.out.println("Code:"+subjCode + " Name:" + subjName));
         }
         System.out.println("The Classes are:");
-        for(Integer classID:m_ClassesMap.keySet())
+        for(Integer classID: m_ClassesID2SubjMap.keySet())
         {
-            Map<Integer, String> classSubjects = m_ClassesMap.get(classID);
-            Map<Integer, Integer> classRequirements = m_ClassReqHoursMap.get(classID);
+            Map<Integer, String> classSubjects = m_ClassesID2SubjMap.get(classID);
+            Map<Integer, Integer> classRequirements = m_ClassID2ReqHoursMap.get(classID);
             System.out.println("Class ID:"+classID+" The Subjects Students learn in this class are:");
             for(Integer subjID:classSubjects.keySet())
             {
@@ -82,7 +101,7 @@ public class DataPrinter {
             }
         }
         System.out.println("The rules are: ");
-        m_RulesMap.forEach((ruleName,ruleType)-> System.out.println("Name:"+ruleName+" Type:"+ruleType.toString()));
+        m_RulesNames2TypeMap.forEach((ruleName, ruleType)-> System.out.println("Name:"+ruleName+" Type:"+ruleType.toString()));
     }
 }
 

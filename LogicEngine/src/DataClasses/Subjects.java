@@ -3,9 +3,7 @@ package DataClasses;
 import ParsedClasses.ETTSubject;
 import ParsedClasses.ETTSubjects;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class Subjects {
     private List<Subject> m_SubjectsList;
@@ -35,5 +33,13 @@ public class Subjects {
 
     public List<Subject> getSubjectsList() {
         return m_SubjectsList;
+    }
+    public Map<Integer,String> getID2SubjNameMap(){
+        Map<Integer,String> retMap =new TreeMap<>();
+        for(Subject s:m_SubjectsList)
+        {
+            retMap.put(s.getId(),s.getFullName().toString());
+        }
+        return retMap;
     }
 }
