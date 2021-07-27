@@ -60,8 +60,8 @@ public class LogicEngineManager {
             List<Study> classesSubjectsIDList=c.getRequirements().getStudyList();
             for(Study i:classesSubjectsIDList)
             {
-                classesSubjectsMap.put(i.getSubjectId(),dataPrinter.getSubjectMap().get(i));
-                classesReqHoursMap.put(i.getSubjectId(),c.getRequirements().getReqHoursBySubjId(i.getSubjectId()));
+                classesSubjectsMap.put(i.getSubjectId(),dataPrinter.getSubjectMap().get(i.getSubjectId()));
+                classesReqHoursMap.put(i.getSubjectId(),i.getHours());
             }
             dataPrinter.AddToClassesMap(c.getId(),classesSubjectsMap);
             dataPrinter.AddToReqHoursMap(c.getId(),classesReqHoursMap);

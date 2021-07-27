@@ -1,4 +1,6 @@
 
+import DataTransferClasses.DataPrinter;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -61,7 +63,10 @@ public class ConsoleUserInterfaceManager {
     }
 
     private void PrintFileData() {
-        System.out.println(m_LogicEngineManager.PrintFileData());
+       DataPrinter data= m_LogicEngineManager.PrintFileData();
+       data.Print();
+
+
     }
 
     private void LoadFile() {
