@@ -67,9 +67,12 @@ public class LogicEngineManager {
             dataPrinter.AddToReqHoursMap(c.getId(),classesReqHoursMap);
         }
 
-
-
-
+        //Rules map
+        List<Rule> rulesList=m_Descriptor.getTimeTable().getRules().getRulesList();
+        for(Rule r:rulesList)
+        {
+            dataPrinter.AddToRulesMap(r.getId().toString(),r.getType().toString());
+        }
         return dataPrinter;
     }
 
