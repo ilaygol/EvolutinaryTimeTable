@@ -42,6 +42,10 @@ public class LogicEngineManager {
         //building Rules map
         dataPrinter.setRulesNames2TypeMap(m_Descriptor.getTimeTable().getRules().getRulesNames2TypeMap());
 
+        dataPrinter.setInitialPopulation(m_Descriptor.getEvolutionEngine().getInitialPopulation());
+        dataPrinter.setSelectionData(m_Descriptor.getEvolutionEngine().getSelection().getSelectionData());
+        dataPrinter.setCrossoverData(m_Descriptor.getEvolutionEngine().getCrossover().getCrossoverData());
+        dataPrinter.setMutationsDataList(m_Descriptor.getEvolutionEngine().getMutations().getMutationsDataList());
 
         return dataPrinter;
     }
