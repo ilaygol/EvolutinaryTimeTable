@@ -1,5 +1,6 @@
 import AlgorithmClasses.Descriptor;
-import DataClasses.CheckValidData;
+import DataClasses.*;
+import DataTransferClasses.DataPrinter;
 import ParsedClasses.ETTDescriptor;
 
 import javax.xml.bind.JAXBContext;
@@ -7,6 +8,9 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class LogicEngineManager {
     private Descriptor m_Descriptor;
@@ -25,8 +29,21 @@ public class LogicEngineManager {
         return 3;
     }
 
-    public int PrintFileData() {
-        return 2;
+    public DataPrinter PrintFileData() {
+        DataPrinter dataPrinter=new DataPrinter();
+        //building Subject map
+        dataPrinter.setID2SubjectMap(m_Descriptor.getTimeTable().getSubjects().getID2SubjNameMap());
+        //building Teachers Map
+        dataPrinter.setTeachersID2SubjMap(m_Descriptor.getTimeTable().getTeachers().getTeachersID2SubjMap(dataPrinter.getID2SubjectMap()));
+
+        //building Class map
+        dataPrinter.setClassesID2SubjMap(m_Descriptor.getTimeTable().getClazzes().getClassesID2SubjMap(dataPrinter.getID2SubjectMap()));
+        dataPrinter.setClassID2ReqHoursMap(m_Descriptor.getTimeTable().getClazzes().getClassesID2ReqSubjHoursMap());
+        //building Rules map
+        dataPrinter.setRulesNames2TypeMap(m_Descriptor.getTimeTable().getRules().getRulesNames2TypeMap());
+
+
+        return dataPrinter;
     }
 
     public void LoadFile(String i_FileName) throws FileNotFoundException, JAXBException {

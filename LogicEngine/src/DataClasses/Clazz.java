@@ -38,4 +38,16 @@ public class Clazz {
     public int hashCode() {
         return Objects.hash(m_Id);
     }
+
+    public Integer getId() {
+        return m_Id;
+    }
+
+    public List<String> getFullName() {
+        return m_FullName;
+    }
+
+    public Requirements getRequirements() {
+        return m_Requirements;
+    }
 }

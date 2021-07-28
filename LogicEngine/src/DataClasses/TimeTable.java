@@ -34,4 +34,28 @@ public class TimeTable {
                 ", m_Days=" + m_Days +
                 '}';
     }
+
+    public Teachers getTeachers() {
+        return m_Teachers;
+    }
+
+    public Subjects getSubjects() {
+        return m_Subjects;
+    }
+
+    public Clazzes getClazzes() {
+        return m_Clazzes;
+    }
+
+    public Rules getRules() {
+        return m_Rules;
+    }
+
+    public Integer getHours() {
+        return m_Hours;
+    }
+
+    public Integer getDays() {
+        return m_Days;
+    }
 }

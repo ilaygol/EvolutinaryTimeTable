@@ -4,7 +4,7 @@ import ParsedClasses.ETTStudy;
 
 import java.util.Objects;
 
-public class Study {
+public class Study{
     private final Integer m_SubjectId;
     private Integer m_Hours;
 
@@ -34,4 +34,13 @@ public class Study {
     public int hashCode() {
         return Objects.hash(m_SubjectId);
     }
+
+    public Integer getSubjectId() {
+        return m_SubjectId;
+    }
+
+    public Integer getHours() {
+        return m_Hours;
+    }
+
 }
