@@ -17,4 +17,20 @@ public class EvolutionEngine {
         m_Crossover=new Crossover(i_ETTEvolutionEngine.getETTCrossover());
         m_Mutations=new Mutations(i_ETTEvolutionEngine.getETTMutations());
     }
+
+    public Integer getInitialPopulation() {
+        return m_InitialPopulation;
+    }
+
+    public Selection getSelection() {
+        return m_Selection;
+    }
+
+    public Crossover getCrossover() {
+        return m_Crossover;
+    }
+
+    public Mutations getMutations() {
+        return m_Mutations;
+    }
 }

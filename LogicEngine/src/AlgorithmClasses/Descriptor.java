@@ -18,4 +18,8 @@ public class Descriptor {
     public TimeTable getTimeTable() {
         return m_TimeTable;
     }
+
+    public EvolutionEngine getEvolutionEngine() {
+        return m_EvolutionEngine;
+    }
 }
