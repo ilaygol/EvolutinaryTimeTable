@@ -2,6 +2,7 @@
 import DataTransferClasses.DataPrinter;
 
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Scanner;
 
 public class ConsoleUserInterfaceManager {
@@ -63,8 +64,34 @@ public class ConsoleUserInterfaceManager {
     }
 
     private void PrintFileData() {
-       DataPrinter data= m_LogicEngineManager.PrintFileData();
-       data.Print();
+       printDataInFormat(m_LogicEngineManager.PrintFileData());
+    }
+
+    private void printDataInFormat(DataPrinter i_DataPrinter)
+    {
+        System.out.println("File Information"+System.lineSeparator()+"The subjects are:");
+        i_DataPrinter.getID2SubjectMap().forEach((subjCode, subjName) -> System.out.println("ID: "+subjCode + " Name: " + subjName));
+        System.out.println(System.lineSeparator()+"The teachers are:");
+        for(Integer teacherID: i_DataPrinter.getTeachersID2SubjMap().keySet())
+        {
+            Map<Integer, String> teacherSubjects = i_DataPrinter.getTeachersID2SubjMap().get(teacherID);
+            System.out.println("Teacher ID: "+teacherID+" The subjects he teaches are:");
+            teacherSubjects.forEach((subjCode,subjName)-> System.out.println("ID: "+subjCode + " Name: " + subjName));
+        }
+        System.out.println(System.lineSeparator()+"The classes are:");
+        for(Integer classID: i_DataPrinter.getClassesID2SubjMap().keySet())
+        {
+            Map<Integer, String> classSubjects = i_DataPrinter.getClassesID2SubjMap().get(classID);
+            Map<Integer, Integer> classRequirements = i_DataPrinter.getClassID2ReqHoursMap().get(classID);
+            System.out.println("Class ID: "+classID+" The subjects taught in this class are:");
+            for(Integer subjID:classSubjects.keySet())
+            {
+                System.out.println("Subject ID: "+subjID+" Subject name: "+classSubjects.get(subjID)
+                        +" Hours: "+ classRequirements.get(subjID));
+            }
+        }
+        System.out.println("The rules are:");
+        i_DataPrinter.getRulesNames2TypeMap().forEach((ruleName, ruleType)-> System.out.println("Name: "+ruleName+" Type: "+ruleType.toString()));
     }
 
     private void LoadFile() {
