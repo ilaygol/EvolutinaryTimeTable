@@ -5,7 +5,7 @@ import java.util.*;
 public class DataPrinter {
     private Set<SubjectData> m_Subjects;
     private Map<Integer, Set<SubjectData>> m_TeacherID2SubjectsSMap;
-    private Map<Integer, Set<ClassSubjectData>> m_ClassesID2SubjMap;
+    private Map<Integer, Set<StudyData>> m_ClassesID2SubjMap;
     private Map<String, String> m_RulesNames2TypeMap;
     private Integer m_InitialPopulation;
     private SelectionData m_SelectionData;
@@ -28,10 +28,10 @@ public class DataPrinter {
         this.m_TeacherID2SubjectsSMap = i_TeachersID2SubjectsMap;
     }
 
-    public Map<Integer, Set<ClassSubjectData>> getClasseID2SubjectsMap() {
+    public Map<Integer, Set<StudyData>> getClasseID2SubjectsMap() {
         return m_ClassesID2SubjMap;
     }
-    public void setClassesID2SubjMap(Map<Integer, Set<ClassSubjectData>> i_ClassesID2SubjMap) {
+    public void setClassesID2SubjMap(Map<Integer, Set<StudyData>> i_ClassesID2SubjMap) {
         this.m_ClassesID2SubjMap = i_ClassesID2SubjMap;
     }
 

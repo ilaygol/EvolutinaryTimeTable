@@ -9,17 +9,17 @@ public class Lesson {
     private Integer m_TeacherID;
     private Integer m_SubjectID;
 
-    public Lesson(Integer i_MaxDay,Integer i_MaxHour,
-                  Integer i_MaxClassID,Integer i_MaxTeacherID,
-                  Integer i_MaxSubjectID,Random roller)
+    public Lesson(Integer i_Day,Integer i_Hour,
+                  Integer i_ClassID,Integer i_TeacherID,
+                  Integer i_SubjectID)
     {
-
-        m_Day= roller.nextInt(i_MaxDay);
-        m_Hour= roller.nextInt(i_MaxHour);
-        m_ClassID= roller.nextInt(i_MaxClassID);
-        m_TeacherID= roller.nextInt(i_MaxTeacherID);
-        m_SubjectID= roller.nextInt(i_MaxSubjectID);
+        m_Day= i_Day;
+        m_Hour=i_Hour;
+        m_ClassID= i_ClassID;
+        m_TeacherID= i_TeacherID;
+        m_SubjectID= i_SubjectID;
     }
+
 
     public Integer getDay() {
         return m_Day;

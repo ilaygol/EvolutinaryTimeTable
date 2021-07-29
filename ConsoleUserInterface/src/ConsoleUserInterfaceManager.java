@@ -1,10 +1,9 @@
 
-import DataTransferClasses.ClassSubjectData;
+import DataTransferClasses.StudyData;
 import DataTransferClasses.DataPrinter;
 import DataTransferClasses.SubjectData;
 
 import java.util.InputMismatchException;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -86,7 +85,7 @@ public class ConsoleUserInterfaceManager {
         System.out.println(System.lineSeparator()+"The classes are:");
         for(Integer classID: i_DataPrinter.getClasseID2SubjectsMap().keySet())
         {
-            Set<ClassSubjectData> classSubjects = i_DataPrinter.getClasseID2SubjectsMap().get(classID);
+            Set<StudyData> classSubjects = i_DataPrinter.getClasseID2SubjectsMap().get(classID);
             System.out.println("Class ID: "+classID+", The subjects taught in this class are:");
             classSubjects.forEach(subj-> System.out.println("Subject ID: "+subj.getSubjectID()+" | Subject name: "+subj.getSubjectName()
                     +" | Hours: "+ subj.getReqHours()));
