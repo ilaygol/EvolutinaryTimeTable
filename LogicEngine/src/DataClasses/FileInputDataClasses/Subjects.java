@@ -19,15 +19,14 @@ public class Subjects {
         }
     }
 
+    public List<Subject> getSubjectsList() {
+        return m_SubjectsList;
+    }
 
     public String getSubjectNameById(Integer i_Id)
     {
         Optional<Subject> subj = m_SubjectsList.stream().filter(subject -> subject.getId().equals(i_Id)).findFirst();
         return subj.get().getFullName().toString();
-    }
-
-    public List<Subject> getSubjectsList() {
-        return m_SubjectsList;
     }
 
     public Set<SubjectData> getSubjectSet(){
