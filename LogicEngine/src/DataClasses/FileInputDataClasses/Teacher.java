@@ -1,4 +1,4 @@
-package DataClasses;
+package DataClasses.FileInputDataClasses;
 
 import ParsedClasses.ETTTeacher;
 import ParsedClasses.ETTTeaches;

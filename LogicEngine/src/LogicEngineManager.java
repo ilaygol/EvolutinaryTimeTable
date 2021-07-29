@@ -1,5 +1,5 @@
 import AlgorithmClasses.Descriptor;
-import DataClasses.*;
+import DataClasses.FileInputDataClasses.*;
 import DataTransferClasses.DataPrinter;
 import ParsedClasses.ETTDescriptor;
 
@@ -8,9 +8,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+
 
 public class LogicEngineManager {
     private Descriptor m_Descriptor;

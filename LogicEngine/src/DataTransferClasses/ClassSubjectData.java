@@ -1,7 +1,7 @@
 package DataTransferClasses;
 
-import DataClasses.Study;
-import DataClasses.Subject;
+import DataClasses.FileInputDataClasses.Study;
+import DataClasses.FileInputDataClasses.Subject;
 
 public class ClassSubjectData implements Comparable<ClassSubjectData>{
     private Integer m_SubjectID;
