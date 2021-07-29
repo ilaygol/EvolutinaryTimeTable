@@ -1,12 +1,10 @@
 package DataClasses;
 
+import DataTransferClasses.SubjectData;
 import ParsedClasses.ETTTeacher;
 import ParsedClasses.ETTTeachers;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Teachers {
     private List<Teacher> m_TeachersList;
@@ -31,17 +29,19 @@ public class Teachers {
     public List<Teacher> getTeachersList() {
         return m_TeachersList;
     }
-    public Map<Integer, Map<Integer, String>> getTeachersID2SubjMap(Map<Integer, String> ID2SubjectMap)
+
+
+    public Map<Integer, Set<SubjectData>> getTeacherID2SubjectsMap(Set<SubjectData> i_SubjectSet)
     {
-        Map<Integer, Map<Integer, String>> retMap=new TreeMap<>();
+        Map<Integer, Set<SubjectData>> retMap=new TreeMap<>();
         for(Teacher t:m_TeachersList)
         {
-            Map<Integer,String> teachersSubjectID2NameMap=new TreeMap<>();
+            Set<SubjectData> teacherSubjectsSet=new TreeSet<>();
             List<Integer> teacherSubjectsIDList=t.getSubjectsIDList();
             for(Integer i:teacherSubjectsIDList) {
-                teachersSubjectID2NameMap.put(i,ID2SubjectMap.get(i));
+                teacherSubjectsSet.add(i_SubjectSet.stream().filter(subject -> subject.getSubjectID() == i).findFirst().get());
             }
-            retMap.put(t.getId(),teachersSubjectID2NameMap);
+            retMap.put(t.getId(),teacherSubjectsSet);
         }
         return  retMap;
 

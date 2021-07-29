@@ -1,9 +1,12 @@
 
+import DataTransferClasses.ClassSubjectData;
 import DataTransferClasses.DataPrinter;
+import DataTransferClasses.SubjectData;
 
 import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class ConsoleUserInterfaceManager {
     private LogicEngineManager m_LogicEngineManager;
@@ -70,28 +73,28 @@ public class ConsoleUserInterfaceManager {
     private void printDataInFormat(DataPrinter i_DataPrinter)
     {
         System.out.println("File Information"+System.lineSeparator()+"The subjects are:");
-        i_DataPrinter.getID2SubjectMap().forEach((subjCode, subjName) -> System.out.println("ID: "+subjCode + " | Name: " + subjName));
+        i_DataPrinter.getSubjectsSet().forEach(Subj -> System.out.println("ID: "+ Subj.getSubjectID() + " | Name: " + Subj.getSubjectName()));
         System.out.println(System.lineSeparator()+"The teachers are:");
-        for(Integer teacherID: i_DataPrinter.getTeachersID2SubjMap().keySet())
+
+        for(Integer teacherID: i_DataPrinter.getTeacherID2SubjectsMap().keySet())
         {
-            Map<Integer, String> teacherSubjects = i_DataPrinter.getTeachersID2SubjMap().get(teacherID);
+            Set<SubjectData> teacherSubjects = i_DataPrinter.getTeacherID2SubjectsMap().get(teacherID);
             System.out.println("Teacher ID: "+teacherID+", The subjects he teaches are:");
-            teacherSubjects.forEach((subjCode,subjName)-> System.out.println("ID: "+subjCode + " | Name: " + subjName));
+            teacherSubjects.forEach(subj-> System.out.println("ID: "+subj.getSubjectID() + " | Name: " + subj.getSubjectName()));
         }
+
         System.out.println(System.lineSeparator()+"The classes are:");
-        for(Integer classID: i_DataPrinter.getClassesID2SubjMap().keySet())
+        for(Integer classID: i_DataPrinter.getClasseID2SubjectsMap().keySet())
         {
-            Map<Integer, String> classSubjects = i_DataPrinter.getClassesID2SubjMap().get(classID);
-            Map<Integer, Integer> classRequirements = i_DataPrinter.getClassID2ReqHoursMap().get(classID);
+            Set<ClassSubjectData> classSubjects = i_DataPrinter.getClasseID2SubjectsMap().get(classID);
             System.out.println("Class ID: "+classID+", The subjects taught in this class are:");
-            for(Integer subjID:classSubjects.keySet())
-            {
-                System.out.println("Subject ID: "+subjID+" | Subject name: "+classSubjects.get(subjID)
-                        +" | Hours: "+ classRequirements.get(subjID));
-            }
+            classSubjects.forEach(subj-> System.out.println("Subject ID: "+subj.getSubjectID()+" | Subject name: "+subj.getSubjectName()
+                    +" | Hours: "+ subj.getReqHours()));
         }
         System.out.println(System.lineSeparator()+"The rules are:");
         i_DataPrinter.getRulesNames2TypeMap().forEach((ruleName, ruleType)-> System.out.println("Name: "+ruleName+" | Type: "+ruleType.toString()));
+
+
 
         System.out.println(System.lineSeparator()+"Initial population: "+i_DataPrinter.getInitialPopulation());
         System.out.println("Selection type: "+i_DataPrinter.getSelectionData().getType()+" | Configuration: "+i_DataPrinter.getSelectionData().getConfiguration());
@@ -124,7 +127,7 @@ public class ConsoleUserInterfaceManager {
         boolean isCorrect=false;
         eMainMenu userChoice=null;
         Scanner mainMenuInput=new Scanner(System.in);
-        System.out.println("Main Menu");
+        System.out.println(System.lineSeparator()+"Main Menu");
         eMainMenu.PrintMenu();
         while (!isCorrect)
         {
