@@ -1,5 +1,6 @@
 import AlgorithmClasses.Descriptor;
 import DataClasses.FileInputDataClasses.*;
+import DataClasses.AlgorithmData.*;
 import DataTransferClasses.DataPrinter;
 import ParsedClasses.ETTDescriptor;
 
@@ -8,6 +9,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 
 public class LogicEngineManager {
@@ -23,8 +25,10 @@ public class LogicEngineManager {
         return 4;
     }
 
-    public int ActivateAlgorithm() {
-        return 3;
+    public void ActivateAlgorithm() {
+        AmountOfObjectsCalc amounts=getMaxDataValues();
+        m_Descriptor.getEvolutionEngine().initSolutions(amounts);
+
     }
 
     public DataPrinter PrintFileData() {
@@ -63,5 +67,26 @@ public class LogicEngineManager {
         catch (JAXBException e) {
             throw new JAXBException("Error: an error with unmarshalling the file");
         }
+    }
+
+
+    private AmountOfObjectsCalc getMaxDataValues()
+    {
+        TimeTable table= m_Descriptor.getTimeTable();
+        Integer lessonInSolution=0;
+        List<Clazz> classesList = table.getClazzes().getClassesList();
+        for(Clazz c:classesList)
+        {
+            int sum=c.getRequirements().getStudyList().stream().mapToInt(study-> study.getHours()).sum();
+            lessonInSolution+=sum;
+        }
+
+        AmountOfObjectsCalc maxValues=new AmountOfObjectsCalc(table.getDays(), table.getHours(),
+                table.getTeachers().getTeachersList().size(),
+                table.getSubjects().getSubjectsList().size(),
+                table.getSubjects().getSubjectsList().size(),
+                lessonInSolution);
+
+        return maxValues;
     }
 }

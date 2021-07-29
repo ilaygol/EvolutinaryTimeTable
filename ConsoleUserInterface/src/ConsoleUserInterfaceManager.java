@@ -62,7 +62,7 @@ public class ConsoleUserInterfaceManager {
     }
 
     private void ActivateAlgorithm() {
-        System.out.println(m_LogicEngineManager.ActivateAlgorithm());
+        m_LogicEngineManager.ActivateAlgorithm();
     }
 
     private void PrintFileData() {

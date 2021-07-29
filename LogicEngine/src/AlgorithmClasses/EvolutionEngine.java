@@ -1,6 +1,7 @@
 
 package AlgorithmClasses;
 
+import DataClasses.AlgorithmData.AmountOfObjectsCalc;
 import ParsedClasses.ETTEvolutionEngine;
 
 public class EvolutionEngine {
@@ -17,6 +18,12 @@ public class EvolutionEngine {
         m_Selection=new Selection(i_ETTEvolutionEngine.getETTSelection());
         m_Crossover=new Crossover(i_ETTEvolutionEngine.getETTCrossover());
         m_Mutations=new Mutations(i_ETTEvolutionEngine.getETTMutations());
+    }
+
+    public void initSolutions(AmountOfObjectsCalc i_AmountOfObj)
+    {
+        System.out.print(i_AmountOfObj);
+        System.out.println(" max lessons available="+ i_AmountOfObj.getMaxAmountOfLessons());
     }
 
     public Integer getInitialPopulation() {
