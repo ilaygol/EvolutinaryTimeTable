@@ -2,15 +2,16 @@
 package AlgorithmClasses;
 
 import DataClasses.AlgorithmData.AmountOfObjectsCalc;
+import DataClasses.AlgorithmData.Solution;
+import DataClasses.AlgorithmData.Solutions;
 import ParsedClasses.ETTEvolutionEngine;
 
 public class EvolutionEngine {
-
     private Integer m_InitialPopulation;
     private Selection m_Selection;
     private Crossover m_Crossover;
     private Mutations m_Mutations;
-    //private Solutions<T> m_Solutions;
+    private Solutions m_Solutions;
 
     public EvolutionEngine(ETTEvolutionEngine i_ETTEvolutionEngine)
     {
@@ -20,10 +21,16 @@ public class EvolutionEngine {
         m_Mutations=new Mutations(i_ETTEvolutionEngine.getETTMutations());
     }
 
-    public void initSolutions(AmountOfObjectsCalc i_AmountOfObj)
+    public void initialSolutions(AmountOfObjectsCalc i_AmountOfObj)
     {
-        System.out.print(i_AmountOfObj);
-        System.out.println(" max lessons available="+ i_AmountOfObj.getMaxAmountOfLessons());
+        m_Solutions=new Solutions();
+        for(int i=1;i<=m_InitialPopulation;i++)
+        {
+            Solution timeTableSolution=new Solution(i_AmountOfObj.getMaxAmountOfLessons());
+            timeTableSolution.buildSolution(i_AmountOfObj);
+            m_Solutions.addSolutionToList(timeTableSolution);
+        }
+
     }
 
     public Integer getInitialPopulation() {

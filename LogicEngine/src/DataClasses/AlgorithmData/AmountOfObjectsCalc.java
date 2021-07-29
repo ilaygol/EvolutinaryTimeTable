@@ -44,6 +44,7 @@ public class AmountOfObjectsCalc {
         return m_LessonsInSolution;
     }
 
+    //function that calculate the maximum length of a solution array
     public Integer getMaxAmountOfLessons()
     {
         return (m_AmountOfDays * m_AmountOfHours * m_AmountOfClasses * m_AmountOfSubjects * m_AmountOfTeachers);
