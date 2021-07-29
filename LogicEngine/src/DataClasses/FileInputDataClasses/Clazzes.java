@@ -31,7 +31,7 @@ public class Clazzes {
         return m_ClassesList;
     }
 
-    public Map<Integer, Set<ClassSubjectData>> getClassID2SubjectsMap(Set<SubjectData> i_Subjects)
+    public Map<Integer, Set<ClassSubjectData>> getClassID2SubjectsMap(Collection<SubjectData> i_Subjects)
     {
         Map<Integer, Set<ClassSubjectData>> retMap=new TreeMap<>();
         for(Clazz c:m_ClassesList)
