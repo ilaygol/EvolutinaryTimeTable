@@ -31,7 +31,7 @@ public class Teachers {
     }
 
 
-    public Map<Integer, Set<SubjectData>> getTeacherID2SubjectsMap(Set<SubjectData> i_SubjectSet)
+    public Map<Integer, Set<SubjectData>> getTeacherID2SubjectsMap(Collection<SubjectData> i_SubjectSet)
     {
         Map<Integer, Set<SubjectData>> retMap=new TreeMap<>();
         for(Teacher t:m_TeachersList)

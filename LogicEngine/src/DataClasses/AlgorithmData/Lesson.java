@@ -11,9 +11,9 @@ public class Lesson {
 
     public Lesson(Integer i_MaxDay,Integer i_MaxHour,
                   Integer i_MaxClassID,Integer i_MaxTeacherID,
-                  Integer i_MaxSubjectID)
+                  Integer i_MaxSubjectID,Random roller)
     {
-        Random roller=new Random();
+
         m_Day= roller.nextInt(i_MaxDay);
         m_Hour= roller.nextInt(i_MaxHour);
         m_ClassID= roller.nextInt(i_MaxClassID);
