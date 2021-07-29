@@ -1,6 +1,6 @@
 package DataClasses.FileInputDataClasses;
 
-import DataTransferClasses.ClassSubjectData;
+import DataTransferClasses.StudyData;
 import DataTransferClasses.SubjectData;
 import ParsedClasses.ETTClass;
 import ParsedClasses.ETTClasses;
@@ -31,17 +31,17 @@ public class Clazzes {
         return m_ClassesList;
     }
 
-    public Map<Integer, Set<ClassSubjectData>> getClassID2SubjectsMap(Collection<SubjectData> i_Subjects)
+    public Map<Integer, Set<StudyData>> getClassID2SubjectsMap(Collection<SubjectData> i_Subjects)
     {
-        Map<Integer, Set<ClassSubjectData>> retMap=new TreeMap<>();
+        Map<Integer, Set<StudyData>> retMap=new TreeMap<>();
         for(Clazz c:m_ClassesList)
         {
-            Set<ClassSubjectData> classSubjectsSet=new TreeSet<>();
+            Set<StudyData> classSubjectsSet=new TreeSet<>();
             List<Study> classesSubjectsIDList=c.getRequirements().getStudyList();
             for(Study i:classesSubjectsIDList)
             {
                 SubjectData subject = i_Subjects.stream().filter(subj -> subj.getSubjectID() == i.getSubjectID()).findFirst().get();
-                classSubjectsSet.add(new ClassSubjectData(i,subject));
+                classSubjectsSet.add(new StudyData(i,subject));
             }
             retMap.put(c.getId(),classSubjectsSet);
         }

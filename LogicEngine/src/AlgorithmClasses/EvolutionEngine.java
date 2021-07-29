@@ -9,6 +9,7 @@ public class EvolutionEngine {
     private Selection m_Selection;
     private Crossover m_Crossover;
     private Mutations m_Mutations;
+    //private Solutions<T> m_Solutions;
 
     public EvolutionEngine(ETTEvolutionEngine i_ETTEvolutionEngine)
     {

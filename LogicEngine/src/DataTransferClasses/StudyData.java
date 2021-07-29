@@ -1,14 +1,13 @@
 package DataTransferClasses;
 
 import DataClasses.FileInputDataClasses.Study;
-import DataClasses.FileInputDataClasses.Subject;
 
-public class ClassSubjectData implements Comparable<ClassSubjectData>{
+public class StudyData implements Comparable<StudyData>{
     private Integer m_SubjectID;
     private String m_SubjectName;
     private Integer m_ReqHours;
 
-    public ClassSubjectData(Study i_Study, SubjectData i_Subject)
+    public StudyData(Study i_Study, SubjectData i_Subject)
     {
         m_SubjectID=i_Study.getSubjectID();
         m_SubjectName=i_Subject.getSubjectName();
@@ -28,7 +27,7 @@ public class ClassSubjectData implements Comparable<ClassSubjectData>{
     }
 
     @Override
-    public int compareTo(ClassSubjectData i_ClassSubject) {
+    public int compareTo(StudyData i_ClassSubject) {
         return (m_SubjectID-i_ClassSubject.getSubjectID());
     }
 }
