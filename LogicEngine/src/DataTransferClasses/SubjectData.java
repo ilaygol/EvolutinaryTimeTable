@@ -1,6 +1,6 @@
 package DataTransferClasses;
 
-import DataClasses.Subject;
+import DataClasses.FileInputDataClasses.Subject;
 
 import java.util.Objects;
 

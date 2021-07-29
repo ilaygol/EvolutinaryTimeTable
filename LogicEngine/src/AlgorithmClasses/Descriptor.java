@@ -1,7 +1,7 @@
 
 package AlgorithmClasses;
 
-import DataClasses.TimeTable;
+import DataClasses.FileInputDataClasses.TimeTable;
 import ParsedClasses.ETTDescriptor;
 
 public class Descriptor {

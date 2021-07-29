@@ -1,5 +1,5 @@
 
-package DataClasses;
+package DataClasses.FileInputDataClasses;
 
 import ParsedClasses.ETTTimeTable;
 
