@@ -1,12 +1,11 @@
 package DataClasses;
 
+import DataTransferClasses.ClassSubjectData;
+import DataTransferClasses.SubjectData;
 import ParsedClasses.ETTClass;
 import ParsedClasses.ETTClasses;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Clazzes {
     private List<Clazz> m_ClassesList;
@@ -32,34 +31,19 @@ public class Clazzes {
         return m_ClassesList;
     }
 
-    public Map<Integer, Map<Integer, String>> getClassesID2SubjMap(Map<Integer, String> i_ID2SubjectMap)
+    public Map<Integer, Set<ClassSubjectData>> getClassID2SubjectsMap(Set<SubjectData> i_Subjects)
     {
-        Map<Integer, Map<Integer, String>> retMap=new TreeMap<>();
+        Map<Integer, Set<ClassSubjectData>> retMap=new TreeMap<>();
         for(Clazz c:m_ClassesList)
         {
-            Map<Integer,String> classesSubjectID2NameMap=new TreeMap<>();
+            Set<ClassSubjectData> classSubjectsSet=new TreeSet<>();
             List<Study> classesSubjectsIDList=c.getRequirements().getStudyList();
             for(Study i:classesSubjectsIDList)
             {
-                classesSubjectID2NameMap.put(i.getSubjectId(),i_ID2SubjectMap.get(i.getSubjectId()));
+                SubjectData subject = i_Subjects.stream().filter(subj -> subj.getSubjectID() == i.getSubjectID()).findFirst().get();
+                classSubjectsSet.add(new ClassSubjectData(i,subject));
             }
-            retMap.put(c.getId(),classesSubjectID2NameMap);
-        }
-        return retMap;
-    }
-
-    public Map<Integer, Map<Integer, Integer>> getClassesID2ReqSubjHoursMap()
-    {
-        Map<Integer, Map<Integer, Integer>> retMap=new TreeMap<>();
-        for(Clazz c:m_ClassesList)
-        {
-            Map<Integer,Integer> classesSubjectID2ReqHoursMap=new TreeMap<>();
-            List<Study> classesSubjectsIDList=c.getRequirements().getStudyList();
-            for(Study i:classesSubjectsIDList)
-            {
-                classesSubjectID2ReqHoursMap.put(i.getSubjectId(),i.getHours());
-            }
-            retMap.put(c.getId(),classesSubjectID2ReqHoursMap);
+            retMap.put(c.getId(),classSubjectsSet);
         }
         return retMap;
     }

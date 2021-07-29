@@ -1,5 +1,6 @@
 package DataClasses;
 
+import DataTransferClasses.SubjectData;
 import ParsedClasses.ETTSubject;
 import ParsedClasses.ETTSubjects;
 
@@ -18,28 +19,27 @@ public class Subjects {
         }
     }
 
-    @Override
-    public String toString() {
-        return "Subjects{" +
-                "m_SubjectsList=" + m_SubjectsList +
-                '}';
-    }
 
-    public Subject getSubjectById(Integer i_Id)
+    public String getSubjectNameById(Integer i_Id)
     {
         Optional<Subject> subj = m_SubjectsList.stream().filter(subject -> subject.getId().equals(i_Id)).findFirst();
-        return subj.get();
+        return subj.get().getFullName().toString();
     }
 
     public List<Subject> getSubjectsList() {
         return m_SubjectsList;
     }
-    public Map<Integer,String> getID2SubjNameMap(){
-        Map<Integer,String> retMap =new TreeMap<>();
-        for(Subject s:m_SubjectsList)
-        {
-            retMap.put(s.getId(),s.getFullName().toString());
-        }
-        return retMap;
+
+    public Set<SubjectData> getSubjectSet(){
+        Set<SubjectData> retSet=new TreeSet<>();
+        m_SubjectsList.forEach(subj-> retSet.add(new SubjectData(subj)));
+        return retSet;
+    }
+
+    @Override
+    public String toString() {
+        return "Subjects{" +
+                "m_SubjectsList=" + m_SubjectsList +
+                '}';
     }
 }

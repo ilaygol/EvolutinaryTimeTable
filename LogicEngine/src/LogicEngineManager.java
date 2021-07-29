@@ -32,13 +32,13 @@ public class LogicEngineManager {
     public DataPrinter PrintFileData() {
         DataPrinter dataPrinter=new DataPrinter();
         //building Subject map
-        dataPrinter.setID2SubjectMap(m_Descriptor.getTimeTable().getSubjects().getID2SubjNameMap());
+        dataPrinter.SetSubjectsSet(m_Descriptor.getTimeTable().getSubjects().getSubjectSet());
         //building Teachers Map
-        dataPrinter.setTeachersID2SubjMap(m_Descriptor.getTimeTable().getTeachers().getTeachersID2SubjMap(dataPrinter.getID2SubjectMap()));
+
+        dataPrinter.setTeacherID2SubjectsMap(m_Descriptor.getTimeTable().getTeachers().getTeacherID2SubjectsMap(dataPrinter.getSubjectsSet()));
 
         //building Class map
-        dataPrinter.setClassesID2SubjMap(m_Descriptor.getTimeTable().getClazzes().getClassesID2SubjMap(dataPrinter.getID2SubjectMap()));
-        dataPrinter.setClassID2ReqHoursMap(m_Descriptor.getTimeTable().getClazzes().getClassesID2ReqSubjHoursMap());
+        dataPrinter.setClassesID2SubjMap(m_Descriptor.getTimeTable().getClazzes().getClassID2SubjectsMap(dataPrinter.getSubjectsSet()));
         //building Rules map
         dataPrinter.setRulesNames2TypeMap(m_Descriptor.getTimeTable().getRules().getRulesNames2TypeMap());
 

@@ -35,7 +35,7 @@ public class Study{
         return Objects.hash(m_SubjectId);
     }
 
-    public Integer getSubjectId() {
+    public Integer getSubjectID() {
         return m_SubjectId;
     }
 
