@@ -26,8 +26,8 @@ public class LogicEngineManager {
     }
 
     public void ActivateAlgorithm() {
-        AmountOfObjectsCalc amounts=getMaxDataValues();
-        m_Descriptor.getEvolutionEngine().initSolutions(amounts);
+        AmountOfObjectsCalc amountOfObjects =getMaxDataValues();
+        m_Descriptor.getEvolutionEngine().initialSolutions(amountOfObjects);
 
     }
 
