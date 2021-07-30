@@ -2,7 +2,7 @@
 package AlgorithmClasses;
 
 import DataClasses.AlgorithmData.AmountOfObjectsCalc;
-import DataClasses.AlgorithmData.TimeTableSolution;
+import DataClasses.AlgorithmData.Parent;
 import DataClasses.AlgorithmData.ProblemSolutions;
 import ParsedClasses.ETTEvolutionEngine;
 
@@ -26,7 +26,7 @@ public class EvolutionEngine {
         m_Solutions=new ProblemSolutions();
         for(int i=1;i<=m_InitialPopulation;i++)
         {
-            TimeTableSolution timeTableSolution=new TimeTableSolution(i_AmountOfObj.getMaxAmountOfLessons());
+            Parent timeTableSolution=new Parent(i_AmountOfObj.getMaxAmountOfLessons());
             timeTableSolution.buildSolution(i_AmountOfObj);
             m_Solutions.addSolutionToList(timeTableSolution);
         }
