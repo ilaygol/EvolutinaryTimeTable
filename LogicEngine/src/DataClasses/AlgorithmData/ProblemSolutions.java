@@ -3,19 +3,20 @@ package DataClasses.AlgorithmData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Solutions {
-    List<Solution> m_SolutionList;
+public class ProblemSolutions {
+    List<TimeTableSolution> m_SolutionList;
 
-    public Solutions()
+    public ProblemSolutions()
     {
         m_SolutionList=new ArrayList<>();
     }
 
-    public List<Solution> getSolutionList() {
+    public List<TimeTableSolution> getSolutionList() {
         return m_SolutionList;
     }
-    public void addSolutionToList(Solution i_Solution)
+    public void addSolutionToList(TimeTableSolution i_Solution)
     {
         m_SolutionList.add(i_Solution);
     }
+
 }
