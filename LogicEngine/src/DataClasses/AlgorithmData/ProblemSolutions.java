@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProblemSolutions {
-    List<TimeTableSolution> m_SolutionList;
+    List<Parent> m_ParentsList;
 
     public ProblemSolutions()
     {
-        m_SolutionList=new ArrayList<>();
+        m_ParentsList =new ArrayList<>();
     }
 
-    public List<TimeTableSolution> getSolutionList() {
-        return m_SolutionList;
+    public List<Parent> getParentsList() {
+        return m_ParentsList;
     }
-    public void addSolutionToList(TimeTableSolution i_Solution)
+    public void addSolutionToList(Parent i_Solution)
     {
-        m_SolutionList.add(i_Solution);
+        m_ParentsList.add(i_Solution);
     }
 
 }

@@ -26,7 +26,7 @@ public class LogicEngineManager {
     }
 
     public void ActivateAlgorithm() {
-        AmountOfObjectsCalc amountOfObjects =getMaxDataValues();
+        AmountOfObjectsCalc amountOfObjects =getAmountOfData();
         m_Descriptor.getEvolutionEngine().initialSolutions(amountOfObjects);
 
     }
@@ -70,7 +70,7 @@ public class LogicEngineManager {
     }
 
 
-    private AmountOfObjectsCalc getMaxDataValues()
+    private AmountOfObjectsCalc getAmountOfData()
     {
         TimeTable table= m_Descriptor.getTimeTable();
         Integer lessonInSolution=0;

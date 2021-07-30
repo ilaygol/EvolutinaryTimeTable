@@ -4,22 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class TimeTableSolution {
-    private List<Lesson> m_Solution;
+public class Parent {
+    private List<Lesson> m_LessonsList;
     private Random m_Roller;
+    private Integer m_Fitness;
 
 
-    public TimeTableSolution(Integer i_Length)
+    public Parent(Integer i_Length)
     {
-        m_Solution=new ArrayList<>(i_Length);
+        m_LessonsList =new ArrayList<>(i_Length);
         for(int i=0;i<i_Length;i++) {
-            m_Solution.add(null);
+            m_LessonsList.add(null);
         }
         m_Roller=new Random();
     }
 
-    public List<Lesson> getSolution() {
-        return m_Solution;
+    public List<Lesson> getLessonsList() {
+        return m_LessonsList;
     }
 
     public void buildSolution (AmountOfObjectsCalc i_AmountOfObjects)
@@ -38,7 +39,7 @@ public class TimeTableSolution {
             Integer subjectID= m_Roller.nextInt(i_AmountOfObjects.getAmountOfSubjects()-1)+1;
 
             Lesson lesson=new Lesson(day,hour,classID,teacherID,subjectID);
-            m_Solution.add(getIndexFromLessonData(i_AmountOfObjects,lesson),lesson);
+            m_LessonsList.add(getIndexFromLessonData(i_AmountOfObjects,lesson),lesson);
         }
 
 
