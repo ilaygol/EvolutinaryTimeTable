@@ -1,6 +1,5 @@
 package DataClasses.AlgorithmData;
 
-import java.util.Random;
 
 public class Lesson {
     private Integer m_Day;
@@ -60,4 +59,6 @@ public class Lesson {
     public void setSubjectID(Integer i_SubjectID) {
         this.m_SubjectID = i_SubjectID;
     }
+
+
 }
