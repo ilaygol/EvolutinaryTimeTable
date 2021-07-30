@@ -47,14 +47,14 @@ public class TimeTableSolution {
     //a function that receive a Lesson object and calculate his index in the solution list
     public Integer getIndexFromLessonData(AmountOfObjectsCalc i_AmountOfObjects,Lesson i_Lesson)
     {
-        Integer retIndex;
-        Integer dayBase,hourBase,classBase,teacherBase;
+        int retIndex;
+        int dayBase,hourBase,classBase,teacherBase;
         teacherBase=i_AmountOfObjects.getAmountOfSubjects();
         classBase=teacherBase * i_AmountOfObjects.getAmountOfTeachers();
         hourBase=classBase * i_AmountOfObjects.getAmountOfClasses();
         dayBase=hourBase * i_AmountOfObjects.getAmountOfHours();
 
-        retIndex= (int)(((i_Lesson.getDay()-1)*dayBase)+((i_Lesson.getHour()-1)*hourBase)+
+        retIndex= (((i_Lesson.getDay()-1)*dayBase)+((i_Lesson.getHour()-1)*hourBase)+
                 ((i_Lesson.getClassID()-1)*classBase)+ ((i_Lesson.getTeacherID()-1)*teacherBase) +
                 (i_Lesson.getSubjectID()-1));
 
