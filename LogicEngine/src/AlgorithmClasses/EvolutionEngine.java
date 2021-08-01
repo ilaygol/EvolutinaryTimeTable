@@ -3,7 +3,7 @@ package AlgorithmClasses;
 
 import DataClasses.AlgorithmData.AmountOfObjectsCalc;
 import DataClasses.AlgorithmData.Parent;
-import DataClasses.AlgorithmData.ProblemSolutions;
+import DataClasses.AlgorithmData.Generation;
 import ParsedClasses.ETTEvolutionEngine;
 
 public class EvolutionEngine {
@@ -11,7 +11,7 @@ public class EvolutionEngine {
     private Selection m_Selection;
     private Crossover m_Crossover;
     private Mutations m_Mutations;
-    private ProblemSolutions m_Solutions;
+    private Generation m_Generation;
 
     public EvolutionEngine(ETTEvolutionEngine i_ETTEvolutionEngine)
     {
@@ -23,12 +23,12 @@ public class EvolutionEngine {
 
     public void initialSolutions(AmountOfObjectsCalc i_AmountOfObj)
     {
-        m_Solutions=new ProblemSolutions();
+        m_Generation =new Generation();
         for(int i=1;i<=m_InitialPopulation;i++)
         {
             Parent timeTableSolution=new Parent(i_AmountOfObj.getMaxAmountOfLessons());
             timeTableSolution.buildSolution(i_AmountOfObj);
-            m_Solutions.addSolutionToList(timeTableSolution);
+            m_Generation.addSolutionToList(timeTableSolution);
         }
 
     }

@@ -1,8 +1,8 @@
 package DataClasses.AlgorithmData;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import DataClasses.FileInputDataClasses.Teacher;
+
+import java.util.*;
 
 public class Parent {
     private List<Lesson> m_LessonsList;
@@ -13,9 +13,6 @@ public class Parent {
     public Parent(Integer i_Length)
     {
         m_LessonsList =new ArrayList<>(i_Length);
-        for(int i=0;i<i_Length;i++) {
-            m_LessonsList.add(null);
-        }
         m_Roller=new Random();
     }
 
@@ -39,28 +36,10 @@ public class Parent {
             Integer subjectID= m_Roller.nextInt(i_AmountOfObjects.getAmountOfSubjects()-1)+1;
 
             Lesson lesson=new Lesson(day,hour,classID,teacherID,subjectID);
-            m_LessonsList.add(getIndexFromLessonData(i_AmountOfObjects,lesson),lesson);
+            m_LessonsList.add(lesson);
         }
 
 
-    }
-
-    //a function that receive a Lesson object and calculate his index in the solution list
-    public Integer getIndexFromLessonData(AmountOfObjectsCalc i_AmountOfObjects,Lesson i_Lesson)
-    {
-        int retIndex;
-        int dayBase,hourBase,classBase,teacherBase;
-        teacherBase=i_AmountOfObjects.getAmountOfSubjects();
-        classBase=teacherBase * i_AmountOfObjects.getAmountOfTeachers();
-        hourBase=classBase * i_AmountOfObjects.getAmountOfClasses();
-        dayBase=hourBase * i_AmountOfObjects.getAmountOfHours();
-
-        retIndex= (((i_Lesson.getDay()-1)*dayBase)+((i_Lesson.getHour()-1)*hourBase)+
-                ((i_Lesson.getClassID()-1)*classBase)+ ((i_Lesson.getTeacherID()-1)*teacherBase) +
-                (i_Lesson.getSubjectID()-1));
-
-
-        return retIndex;
     }
 
 
