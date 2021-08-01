@@ -3,10 +3,10 @@ package DataClasses.AlgorithmData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProblemSolutions {
+public class Generation {
     List<Parent> m_ParentsList;
 
-    public ProblemSolutions()
+    public Generation()
     {
         m_ParentsList =new ArrayList<>();
     }
