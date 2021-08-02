@@ -8,7 +8,7 @@ import DataClasses.FileInputDataClasses.TimeTable;
 import ParsedClasses.ETTEvolutionEngine;
 
 public class EvolutionEngine {
-    private Integer m_InitialPopulation;
+    private Integer m_InitialPopulationAmount;
     private Integer m_ReqNumOfGeneration;
     private Integer m_PrintEveryAmount;
     private Selection m_Selection;
@@ -18,7 +18,7 @@ public class EvolutionEngine {
 
     public EvolutionEngine(ETTEvolutionEngine i_ETTEvolutionEngine)
     {
-        m_InitialPopulation=i_ETTEvolutionEngine.getETTInitialPopulation().getSize();
+        m_InitialPopulationAmount =i_ETTEvolutionEngine.getETTInitialPopulation().getSize();
         m_Selection=new Selection(i_ETTEvolutionEngine.getETTSelection());
         m_Crossover=new Crossover(i_ETTEvolutionEngine.getETTCrossover());
         m_Mutations=new Mutations(i_ETTEvolutionEngine.getETTMutations());
@@ -30,20 +30,20 @@ public class EvolutionEngine {
     {
         int generationsCreated=1;
         initialSolutions(i_AmountOfObj);
-        while(generationsCreated<m_ReqNumOfGeneration)
-        {
+       // while(generationsCreated<m_ReqNumOfGeneration)
+        //{
             //elay function recieves i_TimeTable
             //selection
-            //crossover
+            //m_Crossover.createNewGeneration(m_Generation,i_AmountOfObj);
             //mutation
             generationsCreated++;
-        }
+       // }
     }
 
     public void initialSolutions(AmountOfObjectsCalc i_AmountOfObj)
     {
         m_Generation =new Generation();
-        for(int i=1;i<=m_InitialPopulation;i++)
+        for(int i = 1; i<= m_InitialPopulationAmount; i++)
         {
             Parent timeTableSolution=new Parent(i_AmountOfObj.getMaxAmountOfLessons());
             timeTableSolution.buildSolution(i_AmountOfObj);
@@ -53,7 +53,7 @@ public class EvolutionEngine {
     }
 
     public Integer getInitialPopulation() {
-        return m_InitialPopulation;
+        return m_InitialPopulationAmount;
     }
 
     public Selection getSelection() {

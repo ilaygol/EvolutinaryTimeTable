@@ -62,6 +62,7 @@ public class ConsoleUserInterfaceManager {
     }
 
     private void ActivateAlgorithm() {
+        System.out.println("Please Enter the amount OF Generations you want to create:");
         m_LogicEngineManager.ActivateAlgorithm();
     }
 
