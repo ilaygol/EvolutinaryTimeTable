@@ -4,10 +4,13 @@ package AlgorithmClasses;
 import DataClasses.AlgorithmData.AmountOfObjectsCalc;
 import DataClasses.AlgorithmData.Parent;
 import DataClasses.AlgorithmData.Generation;
+import DataClasses.FileInputDataClasses.TimeTable;
 import ParsedClasses.ETTEvolutionEngine;
 
 public class EvolutionEngine {
     private Integer m_InitialPopulation;
+    private Integer m_ReqNumOfGeneration;
+    private Integer m_PrintEveryAmount;
     private Selection m_Selection;
     private Crossover m_Crossover;
     private Mutations m_Mutations;
@@ -19,6 +22,22 @@ public class EvolutionEngine {
         m_Selection=new Selection(i_ETTEvolutionEngine.getETTSelection());
         m_Crossover=new Crossover(i_ETTEvolutionEngine.getETTCrossover());
         m_Mutations=new Mutations(i_ETTEvolutionEngine.getETTMutations());
+    }
+
+
+
+    public void activateAlgorithm(TimeTable i_TimeTable,AmountOfObjectsCalc i_AmountOfObj)
+    {
+        int generationsCreated=1;
+        initialSolutions(i_AmountOfObj);
+        while(generationsCreated<m_ReqNumOfGeneration)
+        {
+            //elay function recieves i_TimeTable
+            //selection
+            //crossover
+            //mutation
+            generationsCreated++;
+        }
     }
 
     public void initialSolutions(AmountOfObjectsCalc i_AmountOfObj)
