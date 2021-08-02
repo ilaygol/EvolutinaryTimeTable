@@ -62,8 +62,41 @@ public class ConsoleUserInterfaceManager {
     }
 
     private void ActivateAlgorithm() {
-        System.out.println("Please Enter the amount OF Generations you want to create:");
-        m_LogicEngineManager.ActivateAlgorithm();
+        Scanner algorithmInputScanner=new Scanner(System.in);
+        Integer generationsNum=0,printEveryAmountOfGeneration=0;
+        boolean isCorrect=false;
+        System.out.print("Please Enter the amount OF Generations you want to create: ");
+        while(!isCorrect) {
+            try {
+                generationsNum = algorithmInputScanner.nextInt();
+                if(generationsNum<100)
+                    System.out.println("Amount of Generations cant be less than 100."
+                            +System.lineSeparator()+"Please enter a number above or equal to 100");
+                else
+                    isCorrect=true;
+            } catch (InputMismatchException e) {
+                System.out.println("Amount of Generation should be a Number!"+System.lineSeparator()
+                        +"Please enter a Number");
+                algorithmInputScanner.nextLine();
+            }
+        }
+        isCorrect=false;
+        System.out.println("Every How many generations would you like to print the fitness of the best solution?");
+        while(!isCorrect) {
+            try {
+                 printEveryAmountOfGeneration= algorithmInputScanner.nextInt();
+                 if(printEveryAmountOfGeneration>generationsNum)
+                     System.out.println("You asked to create "+generationsNum+" Generations only!"
+                     +System.lineSeparator()+"you should enter a number between 0 and "+generationsNum);
+                 else
+                     isCorrect=true;
+            } catch (InputMismatchException e) {
+                System.out.println("Amount of Generation should be a Number!"+System.lineSeparator()
+                +"Please enter a Number");
+                algorithmInputScanner.nextLine();
+            }
+        }
+        m_LogicEngineManager.ActivateAlgorithm(generationsNum,printEveryAmountOfGeneration);
     }
 
     private void PrintFileData() {
