@@ -20,6 +20,14 @@ public class Parent {
         return m_LessonsList;
     }
 
+    public Lesson getLessonByIndex(Integer index) {
+        return m_LessonsList.get(index);
+    }
+
+    public boolean isContain(Lesson i_Lesson)
+    {
+        return m_LessonsList.contains(i_Lesson);
+    }
     public void buildSolution (AmountOfObjectsCalc i_AmountOfObjects)
     {
         Integer minAmountOfLessons,maxAmountOfLessons;
@@ -41,6 +49,16 @@ public class Parent {
 
 
     }
+
+    public void addLessonToParent(Lesson i_Lesson) {
+        m_LessonsList.add(i_Lesson);
+    }
+
+    public void addLessonToParent(Integer i_Day,Integer i_Hour,Integer i_ClassID,Integer i_TeacherID,Integer i_SubjectID){
+        Lesson lesson=new Lesson(i_Day,i_Hour,i_ClassID,i_TeacherID,i_SubjectID);
+        m_LessonsList.add(lesson);
+    }
+
 
 
 }

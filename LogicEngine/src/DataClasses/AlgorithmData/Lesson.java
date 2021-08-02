@@ -1,6 +1,8 @@
 package DataClasses.AlgorithmData;
 
 
+import java.util.Objects;
+
 public class Lesson {
     private Integer m_Day;
     private Integer m_Hour;
@@ -61,4 +63,18 @@ public class Lesson {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lesson lesson = (Lesson) o;
+        return Objects.equals(m_Day, lesson.m_Day) && Objects.equals(m_Hour, lesson.m_Hour)
+                && Objects.equals(m_ClassID, lesson.m_ClassID) && Objects.equals(m_TeacherID, lesson.m_TeacherID)
+                && Objects.equals(m_SubjectID, lesson.m_SubjectID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(m_Day, m_Hour, m_ClassID, m_TeacherID, m_SubjectID);
+    }
 }
