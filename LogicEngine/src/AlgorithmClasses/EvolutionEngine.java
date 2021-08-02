@@ -9,8 +9,8 @@ import ParsedClasses.ETTEvolutionEngine;
 
 public class EvolutionEngine {
     private Integer m_InitialPopulationAmount;
-    private Integer m_ReqNumOfGeneration;
-    private Integer m_PrintEveryAmount;
+    private Integer m_NumOfGenerations;
+    private Integer m_PrintingReq;
     private Selection m_Selection;
     private Crossover m_Crossover;
     private Mutations m_Mutations;
@@ -28,16 +28,23 @@ public class EvolutionEngine {
 
     public void activateAlgorithm(TimeTable i_TimeTable,AmountOfObjectsCalc i_AmountOfObj)
     {
-        int generationsCreated=1;
+        int remainingGenerations=m_NumOfGenerations;
+        int counter=0;
         initialSolutions(i_AmountOfObj);
-       // while(generationsCreated<m_ReqNumOfGeneration)
-        //{
-            //elay function recieves i_TimeTable
-            //selection
-            //m_Crossover.createNewGeneration(m_Generation,i_AmountOfObj);
-            //mutation
-            generationsCreated++;
-       // }
+        while(remainingGenerations>0) {
+            while(counter< m_PrintingReq && counter < remainingGenerations) {
+                //elay function recieves i_TimeTable
+                //selection
+                //m_Crossover.createNewGeneration(m_Generation,i_AmountOfObj);
+                //mutation
+                counter++;
+            }
+            //update map
+            //event elay gol
+            remainingGenerations-=counter;
+            counter=0;
+
+        }
     }
 
     public void initialSolutions(AmountOfObjectsCalc i_AmountOfObj)
@@ -66,5 +73,21 @@ public class EvolutionEngine {
 
     public Mutations getMutations() {
         return m_Mutations;
+    }
+
+    public Integer getNumOfGenerations() {
+        return m_NumOfGenerations;
+    }
+
+    public Integer getPrintingReq() {
+        return m_PrintingReq;
+    }
+
+    public void setNumOfGenerations(Integer i_NumOfGenerations) {
+        m_NumOfGenerations = i_NumOfGenerations;
+    }
+
+    public void setPrintingReq(Integer i_PrintingReq) {
+        m_PrintingReq = i_PrintingReq;
     }
 }

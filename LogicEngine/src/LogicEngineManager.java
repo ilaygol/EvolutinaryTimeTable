@@ -25,10 +25,11 @@ public class LogicEngineManager {
         return 4;
     }
 
-    public void ActivateAlgorithm() {
+    public void ActivateAlgorithm(Integer i_AmountOfGeneration,Integer i_PrintingReq) {
+        m_Descriptor.getEvolutionEngine().setNumOfGenerations(i_AmountOfGeneration);
+        m_Descriptor.getEvolutionEngine().setPrintingReq(i_PrintingReq);
         AmountOfObjectsCalc amountOfObjects =getAmountOfData();
         m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),amountOfObjects);
-
     }
 
     public DataPrinter PrintFileData() {
