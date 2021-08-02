@@ -27,7 +27,7 @@ public class LogicEngineManager {
 
     public void ActivateAlgorithm() {
         AmountOfObjectsCalc amountOfObjects =getAmountOfData();
-        m_Descriptor.getEvolutionEngine().initialSolutions(amountOfObjects);
+        m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),amountOfObjects);
 
     }
 
