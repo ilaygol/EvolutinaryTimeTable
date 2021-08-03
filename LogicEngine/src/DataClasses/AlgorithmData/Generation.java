@@ -18,5 +18,15 @@ public class Generation {
     {
         m_ParentsList.add(i_Solution);
     }
+    public Integer getGenerationSize() { return m_ParentsList.size(); }
+    public Parent getParentByIndex(Integer index) { return m_ParentsList.get(index); }
 
+
+    //**
+    @Override
+    public String toString() {
+        return "Generation{"
+                + m_ParentsList +
+                '}';
+    }
 }

@@ -28,6 +28,7 @@ public class Parent {
     {
         return m_LessonsList.contains(i_Lesson);
     }
+
     public void buildSolution (AmountOfObjectsCalc i_AmountOfObjects)
     {
         Integer minAmountOfLessons,maxAmountOfLessons;
@@ -59,6 +60,11 @@ public class Parent {
         m_LessonsList.add(lesson);
     }
 
-
-
+    //**
+    @Override
+    public String toString() {
+        return "Parent{"
+                 + m_LessonsList +
+                '}';
+    }
 }

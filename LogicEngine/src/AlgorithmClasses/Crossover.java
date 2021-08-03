@@ -46,12 +46,20 @@ public class Crossover {
         return m_NumOfCuttingPoints;
     }
 
+    public Generation getNewGeneration() { return m_NewGeneration; }
+
     public void createNewGeneration(Generation i_OldGeneration, AmountOfObjectsCalc i_AmountOfObj){
+        Integer generationSize=i_OldGeneration.getGenerationSize();
         ////rolling the cutting points
         List<Integer> cuttingPoints=rollCuttingPoints(i_AmountOfObj.getMaxAmountOfLessons());
-
-
-
+        for(int i=0;i<generationSize;i+=2)
+            {
+                //checking out of range (not always we have pairs)
+                if((i+1)==generationSize)
+                    i--;
+                m_Configuration.activate(i_OldGeneration.getParentByIndex(i),i_OldGeneration.getParentByIndex(i+1)
+                        ,i_AmountOfObj,cuttingPoints,m_NewGeneration);
+            }
     }
     public void addParentToNewGeneration(Parent i_Parent)
     {
