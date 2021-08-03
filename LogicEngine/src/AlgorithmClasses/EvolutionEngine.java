@@ -56,7 +56,7 @@ public class EvolutionEngine {
         {
             Parent timeTableSolution=new Parent(i_AmountOfObj.getMaxAmountOfLessons());
             timeTableSolution.buildSolution(i_AmountOfObj);
-            m_Generation.addSolutionToList(timeTableSolution);
+            m_Generation.addParentToGeneration(timeTableSolution);
         }
 
     }

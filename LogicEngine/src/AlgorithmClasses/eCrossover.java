@@ -37,7 +37,7 @@ public enum eCrossover {
                                         if(cuttingPoints.contains(index))
                                             copyFromFirstParent = (!copyFromFirstParent);
                                     }
-                    i_NextGeneration.addSolutionToList(childOne);
+                    i_NextGeneration.addParentToGeneration(childOne);
                     copyFromFirstParent=false;
                     for(int i=1;i<=amounts.getAmountOfDays();i++)
                         for(int j=1;j<=amounts.getAmountOfHours();j++)
@@ -57,7 +57,7 @@ public enum eCrossover {
                                         if(cuttingPoints.contains(index))
                                             copyFromFirstParent = (!copyFromFirstParent);
                                     }
-                    i_NextGeneration.addSolutionToList(childTwo);
+                    i_NextGeneration.addParentToGeneration(childTwo);
                 }
 
             };

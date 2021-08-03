@@ -64,7 +64,7 @@ public class Crossover {
     }
     public void addParentToNewGeneration(Parent i_Parent)
     {
-        m_NewGeneration.addSolutionToList(i_Parent);
+        m_NewGeneration.addParentToGeneration(i_Parent);
     }
 
     private List<Integer> rollCuttingPoints(Integer i_Max)
