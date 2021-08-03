@@ -25,7 +25,6 @@ public class Crossover {
         m_Name=i_ETTCrossover.getName();
         m_NumOfCuttingPoints =i_ETTCrossover.getCuttingPoints();
         m_Configuration=eCrossover.valueOf(m_Name.toUpperCase(Locale.ROOT));
-        m_NewGeneration=new Generation();
         m_Roller=new Random();
     }
 
@@ -50,8 +49,10 @@ public class Crossover {
 
     public void createNewGeneration(Generation i_OldGeneration, AmountOfObjectsCalc i_AmountOfObj){
         Integer generationSize=i_OldGeneration.getGenerationSize();
+
         ////rolling the cutting points
         List<Integer> cuttingPoints=rollCuttingPoints(i_AmountOfObj.getMaxAmountOfLessons());
+        m_NewGeneration=new Generation();
         for(int i=0;i<generationSize;i+=2)
             {
                 //checking out of range (not always we have pairs)

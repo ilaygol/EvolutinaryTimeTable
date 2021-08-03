@@ -31,7 +31,7 @@ public class EvolutionEngine {
         initialSolutions(i_AmountOfObj);
         while(remainingGenerations>0) {
             while(counter< m_PrintingReq && counter < remainingGenerations) {
-                //elay function recieves i_TimeTable
+                //elay function receives i_TimeTable
                 //selection
                 m_Crossover.createNewGeneration(m_Generation,i_AmountOfObj);
                 //mutation
@@ -39,6 +39,7 @@ public class EvolutionEngine {
                 System.out.println("Done making "+counter+" generations");
                 //checking best solution if need update
                 m_Generation=m_Crossover.getNewGeneration();
+
             }
             //update map
             //event elay gol
