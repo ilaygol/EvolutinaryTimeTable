@@ -4,7 +4,7 @@ import DataClasses.FileInputDataClasses.Teacher;
 
 import java.util.*;
 
-public class Parent {
+public class Parent implements Comparable<Parent>{
     private List<Lesson> m_LessonsList;
     private Random m_Roller;
     private Integer m_Fitness;
@@ -23,6 +23,8 @@ public class Parent {
     public Lesson getLessonByIndex(Integer index) {
         return m_LessonsList.get(index);
     }
+
+    public Integer getFitness() { return m_Fitness; }
 
     public boolean isContain(Lesson i_Lesson)
     {
@@ -50,7 +52,6 @@ public class Parent {
 
 
     }
-
     public void addLessonToParent(Lesson i_Lesson) {
         m_LessonsList.add(i_Lesson);
     }
@@ -60,11 +61,16 @@ public class Parent {
         m_LessonsList.add(lesson);
     }
 
-    //**
+    @Override
+    public int compareTo(Parent i_Parent) {
+        return (this.m_Fitness - i_Parent.getFitness());
+    }
+
+
     @Override
     public String toString() {
         return "Parent{"
-                 + m_LessonsList +
+                + m_LessonsList +
                 '}';
     }
 }

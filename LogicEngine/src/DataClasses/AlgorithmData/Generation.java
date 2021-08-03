@@ -1,9 +1,8 @@
 package DataClasses.AlgorithmData;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class Generation {
+public class Generation{
     List<Parent> m_ParentsList;
 
     public Generation()
@@ -14,14 +13,17 @@ public class Generation {
     public List<Parent> getParentsList() {
         return m_ParentsList;
     }
-    public void addSolutionToList(Parent i_Solution)
+    public void addParentToGeneration(Parent i_Parent)
     {
-        m_ParentsList.add(i_Solution);
+        m_ParentsList.add(i_Parent);
     }
     public Integer getGenerationSize() { return m_ParentsList.size(); }
     public Parent getParentByIndex(Integer index) { return m_ParentsList.get(index); }
-
-
+    public void sortGenerationByFitness()
+    {
+        Collections.sort(m_ParentsList, new Comparator<Parent>()
+        {public int compare(Parent p1, Parent p2) { return p1.getFitness() - p2.getFitness(); }});
+    }
     //**
     @Override
     public String toString() {
@@ -29,4 +31,5 @@ public class Generation {
                 + m_ParentsList +
                 '}';
     }
+
 }
