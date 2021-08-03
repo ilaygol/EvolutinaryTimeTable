@@ -77,4 +77,17 @@ public class Lesson {
     public int hashCode() {
         return Objects.hash(m_Day, m_Hour, m_ClassID, m_TeacherID, m_SubjectID);
     }
+
+    //**
+
+    @Override
+    public String toString() {
+        return "Lesson{" +
+                "m_Day=" + m_Day +
+                ", m_Hour=" + m_Hour +
+                ", m_ClassID=" + m_ClassID +
+                ", m_TeacherID=" + m_TeacherID +
+                ", m_SubjectID=" + m_SubjectID +
+                '}';
+    }
 }

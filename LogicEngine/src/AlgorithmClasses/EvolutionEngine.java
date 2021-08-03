@@ -24,20 +24,21 @@ public class EvolutionEngine {
         m_Mutations=new Mutations(i_ETTEvolutionEngine.getETTMutations());
     }
 
-
-
     public void activateAlgorithm(TimeTable i_TimeTable,AmountOfObjectsCalc i_AmountOfObj)
     {
-        int remainingGenerations=m_NumOfGenerations;
-        int counter=0;
+        Integer remainingGenerations=m_NumOfGenerations;
+        Integer counter=0;
         initialSolutions(i_AmountOfObj);
         while(remainingGenerations>0) {
             while(counter< m_PrintingReq && counter < remainingGenerations) {
                 //elay function recieves i_TimeTable
                 //selection
-                //m_Crossover.createNewGeneration(m_Generation,i_AmountOfObj);
+                m_Crossover.createNewGeneration(m_Generation,i_AmountOfObj);
                 //mutation
                 counter++;
+                System.out.println("Done making "+counter+" generations");
+                //checking best solution if need update
+                m_Generation=m_Crossover.getNewGeneration();
             }
             //update map
             //event elay gol
@@ -90,4 +91,5 @@ public class EvolutionEngine {
     public void setPrintingReq(Integer i_PrintingReq) {
         m_PrintingReq = i_PrintingReq;
     }
+
 }
