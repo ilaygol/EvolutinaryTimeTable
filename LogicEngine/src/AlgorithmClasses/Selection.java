@@ -1,6 +1,7 @@
 
 package AlgorithmClasses;
 
+import DataClasses.AlgorithmData.Generation;
 import DataTransferClasses.SelectionData;
 import ParsedClasses.ETTSelection;
 
@@ -8,6 +9,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Selection {
@@ -23,6 +25,7 @@ public class Selection {
         m_Type=i_ETTSelection.getType();
         m_Configuration=i_ETTSelection.getConfiguration();
         extractConfiguration();
+        m_eType=eSelection.valueOf(m_Type.toUpperCase(Locale.ROOT));
     }
 
     public String getType() {
@@ -40,6 +43,10 @@ public class Selection {
 
     public Integer getPercent() {
         return m_Percent;
+    }
+
+    public Generation activateSelection(Generation i_Generation){
+        return m_eType.activate(m_Percent, i_Generation);
     }
 
     public void extractConfiguration()

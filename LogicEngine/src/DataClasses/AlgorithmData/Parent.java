@@ -14,6 +14,7 @@ public class Parent implements Comparable<Parent>{
     {
         m_LessonsList =new ArrayList<>(i_Length);
         m_Roller=new Random();
+        m_Fitness=0;
     }
 
     public List<Lesson> getLessonsList() {
