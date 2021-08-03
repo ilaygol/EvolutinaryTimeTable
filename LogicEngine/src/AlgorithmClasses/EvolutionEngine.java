@@ -31,13 +31,15 @@ public class EvolutionEngine {
         initialSolutions(i_AmountOfObj);
         while(remainingGenerations>0) {
             while(counter< m_PrintingReq && counter < remainingGenerations) {
-                //elay function receives i_TimeTable
-                //selection
+                //\\\\\\elay function receives i_TimeTable
+                System.out.println("Generation size before Selection: "+m_Generation.getGenerationSize());
+                m_Generation=m_Selection.activateSelection(m_Generation);
+                System.out.println("generation size After Selection: "+m_Generation.getGenerationSize());
                 m_Crossover.createNewGeneration(m_Generation,i_AmountOfObj);
                 //mutation
                 counter++;
                 System.out.println("Done making "+counter+" generations");
-                //checking best solution if need update
+                //\\\\\\checking best solution if need update
                 m_Generation=m_Crossover.getNewGeneration();
 
             }
