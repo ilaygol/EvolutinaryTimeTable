@@ -28,19 +28,25 @@ public class EvolutionEngine {
     {
         Integer remainingGenerations=m_NumOfGenerations;
         Integer counter=0;
+        Integer mutationToActivateIndex;
         initialSolutions(i_AmountOfObj);
         while(remainingGenerations>0) {
             while(counter< m_PrintingReq && counter < remainingGenerations) {
-                //\\\\\\elay function receives i_TimeTable
-                System.out.println("Generation size before Selection: "+m_Generation.getGenerationSize());
+                //\\\\\\elay function receives i_TimeTable;
+
+                //activating selection
                 m_Generation=m_Selection.activateSelection(m_Generation);
-                System.out.println("generation size After Selection: "+m_Generation.getGenerationSize());
-                m_Crossover.createNewGeneration(m_Generation,i_AmountOfObj);
-                //mutation
+
+                //activating crossover
+                m_Crossover.createNewParents(m_Generation,i_AmountOfObj,m_InitialPopulationAmount);
+
+                //activating mutation
+                mutationToActivateIndex=m_Mutations.getWhichMutationToActivateByIndex();
+                m_Mutations.getMutationByIndex(mutationToActivateIndex).activateMutation(m_Generation,i_AmountOfObj);
+
                 counter++;
                 System.out.println("Done making "+counter+" generations");
                 //\\\\\\checking best solution if need update
-                m_Generation=m_Crossover.getNewGeneration();
 
             }
             //update map

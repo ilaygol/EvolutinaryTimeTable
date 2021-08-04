@@ -21,6 +21,15 @@ public class Lesson {
         m_SubjectID= i_SubjectID;
     }
 
+    public Lesson(Lesson i_Lesson)
+    {
+        m_Day=i_Lesson.getDay();
+        m_Hour=i_Lesson.getHour();
+        m_ClassID=i_Lesson.getClassID();
+        m_TeacherID=i_Lesson.getTeacherID();
+        m_SubjectID=i_Lesson.m_SubjectID;
+    }
+
 
     public Integer getDay() {
         return m_Day;
