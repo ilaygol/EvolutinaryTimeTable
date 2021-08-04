@@ -1,5 +1,7 @@
 package DataClasses.FileInputDataClasses;
 
+import DataClasses.AlgorithmData.Generation;
+import DataClasses.AlgorithmData.Parent;
 import ParsedClasses.ETTRule;
 import ParsedClasses.ETTRules;
 
@@ -44,5 +46,34 @@ public class Rules {
     }
     public Integer getHardRulesWeight() {
         return m_HardRulesWeight;
+    }
+
+    public void calculateFitnesses(Generation i_Generation, TimeTable i_TimeTable)
+    {
+        List<Parent> parentsList = i_Generation.getParentsList();
+        for(Parent parent:parentsList)
+        {
+            if(parent.getFitness()!=-1)
+            {
+                List<Integer> hardRulesScores=new ArrayList<>();
+                List<Integer> softRulesScores=new ArrayList<>();
+                for(Rule rule:m_RulesList)
+                {
+                    if(rule.getType()== Rule.eType.HARD)
+                    {
+                        hardRulesScores.add(rule.getId().CheckRule(parent,i_TimeTable));
+                    }
+                    else
+                    {
+                        softRulesScores.add(rule.getId().CheckRule(parent,i_TimeTable));
+                    }
+                }
+                int hardAverage =hardRulesScores.stream().mapToInt(i->i).sum()/hardRulesScores.size();
+                int softAverage =softRulesScores.stream().mapToInt(i->i).sum()/softRulesScores.size();
+                double fitness=(hardAverage*m_HardRulesWeight)+(softAverage*(1-m_HardRulesWeight));
+                parent.setFitness((int)fitness);
+            }
+        }
+
     }
 }

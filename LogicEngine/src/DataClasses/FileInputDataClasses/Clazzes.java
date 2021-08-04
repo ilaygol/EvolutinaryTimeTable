@@ -48,4 +48,9 @@ public class Clazzes {
         return retMap;
     }
 
+    public Clazz getClassById(Integer i_ID)
+    {
+        return m_ClassesList.get(i_ID-1);
+    }
+
 }

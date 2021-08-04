@@ -61,8 +61,11 @@ public class Parent implements Comparable<Parent>{
             Lesson lesson=new Lesson(day,hour,classID,teacherID,subjectID);
             m_LessonsList.add(lesson);
         }
+    }
 
 
+    public void setFitness(Integer i_Fitness) {
+        this.m_Fitness = i_Fitness;
     }
     public void addLessonToParent(Lesson i_Lesson) {
         m_LessonsList.add(i_Lesson);
