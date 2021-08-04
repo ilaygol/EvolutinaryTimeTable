@@ -14,12 +14,23 @@ public class Parent implements Comparable<Parent>{
     {
         m_LessonsList =new ArrayList<>(i_Length);
         m_Roller=new Random();
-        m_Fitness=0;
+        m_Fitness=-1;
+    }
+
+    public Parent(Parent i_Parent)
+    {
+        m_LessonsList =new ArrayList<>(i_Parent.getParentSize());
+        for(Lesson lesson :i_Parent.getLessonsList())
+            m_LessonsList.add(new Lesson(lesson));
+        m_Roller=new Random();
+        m_Fitness=-1;
     }
 
     public List<Lesson> getLessonsList() {
         return m_LessonsList;
     }
+
+    public Integer getParentSize(){return m_LessonsList.size();}
 
     public Lesson getLessonByIndex(Integer index) {
         return m_LessonsList.get(index);
