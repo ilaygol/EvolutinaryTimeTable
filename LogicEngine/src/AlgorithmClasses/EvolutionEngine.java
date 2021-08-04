@@ -4,6 +4,7 @@ package AlgorithmClasses;
 import DataClasses.AlgorithmData.AmountOfObjectsCalc;
 import DataClasses.AlgorithmData.Parent;
 import DataClasses.AlgorithmData.Generation;
+import DataClasses.FileInputDataClasses.TimeTable;
 import ParsedClasses.ETTEvolutionEngine;
 
 public class EvolutionEngine {

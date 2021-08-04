@@ -3,9 +3,7 @@ package DataClasses.FileInputDataClasses;
 import ParsedClasses.ETTRequirements;
 import ParsedClasses.ETTStudy;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class Requirements {
     private List<Study> m_StudyList;
@@ -36,6 +34,16 @@ public class Requirements {
 
     public List<Study> getStudyList() {
         return m_StudyList;
+    }
+
+    public Map<Integer,Integer> getSubjectId2ReqHoursMap()
+    {
+        Map<Integer,Integer> retMap=new HashMap<>();
+        for(Study study:m_StudyList)
+        {
+            retMap.put(study.getSubjectID(), study.getHours());
+        }
+        return retMap;
     }
 
 

@@ -44,6 +44,10 @@ public class Teachers {
             retMap.put(t.getId(),teacherSubjectsSet);
         }
         return  retMap;
+    }
 
+    public Teacher getTeacherById(Integer i_ID)
+    {
+        return m_TeachersList.get(i_ID-1);
     }
 }
