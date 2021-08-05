@@ -5,6 +5,7 @@ import DataClasses.AlgorithmData.AmountOfObjectsCalc;
 import DataClasses.AlgorithmData.Parent;
 import DataClasses.AlgorithmData.Generation;
 import DataClasses.FileInputDataClasses.TimeTable;
+import DataTransferClasses.EvolutionEngineData;
 import ParsedClasses.ETTEvolutionEngine;
 
 public class EvolutionEngine {
@@ -24,10 +25,11 @@ public class EvolutionEngine {
         m_Mutations=new Mutations(i_ETTEvolutionEngine.getETTMutations());
     }
 
-    public void activateAlgorithm(TimeTable i_TimeTable,AmountOfObjectsCalc i_AmountOfObj)
+    public EvolutionEngineData activateAlgorithm(TimeTable i_TimeTable, AmountOfObjectsCalc i_AmountOfObj)
     {
+        EvolutionEngineData dataSaver=new EvolutionEngineData();
         Integer remainingGenerations=m_NumOfGenerations;
-        Integer counter=0;
+        Integer counter=0,totalCounter=0;
         Integer mutationToActivateIndex;
         initialSolutions(i_AmountOfObj);
         while(remainingGenerations>0) {
@@ -45,16 +47,20 @@ public class EvolutionEngine {
                 m_Mutations.getMutationByIndex(mutationToActivateIndex).activateMutation(m_Generation,i_AmountOfObj);
 
                 counter++;
-                System.out.println("Done making "+counter+" generations");
-                //\\\\\\checking best solution if need update
-
+                totalCounter++;
+                if(counter==1)
+                    dataSaver.setBestSolution(m_Generation.getParentByIndex(0));
+                else if(dataSaver.getBestSolutionFitness()<m_Generation.getParentByIndex(0).getFitness())
+                    dataSaver.setBestSolution(m_Generation.getParentByIndex(0));
             }
-            //update map
+            System.out.println("Done making "+counter+" generations, in total "+totalCounter+" generations, map Updated");
+            dataSaver.addToGeneration2BestFitnessMap(counter,m_Generation.getParentByIndex(0).getFitness());
             //event elay gol
             remainingGenerations-=counter;
             counter=0;
 
         }
+        return dataSaver;
     }
 
     public void initialSolutions(AmountOfObjectsCalc i_AmountOfObj)

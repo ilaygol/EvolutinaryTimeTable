@@ -9,10 +9,14 @@ import java.util.Set;
 
 public class ConsoleUserInterfaceManager {
     private LogicEngineManager m_LogicEngineManager;
+    private boolean m_Option1Flag;
+    private boolean m_Option3Flag;
 
     public ConsoleUserInterfaceManager()
     {
         m_LogicEngineManager=new LogicEngineManager();
+        m_Option1Flag=false;
+        m_Option3Flag=false;
     }
 
     public void StartProgram()
@@ -54,53 +58,75 @@ public class ConsoleUserInterfaceManager {
     }
 
     private void PrintAlgorithmProcess() {
-        System.out.println(m_LogicEngineManager.PrintAlgorithmProcess());
+        if(m_Option1Flag) {
+            if (m_Option3Flag)
+                System.out.println(m_LogicEngineManager.PrintAlgorithmProcess());
+            else
+                System.out.println("Please activate the algorithm FIRST");
+        }
+        else
+            System.out.println("Please load a file then activate the algorithm before choosing this option");
     }
 
     private void PrintBestSolution() {
-        System.out.println(m_LogicEngineManager.PrintBestSolution());
+        if(m_Option1Flag) {
+            if (m_Option3Flag)
+                System.out.println(m_LogicEngineManager.PrintBestSolution());
+            else
+                System.out.println("Please activate the algorithm FIRST");
+        }
+        else
+            System.out.println("Please load a file then activate the algorithm before choosing this option");
     }
 
     private void ActivateAlgorithm() {
-        Scanner algorithmInputScanner=new Scanner(System.in);
-        Integer generationsNum=0,printEveryAmountOfGeneration=0;
-        boolean isCorrect=false;
-        System.out.print("Please Enter the amount OF Generations you want to create: ");
-        while(!isCorrect) {
-            try {
-                generationsNum = algorithmInputScanner.nextInt();
-                if(generationsNum<100)
-                    System.out.println("Amount of Generations cant be less than 100."
-                            +System.lineSeparator()+"Please enter a number above or equal to 100");
-                else
-                    isCorrect=true;
-            } catch (InputMismatchException e) {
-                System.out.println("Amount of Generation should be a Number!"+System.lineSeparator()
-                        +"Please enter a Number");
-                algorithmInputScanner.nextLine();
+        if(m_Option1Flag) {
+            Scanner algorithmInputScanner = new Scanner(System.in);
+            Integer generationsNum = 0, printEveryAmountOfGeneration = 0;
+            boolean isCorrect = false;
+            System.out.print("Please Enter the amount OF Generations you want to create: ");
+            while (!isCorrect) {
+                try {
+                    generationsNum = algorithmInputScanner.nextInt();
+                    if (generationsNum < 100)
+                        System.out.println("Amount of Generations cant be less than 100."
+                                + System.lineSeparator() + "Please enter a number above or equal to 100");
+                    else
+                        isCorrect = true;
+                } catch (InputMismatchException e) {
+                    System.out.println("Amount of Generation should be a Number!" + System.lineSeparator()
+                            + "Please enter a Number");
+                    algorithmInputScanner.nextLine();
+                }
             }
-        }
-        isCorrect=false;
-        System.out.println("Every How many generations would you like to print the fitness of the best solution?");
-        while(!isCorrect) {
-            try {
-                 printEveryAmountOfGeneration= algorithmInputScanner.nextInt();
-                 if(printEveryAmountOfGeneration>generationsNum)
-                     System.out.println("You asked to create "+generationsNum+" Generations only!"
-                     +System.lineSeparator()+"you should enter a number between 0 and "+generationsNum);
-                 else
-                     isCorrect=true;
-            } catch (InputMismatchException e) {
-                System.out.println("Amount of Generation should be a Number!"+System.lineSeparator()
-                +"Please enter a Number");
-                algorithmInputScanner.nextLine();
+            isCorrect = false;
+            System.out.println("Every How many generations would you like to print the fitness of the best solution?");
+            while (!isCorrect) {
+                try {
+                    printEveryAmountOfGeneration = algorithmInputScanner.nextInt();
+                    if (printEveryAmountOfGeneration > generationsNum)
+                        System.out.println("You asked to create " + generationsNum + " Generations only!"
+                                + System.lineSeparator() + "you should enter a number between 0 and " + generationsNum);
+                    else
+                        isCorrect = true;
+                } catch (InputMismatchException e) {
+                    System.out.println("Amount of Generation should be a Number!" + System.lineSeparator()
+                            + "Please enter a Number");
+                    algorithmInputScanner.nextLine();
+                }
             }
+            m_LogicEngineManager.ActivateAlgorithm(generationsNum, printEveryAmountOfGeneration);
+            m_Option3Flag=true;
         }
-        m_LogicEngineManager.ActivateAlgorithm(generationsNum,printEveryAmountOfGeneration);
+        else
+            System.out.println("No data was loaded, Please load Data to activate the algorithm.");
     }
 
     private void PrintFileData() {
-       printDataInFormat(m_LogicEngineManager.PrintFileData());
+        if(m_Option1Flag)
+            printDataInFormat(m_LogicEngineManager.PrintFileData());
+        else
+            System.out.println("No file was Loaded,Please load a file before choosing this option.");
     }
 
     private void printDataInFormat(DataPrinter i_DataPrinter)
@@ -140,14 +166,13 @@ public class ConsoleUserInterfaceManager {
 
     private void LoadFile() {
         String fileName;
-        boolean isCorrect=false;
         Scanner scanner=new Scanner(System.in);
-        while(!isCorrect) {
+        while(!m_Option1Flag) {
             System.out.println("Please enter the file's full path:");
             fileName = scanner.nextLine();
             try {
                 m_LogicEngineManager.LoadFile(fileName);
-                isCorrect=true;
+                m_Option1Flag=true;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

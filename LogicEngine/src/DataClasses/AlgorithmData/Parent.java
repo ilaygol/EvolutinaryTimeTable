@@ -10,6 +10,13 @@ public class Parent implements Comparable<Parent>{
     private Integer m_Fitness;
 
 
+    public Parent()
+    {
+        m_LessonsList =new ArrayList<>();
+        m_Roller=new Random();
+        m_Fitness=-1;
+    }
+
     public Parent(Integer i_Length)
     {
         m_LessonsList =new ArrayList<>(i_Length);
