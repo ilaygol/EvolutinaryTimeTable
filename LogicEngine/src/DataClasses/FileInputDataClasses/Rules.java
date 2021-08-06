@@ -53,7 +53,7 @@ public class Rules {
         List<Parent> parentsList = i_Generation.getParentsList();
         for(Parent parent:parentsList)
         {
-            if(parent.getFitness()!=-1)
+            if(parent.getFitness()==-1)
             {
                 List<Integer> hardRulesScores=new ArrayList<>();
                 List<Integer> softRulesScores=new ArrayList<>();
@@ -70,7 +70,7 @@ public class Rules {
                 }
                 int hardAverage =hardRulesScores.stream().mapToInt(i->i).sum()/hardRulesScores.size();
                 int softAverage =softRulesScores.stream().mapToInt(i->i).sum()/softRulesScores.size();
-                double fitness=(hardAverage*m_HardRulesWeight)+(softAverage*(1-m_HardRulesWeight));
+                int fitness=(hardAverage*m_HardRulesWeight/100)+(softAverage*(1-m_HardRulesWeight)/100);
                 parent.setFitness((int)fitness);
             }
         }

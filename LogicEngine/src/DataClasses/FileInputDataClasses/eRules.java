@@ -59,7 +59,7 @@ public enum eRules {
                     return fitness;
                 }
             },
-    KNOWLEDGEABLE
+    KNOLEDGABLE
             {
                 @Override
                 public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable)

@@ -45,7 +45,8 @@ public class Mutations {
         {
             if(mutationPicker<=probability)
                 return i;
-            probability=m_MutationsList.get(i+1).getProbability();
+            if(i<mutationListSize-1)
+                probability+=m_MutationsList.get(i+1).getProbability();
         }
         return (mutationListSize-1);
 

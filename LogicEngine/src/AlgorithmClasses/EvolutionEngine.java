@@ -32,10 +32,12 @@ public class EvolutionEngine {
         initialSolutions(i_AmountOfObj);
         while(remainingGenerations>0) {
             while(counter< m_PrintingReq && counter < remainingGenerations) {
-                //\\\\\\elay function receives i_TimeTable;
+                i_TimeTable.getRules().calculateFitnesses(m_Generation,i_TimeTable);
 
                 //activating selection
                 m_Generation=m_Selection.activateSelection(m_Generation);
+
+                System.out.println(m_Generation.getParentByIndex(0).getFitness());
 
                 //activating crossover
                 m_Crossover.createNewParents(m_Generation,i_AmountOfObj,m_InitialPopulationAmount);
