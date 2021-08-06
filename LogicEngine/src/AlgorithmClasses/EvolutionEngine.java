@@ -32,6 +32,17 @@ public class EvolutionEngine {
         Integer counter=0,totalCounter=0;
         Integer mutationToActivateIndex;
         initialSolutions(i_AmountOfObj);
+
+        /*
+        i_TimeTable.getRules().calculateFitnesses(m_Generation,i_TimeTable);
+        for(Parent p:m_Generation.getParentsList())
+        {
+            System.out.println("Parent "+counter+" with fitness "+p.getFitness());
+            counter++;
+        }
+         */
+
+
         while(remainingGenerations>0) {
             while(counter< m_PrintingReq && counter < remainingGenerations) {
                 i_TimeTable.getRules().calculateFitnesses(m_Generation,i_TimeTable);
@@ -39,7 +50,11 @@ public class EvolutionEngine {
                 //activating selection
                 m_Generation=m_Selection.activateSelection(m_Generation);
 
-                System.out.println(m_Generation.getParentByIndex(0).getFitness());
+                //System.out.println("Generation "+totalCounter+" Fitnesses");
+                //for(Parent p:m_Generation.getParentsList())
+                    //System.out.print(p.getFitness()+" ");
+                //System.out.println(System.lineSeparator());
+
 
                 //activating crossover
                 m_Crossover.createNewParents(m_Generation,i_AmountOfObj,m_InitialPopulationAmount);
@@ -55,13 +70,18 @@ public class EvolutionEngine {
                 else if(dataSaver.getBestSolutionFitness()<m_Generation.getParentByIndex(0).getFitness())
                     dataSaver.setBestSolution(m_Generation.getParentByIndex(0));
             }
-            System.out.println("Done making "+counter+" generations, in total "+totalCounter+" generations, map Updated");
-            dataSaver.addToGeneration2BestFitnessMap(counter,m_Generation.getParentByIndex(0).getFitness());
+            //System.out.println("Done making "+counter+" generations, in total "+totalCounter+" generations, map Updated");
+            dataSaver.addToGeneration2BestFitnessMap(totalCounter,m_Generation.getParentByIndex(0).getFitness());
+
+
             //event elay gol
+            System.out.println("best Solution after "+totalCounter+" Generations is "+m_Generation.getParentByIndex(0).getFitness());
+
             remainingGenerations-=counter;
             counter=0;
 
         }
+
         return dataSaver;
     }
 

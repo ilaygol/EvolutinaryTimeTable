@@ -22,7 +22,7 @@ public class Generation{
     public void sortGenerationByFitness()
     {
         Collections.sort(m_ParentsList, new Comparator<Parent>()
-        {public int compare(Parent p1, Parent p2) { return p1.getFitness() - p2.getFitness(); }});
+        {public int compare(Parent p1, Parent p2) { return p2.getFitness() - p1.getFitness(); }});
     }
     //**
     @Override

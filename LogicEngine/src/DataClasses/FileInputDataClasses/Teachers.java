@@ -30,6 +30,8 @@ public class Teachers {
         return m_TeachersList;
     }
 
+    public Integer getTeacherListSize(){return m_TeachersList.size();}
+
 
     public Map<Integer, Set<SubjectData>> getTeacherID2SubjectsMap(Collection<SubjectData> i_SubjectSet)
     {

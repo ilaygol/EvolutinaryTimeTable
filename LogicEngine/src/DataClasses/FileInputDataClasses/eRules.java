@@ -15,7 +15,7 @@ public enum eRules {
                 @Override
                 public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable) {
                     Integer fitness;
-                    Integer numOfTeachers = i_TimeTable.getTeachers().getTeachersList().size();
+                    Integer numOfTeachers = i_TimeTable.getTeachers().getTeacherListSize();
                     Set<Integer> badTeachersIDSet = new HashSet<>();
                     List<Lesson> lessonsList = i_Parent.getLessonsList();
                     for (int i = 1; i <= numOfTeachers; i++) {
@@ -40,7 +40,7 @@ public enum eRules {
                 public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable)
                 {
                     Integer fitness;
-                    Integer numOfClasses = i_TimeTable.getClazzes().getClassesList().size();
+                    Integer numOfClasses = i_TimeTable.getClazzes().getClassesListSize();
                     Set<Integer> badClassesIDSet = new HashSet<>();
                     List<Lesson> lessonsList = i_Parent.getLessonsList();
                     for (int i = 1; i <= numOfClasses; i++) {
@@ -66,7 +66,7 @@ public enum eRules {
                 {
                     Integer fitness;
 
-                    Integer numOfTeachers = i_TimeTable.getTeachers().getTeachersList().size();
+                    Integer numOfTeachers = i_TimeTable.getTeachers().getTeacherListSize();
                     Set<Integer> badTeachersIDSet = new HashSet<>();
                     List<Lesson> lessonsList = i_Parent.getLessonsList();
                     for (int i = 1; i <= numOfTeachers; i++) {
@@ -91,7 +91,7 @@ public enum eRules {
                 @Override
                 public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable)
                 {
-                    Integer numOfClasses = i_TimeTable.getClazzes().getClassesList().size();
+                    Integer numOfClasses = i_TimeTable.getClazzes().getClassesListSize();
                     List<Integer> classesGrades=new ArrayList<>();
                     List<Lesson> lessonsList = i_Parent.getLessonsList();
                     for (int i = 1; i <= numOfClasses; i++) {

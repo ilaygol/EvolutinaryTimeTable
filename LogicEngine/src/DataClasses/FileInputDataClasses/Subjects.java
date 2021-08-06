@@ -23,6 +23,8 @@ public class Subjects {
         return m_SubjectsList;
     }
 
+    public Integer getSubjectsListSize(){return m_SubjectsList.size();}
+
     public String getSubjectNameById(Integer i_Id)
     {
         Optional<Subject> subj = m_SubjectsList.stream().filter(subject -> subject.getId().equals(i_Id)).findFirst();

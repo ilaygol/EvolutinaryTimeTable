@@ -31,6 +31,8 @@ public class Clazzes {
         return m_ClassesList;
     }
 
+    public Integer getClassesListSize(){return m_ClassesList.size();}
+
     public Map<Integer, Set<StudyData>> getClassID2SubjectsMap(Collection<SubjectData> i_Subjects)
     {
         Map<Integer, Set<StudyData>> retMap=new TreeMap<>();

@@ -59,14 +59,15 @@ public class Parent implements Comparable<Parent>{
 
         for(int i=1;i<=lessonsInSolution;i++)
         {
-            Integer day= m_Roller.nextInt(i_AmountOfObjects.getAmountOfDays()-1)+1;
-            Integer hour= m_Roller.nextInt(i_AmountOfObjects.getAmountOfHours()-1)+1;
-            Integer classID= m_Roller.nextInt(i_AmountOfObjects.getAmountOfClasses()-1)+1;
-            Integer teacherID= m_Roller.nextInt(i_AmountOfObjects.getAmountOfTeachers()-1)+1;
-            Integer subjectID= m_Roller.nextInt(i_AmountOfObjects.getAmountOfSubjects()-1)+1;
+            Integer day= m_Roller.nextInt(i_AmountOfObjects.getAmountOfDays())+1;
+            Integer hour= m_Roller.nextInt(i_AmountOfObjects.getAmountOfHours())+1;
+            Integer classID= m_Roller.nextInt(i_AmountOfObjects.getAmountOfClasses())+1;
+            Integer teacherID= m_Roller.nextInt(i_AmountOfObjects.getAmountOfTeachers())+1;
+            Integer subjectID= m_Roller.nextInt(i_AmountOfObjects.getAmountOfSubjects())+1;
 
             Lesson lesson=new Lesson(day,hour,classID,teacherID,subjectID);
-            m_LessonsList.add(lesson);
+            if(!m_LessonsList.contains(lesson))
+                m_LessonsList.add(lesson);
         }
     }
 

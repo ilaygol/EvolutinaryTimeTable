@@ -71,7 +71,7 @@ public class Rules {
                 int hardAverage =hardRulesScores.stream().mapToInt(i->i).sum()/hardRulesScores.size();
                 int softAverage =softRulesScores.stream().mapToInt(i->i).sum()/softRulesScores.size();
                 int fitness=(hardAverage*m_HardRulesWeight/100)+(softAverage*(100-m_HardRulesWeight)/100);
-                parent.setFitness((int)fitness);
+                parent.setFitness(fitness);
             }
         }
 
