@@ -2,6 +2,7 @@ import AlgorithmClasses.Descriptor;
 import DataClasses.FileInputDataClasses.*;
 import DataClasses.AlgorithmData.*;
 import DataTransferClasses.DataPrinter;
+import DataTransferClasses.EvolutionEngineData;
 import ParsedClasses.ETTDescriptor;
 
 import javax.xml.bind.JAXBContext;
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class LogicEngineManager {
     private Descriptor m_Descriptor;
+    private EvolutionEngineData m_EvolutionEngineData;
 
 
 
@@ -29,7 +31,7 @@ public class LogicEngineManager {
         m_Descriptor.getEvolutionEngine().setNumOfGenerations(i_AmountOfGeneration);
         m_Descriptor.getEvolutionEngine().setPrintingReq(i_PrintingReq);
         AmountOfObjectsCalc amountOfObjects =getAmountOfData();
-        m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),amountOfObjects);
+        m_EvolutionEngineData=m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),amountOfObjects);
     }
 
     public DataPrinter PrintFileData() {
