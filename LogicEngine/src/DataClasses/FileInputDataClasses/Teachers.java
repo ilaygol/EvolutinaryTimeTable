@@ -50,6 +50,6 @@ public class Teachers {
 
     public Teacher getTeacherById(Integer i_ID)
     {
-        return m_TeachersList.get(i_ID-1);
+        return m_TeachersList.stream().filter(teacher->teacher.getId().equals(i_ID)).findFirst().get();
     }
 }
