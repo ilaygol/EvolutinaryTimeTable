@@ -10,7 +10,7 @@ public enum eSelection {
                     int size=i_GenerationBeforeSelection.getGenerationSize();
                     int sizeAfterSelection= (size*i_Percent)/100; //auto casting to complete value
                     Generation generationAfterSelection=new Generation();
-                    i_GenerationBeforeSelection.sortGenerationByFitness();
+                    //i_GenerationBeforeSelection.sortGenerationByFitness();
                     for(int i=0;i<sizeAfterSelection;i++)
                         generationAfterSelection.addParentToGeneration(i_GenerationBeforeSelection.getParentByIndex(i));
                     return generationAfterSelection;

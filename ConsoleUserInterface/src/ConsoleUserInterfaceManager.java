@@ -1,4 +1,5 @@
 
+import DataTransferClasses.ProgressData;
 import DataTransferClasses.StudyData;
 import DataTransferClasses.DataPrinter;
 import DataTransferClasses.SubjectData;
@@ -6,6 +7,7 @@ import DataTransferClasses.SubjectData;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.function.Consumer;
 
 public class ConsoleUserInterfaceManager {
     private LogicEngineManager m_LogicEngineManager;
@@ -84,23 +86,23 @@ public class ConsoleUserInterfaceManager {
             Scanner algorithmInputScanner = new Scanner(System.in);
             Integer generationsNum = 0, printEveryAmountOfGeneration = 0;
             boolean isCorrect = false;
-            System.out.print("Please Enter the amount OF Generations you want to create: ");
+            System.out.print("Please enter the amount of generations you would like to create: ");
             while (!isCorrect) {
                 try {
                     generationsNum = algorithmInputScanner.nextInt();
                     if (generationsNum < 100)
-                        System.out.println("Amount of Generations cant be less than 100."
-                                + System.lineSeparator() + "Please enter a number above or equal to 100");
+                        System.out.println("Amount of generations can't be less than 100."
+                                + System.lineSeparator() + "Please enter a number above or equals to 100");
                     else
                         isCorrect = true;
                 } catch (InputMismatchException e) {
-                    System.out.println("Amount of Generation should be a Number!" + System.lineSeparator()
-                            + "Please enter a Number");
+                    System.out.println("ERROR: Amount of generations should be a number!" + System.lineSeparator()
+                            + "Please enter a Number:");
                     algorithmInputScanner.nextLine();
                 }
             }
             isCorrect = false;
-            System.out.println("Every How many generations would you like to print the fitness of the best solution?");
+            System.out.println("Every how many generations would you like to print the fitness of the best solution?");
             while (!isCorrect) {
                 try {
                     printEveryAmountOfGeneration = algorithmInputScanner.nextInt();
@@ -110,12 +112,12 @@ public class ConsoleUserInterfaceManager {
                     else
                         isCorrect = true;
                 } catch (InputMismatchException e) {
-                    System.out.println("Amount of Generation should be a Number!" + System.lineSeparator()
-                            + "Please enter a Number");
+                    System.out.println("ERROR: Amount of generations should be a number!" + System.lineSeparator()
+                            + "Please enter a number:");
                     algorithmInputScanner.nextLine();
                 }
             }
-            m_LogicEngineManager.ActivateAlgorithm(generationsNum, printEveryAmountOfGeneration);
+            m_LogicEngineManager.ActivateAlgorithm(generationsNum, printEveryAmountOfGeneration,this::printProgress);
             m_IsActivatedAlgoFlag =true;
         }
         else
@@ -206,5 +208,10 @@ public class ConsoleUserInterfaceManager {
             }
         }
         return userChoice;
+    }
+
+    private void printProgress(ProgressData i_ProgressData)
+    {
+        System.out.println("The best solution after "+i_ProgressData.getGeneration()+" generations is "+i_ProgressData.getFitness());
     }
 }

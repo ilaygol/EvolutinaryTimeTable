@@ -6,7 +6,12 @@ import DataClasses.AlgorithmData.Parent;
 import DataClasses.AlgorithmData.Generation;
 import DataClasses.FileInputDataClasses.TimeTable;
 import DataTransferClasses.EvolutionEngineData;
+import DataTransferClasses.ProgressData;
 import ParsedClasses.ETTEvolutionEngine;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 
 public class EvolutionEngine {
     private Integer m_InitialPopulationAmount;
@@ -25,7 +30,7 @@ public class EvolutionEngine {
         m_Mutations=new Mutations(i_ETTEvolutionEngine.getETTMutations());
     }
 
-    public EvolutionEngineData activateAlgorithm(TimeTable i_TimeTable, AmountOfObjectsCalc i_AmountOfObj)
+    public EvolutionEngineData activateAlgorithm(TimeTable i_TimeTable, AmountOfObjectsCalc i_AmountOfObj, Consumer<ProgressData> i_ProgressDataConsumer)
     {
         EvolutionEngineData dataSaver=new EvolutionEngineData();
         Integer remainingGenerations=m_NumOfGenerations;
@@ -46,6 +51,7 @@ public class EvolutionEngine {
         while(remainingGenerations>0) {
             while(counter< m_PrintingReq && counter < remainingGenerations) {
                 i_TimeTable.getRules().calculateFitnesses(m_Generation,i_TimeTable);
+                m_Generation.sortGenerationByFitness();
 
                 //activating selection
                 m_Generation=m_Selection.activateSelection(m_Generation);
@@ -70,12 +76,15 @@ public class EvolutionEngine {
                 else if(dataSaver.getBestSolutionFitness()<m_Generation.getParentByIndex(0).getFitness())
                     dataSaver.setBestSolution(m_Generation.getParentByIndex(0));
             }
+            i_TimeTable.getRules().calculateFitnesses(m_Generation,i_TimeTable);
+            m_Generation.sortGenerationByFitness();
+
             //System.out.println("Done making "+counter+" generations, in total "+totalCounter+" generations, map Updated");
             dataSaver.addToGeneration2BestFitnessMap(totalCounter,m_Generation.getParentByIndex(0).getFitness());
 
-
             //event elay gol
-            System.out.println("best Solution after "+totalCounter+" Generations is "+m_Generation.getParentByIndex(0).getFitness());
+            i_ProgressDataConsumer.accept(new ProgressData(totalCounter,m_Generation.getParentByIndex(0).getFitness()));
+            //System.out.println("best Solution after "+totalCounter+" Generations is "+m_Generation.getParentByIndex(0).getFitness());
 
             remainingGenerations-=counter;
             counter=0;

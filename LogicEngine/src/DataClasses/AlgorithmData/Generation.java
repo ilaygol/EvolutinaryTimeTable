@@ -1,5 +1,7 @@
 package DataClasses.AlgorithmData;
 
+import javafx.collections.transformation.SortedList;
+
 import java.util.*;
 
 public class Generation{
@@ -22,7 +24,7 @@ public class Generation{
     public void sortGenerationByFitness()
     {
         Comparator<Parent> cmp= (p1,p2)->p2.getFitness() - p1.getFitness();
-        Collections.sort(m_ParentsList, cmp);
+        m_ParentsList.sort(cmp);
     }
     //**
     @Override

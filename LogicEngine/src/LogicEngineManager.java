@@ -3,6 +3,7 @@ import DataClasses.FileInputDataClasses.*;
 import DataClasses.AlgorithmData.*;
 import DataTransferClasses.DataPrinter;
 import DataTransferClasses.EvolutionEngineData;
+import DataTransferClasses.ProgressData;
 import ParsedClasses.ETTDescriptor;
 
 import javax.xml.bind.JAXBContext;
@@ -11,6 +12,7 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.function.Consumer;
 
 
 public class LogicEngineManager {
@@ -27,11 +29,11 @@ public class LogicEngineManager {
         return 4;
     }
 
-    public void ActivateAlgorithm(Integer i_AmountOfGeneration,Integer i_PrintingReq) {
+    public void ActivateAlgorithm(Integer i_AmountOfGeneration,Integer i_PrintingReq, Consumer<ProgressData> i_ProgressDataConsumer) {
         m_Descriptor.getEvolutionEngine().setNumOfGenerations(i_AmountOfGeneration);
         m_Descriptor.getEvolutionEngine().setPrintingReq(i_PrintingReq);
         AmountOfObjectsCalc amountOfObjects =getAmountOfData();
-        m_EvolutionEngineData=m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),amountOfObjects);
+        m_EvolutionEngineData=m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),amountOfObjects,i_ProgressDataConsumer);
     }
 
     public DataPrinter PrintFileData() {

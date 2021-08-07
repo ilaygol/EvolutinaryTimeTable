@@ -102,7 +102,6 @@ public enum eRules {
                         Map<Integer, Integer> subjectId2ReqHoursMap = i_TimeTable.getClazzes().getClassById(classID).getRequirements().getSubjectId2ReqHoursMap();
                         Map<Integer,Integer> sumMap=new HashMap<>();
                         subjectId2ReqHoursMap.keySet().forEach(key->sumMap.put(key,0));
-                        //lessonsOfClassList.forEach(lesson -> sumMap.put(lesson.getSubjectID(),sumMap.get(lesson.getSubjectID())+1));
                         for(Lesson lesson:lessonsOfClassList)
                         {
                             if(sumMap.containsKey(lesson.getSubjectID()))

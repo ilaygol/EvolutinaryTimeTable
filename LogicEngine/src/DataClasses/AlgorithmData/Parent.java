@@ -86,7 +86,7 @@ public class Parent implements Comparable<Parent>{
 
     @Override
     public int compareTo(Parent i_Parent) {
-        return (this.m_Fitness - i_Parent.getFitness());
+        return (i_Parent.getFitness()-this.m_Fitness);
     }
 
 
