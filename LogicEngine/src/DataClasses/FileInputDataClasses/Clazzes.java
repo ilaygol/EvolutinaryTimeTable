@@ -52,7 +52,7 @@ public class Clazzes {
 
     public Clazz getClassById(Integer i_ID)
     {
-        return m_ClassesList.get(i_ID-1);
+        return m_ClassesList.stream().filter(clazz->clazz.getId().equals(i_ID)).findFirst().get();
     }
 
 }
