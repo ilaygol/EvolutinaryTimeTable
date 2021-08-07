@@ -12,7 +12,7 @@ public class Mutation {
     private double m_Probability;
     private String m_Name;
     private List<String> m_Configuration;
-    private Integer m_MaxTupples;
+    private Integer m_Tupples;
     private Character m_Char;
     private eMutation m_eType;
     private Random m_Roller;
@@ -42,7 +42,7 @@ public class Mutation {
     }
 
     public Integer getMaxTupples() {
-        return m_MaxTupples;
+        return m_Tupples;
     }
 
     public Character getChar() {
@@ -51,14 +51,14 @@ public class Mutation {
 
     private void extractConfiguration() {
         Scanner scanner = new Scanner(m_Configuration.toString()).useDelimiter("[^0-9]+");
-        m_MaxTupples = scanner.nextInt();
+        m_Tupples = scanner.nextInt();
         int size = m_Configuration.get(0).length();
         m_Char = m_Configuration.get(0).charAt(size - 1);
         scanner.close();
     }
 
     public void activateMutation(Generation i_Generation, AmountOfObjectsCalc i_AmountOfObj) {
-        m_eType.activate(m_MaxTupples, i_Generation, i_AmountOfObj, m_Char, m_Roller);
+        m_eType.activate(m_Tupples, i_Generation, i_AmountOfObj, m_Char, m_Roller);
     }
     @Override
     public boolean equals(Object o) {

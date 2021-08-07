@@ -84,6 +84,11 @@ public class Parent implements Comparable<Parent>{
         m_LessonsList.add(lesson);
     }
 
+    public void removeLessonFromParent(Integer i_Index)
+    {
+        m_LessonsList.remove(i_Index);
+    }
+
     @Override
     public int compareTo(Parent i_Parent) {
         return (this.m_Fitness - i_Parent.getFitness());
