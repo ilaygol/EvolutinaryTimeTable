@@ -76,8 +76,11 @@
 			<ETT-Rule type="Hard">
 				<ETT-RuleId>Singularity</ETT-RuleId>
 			</ETT-Rule>
+			<ETT-Rule type="Hard">
+				<ETT-RuleId>Satisfactory</ETT-RuleId>
+			</ETT-Rule>
 			<ETT-Rule type="Soft">
-				<ETT-RuleId>Knoledgable</ETT-RuleId>
+				<ETT-RuleId>Knowledgeable</ETT-RuleId>
 			</ETT-Rule>
 		</ETT-Rules>
 	</ETT-TimeTable>
