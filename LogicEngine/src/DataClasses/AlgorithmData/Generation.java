@@ -21,8 +21,8 @@ public class Generation{
     public Parent getParentByIndex(Integer index) { return m_ParentsList.get(index); }
     public void sortGenerationByFitness()
     {
-        Collections.sort(m_ParentsList, new Comparator<Parent>()
-        {public int compare(Parent p1, Parent p2) { return p2.getFitness() - p1.getFitness(); }});
+        Comparator<Parent> cmp= (p1,p2)->p2.getFitness() - p1.getFitness();
+        Collections.sort(m_ParentsList, cmp);
     }
     //**
     @Override

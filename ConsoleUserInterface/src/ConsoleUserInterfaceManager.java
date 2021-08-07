@@ -9,14 +9,14 @@ import java.util.Set;
 
 public class ConsoleUserInterfaceManager {
     private LogicEngineManager m_LogicEngineManager;
-    private boolean m_Option1Flag;
-    private boolean m_Option3Flag;
+    private boolean m_IsLoadedFileFlag;
+    private boolean m_IsActivatedAlgoFlag;
 
     public ConsoleUserInterfaceManager()
     {
         m_LogicEngineManager=new LogicEngineManager();
-        m_Option1Flag=false;
-        m_Option3Flag=false;
+        m_IsLoadedFileFlag =false;
+        m_IsActivatedAlgoFlag =false;
     }
 
     public void StartProgram()
@@ -58,8 +58,8 @@ public class ConsoleUserInterfaceManager {
     }
 
     private void PrintAlgorithmProcess() {
-        if(m_Option1Flag) {
-            if (m_Option3Flag)
+        if(m_IsLoadedFileFlag) {
+            if (m_IsActivatedAlgoFlag)
                 System.out.println(m_LogicEngineManager.PrintAlgorithmProcess());
             else
                 System.out.println("Please activate the algorithm FIRST");
@@ -69,8 +69,8 @@ public class ConsoleUserInterfaceManager {
     }
 
     private void PrintBestSolution() {
-        if(m_Option1Flag) {
-            if (m_Option3Flag)
+        if(m_IsLoadedFileFlag) {
+            if (m_IsActivatedAlgoFlag)
                 System.out.println(m_LogicEngineManager.PrintBestSolution());
             else
                 System.out.println("Please activate the algorithm FIRST");
@@ -80,7 +80,7 @@ public class ConsoleUserInterfaceManager {
     }
 
     private void ActivateAlgorithm() {
-        if(m_Option1Flag) {
+        if(m_IsLoadedFileFlag) {
             Scanner algorithmInputScanner = new Scanner(System.in);
             Integer generationsNum = 0, printEveryAmountOfGeneration = 0;
             boolean isCorrect = false;
@@ -116,14 +116,14 @@ public class ConsoleUserInterfaceManager {
                 }
             }
             m_LogicEngineManager.ActivateAlgorithm(generationsNum, printEveryAmountOfGeneration);
-            m_Option3Flag=true;
+            m_IsActivatedAlgoFlag =true;
         }
         else
             System.out.println("No data was loaded, Please load Data to activate the algorithm.");
     }
 
     private void PrintFileData() {
-        if(m_Option1Flag)
+        if(m_IsLoadedFileFlag)
             printDataInFormat(m_LogicEngineManager.PrintFileData());
         else
             System.out.println("No file was Loaded,Please load a file before choosing this option.");
@@ -167,12 +167,12 @@ public class ConsoleUserInterfaceManager {
     private void LoadFile() {
         String fileName;
         Scanner scanner=new Scanner(System.in);
-        while(!m_Option1Flag) {
+        while(!m_IsLoadedFileFlag) {
             System.out.println("Please enter the file's full path:");
             fileName = scanner.nextLine();
             try {
                 m_LogicEngineManager.LoadFile(fileName);
-                m_Option1Flag=true;
+                m_IsLoadedFileFlag =true;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
