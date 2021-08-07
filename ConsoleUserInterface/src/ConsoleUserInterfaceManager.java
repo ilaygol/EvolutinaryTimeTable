@@ -178,6 +178,7 @@ public class ConsoleUserInterfaceManager {
             }
         }
         System.out.println("The file has been loaded successfully!");
+
     }
 
     private eMainMenu GetMainMenuUserInput()

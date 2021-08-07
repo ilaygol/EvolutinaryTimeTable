@@ -50,10 +50,10 @@ public class EvolutionEngine {
                 //activating selection
                 m_Generation=m_Selection.activateSelection(m_Generation);
 
-                System.out.println("Generation "+totalCounter+" Fitnesses");
-                for(Parent p:m_Generation.getParentsList())
-                    System.out.print(p.getFitness()+" ");
-                System.out.println(System.lineSeparator());
+                //System.out.println("Generation "+totalCounter+" Fitnesses");
+                //for(Parent p:m_Generation.getParentsList())
+                   // System.out.print(p.getFitness()+" ");
+                //System.out.println(System.lineSeparator());
 
 
                 //activating crossover
@@ -81,7 +81,7 @@ public class EvolutionEngine {
             counter=0;
 
         }
-
+        dataSaver.printMap();
         return dataSaver;
     }
 
