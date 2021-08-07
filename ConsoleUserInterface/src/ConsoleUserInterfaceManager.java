@@ -82,7 +82,7 @@ public class ConsoleUserInterfaceManager {
     private void ActivateAlgorithm() {
         if(m_IsLoadedFileFlag) {
             Scanner algorithmInputScanner = new Scanner(System.in);
-            Integer generationsNum = 0, printEveryAmountOfGeneration = 0;
+            Integer generationsNum = 0, printEveryAmountOfGeneration = 0,reqFitness=0;
             boolean isCorrect = false;
             System.out.print("Please Enter the amount OF Generations you want to create: ");
             while (!isCorrect) {
@@ -115,7 +115,21 @@ public class ConsoleUserInterfaceManager {
                     algorithmInputScanner.nextLine();
                 }
             }
-            m_LogicEngineManager.ActivateAlgorithm(generationsNum, printEveryAmountOfGeneration);
+            isCorrect = false;
+            System.out.print("Please enter the Desired fitness (range: 1-100): ");
+            while (!isCorrect) {
+                try {
+                    reqFitness = algorithmInputScanner.nextInt();
+                    if (reqFitness>100 || reqFitness<1)
+                        System.out.println("wrong Fitness,Please enter the Desired fitness (range: 1-100): ");
+                    else
+                        isCorrect = true;
+                } catch (InputMismatchException e) {
+                    System.out.println("Fitness must be an Number between 1 and 100, Please enter The Desired Fitness");
+                    algorithmInputScanner.nextLine();
+                }
+            }
+            m_LogicEngineManager.ActivateAlgorithm(generationsNum, printEveryAmountOfGeneration,reqFitness);
             m_IsActivatedAlgoFlag =true;
         }
         else

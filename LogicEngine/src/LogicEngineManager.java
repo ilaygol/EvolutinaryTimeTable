@@ -27,9 +27,10 @@ public class LogicEngineManager {
         return 4;
     }
 
-    public void ActivateAlgorithm(Integer i_AmountOfGeneration,Integer i_PrintingReq) {
+    public void ActivateAlgorithm(Integer i_AmountOfGeneration,Integer i_PrintingReq,Integer i_ReqFitness) {
         m_Descriptor.getEvolutionEngine().setNumOfGenerations(i_AmountOfGeneration);
         m_Descriptor.getEvolutionEngine().setPrintingReq(i_PrintingReq);
+        m_Descriptor.getEvolutionEngine().setReqFitness(i_ReqFitness);
         AmountOfObjectsCalc amountOfObjects =getAmountOfData();
         m_EvolutionEngineData=m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),amountOfObjects);
     }
