@@ -31,7 +31,7 @@ public enum eMutation {
         public void activate(Integer i_Tupples, Generation i_Generation, AmountOfObjectsCalc i_AmountOfObj, Character i_Char, Random i_Roller) {
             int parentIndex = i_Roller.nextInt(i_Generation.getGenerationSize());
             Parent newParent = new Parent(i_Generation.getParentByIndex(parentIndex));
-            if(i_Tupples>=0)
+            if(i_Tupples>0&&i_Tupples<=(i_AmountOfObj.getAmountOfDays()*i_AmountOfObj.getAmountOfHours()))
             {
                 int addingMaxAmount=i_Tupples;
                 int amountToAdd= i_Roller.nextInt(addingMaxAmount)+1;
@@ -43,11 +43,13 @@ public enum eMutation {
                     Integer subjectID = i_Roller.nextInt(i_AmountOfObj.getAmountOfSubjects()) + 1;
 
                     Lesson lesson = new Lesson(day, hour, classID, teacherID, subjectID);
-                    newParent.addLessonToParent(lesson);
+                    if(!newParent.isContain(lesson)) {
+                        newParent.addLessonToParent(lesson);
+                    }
                 }
 
             }
-            else
+            else if(i_Tupples<0)
             {
                 int removingMaxAmount=Math.abs(i_Tupples);
                 int amountToRemove= i_Roller.nextInt(removingMaxAmount)+1;
