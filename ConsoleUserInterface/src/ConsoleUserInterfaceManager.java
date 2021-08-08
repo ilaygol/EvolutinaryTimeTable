@@ -12,14 +12,10 @@ import java.util.function.Consumer;
 
 public class ConsoleUserInterfaceManager {
     private LogicEngineManager m_LogicEngineManager;
-    private boolean m_IsLoadedFileFlag;
-    private boolean m_IsActivatedAlgoFlag;
 
     public ConsoleUserInterfaceManager()
     {
         m_LogicEngineManager=new LogicEngineManager();
-        m_IsLoadedFileFlag =false;
-        m_IsActivatedAlgoFlag =false;
     }
 
     public void StartProgram()
@@ -61,53 +57,54 @@ public class ConsoleUserInterfaceManager {
     }
 
     private void PrintAlgorithmProcess() {
-        if(m_IsLoadedFileFlag) {
-            if (m_IsActivatedAlgoFlag)
-            {
+        try {
                 boolean isFirst=true;
                 Integer previousFitness=0;
                 Map<Integer, Integer> fitnessesMap = m_LogicEngineManager.PrintAlgorithmProcess();
                 System.out.println("Generations Fitnesses");
-                for(Map.Entry<Integer,Integer> entry:fitnessesMap.entrySet())
-                {
-                    System.out.print("Generation number: "+entry.getKey()+" | Best fitness: "+entry.getValue());
-                    if(isFirst)
-                    {
+                for(Map.Entry<Integer,Integer> entry:fitnessesMap.entrySet()) {
+                    System.out.print("Generation number: " + entry.getKey() + " | Best fitness: " + entry.getValue());
+                    if (isFirst) {
                         System.out.println(" | Difference from previous fitness: --");
-                        isFirst=false;
+                        isFirst = false;
+                    } else {
+                        Integer diff = entry.getValue() - previousFitness;
+                        System.out.println(" | Difference from previous fitness: " + diff);
                     }
-                    else
-                    {
-                        Integer diff=entry.getValue()-previousFitness;
-                        System.out.println(" | Difference from previous fitness: "+diff);
-                    }
-                    previousFitness=entry.getValue();
+                    previousFitness = entry.getValue();
                 }
-
-            }
-            else
-                System.out.println("Please activate the algorithm FIRST");
         }
-        else
-            System.out.println("Please load a file then activate the algorithm before choosing this option");
+        catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void PrintBestSolution() {
-        if(m_IsLoadedFileFlag) {
-            if (m_IsActivatedAlgoFlag)
-            {
-                ePrintOptions userInput=getPrintOptionUserInput();
-                userInput.printSolution(m_LogicEngineManager.getBestSolutionData(),m_LogicEngineManager.getAmountOfData());
+        try {
+                if(m_LogicEngineManager.getIsFileLoaded())
+                {
+                    if(m_LogicEngineManager.getIsAlgoActivated())
+                    {
+                        ePrintOptions userInput=getPrintOptionUserInput();
+                        userInput.printSolution(m_LogicEngineManager.getBestSolutionData(),m_LogicEngineManager.getAmountOfData());
+                    }
+                    else
+                    {
+                        System.out.println("ERROR: Please activate the algorithm first");
+                    }
+                }
+                else
+                {
+                    System.out.println("ERROR: Please load a file, then activate the algorithm before choosing this option");
+                }
             }
-            else
-                System.out.println("Please activate the algorithm FIRST");
-        }
-        else
-            System.out.println("Please load a file then activate the algorithm before choosing this option");
+            catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
     }
 
     private void ActivateAlgorithm() {
-        if(m_IsLoadedFileFlag) {
+        if(m_LogicEngineManager.getIsFileLoaded()) {
             Scanner algorithmInputScanner = new Scanner(System.in);
             Integer generationsNum = 0, printEveryAmountOfGeneration = 0;
             boolean isCorrect = false;
@@ -142,18 +139,27 @@ public class ConsoleUserInterfaceManager {
                     algorithmInputScanner.nextLine();
                 }
             }
-            m_LogicEngineManager.ActivateAlgorithm(generationsNum, printEveryAmountOfGeneration,this::printProgress);
-            m_IsActivatedAlgoFlag =true;
+            try{
+                m_LogicEngineManager.ActivateAlgorithm(generationsNum, printEveryAmountOfGeneration,this::printProgress);
+            }
+            catch (RuntimeException e)
+            {
+                System.out.println(e.getMessage());
+            }
         }
-        else
-            System.out.println("No data was loaded, Please load Data to activate the algorithm.");
+        else {
+            System.out.println("ERROR: No file has been loaded, Please load a file before choosing this option");
+        }
     }
 
     private void PrintFileData() {
-        if(m_IsLoadedFileFlag)
+        try {
             printDataInFormat(m_LogicEngineManager.PrintFileData());
-        else
-            System.out.println("No file was Loaded,Please load a file before choosing this option.");
+        }
+        catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+            //System.out.println("No file was Loaded,Please load a file before choosing this option.");
     }
 
     private void printDataInFormat(DataPrinter i_DataPrinter)
@@ -194,12 +200,13 @@ public class ConsoleUserInterfaceManager {
     private void LoadFile() {
         String fileName;
         Scanner scanner=new Scanner(System.in);
-        while(!m_IsLoadedFileFlag) {
+        boolean isCorrect=false;
+        while(!isCorrect) {
             System.out.println("Please enter the file's full path:");
             fileName = scanner.nextLine();
             try {
                 m_LogicEngineManager.LoadFile(fileName);
-                m_IsLoadedFileFlag =true;
+                isCorrect =true;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

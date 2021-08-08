@@ -20,43 +20,77 @@ import java.util.function.Consumer;
 public class LogicEngineManager {
     private Descriptor m_Descriptor;
     private EvolutionEngineData m_EvolutionEngineData;
-
+    private boolean m_IsFileLoaded=false;
+    private boolean m_IsAlgoActivated=false;
 
 
     public Map<Integer,Integer> PrintAlgorithmProcess() {
-        return m_EvolutionEngineData.getGeneration2BestFitnessMap();
+        if(m_IsFileLoaded) {
+            if(m_IsAlgoActivated) {
+                return m_EvolutionEngineData.getGeneration2BestFitnessMap();
+            }
+            else {
+                throw new RuntimeException("ERROR: Please activate the algorithm first");
+            }
+        }
+        else {
+            throw new RuntimeException("ERROR: Please load a file, then activate the algorithm before choosing this option");
+        }
     }
 
     public BestSolutionsData getBestSolutionData() {
-        return m_EvolutionEngineData.getBestSolutionData();
+        if(m_IsFileLoaded) {
+            if(m_IsAlgoActivated) {
+                return m_EvolutionEngineData.getBestSolutionData();
+            }
+            else {
+                throw new RuntimeException("ERROR: Please activate the algorithm first");
+            }
+        }
+        else {
+            throw new RuntimeException("ERROR: Please load a file, then activate the algorithm before choosing this option");
+        }
     }
 
     public void ActivateAlgorithm(Integer i_AmountOfGeneration,Integer i_PrintingReq, Consumer<ProgressData> i_ProgressDataConsumer) {
-        m_Descriptor.getEvolutionEngine().setNumOfGenerations(i_AmountOfGeneration);
-        m_Descriptor.getEvolutionEngine().setPrintingReq(i_PrintingReq);
-        AmountOfObjectsCalc amountOfObjects =getAmountOfData();
-        m_EvolutionEngineData=m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),amountOfObjects,i_ProgressDataConsumer);
+        if(m_IsFileLoaded)
+        {
+            m_Descriptor.getEvolutionEngine().setNumOfGenerations(i_AmountOfGeneration);
+            m_Descriptor.getEvolutionEngine().setPrintingReq(i_PrintingReq);
+            AmountOfObjectsCalc amountOfObjects =getAmountOfData();
+            m_EvolutionEngineData=m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),amountOfObjects,i_ProgressDataConsumer);
+            m_IsAlgoActivated=true;
+        }
+        else {
+            throw new RuntimeException("ERROR: No file has been loaded, Please load a file before choosing this option.");
+        }
     }
 
     public DataPrinter PrintFileData() {
-        DataPrinter dataPrinter=new DataPrinter();
-        //building Subject map
-        dataPrinter.SetSubjectsSet(m_Descriptor.getTimeTable().getSubjects().getSubjectSet());
-        //building Teachers Map
+        if(m_IsFileLoaded) {
+            DataPrinter dataPrinter = new DataPrinter();
+            //building Subject map
+            dataPrinter.SetSubjectsSet(m_Descriptor.getTimeTable().getSubjects().getSubjectSet());
+            //building Teachers Map
 
-        dataPrinter.setTeacherID2SubjectsMap(m_Descriptor.getTimeTable().getTeachers().getTeacherID2SubjectsMap(dataPrinter.getSubjectsSet()));
+            dataPrinter.setTeacherID2SubjectsMap(m_Descriptor.getTimeTable().getTeachers().getTeacherID2SubjectsMap(dataPrinter.getSubjectsSet()));
 
-        //building Class map
-        dataPrinter.setClassesID2SubjMap(m_Descriptor.getTimeTable().getClazzes().getClassID2SubjectsMap(dataPrinter.getSubjectsSet()));
-        //building Rules map
-        dataPrinter.setRulesNames2TypeMap(m_Descriptor.getTimeTable().getRules().getRulesNames2TypeMap());
+            //building Class map
+            dataPrinter.setClassesID2SubjMap(m_Descriptor.getTimeTable().getClazzes().getClassID2SubjectsMap(dataPrinter.getSubjectsSet()));
+            //building Rules map
+            dataPrinter.setRulesNames2TypeMap(m_Descriptor.getTimeTable().getRules().getRulesNames2TypeMap());
 
-        dataPrinter.setInitialPopulation(m_Descriptor.getEvolutionEngine().getInitialPopulation());
-        dataPrinter.setSelectionData(m_Descriptor.getEvolutionEngine().getSelection().getSelectionData());
-        dataPrinter.setCrossoverData(m_Descriptor.getEvolutionEngine().getCrossover().getCrossoverData());
-        dataPrinter.setMutationsDataList(m_Descriptor.getEvolutionEngine().getMutations().getMutationsDataList());
+            dataPrinter.setInitialPopulation(m_Descriptor.getEvolutionEngine().getInitialPopulation());
+            dataPrinter.setSelectionData(m_Descriptor.getEvolutionEngine().getSelection().getSelectionData());
+            dataPrinter.setCrossoverData(m_Descriptor.getEvolutionEngine().getCrossover().getCrossoverData());
+            dataPrinter.setMutationsDataList(m_Descriptor.getEvolutionEngine().getMutations().getMutationsDataList());
 
-        return dataPrinter;
+            return dataPrinter;
+        }
+        else
+        {
+            throw new RuntimeException("ERROR: No file has been loaded, Please load a file before choosing this option");
+        }
     }
 
     public void LoadFile(String i_FileName) throws FileNotFoundException, JAXBException {
@@ -70,6 +104,7 @@ public class LogicEngineManager {
             CheckValidData checker=new CheckValidData(ettDescriptor);
             checker.checkFile();
             m_Descriptor=new Descriptor(ettDescriptor);
+            m_IsFileLoaded=true;
         }
         catch (JAXBException e) {
             throw new JAXBException("Error: an error with unmarshalling the file");
@@ -95,5 +130,13 @@ public class LogicEngineManager {
                 lessonInSolution);
 
         return maxValues;
+    }
+
+    public boolean getIsFileLoaded() {
+        return m_IsFileLoaded;
+    }
+
+    public boolean getIsAlgoActivated() {
+        return m_IsAlgoActivated;
     }
 }
