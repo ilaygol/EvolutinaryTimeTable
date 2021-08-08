@@ -50,11 +50,13 @@ public enum eCrossover {
                 @Override
                 public void activate(Parent p1, Parent p2, AmountOfObjectsCalc amounts, Character i_Char, Collection<Integer> cuttingPoints, Generation i_NextGeneration) {
                     int outerLoopParameter=0,innerLoopParameter=0;
+                    boolean isByClass=false;
                     switch (i_Char)
                     {
                         case 'C':
                             outerLoopParameter =amounts.getAmountOfClasses();
                             innerLoopParameter=amounts.getAmountOfTeachers();
+                            isByClass=true;
                             break;
                         case 'T':
                             outerLoopParameter= amounts.getAmountOfTeachers();
@@ -72,7 +74,15 @@ public enum eCrossover {
                             for (int k = 1; k <= amounts.getAmountOfDays(); k++)
                                 for (int m = 1; m <= amounts.getAmountOfHours(); m++)
                                     for (int n = 1; n <= amounts.getAmountOfSubjects(); n++) {
-                                        Lesson checkLesson = new Lesson(i, j, k, m, n);
+                                        Lesson checkLesson;
+                                        if(isByClass)
+                                        {
+                                            checkLesson=new Lesson(k,m,i,j,n);
+                                        }
+                                        else
+                                        {
+                                            checkLesson=new Lesson(k,m,j,i,n);
+                                        }
                                         if (childOneCopyFromFirstParent) {
                                             if (p1.isContain(checkLesson))
                                                 childOne.addLessonToParent(checkLesson);

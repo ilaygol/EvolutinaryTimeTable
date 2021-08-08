@@ -25,6 +25,7 @@ public class Crossover {
         m_Configuration=i_ETTCrossover.getConfiguration();
         m_eType =eCrossover.valueOf(m_Name.toUpperCase(Locale.ROOT));
         m_Roller=new Random();
+        extractConfiguration();
     }
 
     public CrossoverData getCrossoverData()
@@ -84,7 +85,7 @@ public class Crossover {
     }
 
     private void extractConfiguration() {
-        if(m_Configuration.compareTo("")!=0) {
+        if(m_Configuration!=null) {
             int configurationSize = m_Configuration.length();
             char[] chars = m_Configuration.toCharArray();
             int count = 0;
