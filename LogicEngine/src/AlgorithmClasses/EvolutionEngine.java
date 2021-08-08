@@ -82,15 +82,15 @@ public class EvolutionEngine {
             //System.out.println("Done making "+counter+" generations, in total "+totalCounter+" generations, map Updated");
             dataSaver.addToGeneration2BestFitnessMap(totalCounter,m_Generation.getParentByIndex(0).getFitness());
 
-            //event elay gol
+            //event Ilay Gol
             i_ProgressDataConsumer.accept(new ProgressData(totalCounter,m_Generation.getParentByIndex(0).getFitness()));
-            //System.out.println("best Solution after "+totalCounter+" Generations is "+m_Generation.getParentByIndex(0).getFitness());
 
             remainingGenerations-=counter;
             counter=0;
 
         }
-        //dataSaver.printMap();
+        i_TimeTable.getRules().recheckBestSolution(dataSaver.getBestSolution(),i_TimeTable,dataSaver);
+        dataSaver.updateRulesAverage();
         return dataSaver;
     }
 

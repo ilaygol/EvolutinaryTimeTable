@@ -2,6 +2,7 @@ package DataClasses.FileInputDataClasses;
 
 import DataClasses.AlgorithmData.Generation;
 import DataClasses.AlgorithmData.Parent;
+import DataTransferClasses.EvolutionEngineData;
 import ParsedClasses.ETTRule;
 import ParsedClasses.ETTRules;
 
@@ -77,5 +78,13 @@ public class Rules {
             }
         }
 
+    }
+
+    public void recheckBestSolution(Parent i_Parent,TimeTable i_TimeTable, EvolutionEngineData i_Data)
+    {
+        for(Rule rule:m_RulesList)
+        {
+            i_Data.addToRulesDataList(rule,rule.getId().CheckRule(i_Parent,i_TimeTable));
+        }
     }
 }

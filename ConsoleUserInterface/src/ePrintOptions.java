@@ -1,6 +1,7 @@
 import DataClasses.AlgorithmData.AmountOfObjectsCalc;
 import DataTransferClasses.BestSolutionsData;
 import DataTransferClasses.LessonData;
+import DataTransferClasses.RuleData;
 
 import java.util.Comparator;
 import java.util.List;
@@ -26,6 +27,7 @@ public enum ePrintOptions {
                     i_BestSolution.getLessonsDataList().forEach(lesson->System.out.println(
                             "<"+lesson.getDay()+","+lesson.getHour()+","+lesson.getClassID()+","
                                     +lesson.getTeacherID()+","+lesson.getSubjectID()+">"));
+                    ePrintOptions.printExtra(i_BestSolution);
                 }
             },
     TEACHER
@@ -70,7 +72,7 @@ public enum ePrintOptions {
                             System.out.println();
                         }
                     }
-
+                    ePrintOptions.printExtra(i_BestSolution);
                 }
             },
     CLASS
@@ -115,6 +117,7 @@ public enum ePrintOptions {
                             System.out.println();
                         }
                     }
+                    ePrintOptions.printExtra(i_BestSolution);
                 }
             };
 
@@ -129,4 +132,18 @@ public enum ePrintOptions {
     }
 
     public abstract void printSolution(BestSolutionsData i_BestSolution, AmountOfObjectsCalc i_MaxAmounts);
+
+    private static void printExtra(BestSolutionsData i_BestSolution)
+    {
+        System.out.println(System.lineSeparator()+"This solution's fitness: "+i_BestSolution.getFitness());
+        System.out.println(System.lineSeparator()+"Rules description:");
+        for(RuleData rule:i_BestSolution.getRulesDataList())
+        {
+            System.out.println("Name: "+rule.getName());
+            System.out.println("Type: "+rule.getType());
+            System.out.println("Grade: "+rule.getGrade());
+        }
+        System.out.println("Hard rules average: "+i_BestSolution.getHardRulesAverage());
+        System.out.println("Soft rules average: "+i_BestSolution.getSoftRulesAverage());
+    }
 }
