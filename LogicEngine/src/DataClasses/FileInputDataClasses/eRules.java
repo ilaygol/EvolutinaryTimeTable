@@ -91,7 +91,6 @@ public enum eRules {
                 @Override
                 public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable)
                 {
-                    /*
                     Integer numOfClasses = i_TimeTable.getClazzes().getClassesListSize();
                     List<Integer> classesGrades=new ArrayList<>();
                     List<Lesson> lessonsList = i_Parent.getLessonsList();
@@ -127,9 +126,6 @@ public enum eRules {
                         classesGrades.add(100-(badSubjects*100/numOfClassSubjects));
                     }
                     return classesGrades.stream().mapToInt(i->i).sum()/classesGrades.size();
-
-                     */
-                    return 0;
                 }
             };
 
