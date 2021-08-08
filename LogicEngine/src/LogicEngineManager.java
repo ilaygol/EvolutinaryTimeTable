@@ -1,6 +1,7 @@
 import AlgorithmClasses.Descriptor;
 import DataClasses.FileInputDataClasses.*;
 import DataClasses.AlgorithmData.*;
+import DataTransferClasses.BestSolutionsData;
 import DataTransferClasses.DataPrinter;
 import DataTransferClasses.EvolutionEngineData;
 import DataTransferClasses.ProgressData;
@@ -25,8 +26,8 @@ public class LogicEngineManager {
         return 5;
     }
 
-    public int PrintBestSolution() {
-        return 4;
+    public BestSolutionsData getBestSolutionData() {
+        return m_EvolutionEngineData.getBestSolutionData();
     }
 
     public void ActivateAlgorithm(Integer i_AmountOfGeneration,Integer i_PrintingReq, Consumer<ProgressData> i_ProgressDataConsumer) {
@@ -75,7 +76,7 @@ public class LogicEngineManager {
     }
 
 
-    private AmountOfObjectsCalc getAmountOfData()
+    public AmountOfObjectsCalc getAmountOfData()
     {
         TimeTable table= m_Descriptor.getTimeTable();
         Integer lessonInSolution=0;

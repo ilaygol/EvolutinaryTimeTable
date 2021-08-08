@@ -90,7 +90,7 @@ public class EvolutionEngine {
             counter=0;
 
         }
-        dataSaver.printMap();
+        //dataSaver.printMap();
         return dataSaver;
     }
 

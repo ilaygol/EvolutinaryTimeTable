@@ -73,7 +73,10 @@ public class ConsoleUserInterfaceManager {
     private void PrintBestSolution() {
         if(m_IsLoadedFileFlag) {
             if (m_IsActivatedAlgoFlag)
-                System.out.println(m_LogicEngineManager.PrintBestSolution());
+            {
+                ePrintOptions userInput=getPrintOptionUserInput();
+                userInput.printSolution(m_LogicEngineManager.getBestSolutionData(),m_LogicEngineManager.getAmountOfData());
+            }
             else
                 System.out.println("Please activate the algorithm FIRST");
         }
@@ -195,6 +198,33 @@ public class ConsoleUserInterfaceManager {
             try {
                 System.out.println("Please enter your choice number:");
                 userChoice=eMainMenu.values()[mainMenuInput.nextInt()-1];
+                isCorrect=true;
+            }
+            catch (InputMismatchException e)
+            {
+                System.out.println("ERROR! You should enter a number");
+                mainMenuInput.nextLine();
+            }
+            catch (IndexOutOfBoundsException e)
+            {
+                System.out.println("ERROR! The number is out of range");
+            }
+        }
+        return userChoice;
+    }
+
+    private ePrintOptions getPrintOptionUserInput()
+    {
+        boolean isCorrect=false;
+        ePrintOptions userChoice=null;
+        Scanner mainMenuInput=new Scanner(System.in);
+        System.out.println(System.lineSeparator()+"Print Options");
+        ePrintOptions.PrintMenu();
+        while (!isCorrect)
+        {
+            try {
+                System.out.println("Please enter your choice number:");
+                userChoice=ePrintOptions.values()[mainMenuInput.nextInt()-1];
                 isCorrect=true;
             }
             catch (InputMismatchException e)

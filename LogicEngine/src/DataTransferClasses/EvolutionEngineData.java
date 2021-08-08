@@ -18,8 +18,8 @@ public class EvolutionEngineData {
         return m_Generation2BestFitnessMap;
     }
 
-    public Parent getBestSolution() {
-        return m_BestSolution;
+    public BestSolutionsData getBestSolutionData() {
+        return new BestSolutionsData(m_BestSolution);
     }
 
     public Integer getBestSolutionFitness()
