@@ -105,61 +105,62 @@ public class ConsoleUserInterfaceManager {
 
     private void ActivateAlgorithm() {
         if(m_LogicEngineManager.getIsFileLoaded()) {
-            Scanner algorithmInputScanner = new Scanner(System.in);
-            Integer generationsNum = 0, printEveryAmountOfGeneration = 0,reqFitness=0;
-            boolean isCorrect = false;
-            System.out.print("Please enter the amount of generations you would like to create: ");
-            while (!isCorrect) {
-                try {
-                    generationsNum = algorithmInputScanner.nextInt();
-                    if (generationsNum < 100)
-                        System.out.println("Amount of generations can't be less than 100."
-                                + System.lineSeparator() + "Please enter a number above or equals to 100");
-                    else
-                        isCorrect = true;
-                } catch (InputMismatchException e) {
-                    System.out.println("ERROR: Amount of generations should be a number!" + System.lineSeparator()
-                            + "Please enter a Number:");
-                    algorithmInputScanner.nextLine();
-                }
-            }
-            isCorrect = false;
-            System.out.println("Every how many generations would you like to print the fitness of the best solution?");
-            while (!isCorrect) {
-                try {
-                    printEveryAmountOfGeneration = algorithmInputScanner.nextInt();
-                    if (printEveryAmountOfGeneration > generationsNum)
-                        System.out.println("You asked to create " + generationsNum + " Generations only!"
-                                + System.lineSeparator() + "you should enter a number between 0 and " + generationsNum);
-                    else
-                        isCorrect = true;
-                } catch (InputMismatchException e) {
-                    System.out.println("ERROR: Amount of generations should be a number!" + System.lineSeparator()
-                            + "Please enter a number:");
-                    algorithmInputScanner.nextLine();
-                }
-            }
-            isCorrect = false;
-            System.out.print("Please enter the Desired fitness (range: 1-100): ");
-            while (!isCorrect) {
-                try {
-                    reqFitness = algorithmInputScanner.nextInt();
-                    if (reqFitness>100 || reqFitness<1)
-                        System.out.println("wrong Fitness,Please enter the Desired fitness (range: 1-100): ");
-                    else
-                        isCorrect = true;
-                } catch (InputMismatchException e) {
-                    System.out.println("Fitness must be an Number between 1 and 100, Please enter The Desired Fitness");
-                    algorithmInputScanner.nextLine();
-                }
-            }
-            try{
-                m_LogicEngineManager.ActivateAlgorithm(generationsNum, printEveryAmountOfGeneration,this::printProgress,reqFitness);
-            }
-            catch (RuntimeException e)
-            {
-                System.out.println(e.getMessage());
-            }
+            boolean isContinue=!m_LogicEngineManager.getIsAlgoActivated();
+                    if(isContinue||getUserContinueAlgoInput()) {
+                        Scanner algorithmInputScanner = new Scanner(System.in);
+                        Integer generationsNum = 0, printEveryAmountOfGeneration = 0, reqFitness = 0;
+                        boolean isCorrect = false;
+                        System.out.print("Please enter the amount of generations you would like to create: ");
+                        while (!isCorrect) {
+                            try {
+                                generationsNum = algorithmInputScanner.nextInt();
+                                if (generationsNum < 100)
+                                    System.out.println("Amount of generations can't be less than 100."
+                                            + System.lineSeparator() + "Please enter a number above or equals to 100");
+                                else
+                                    isCorrect = true;
+                            } catch (InputMismatchException e) {
+                                System.out.println("ERROR: Amount of generations should be a number!" + System.lineSeparator()
+                                        + "Please enter a Number:");
+                                algorithmInputScanner.nextLine();
+                            }
+                        }
+                        isCorrect = false;
+                        System.out.println("Every how many generations would you like to print the fitness of the best solution?");
+                        while (!isCorrect) {
+                            try {
+                                printEveryAmountOfGeneration = algorithmInputScanner.nextInt();
+                                if (printEveryAmountOfGeneration > generationsNum)
+                                    System.out.println("You asked to create " + generationsNum + " Generations only!"
+                                            + System.lineSeparator() + "you should enter a number between 0 and " + generationsNum);
+                                else
+                                    isCorrect = true;
+                            } catch (InputMismatchException e) {
+                                System.out.println("ERROR: Amount of generations should be a number!" + System.lineSeparator()
+                                        + "Please enter a number:");
+                                algorithmInputScanner.nextLine();
+                            }
+                        }
+                        isCorrect = false;
+                        System.out.print("Please enter the Desired fitness (range: 1-100): ");
+                        while (!isCorrect) {
+                            try {
+                                reqFitness = algorithmInputScanner.nextInt();
+                                if (reqFitness > 100 || reqFitness < 1)
+                                    System.out.println("wrong Fitness,Please enter the Desired fitness (range: 1-100): ");
+                                else
+                                    isCorrect = true;
+                            } catch (InputMismatchException e) {
+                                System.out.println("Fitness must be an Number between 1 and 100, Please enter The Desired Fitness");
+                                algorithmInputScanner.nextLine();
+                            }
+                        }
+                        try {
+                            m_LogicEngineManager.ActivateAlgorithm(generationsNum, printEveryAmountOfGeneration, this::printProgress, reqFitness);
+                        } catch (RuntimeException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
         }
         else {
             System.out.println("ERROR: No file has been loaded, Please load a file before choosing this option");
@@ -285,5 +286,36 @@ public class ConsoleUserInterfaceManager {
     private void printProgress(ProgressData i_ProgressData)
     {
         System.out.println("The best solution after "+i_ProgressData.getGeneration()+" generations is "+i_ProgressData.getFitness());
+    }
+
+    private boolean getUserContinueAlgoInput()
+    {
+        boolean isContinue=false;
+        boolean isCorrect=false;
+        String userChoice;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("WARNING: The algorithm has been already activated,"+System.lineSeparator()+
+                "The old data will be lost. Would you like to continue? Please enter Y/N");
+        while (!isCorrect) {
+            try {
+                userChoice = scanner.nextLine();
+                if(userChoice.toUpperCase().equals("Y"))
+                {
+                    isCorrect=true;
+                    isContinue=true;
+                }
+                else if(userChoice.toUpperCase().equals("N"))
+                {
+                    isCorrect=true;
+                }
+                else
+                {
+                    System.out.println("ERROR: Wrong input! please enter Y/N");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("ERROR: Unknown exception");
+            }
+        }
+        return isContinue;
     }
 }
