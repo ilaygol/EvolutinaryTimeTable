@@ -11,55 +11,90 @@ public enum eCrossover {
     DAYTIMEORIENTED
             {
                 @Override
-                public  void activate(Parent p1, Parent p2, AmountOfObjectsCalc amounts
+                public  void activate(Parent p1, Parent p2, AmountOfObjectsCalc amounts,Character i_Char
                         , Collection<Integer> cuttingPoints, Generation i_NextGeneration) {
 
-                    int index=0;
-                    Parent childOne=new Parent(amounts.getMaxAmountOfLessons());
-                    Parent childTwo=new Parent(amounts.getMaxAmountOfLessons());
+                    int index = 0;
+                    Parent childOne = new Parent(amounts.getMaxAmountOfLessons());
+                    Parent childTwo = new Parent(amounts.getMaxAmountOfLessons());
 
-                    boolean copyFromFirstParent=true;
-                    for(int i=1;i<=amounts.getAmountOfDays();i++)
-                        for(int j=1;j<=amounts.getAmountOfHours();j++)
-                            for(int k=1;k<= amounts.getAmountOfClasses();k++)
-                                for(int m=1;m<= amounts.getAmountOfTeachers();m++)
-                                    for(int n=1;n<= amounts.getAmountOfSubjects();n++) {
-                                        Lesson checkLesson=new Lesson(i,j,k,m,n);
-                                        if (copyFromFirstParent) {
+                    boolean childOneCopyFromFirstParent = true;
+                    for (int i = 1; i <= amounts.getAmountOfDays(); i++)
+                        for (int j = 1; j <= amounts.getAmountOfHours(); j++)
+                            for (int k = 1; k <= amounts.getAmountOfClasses(); k++)
+                                for (int m = 1; m <= amounts.getAmountOfTeachers(); m++)
+                                    for (int n = 1; n <= amounts.getAmountOfSubjects(); n++) {
+                                        Lesson checkLesson = new Lesson(i, j, k, m, n);
+                                        if (childOneCopyFromFirstParent) {
                                             if (p1.isContain(checkLesson))
                                                 childOne.addLessonToParent(checkLesson);
-                                        }
-                                        else {
-                                            if(p2.isContain(checkLesson))
+                                            if (p2.isContain(checkLesson))
+                                                childTwo.addLessonToParent(checkLesson);
+                                        } else {
+                                            if (p2.isContain(checkLesson))
                                                 childOne.addLessonToParent(checkLesson);
-                                            }
+                                            if (p1.isContain(checkLesson))
+                                                childTwo.addLessonToParent(checkLesson);
+                                        }
                                         index++;
-                                        if(cuttingPoints.contains(index))
-                                            copyFromFirstParent = (!copyFromFirstParent);
+                                        if (cuttingPoints.contains(index))
+                                            childOneCopyFromFirstParent = (!childOneCopyFromFirstParent);
                                     }
                     i_NextGeneration.addParentToGeneration(childOne);
-                    copyFromFirstParent=false;
-                    for(int i=1;i<=amounts.getAmountOfDays();i++)
-                        for(int j=1;j<=amounts.getAmountOfHours();j++)
-                            for(int k=1;k<= amounts.getAmountOfClasses();k++)
-                                for(int m=1;m<= amounts.getAmountOfTeachers();m++)
-                                    for(int n=1;n<= amounts.getAmountOfSubjects();n++) {
-                                        Lesson checkLesson=new Lesson(i,j,k,m,n);
-                                        if (copyFromFirstParent) {
-                                            if (p1.isContain(checkLesson))
-                                                childTwo.addLessonToParent(checkLesson);
-                                        }
-                                        else {
-                                            if(p2.isContain(checkLesson))
-                                                childTwo.addLessonToParent(checkLesson);
-                                        }
-                                        index++;
-                                        if(cuttingPoints.contains(index))
-                                            copyFromFirstParent = (!copyFromFirstParent);
-                                    }
                     i_NextGeneration.addParentToGeneration(childTwo);
                 }
 
+            },
+    ASPECTORIENTED
+            {
+                @Override
+                public void activate(Parent p1, Parent p2, AmountOfObjectsCalc amounts, Character i_Char, Collection<Integer> cuttingPoints, Generation i_NextGeneration) {
+                    int outerLoopParameter=0,innerLoopParameter=0;
+                    switch (i_Char)
+                    {
+                        case 'C':
+                            outerLoopParameter =amounts.getAmountOfClasses();
+                            innerLoopParameter=amounts.getAmountOfTeachers();
+                            break;
+                        case 'T':
+                            outerLoopParameter= amounts.getAmountOfTeachers();
+                            innerLoopParameter=amounts.getAmountOfTeachers();
+                            break;
+                    }
+
+                    int index = 0;
+                    Parent childOne = new Parent(amounts.getMaxAmountOfLessons());
+                    Parent childTwo = new Parent(amounts.getMaxAmountOfLessons());
+
+                    boolean childOneCopyFromFirstParent = true;
+                    for (int i = 1; i <= outerLoopParameter; i++)
+                        for (int j = 1; j <= innerLoopParameter; j++)
+                            for (int k = 1; k <= amounts.getAmountOfDays(); k++)
+                                for (int m = 1; m <= amounts.getAmountOfHours(); m++)
+                                    for (int n = 1; n <= amounts.getAmountOfSubjects(); n++) {
+                                        Lesson checkLesson = new Lesson(i, j, k, m, n);
+                                        if (childOneCopyFromFirstParent) {
+                                            if (p1.isContain(checkLesson))
+                                                childOne.addLessonToParent(checkLesson);
+                                            if (p2.isContain(checkLesson))
+                                                childTwo.addLessonToParent(checkLesson);
+                                        } else {
+                                            if (p2.isContain(checkLesson))
+                                                childOne.addLessonToParent(checkLesson);
+                                            if (p1.isContain(checkLesson))
+                                                childTwo.addLessonToParent(checkLesson);
+                                        }
+                                        index++;
+                                        if (cuttingPoints.contains(index))
+                                            childOneCopyFromFirstParent = (!childOneCopyFromFirstParent);
+                                    }
+                    i_NextGeneration.addParentToGeneration(childOne);
+                    i_NextGeneration.addParentToGeneration(childTwo);
+                }
+
+
+
             };
-    public abstract void activate(Parent p1, Parent p2, AmountOfObjectsCalc amounts, Collection<Integer> cuttingPoints,Generation i_NextGeneration);
+
+    public abstract void activate(Parent p1, Parent p2, AmountOfObjectsCalc amounts,Character i_Char, Collection<Integer> cuttingPoints,Generation i_NextGeneration);
 }

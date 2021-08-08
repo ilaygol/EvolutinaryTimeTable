@@ -9,6 +9,7 @@ import ParsedClasses.ETTDescriptor;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.SchemaOutputResolver;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -52,11 +53,12 @@ public class LogicEngineManager {
         }
     }
 
-    public void ActivateAlgorithm(Integer i_AmountOfGeneration,Integer i_PrintingReq, Consumer<ProgressData> i_ProgressDataConsumer) {
+    public void ActivateAlgorithm(Integer i_AmountOfGeneration,Integer i_PrintingReq, Consumer<ProgressData> i_ProgressDataConsumer,Integer i_ReqFitness) {
         if(m_IsFileLoaded)
         {
             m_Descriptor.getEvolutionEngine().setNumOfGenerations(i_AmountOfGeneration);
             m_Descriptor.getEvolutionEngine().setPrintingReq(i_PrintingReq);
+            m_Descriptor.getEvolutionEngine().setReqFitness(i_ReqFitness);
             AmountOfObjectsCalc amountOfObjects =getAmountOfData();
             m_EvolutionEngineData=m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),amountOfObjects,i_ProgressDataConsumer);
             m_IsAlgoActivated=true;

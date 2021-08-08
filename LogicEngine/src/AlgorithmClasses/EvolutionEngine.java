@@ -17,6 +17,7 @@ public class EvolutionEngine {
     private Integer m_InitialPopulationAmount;
     private Integer m_NumOfGenerations;
     private Integer m_PrintingReq;
+    private Integer m_ReqFitness;
     private Selection m_Selection;
     private Crossover m_Crossover;
     private Mutations m_Mutations;
@@ -34,21 +35,12 @@ public class EvolutionEngine {
     {
         EvolutionEngineData dataSaver=new EvolutionEngineData();
         Integer remainingGenerations=m_NumOfGenerations;
-        Integer counter=0,totalCounter=0;
+        Integer counter=0,totalCounter=0,bestFitness=0;
         Integer mutationToActivateIndex;
         initialSolutions(i_AmountOfObj);
 
-        /*
-        i_TimeTable.getRules().calculateFitnesses(m_Generation,i_TimeTable);
-        for(Parent p:m_Generation.getParentsList())
-        {
-            System.out.println("Parent "+counter+" with fitness "+p.getFitness());
-            counter++;
-        }
-         */
 
-
-        while(remainingGenerations>0) {
+        while(remainingGenerations>0 && bestFitness<m_ReqFitness) {
             while(counter< m_PrintingReq && counter < remainingGenerations) {
                 i_TimeTable.getRules().calculateFitnesses(m_Generation,i_TimeTable);
                 m_Generation.sortGenerationByFitness();
@@ -71,15 +63,16 @@ public class EvolutionEngine {
 
                 counter++;
                 totalCounter++;
-                if(counter==1)
+                if(counter==1) {
                     dataSaver.setBestSolution(m_Generation.getParentByIndex(0));
-                else if(dataSaver.getBestSolutionFitness()<m_Generation.getParentByIndex(0).getFitness())
+                    bestFitness= dataSaver.getBestSolutionFitness();
+                }
+                else if(dataSaver.getBestSolutionFitness()<m_Generation.getParentByIndex(0).getFitness()) {
                     dataSaver.setBestSolution(m_Generation.getParentByIndex(0));
+                    bestFitness= dataSaver.getBestSolutionFitness();
+                }
             }
-            i_TimeTable.getRules().calculateFitnesses(m_Generation,i_TimeTable);
-            m_Generation.sortGenerationByFitness();
 
-            //System.out.println("Done making "+counter+" generations, in total "+totalCounter+" generations, map Updated");
             dataSaver.addToGeneration2BestFitnessMap(totalCounter,m_Generation.getParentByIndex(0).getFitness());
 
             //event Ilay Gol
@@ -130,6 +123,10 @@ public class EvolutionEngine {
         return m_PrintingReq;
     }
 
+    public Integer getReqFitness() {
+        return m_ReqFitness;
+    }
+
     public void setNumOfGenerations(Integer i_NumOfGenerations) {
         m_NumOfGenerations = i_NumOfGenerations;
     }
@@ -138,4 +135,7 @@ public class EvolutionEngine {
         m_PrintingReq = i_PrintingReq;
     }
 
+    public void setReqFitness(Integer i_ReqFitness) {
+        m_ReqFitness = i_ReqFitness;
+    }
 }

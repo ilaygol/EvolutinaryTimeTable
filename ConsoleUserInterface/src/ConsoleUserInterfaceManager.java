@@ -106,7 +106,7 @@ public class ConsoleUserInterfaceManager {
     private void ActivateAlgorithm() {
         if(m_LogicEngineManager.getIsFileLoaded()) {
             Scanner algorithmInputScanner = new Scanner(System.in);
-            Integer generationsNum = 0, printEveryAmountOfGeneration = 0;
+            Integer generationsNum = 0, printEveryAmountOfGeneration = 0,reqFitness=0;
             boolean isCorrect = false;
             System.out.print("Please enter the amount of generations you would like to create: ");
             while (!isCorrect) {
@@ -139,8 +139,22 @@ public class ConsoleUserInterfaceManager {
                     algorithmInputScanner.nextLine();
                 }
             }
+            isCorrect = false;
+            System.out.print("Please enter the Desired fitness (range: 1-100): ");
+            while (!isCorrect) {
+                try {
+                    reqFitness = algorithmInputScanner.nextInt();
+                    if (reqFitness>100 || reqFitness<1)
+                        System.out.println("wrong Fitness,Please enter the Desired fitness (range: 1-100): ");
+                    else
+                        isCorrect = true;
+                } catch (InputMismatchException e) {
+                    System.out.println("Fitness must be an Number between 1 and 100, Please enter The Desired Fitness");
+                    algorithmInputScanner.nextLine();
+                }
+            }
             try{
-                m_LogicEngineManager.ActivateAlgorithm(generationsNum, printEveryAmountOfGeneration,this::printProgress);
+                m_LogicEngineManager.ActivateAlgorithm(generationsNum, printEveryAmountOfGeneration,this::printProgress,reqFitness);
             }
             catch (RuntimeException e)
             {
@@ -159,7 +173,6 @@ public class ConsoleUserInterfaceManager {
         catch (RuntimeException e) {
             System.out.println(e.getMessage());
         }
-            //System.out.println("No file was Loaded,Please load a file before choosing this option.");
     }
 
     private void printDataInFormat(DataPrinter i_DataPrinter)
