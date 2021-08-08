@@ -13,6 +13,7 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 
@@ -22,8 +23,8 @@ public class LogicEngineManager {
 
 
 
-    public int PrintAlgorithmProcess() {
-        return 5;
+    public Map<Integer,Integer> PrintAlgorithmProcess() {
+        return m_EvolutionEngineData.getGeneration2BestFitnessMap();
     }
 
     public BestSolutionsData getBestSolutionData() {

@@ -5,6 +5,7 @@ import DataTransferClasses.DataPrinter;
 import DataTransferClasses.SubjectData;
 
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -62,7 +63,28 @@ public class ConsoleUserInterfaceManager {
     private void PrintAlgorithmProcess() {
         if(m_IsLoadedFileFlag) {
             if (m_IsActivatedAlgoFlag)
-                System.out.println(m_LogicEngineManager.PrintAlgorithmProcess());
+            {
+                boolean isFirst=true;
+                Integer previousFitness=0;
+                Map<Integer, Integer> fitnessesMap = m_LogicEngineManager.PrintAlgorithmProcess();
+                System.out.println("Generations Fitnesses");
+                for(Map.Entry<Integer,Integer> entry:fitnessesMap.entrySet())
+                {
+                    System.out.print("Generation number: "+entry.getKey()+" | Best fitness: "+entry.getValue());
+                    if(isFirst)
+                    {
+                        System.out.println(" | Difference from previous fitness: --");
+                        isFirst=false;
+                    }
+                    else
+                    {
+                        Integer diff=entry.getValue()-previousFitness;
+                        System.out.println(" | Difference from previous fitness: "+diff);
+                    }
+                    previousFitness=entry.getValue();
+                }
+
+            }
             else
                 System.out.println("Please activate the algorithm FIRST");
         }
