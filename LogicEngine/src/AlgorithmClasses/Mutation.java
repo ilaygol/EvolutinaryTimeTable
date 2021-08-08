@@ -49,13 +49,6 @@ public class Mutation {
         return m_Char;
     }
 
-    private void extractConfiguration() {
-        Scanner scanner = new Scanner(m_Configuration.toString()).useDelimiter("[^0-9]+");
-        m_Tupples = scanner.nextInt();
-        int size = m_Configuration.get(0).length();
-        m_Char = m_Configuration.get(0).charAt(size - 1);
-        scanner.close();
-    }
 
     public void activateMutation(Generation i_Generation, AmountOfObjectsCalc i_AmountOfObj) {
         m_eType.activate(m_Tupples, i_Generation, i_AmountOfObj, m_Char, m_Roller);
@@ -71,5 +64,13 @@ public class Mutation {
     @Override
     public int hashCode() {
         return Objects.hash(m_Name);
+    }
+
+    private void extractConfiguration() {
+        Scanner scanner = new Scanner(m_Configuration.toString()).useDelimiter("[^0-9]+");
+        m_Tupples = scanner.nextInt();
+        int size = m_Configuration.get(0).length();
+        m_Char = m_Configuration.get(0).charAt(size - 1);
+        scanner.close();
     }
 }

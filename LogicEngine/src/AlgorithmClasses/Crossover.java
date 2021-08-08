@@ -2,28 +2,28 @@ package AlgorithmClasses;
 
 import DataClasses.AlgorithmData.AmountOfObjectsCalc;
 import DataClasses.AlgorithmData.Generation;
-import DataClasses.AlgorithmData.Parent;
 import DataTransferClasses.CrossoverData;
 import ParsedClasses.ETTCrossover;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 
 public class Crossover {
 
     private String m_Name;
     private Integer m_NumOfCuttingPoints;
-    private eCrossover m_Configuration;
+    private String m_Configuration;
+    private Character m_Char;
+    private eCrossover m_eType;
     private Random m_Roller;
+
 
 
     public Crossover(ETTCrossover i_ETTCrossover)
     {
         m_Name=i_ETTCrossover.getName();
         m_NumOfCuttingPoints =i_ETTCrossover.getCuttingPoints();
-        m_Configuration=eCrossover.valueOf(m_Name.toUpperCase(Locale.ROOT));
+        m_Configuration=i_ETTCrossover.getConfiguration();
+        m_eType =eCrossover.valueOf(m_Name.toUpperCase(Locale.ROOT));
         m_Roller=new Random();
     }
 
@@ -33,7 +33,7 @@ public class Crossover {
     }
 
     public eCrossover getConfiguration() {
-        return m_Configuration;
+        return m_eType;
     }
 
     public String getName() {
@@ -44,8 +44,11 @@ public class Crossover {
         return m_NumOfCuttingPoints;
     }
 
+    public Character getChar() {
+        return m_Char;
+    }
 
-    public void createNewParents(Generation i_OldGeneration, AmountOfObjectsCalc i_AmountOfObj,Integer i_NumOfGenerationsReq){
+    public void createNewParents(Generation i_OldGeneration, AmountOfObjectsCalc i_AmountOfObj, Integer i_NumOfGenerationsReq){
         Integer generationSize=i_OldGeneration.getGenerationSize();
         while(generationSize<i_NumOfGenerationsReq) {
             List<Integer> cuttingPoints = rollCuttingPoints(i_AmountOfObj.getMaxAmountOfLessons());////rolling the cutting points
@@ -53,11 +56,18 @@ public class Crossover {
                 //checking out of range (not always we have pairs)
                 if ((i + 1) == generationSize)
                     i--;
-                m_Configuration.activate(i_OldGeneration.getParentByIndex(i), i_OldGeneration.getParentByIndex(i + 1)
-                        , i_AmountOfObj, cuttingPoints, i_OldGeneration);
+                m_eType.activate(i_OldGeneration.getParentByIndex(i), i_OldGeneration.getParentByIndex(i + 1)
+                        , i_AmountOfObj,m_Char, cuttingPoints, i_OldGeneration);
             }
             generationSize=i_OldGeneration.getGenerationSize();
         }
+    }
+
+    public boolean checkIfConfigurationEmpty()
+    {
+        if(m_Configuration==null)
+            return true;
+        return false;
     }
 
     private List<Integer> rollCuttingPoints(Integer i_Max)
@@ -73,5 +83,15 @@ public class Crossover {
         return retList;
     }
 
-
+    private void extractConfiguration() {
+        if(m_Configuration.compareTo("")!=0) {
+            int configurationSize = m_Configuration.length();
+            char[] chars = m_Configuration.toCharArray();
+            int count = 0;
+            while (chars[count] != '=')
+                count++;
+            count++;
+            m_Char = chars[count];
+        }
+    }
 }
