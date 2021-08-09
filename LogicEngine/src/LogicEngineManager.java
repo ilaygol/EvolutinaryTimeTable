@@ -107,6 +107,7 @@ public class LogicEngineManager {
             checker.checkFile();
             m_Descriptor=new Descriptor(ettDescriptor);
             m_IsFileLoaded=true;
+            m_IsAlgoActivated=false;
         }
         catch (JAXBException e) {
             throw new JAXBException("Error: an error with unmarshalling the file");

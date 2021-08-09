@@ -65,24 +65,35 @@ public enum eRules {
                 public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable)
                 {
                     Integer fitness;
-
-                    Integer numOfTeachers = i_TimeTable.getTeachers().getTeacherListSize();
-                    Set<Integer> badTeachersIDSet = new HashSet<>();
-                    List<Lesson> lessonsList = i_Parent.getLessonsList();
-                    for (int i = 1; i <= numOfTeachers; i++) {
-                        int teacherID = i;
-                        Teacher currTeacher = i_TimeTable.getTeachers().getTeacherById(teacherID);
-                        List<Integer> currTeacherSubjectsIDList = currTeacher.getSubjectsIDList();
-                        List<Lesson> lessonsOfTeacherList = lessonsList.stream().filter(l1 -> l1.getTeacherID().equals(teacherID)).collect(Collectors.toList());
-                        for (Lesson lesson : lessonsOfTeacherList) {
-                            if(!currTeacherSubjectsIDList.contains(lesson.getSubjectID()))
+                    List<Integer> teacherGradesInRule=new ArrayList<>();
+                    Teachers teachers = i_TimeTable.getTeachers();
+                    int amountOfSubjects=i_TimeTable.getSubjects().getSubjectsListSize();
+                    for(Teacher t:teachers.getTeachersList())
+                    {
+                        List<Lesson> LessonsTeacherTeachInSolution=i_Parent.getLessonsList().stream()
+                                .filter(lesson->lesson.getTeacherID().equals(t.getId()))
+                                .collect(Collectors.toList());
+                        List<Integer> badSubjectsID=new ArrayList<>();
+                        List<Integer> canTeachSubjects=t.getSubjectsIDList();
+                        int allCantTeachAmount=amountOfSubjects-t.getAmountOfSubjectsTeacherTeach();
+                        for(Lesson lesson:LessonsTeacherTeachInSolution)
+                        {
+                            if(!canTeachSubjects.contains(lesson.getSubjectID()))
                             {
-                                badTeachersIDSet.add(teacherID);
-                                break;
+                                if(!badSubjectsID.contains(lesson.getSubjectID()))
+                                {
+                                    badSubjectsID.add(lesson.getSubjectID());
+                                    if(badSubjectsID.size()==allCantTeachAmount)
+                                        break;
+                                }
                             }
                         }
+                        int alreadyTeachAndCantTeachAmount= badSubjectsID.size();
+                        int teacherGrade=((allCantTeachAmount-alreadyTeachAndCantTeachAmount)/allCantTeachAmount)*100;
+                        teacherGradesInRule.add(teacherGrade);
+
                     }
-                    fitness = 100-(badTeachersIDSet.size() * 100 / numOfTeachers);
+                    fitness=(teacherGradesInRule.stream().mapToInt(grade->grade).sum())/(teacherGradesInRule.size());
                     return fitness;
                 }
             },

@@ -41,7 +41,7 @@ public class EvolutionEngine {
 
 
         while(remainingGenerations>0 && bestFitness<m_ReqFitness) {
-            while(counter< m_PrintingReq && counter < remainingGenerations) {
+            while(counter< m_PrintingReq && counter < remainingGenerations && bestFitness<m_ReqFitness) {
                 i_TimeTable.getRules().calculateFitnesses(m_Generation,i_TimeTable);
                 m_Generation.sortGenerationByFitness();
 

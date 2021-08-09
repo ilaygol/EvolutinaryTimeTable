@@ -50,6 +50,11 @@ public class Teacher {
         return m_FullName;
     }
 
+    public Integer getAmountOfSubjectsTeacherTeach()
+    {
+        return m_SubjectsIDList.size();
+    }
+
     public List<Integer> getSubjectsIDList() {
         return m_SubjectsIDList;
     }
