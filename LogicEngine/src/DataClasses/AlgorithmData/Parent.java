@@ -54,7 +54,7 @@ public class Parent implements Comparable<Parent>{
     {
         Integer minAmountOfLessons,maxAmountOfLessons;
         minAmountOfLessons=i_AmountOfObjects.getLessonsInSolution();
-        maxAmountOfLessons=i_AmountOfObjects.getMaxAmountOfLessons();
+        maxAmountOfLessons=i_AmountOfObjects.getMaxAmountOfLessons()/i_AmountOfObjects.getAmountOfSubjects(); //c d h t
         int lessonsInSolution= m_Roller.nextInt(maxAmountOfLessons-minAmountOfLessons)+minAmountOfLessons;
 
         for(int i=1;i<=lessonsInSolution;i++)
