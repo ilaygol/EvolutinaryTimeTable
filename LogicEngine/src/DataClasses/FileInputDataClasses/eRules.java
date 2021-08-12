@@ -138,8 +138,21 @@ public enum eRules {
                     }
                     return classesGrades.stream().mapToInt(i->i).sum()/classesGrades.size();
                 }
+            },
+    DAYOFFTEACHER
+            {
+                @Override
+                public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable) {
+                    return 0;
+                }
+            },
+    SEQUENTIALITY
+            {
+                @Override
+                public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable) {
+                    return 0;
+                }
             };
-
 
     public abstract Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable);
 }

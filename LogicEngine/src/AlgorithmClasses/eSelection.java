@@ -16,6 +16,13 @@ public enum eSelection {
                     return generationAfterSelection;
 
                 }
+            },
+    ROULETTEWHEEL
+            {
+                @Override
+                public Generation activate(Integer i_Percent, Generation i_GenerationBeforeSelection) {
+                    return null;
+                }
             };
     public abstract Generation activate(Integer i_Percent, Generation i_GenerationBeforeSelection);
 }

@@ -17,6 +17,7 @@ public class Selection {
     private String m_Type;
     private String m_Configuration;
     private Integer m_Percent;
+    private Integer m_Elitism;
     private eSelection m_eType;
 
 
@@ -25,6 +26,7 @@ public class Selection {
         m_Type=i_ETTSelection.getType();
         m_Configuration=i_ETTSelection.getConfiguration();
         extractConfiguration();
+        m_Elitism=i_ETTSelection.getETTElitism();
         m_eType=eSelection.valueOf(m_Type.toUpperCase(Locale.ROOT));
     }
 
@@ -51,8 +53,10 @@ public class Selection {
 
     public void extractConfiguration()
     {
-        Scanner in = new Scanner(m_Configuration.toString()).useDelimiter("[^0-9]+");
-        m_Percent= in.nextInt();
-        in.close();
+        if(m_Configuration!=null) {
+            Scanner in = new Scanner(m_Configuration.toString()).useDelimiter("[^0-9]+");
+            m_Percent = in.nextInt();
+            in.close();
+        }
     }
 }
