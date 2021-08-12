@@ -11,7 +11,7 @@ public class Rule {
 
     private eRules m_eRule;
     private eType m_Type;
-    private List<String> m_Configuration;
+    private String m_Configuration;
 
     public Rule(ETTRule i_ETTRule)
     {
@@ -50,7 +50,7 @@ public class Rule {
         return m_Type;
     }
 
-    public List<String> getConfiguration() {
+    public String getConfiguration() {
         return m_Configuration;
     }
 }

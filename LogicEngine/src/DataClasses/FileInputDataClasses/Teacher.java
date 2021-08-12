@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Teacher {
-    private List<String> m_FullName;
+    private String m_FullName;
     private List<Integer> m_SubjectsIDList;
     private final Integer m_Id;
 
@@ -46,7 +46,7 @@ public class Teacher {
         return Objects.hash(m_Id);
     }
 
-    public List<String> getFullName() {
+    public String getFullName() {
         return m_FullName;
     }
 

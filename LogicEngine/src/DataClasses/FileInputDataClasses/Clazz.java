@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Clazz {
     private final Integer m_Id;
-    private List<String> m_FullName;
+    private String m_FullName;
     private Requirements m_Requirements;
 
     public Clazz(ETTClass i_ETTClass)
@@ -43,7 +43,7 @@ public class Clazz {
         return m_Id;
     }
 
-    public List<String> getFullName() {
+    public String getFullName() {
         return m_FullName;
     }
 

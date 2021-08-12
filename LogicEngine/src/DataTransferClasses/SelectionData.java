@@ -6,7 +6,7 @@ import java.util.List;
 
 public class SelectionData {
     private String m_Type;
-    private List<String> m_Configuration;
+    private String m_Configuration;
 
     public SelectionData(Selection i_Selection)
     {
@@ -18,7 +18,7 @@ public class SelectionData {
         return m_Type;
     }
 
-    public List<String> getConfiguration() {
+    public String getConfiguration() {
         return m_Configuration;
     }
 }

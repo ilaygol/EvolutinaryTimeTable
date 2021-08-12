@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class Selection {
 
     private String m_Type;
-    private List<String> m_Configuration;
+    private String m_Configuration;
     private Integer m_Percent;
     private eSelection m_eType;
 
@@ -32,7 +32,7 @@ public class Selection {
         return m_Type;
     }
 
-    public List<String> getConfiguration() {
+    public String getConfiguration() {
         return m_Configuration;
     }
 

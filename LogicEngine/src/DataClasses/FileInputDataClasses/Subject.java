@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Subject {
-    private List<String> m_FullName;
+    private String m_FullName;
     private final Integer m_Id;
 
     public Subject(ETTSubject i_ETTSubject)
@@ -37,7 +37,7 @@ public class Subject {
         return Objects.hash(m_Id);
     }
 
-    public List<String> getFullName() {
+    public String getFullName() {
         return m_FullName;
     }
 

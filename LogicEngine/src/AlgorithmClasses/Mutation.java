@@ -11,7 +11,7 @@ public class Mutation {
 
     private double m_Probability;
     private String m_Name;
-    private List<String> m_Configuration;
+    private String m_Configuration;
     private Integer m_Tupples;
     private Character m_Char;
     private eMutation m_eType;
@@ -37,7 +37,7 @@ public class Mutation {
         return m_Name;
     }
 
-    public List<String> getConfiguration() {
+    public String getConfiguration() {
         return m_Configuration;
     }
 
@@ -69,8 +69,8 @@ public class Mutation {
     private void extractConfiguration() {
         Scanner scanner = new Scanner(m_Configuration.toString()).useDelimiter("[^0-9]+");
         m_Tupples = scanner.nextInt();
-        int size = m_Configuration.get(0).length();
-        m_Char = m_Configuration.get(0).charAt(size - 1);
+        int size = m_Configuration.length();
+        m_Char = m_Configuration.charAt(size - 1);
         scanner.close();
     }
 }

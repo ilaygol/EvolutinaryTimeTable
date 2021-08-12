@@ -7,7 +7,7 @@ import java.util.List;
 public class MutationData {
     private double m_Probability;
     private String m_Name;
-    private List<String> m_Configuration;
+    private String m_Configuration;
 
     public MutationData(Mutation i_Mutation)
     {
@@ -24,7 +24,7 @@ public class MutationData {
         return m_Name;
     }
 
-    public List<String> getConfiguration() {
+    public String getConfiguration() {
         return m_Configuration;
     }
 }
