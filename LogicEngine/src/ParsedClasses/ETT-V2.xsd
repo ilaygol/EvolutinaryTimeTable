@@ -51,11 +51,7 @@
 	</xs:element>
 	<xs:element name="ETT-Subject">
 		<xs:complexType>
-			<xs:attribute name="name" use="required">
-				<xs:simpleType>
-					<xs:list itemType="xs:string"/>
-				</xs:simpleType>
-			</xs:attribute>
+			<xs:attribute name="name" type="xs:string" use="required"/>
 			<xs:attribute name="id" type="xs:int" use="required"/>
 		</xs:complexType>
 	</xs:element>
@@ -67,19 +63,19 @@
 	</xs:element>
 	<xs:element name="ETT-Selection">
 		<xs:complexType>
+			<xs:all>
+				<xs:element name="ETT-Elitism" type="xs:int" minOccurs="0"/>
+			</xs:all>
 			<xs:attribute name="type" use="required">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 						<xs:enumeration value="Truncation"/>
 						<xs:enumeration value="RouletteWheel"/>
+						<xs:enumeration value="Tournament"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:attribute>
-			<xs:attribute name="configuration">
-				<xs:simpleType>
-					<xs:list itemType="xs:string"/>
-				</xs:simpleType>
-			</xs:attribute>
+			<xs:attribute name="configuration" type="xs:string"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="ETT-Rules">
@@ -95,7 +91,10 @@
 			<xs:restriction base="xs:string">
 				<xs:enumeration value="TeacherIsHuman"/>
 				<xs:enumeration value="Singularity"/>
-				<xs:enumeration value="Knoledgable"/>
+				<xs:enumeration value="Knowledgeable"/>
+				<xs:enumeration value="DayOffTeacher"/>
+				<xs:enumeration value="Sequentiality"/>
+				<xs:enumeration value="Satisfactory"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
@@ -122,11 +121,7 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="ETT-Name">
-		<xs:simpleType>
-			<xs:list itemType="xs:string"/>
-		</xs:simpleType>
-	</xs:element>
+	<xs:element name="ETT-Name" type="xs:string"/>
 	<xs:element name="ETT-Mutations">
 		<xs:complexType>
 			<xs:sequence>
@@ -145,11 +140,7 @@
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:attribute>
-			<xs:attribute name="configuration" use="required">
-				<xs:simpleType>
-					<xs:list itemType="xs:string"/>
-				</xs:simpleType>
-			</xs:attribute>
+			<xs:attribute name="configuration" type="xs:string" use="required"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="ETT-InitialPopulation">
@@ -175,11 +166,7 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="ETT-Configuration">
-		<xs:simpleType>
-			<xs:list itemType="xs:string"/>
-		</xs:simpleType>
-	</xs:element>
+	<xs:element name="ETT-Configuration" type="xs:string"/>
 	<xs:element name="ETT-Crossover">
 		<xs:complexType>
 			<xs:attribute name="configuration" type="xs:string"/>

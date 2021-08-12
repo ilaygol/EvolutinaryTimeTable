@@ -1,13 +1,10 @@
 
 package ParsedClasses;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -50,9 +47,8 @@ public class ETTRule {
 
     @XmlElement(name = "ETT-RuleId", required = true)
     protected String ettRuleId;
-    @XmlList
     @XmlElement(name = "ETT-Configuration")
-    protected List<String> ettConfiguration;
+    protected String ettConfiguration;
     @XmlAttribute(name = "type", required = true)
     protected String type;
 
@@ -83,30 +79,25 @@ public class ETTRule {
     /**
      * Gets the value of the ettConfiguration property.
      * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the ettConfiguration property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getETTConfiguration().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link String }
-     * 
-     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
-    public List<String> getETTConfiguration() {
-        if (ettConfiguration == null) {
-            ettConfiguration = new ArrayList<String>();
-        }
-        return this.ettConfiguration;
+    public String getETTConfiguration() {
+        return ettConfiguration;
+    }
+
+    /**
+     * Sets the value of the ettConfiguration property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setETTConfiguration(String value) {
+        this.ettConfiguration = value;
     }
 
     /**

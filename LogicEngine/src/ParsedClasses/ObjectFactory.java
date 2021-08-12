@@ -1,7 +1,6 @@
 
 package ParsedClasses;
 
-import java.util.List;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
@@ -197,12 +196,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link List }{@code <}{@link String }{@code >}{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "", name = "ETT-Name")
-    public JAXBElement<List<String>> createETTName(List<String> value) {
-        return new JAXBElement<List<String>>(_ETTName_QNAME, ((Class) List.class), null, ((List<String> ) value));
+    public JAXBElement<String> createETTName(String value) {
+        return new JAXBElement<String>(_ETTName_QNAME, String.class, null, value);
     }
 
     /**
@@ -215,12 +214,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link List }{@code <}{@link String }{@code >}{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "", name = "ETT-Configuration")
-    public JAXBElement<List<String>> createETTConfiguration(List<String> value) {
-        return new JAXBElement<List<String>>(_ETTConfiguration_QNAME, ((Class) List.class), null, ((List<String> ) value));
+    public JAXBElement<String> createETTConfiguration(String value) {
+        return new JAXBElement<String>(_ETTConfiguration_QNAME, String.class, null, value);
     }
 
 }
