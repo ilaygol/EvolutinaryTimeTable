@@ -39,6 +39,7 @@ public class EvolutionEngine {
         Integer mutationToActivateIndex;
         initialSolutions(i_AmountOfObj);
 
+        System.out.println(m_Generation.getGenerationSize());
 
         while(remainingGenerations>0 && bestFitness<m_ReqFitness) {
             while(counter< m_PrintingReq && counter < remainingGenerations && bestFitness<m_ReqFitness) {
