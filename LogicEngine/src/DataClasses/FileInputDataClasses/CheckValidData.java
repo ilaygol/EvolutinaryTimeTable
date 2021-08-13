@@ -33,6 +33,7 @@ public class CheckValidData {
         checkTeacherSubjects();
         checkClassSubjects();
         checkLimitHours();
+        checkElitism();
     }
 
 
@@ -152,6 +153,15 @@ public class CheckValidData {
         }
 
     }
+
+    private void checkElitism() throws RuntimeException
+    {
+        Integer elitism=m_Descriptor.getETTEvolutionEngine().getETTSelection().getETTElitism();
+        Integer initialPopulation=m_Descriptor.getETTEvolutionEngine().getETTInitialPopulation().getSize();
+        if(elitism>=initialPopulation)
+            throw new RuntimeException("Error: Elitism cant be bigger than the initial population");
+    }
+
 
 
 
