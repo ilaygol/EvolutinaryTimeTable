@@ -143,7 +143,30 @@ public enum eRules {
             {
                 @Override
                 public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable) {
-                    return 0;
+                    Integer retFitnessForRule=0;
+                    Integer numOfTeachers=i_TimeTable.getTeachers().getTeacherListSize();
+                    Integer numOfDaysInWeek=i_TimeTable.getDays();
+                    List<Integer> teachersWhoHaveBreakList=new ArrayList<>();
+                    List<Teacher> teachersList=i_TimeTable.getTeachers().getTeachersList();
+                    for(Teacher t:teachersList)
+                    {
+                        boolean foundDayOff=false;
+                        for(int i=1;i<=numOfDaysInWeek && !foundDayOff ;i++)
+                        {
+                            Integer day=i;
+                            if(i_Parent.getLessonsList().stream()
+                                    .filter(lesson->lesson.getTeacherID().equals(t.getId()))
+                                    .filter(lesson -> lesson.getDay().equals(day)).count()==0)
+                            {
+                                foundDayOff=true;
+                                if(!teachersWhoHaveBreakList.contains(t.getId())) //not needed if,but ill keep
+                                    teachersWhoHaveBreakList.add(t.getId());
+
+                            }
+                        }
+                    }
+                    retFitnessForRule=(teachersWhoHaveBreakList.size()/numOfTeachers)*100;
+                    return retFitnessForRule;
                 }
             },
     SEQUENTIALITY
