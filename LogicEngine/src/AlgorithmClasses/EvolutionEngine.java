@@ -44,16 +44,10 @@ public class EvolutionEngine {
         while(remainingGenerations>0 && bestFitness<m_ReqFitness) {
             while(counter< m_PrintingReq && counter < remainingGenerations && bestFitness<m_ReqFitness) {
                 i_TimeTable.getRules().calculateFitnesses(m_Generation,i_TimeTable);
-                m_Generation.sortGenerationByFitness();
+                m_Generation.sortGenerationByFitness(); //we delete this from here
 
                 //activating selection
                 m_Generation=m_Selection.activateSelection(m_Generation);
-
-                //System.out.println("Generation "+totalCounter+" Fitnesses");
-                //for(Parent p:m_Generation.getParentsList())
-                   // System.out.print(p.getFitness()+" ");
-                //System.out.println(System.lineSeparator());
-
 
                 //activating crossover
                 m_Crossover.createNewParents(m_Generation,i_AmountOfObj,m_InitialPopulationAmount);
@@ -76,7 +70,6 @@ public class EvolutionEngine {
 
             dataSaver.addToGeneration2BestFitnessMap(totalCounter,m_Generation.getParentByIndex(0).getFitness());
 
-            //event Ilay Gol
             i_ProgressDataConsumer.accept(new ProgressData(totalCounter,m_Generation.getParentByIndex(0).getFitness()));
 
             remainingGenerations-=counter;
