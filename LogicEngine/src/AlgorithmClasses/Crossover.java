@@ -2,6 +2,7 @@ package AlgorithmClasses;
 
 import DataClasses.AlgorithmData.AmountOfObjectsCalc;
 import DataClasses.AlgorithmData.Generation;
+import DataClasses.AlgorithmData.Parent;
 import DataTransferClasses.CrossoverData;
 import ParsedClasses.ETTCrossover;
 
@@ -49,19 +50,23 @@ public class Crossover {
         return m_Char;
     }
 
-    public void createNewParents(Generation i_OldGeneration, AmountOfObjectsCalc i_AmountOfObj, Integer i_NumOfGenerationsReq){
-        Integer generationSize=i_OldGeneration.getGenerationSize();
-        while(generationSize<i_NumOfGenerationsReq) {
-            List<Integer> cuttingPoints = rollCuttingPoints(i_AmountOfObj.getMaxAmountOfLessons());////rolling the cutting points
-            for (int i = 0; i < generationSize; i += 2) {
-                //checking out of range (not always we have pairs)
-                if ((i + 1) == generationSize)
-                    i--;
-                m_eType.activate(i_OldGeneration.getParentByIndex(i), i_OldGeneration.getParentByIndex(i + 1)
-                        , i_AmountOfObj,m_Char, cuttingPoints, i_OldGeneration);
-            }
-            generationSize=i_OldGeneration.getGenerationSize();
+    public void createNewGenerationFromGroupOfParents(Generation i_PrevGeneration,Generation i_NextGeneration, AmountOfObjectsCalc i_AmountOfObj){
+        Integer generationSize=i_PrevGeneration.getGenerationSize();
+        List<Integer> cuttingPoints = rollCuttingPoints(i_AmountOfObj.getMaxAmountOfLessons());////rolling the cutting points
+        for (int i = 0; i < generationSize; i += 2) {
+            //checking out of range (not always we have pairs)
+            if ((i + 1) == generationSize)
+                i--;
+            m_eType.activate(i_PrevGeneration.getParentByIndex(i), i_PrevGeneration.getParentByIndex(i + 1)
+                    , i_AmountOfObj,m_Char, cuttingPoints, i_NextGeneration);
         }
+
+    }
+
+    public void createTwoChildren(Generation i_Generation,Parent i_P1,Parent i_P2,AmountOfObjectsCalc i_AmountOfObj)
+    {
+        List<Integer> cuttingPoints = rollCuttingPoints(i_AmountOfObj.getMaxAmountOfLessons());////rolling the cutting
+        m_eType.activate(i_P1,i_P2,i_AmountOfObj,m_Char,cuttingPoints,i_Generation);
     }
 
     public boolean checkIfConfigurationEmpty()

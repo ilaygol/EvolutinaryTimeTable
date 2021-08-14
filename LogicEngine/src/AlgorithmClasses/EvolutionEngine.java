@@ -44,13 +44,10 @@ public class EvolutionEngine {
         while(remainingGenerations>0 && bestFitness<m_ReqFitness) {
             while(counter< m_PrintingReq && counter < remainingGenerations && bestFitness<m_ReqFitness) {
                 i_TimeTable.getRules().calculateFitnesses(m_Generation,i_TimeTable);
-                m_Generation.sortGenerationByFitness(); //we delete this from here
+                m_Generation.sortGenerationByFitness();
 
                 //activating selection
-                m_Generation=m_Selection.activateSelection(m_Generation);
-
-                //activating crossover
-                m_Crossover.createNewParents(m_Generation,i_AmountOfObj,m_InitialPopulationAmount);
+                m_Generation=m_Selection.createNextGeneration(m_Generation,m_Crossover,m_InitialPopulationAmount,i_AmountOfObj);
 
                 //activating mutation
                 mutationToActivateIndex=m_Mutations.getWhichMutationToActivateByIndex();

@@ -1,6 +1,7 @@
 
 package AlgorithmClasses;
 
+import DataClasses.AlgorithmData.AmountOfObjectsCalc;
 import DataClasses.AlgorithmData.Generation;
 import DataTransferClasses.SelectionData;
 import ParsedClasses.ETTSelection;
@@ -21,12 +22,14 @@ public class Selection {
     private eSelection m_eType;
 
 
-    public Selection(ETTSelection i_ETTSelection)
-    {
-        m_Type=i_ETTSelection.getType();
-        m_Configuration=i_ETTSelection.getConfiguration();
+    public Selection(ETTSelection i_ETTSelection) {
+        m_Type = i_ETTSelection.getType();
+        m_Configuration = i_ETTSelection.getConfiguration();
         extractConfiguration();
-        m_Elitism=i_ETTSelection.getETTElitism();
+        if (i_ETTSelection.getETTElitism() != null) {
+            m_Elitism = i_ETTSelection.getETTElitism(); }
+        else { m_Elitism = 0; }
+
         m_eType=eSelection.valueOf(m_Type.toUpperCase(Locale.ROOT));
     }
 
@@ -47,8 +50,11 @@ public class Selection {
         return m_Percent;
     }
 
-    public Generation activateSelection(Generation i_Generation){
-        return m_eType.activate(m_Percent, i_Generation);
+    public Generation createNextGeneration(Generation i_PrevGeneration, Crossover i_Crossover, Integer i_InitialPopulation, AmountOfObjectsCalc i_AmountOfObj){
+        Generation nextGeneration=new Generation();
+        for(int i=0;i<m_Elitism;i++)
+            nextGeneration.addParentToGeneration(i_PrevGeneration.getParentByIndex(i));
+        return m_eType.activate(m_Percent,i_PrevGeneration,nextGeneration,i_InitialPopulation,i_AmountOfObj,i_Crossover);
     }
 
     public void extractConfiguration()
