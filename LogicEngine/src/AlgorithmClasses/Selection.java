@@ -8,10 +8,7 @@ import ParsedClasses.ETTSelection;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 public class Selection {
 
@@ -20,6 +17,7 @@ public class Selection {
     private Integer m_Percent;
     private Integer m_Elitism;
     private eSelection m_eType;
+    private Random m_Roller;
 
 
     public Selection(ETTSelection i_ETTSelection) {
@@ -31,6 +29,7 @@ public class Selection {
         else { m_Elitism = 0; }
 
         m_eType=eSelection.valueOf(m_Type.toUpperCase(Locale.ROOT));
+        m_Roller=new Random();
     }
 
     public String getType() {
@@ -54,7 +53,8 @@ public class Selection {
         Generation nextGeneration=new Generation();
         for(int i=0;i<m_Elitism;i++)
             nextGeneration.addParentToGeneration(i_PrevGeneration.getParentByIndex(i));
-        return m_eType.activate(m_Percent,i_PrevGeneration,nextGeneration,i_InitialPopulation,i_AmountOfObj,i_Crossover);
+        m_eType.activate(m_Percent,m_Roller,i_PrevGeneration,nextGeneration,i_InitialPopulation,i_AmountOfObj,i_Crossover);
+        return nextGeneration;
     }
 
     public void extractConfiguration()

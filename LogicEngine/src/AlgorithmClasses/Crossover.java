@@ -63,10 +63,10 @@ public class Crossover {
 
     }
 
-    public void createTwoChildren(Generation i_Generation,Parent i_P1,Parent i_P2,AmountOfObjectsCalc i_AmountOfObj)
+    public void createTwoChildren(Generation i_NextGeneration,Parent i_P1,Parent i_P2,AmountOfObjectsCalc i_AmountOfObj)
     {
         List<Integer> cuttingPoints = rollCuttingPoints(i_AmountOfObj.getMaxAmountOfLessons());////rolling the cutting
-        m_eType.activate(i_P1,i_P2,i_AmountOfObj,m_Char,cuttingPoints,i_Generation);
+        m_eType.activate(i_P1,i_P2,i_AmountOfObj,m_Char,cuttingPoints,i_NextGeneration);
     }
 
     public boolean checkIfConfigurationEmpty()

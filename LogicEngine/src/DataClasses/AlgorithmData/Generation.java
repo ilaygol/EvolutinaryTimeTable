@@ -21,6 +21,9 @@ public class Generation{
     }
     public Integer getGenerationSize() { return m_ParentsList.size(); }
     public Parent getParentByIndex(Integer index) { return m_ParentsList.get(index); }
+    public Integer getSumOfFitness(){
+        return m_ParentsList.stream().mapToInt(parent-> parent.getFitness()).sum();
+    }
     public void sortGenerationByFitness()
     {
         Comparator<Parent> cmp= (p1,p2)->p2.getFitness() - p1.getFitness();

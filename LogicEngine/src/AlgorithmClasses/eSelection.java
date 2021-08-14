@@ -2,42 +2,59 @@ package AlgorithmClasses;
 
 import DataClasses.AlgorithmData.AmountOfObjectsCalc;
 import DataClasses.AlgorithmData.Generation;
+import DataClasses.AlgorithmData.Parent;
+
+import java.util.Random;
 
 public enum eSelection {
     TRUNCATION
             {
                 @Override
-                public Generation activate(Integer i_Percent,Generation i_PrevGeneration,Generation i_nextGeneration,Integer i_InitialPopulation
+                public void activate(Integer i_Percent, Random i_Roller,Generation i_PrevGeneration,Generation i_nextGeneration,Integer i_InitialPopulation
                         ,AmountOfObjectsCalc i_AmountOfObj,Crossover i_Crossover)
                 {
-                    int count=0;
+
                     int size=i_PrevGeneration.getGenerationSize();
                     int sizeAfterSelection= (size*i_Percent)/100; //auto casting to complete value
-                    Generation generationAfterSelection=new Generation();
+                    Generation generationAfterSelectingPercent=new Generation();
                     for(int i=0;i<sizeAfterSelection;i++)
-                        generationAfterSelection.addParentToGeneration(i_PrevGeneration.getParentByIndex(i));
-                    while(i_nextGeneration.getGenerationSize()<i_InitialPopulation)
-                    {
-                        if(count==0) {
-                            i_Crossover.createNewGenerationFromGroupOfParents(generationAfterSelection, i_nextGeneration, i_AmountOfObj);
-                            count++;
-                        }
-                        else
-                        {
-                            i_Crossover.createNewGenerationFromGroupOfParents(i_nextGeneration,i_nextGeneration,i_AmountOfObj);
-                        }
+                        generationAfterSelectingPercent.addParentToGeneration(i_PrevGeneration.getParentByIndex(i));
+                    while(i_nextGeneration.getGenerationSize()<i_InitialPopulation) {
+                        i_Crossover.createNewGenerationFromGroupOfParents(generationAfterSelectingPercent, i_nextGeneration, i_AmountOfObj);
                     }
-                    return i_nextGeneration;
                 }
             },
     ROULETTEWHEEL
             {
                 @Override
-                public Generation activate(Integer i_Percent,Generation i_PrevGeneration,Generation i_nextGeneration,Integer i_InitialPopulation
+                public void activate(Integer i_Percent, Random i_Roller,Generation i_PrevGeneration,Generation i_nextGeneration,Integer i_InitialPopulation
                         ,AmountOfObjectsCalc i_AmountOfObj,Crossover i_Crossover) {
-                    return new Generation();
+                    Parent p1;
+                    Parent p2;
+                    while(i_nextGeneration.getGenerationSize()<i_InitialPopulation)
+                    {
+                        p1=activateRouletteWheel(i_PrevGeneration,i_Roller);
+                        p2=activateRouletteWheel(i_PrevGeneration,i_Roller);
+                        i_Crossover.createTwoChildren(i_nextGeneration,p1,p2,i_AmountOfObj);
+                    }
                 }
             };
-    public abstract Generation activate(Integer i_Percent, Generation i_PrevGeneration, Generation i_nextGeneration, Integer i_InitialPopulation
+    public abstract void activate(Integer i_Percent, Random i_Roller, Generation i_PrevGeneration, Generation i_nextGeneration, Integer i_InitialPopulation
             , AmountOfObjectsCalc i_AmountOfObj, Crossover i_Crossover);
+
+    public Parent activateRouletteWheel(Generation i_Generation,Random i_Roller)
+    {
+        int scanner=0;
+        int index=0;
+        int fitness=i_Generation.getSumOfFitness();
+        int rouletteWheelResult=i_Roller.nextInt(fitness);
+        if(rouletteWheelResult==0)
+            return i_Generation.getParentByIndex(0);
+        while(scanner<rouletteWheelResult)
+        {
+            scanner+=i_Generation.getParentByIndex(index).getFitness();
+            index++;
+        }
+        return i_Generation.getParentByIndex(index-1);
+    }
 }
