@@ -13,7 +13,7 @@ public enum eRules {
     TEACHERISHUMAN
             {
                 @Override
-                public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable) {
+                public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable,Integer i_TotalHours) {
                     Integer fitness;
                     Integer numOfTeachers = i_TimeTable.getTeachers().getTeacherListSize();
                     Set<Integer> badTeachersIDSet = new HashSet<>();
@@ -37,7 +37,7 @@ public enum eRules {
     SINGULARITY
             {
                 @Override
-                public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable)
+                public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable,Integer i_TotalHours)
                 {
                     Integer fitness;
                     Integer numOfClasses = i_TimeTable.getClazzes().getClassesListSize();
@@ -62,7 +62,7 @@ public enum eRules {
     KNOWLEDGEABLE
             {
                 @Override
-                public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable)
+                public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable,Integer i_TotalHours)
                 {
                     Integer fitness;
                     List<Integer> teacherGradesInRule=new ArrayList<>();
@@ -100,7 +100,7 @@ public enum eRules {
     SATISFACTORY
             {
                 @Override
-                public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable)
+                public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable,Integer i_TotalHours)
                 {
                     Integer numOfClasses = i_TimeTable.getClazzes().getClassesListSize();
                     List<Integer> classesGrades=new ArrayList<>();
@@ -142,7 +142,7 @@ public enum eRules {
     DAYOFFTEACHER
             {
                 @Override
-                public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable) {
+                public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable,Integer i_TotalHours) {
                     Integer retFitnessForRule=0;
                     Integer numOfTeachers=i_TimeTable.getTeachers().getTeacherListSize();
                     Integer numOfDaysInWeek=i_TimeTable.getDays();
@@ -172,10 +172,57 @@ public enum eRules {
     SEQUENTIALITY
             {
                 @Override
-                public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable) {
-                    return 0;
+                public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable,Integer i_TotalHours) {
+                    List<Clazz> classesList=i_TimeTable.getClazzes().getClassesList();
+                    int daysInWeek=i_TimeTable.getDays();
+                    int hoursInDay=i_TimeTable.getHours();
+                    List<Integer> classesGrades=new ArrayList<>();
+                    for(Clazz c:classesList)
+                    {
+                        int badDays=0;
+                        for(int i=1;i<=daysInWeek;i++)
+                        {
+                            Boolean isFoundBadDay=false;
+                            int counter=0;
+                            int day=i;
+                            List<Lesson> lessonsForClassInDay = i_Parent.getLessonsList().stream()
+                                    .filter(lesson -> lesson.getClassID().equals(c.getId()))
+                                    .filter(lesson -> lesson.getDay().equals(day))
+                                    .collect(Collectors.toList());
+                            for(int j=1;j<=hoursInDay && !isFoundBadDay;j++)
+                            {
+                                int hour=j;
+                                int subjID=0;
+                                if(lessonsForClassInDay.stream()
+                                        .filter(lesson -> lesson.getHour().equals(hour)).count()>0)
+                                {
+                                    if(lessonsForClassInDay.stream()
+                                            .filter(lesson -> lesson.getHour().equals(hour))
+                                            .findFirst().get().getSubjectID()==subjID)
+                                    {
+                                        counter++;
+                                        if(counter==i_TotalHours)
+                                        {
+                                            badDays++;
+                                            isFoundBadDay=true;
+                                        }
+                                    }
+                                    else
+                                        counter=0;
+
+                                }
+                                else
+                                    counter=0;
+                            }
+
+                        }
+                        int classGrade=((daysInWeek-badDays)/daysInWeek)*100;
+                        classesGrades.add(classGrade);
+                    }
+
+                    return (classesGrades.stream().mapToInt(i->i).sum()/classesGrades.size());
                 }
             };
 
-    public abstract Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable);
+    public abstract Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable,Integer i_TotalHours);
 }

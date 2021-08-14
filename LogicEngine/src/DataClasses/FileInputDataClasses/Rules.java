@@ -64,11 +64,11 @@ public class Rules {
                 {
                     if(rule.getType()== Rule.eType.HARD)
                     {
-                        hardRulesScores.add(rule.getId().CheckRule(parent,i_TimeTable));
+                        hardRulesScores.add(rule.getId().CheckRule(parent,i_TimeTable,rule.getTotalHours()));
                     }
                     else
                     {
-                        softRulesScores.add(rule.getId().CheckRule(parent,i_TimeTable));
+                        softRulesScores.add(rule.getId().CheckRule(parent,i_TimeTable,rule.getTotalHours()));
                     }
                 }
                 int hardAverage =hardRulesScores.stream().mapToInt(i->i).sum()/hardRulesScores.size();
@@ -84,7 +84,7 @@ public class Rules {
     {
         for(Rule rule:m_RulesList)
         {
-            i_Data.addToRulesDataList(rule,rule.getId().CheckRule(i_Parent,i_TimeTable));
+            i_Data.addToRulesDataList(rule,rule.getId().CheckRule(i_Parent,i_TimeTable,rule.getTotalHours()));
         }
     }
 }

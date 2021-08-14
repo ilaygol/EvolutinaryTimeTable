@@ -5,6 +5,7 @@ import ParsedClasses.ETTRule;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Rule {
     public enum eType{HARD,SOFT}
@@ -12,12 +13,14 @@ public class Rule {
     private eRules m_eRule;
     private eType m_Type;
     private String m_Configuration;
+    private Integer m_TotalHours;
 
     public Rule(ETTRule i_ETTRule)
     {
         m_eRule=eRules.valueOf(i_ETTRule.getETTRuleId().toUpperCase());
         m_Type=eType.valueOf(i_ETTRule.getType().toUpperCase());
         m_Configuration=i_ETTRule.getETTConfiguration();
+        extractConfiguration();
     }
 
     @Override
@@ -50,7 +53,22 @@ public class Rule {
         return m_Type;
     }
 
+    public Integer getTotalHours() {
+        return m_TotalHours;
+    }
+
     public String getConfiguration() {
         return m_Configuration;
+    }
+
+    public void extractConfiguration()
+    {
+        if(m_Configuration!=null) {
+            Scanner in = new Scanner(m_Configuration.toString()).useDelimiter("[^0-9]+");
+            m_TotalHours = in.nextInt();
+            in.close();
+        }
+        else
+            m_TotalHours=0;
     }
 }
