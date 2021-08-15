@@ -71,6 +71,7 @@ public class Mutation {
         m_Tupples = scanner.nextInt();
         int size = m_Configuration.length();
         m_Char = m_Configuration.charAt(size - 1);
+        //System.out.println("we Had a flipping Mutation"+System.lineSeparator()+"Max tupples: "+m_Tupples+" the Char is: "+m_Char);
         scanner.close();
     }
 }

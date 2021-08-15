@@ -189,30 +189,35 @@ public enum eRules {
                                     .filter(lesson -> lesson.getClassID().equals(c.getId()))
                                     .filter(lesson -> lesson.getDay().equals(day))
                                     .collect(Collectors.toList());
+                            int subjID=0;
                             for(int j=1;j<=hoursInDay && !isFoundBadDay;j++)
                             {
                                 int hour=j;
-                                int subjID=0;
                                 if(lessonsForClassInDay.stream()
                                         .filter(lesson -> lesson.getHour().equals(hour)).count()>0)
                                 {
-                                    if(lessonsForClassInDay.stream()
+                                    int nextSubjID=lessonsForClassInDay.stream()
                                             .filter(lesson -> lesson.getHour().equals(hour))
-                                            .findFirst().get().getSubjectID()==subjID)
+                                            .findFirst().get().getSubjectID();
+
+                                    if(nextSubjID==subjID)
                                     {
                                         counter++;
-                                        if(counter==i_TotalHours)
+                                        if(counter>i_TotalHours)
                                         {
                                             badDays++;
                                             isFoundBadDay=true;
                                         }
                                     }
-                                    else
-                                        counter=0;
-
+                                    else {
+                                        counter = 0;
+                                        subjID=nextSubjID;
+                                    }
                                 }
-                                else
-                                    counter=0;
+                                else {
+                                    counter = 0;
+                                    subjID=0;
+                                }
                             }
 
                         }

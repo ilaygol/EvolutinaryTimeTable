@@ -38,12 +38,11 @@ public class EvolutionEngine {
         Integer counter=0,totalCounter=0,bestFitness=0;
         Integer mutationToActivateIndex;
         initialSolutions(i_AmountOfObj);
-
+        i_TimeTable.getRules().calculateFitnesses(m_Generation,i_TimeTable);
+        m_Generation.sortGenerationByFitness();
 
         while(remainingGenerations>0 && bestFitness<m_ReqFitness) {
             while(counter< m_PrintingReq && counter < remainingGenerations && bestFitness<m_ReqFitness) {
-                i_TimeTable.getRules().calculateFitnesses(m_Generation,i_TimeTable);
-                m_Generation.sortGenerationByFitness();
 
                 //activating selection
                 m_Generation=m_Selection.createNextGeneration(m_Generation,m_Crossover,m_InitialPopulationAmount,i_AmountOfObj);
@@ -52,6 +51,8 @@ public class EvolutionEngine {
                 mutationToActivateIndex=m_Mutations.getWhichMutationToActivateByIndex();
                 m_Mutations.getMutationByIndex(mutationToActivateIndex).activateMutation(m_Generation,i_AmountOfObj);
 
+                i_TimeTable.getRules().calculateFitnesses(m_Generation,i_TimeTable);
+                m_Generation.sortGenerationByFitness();
                 counter++;
                 totalCounter++;
                 if(counter==1) {
