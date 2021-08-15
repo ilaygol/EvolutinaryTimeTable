@@ -44,7 +44,7 @@ public class EvolutionEngine {
         while(remainingGenerations>0 && bestFitness<m_ReqFitness) {
             while(counter< m_PrintingReq && counter < remainingGenerations && bestFitness<m_ReqFitness) {
 
-                //activating selection
+                //activating selection (crossover activation is inside)
                 m_Generation=m_Selection.createNextGeneration(m_Generation,m_Crossover,m_InitialPopulationAmount,i_AmountOfObj);
 
                 //activating mutation
@@ -63,6 +63,8 @@ public class EvolutionEngine {
                     dataSaver.setBestSolution(m_Generation.getParentByIndex(0));
                     bestFitness= dataSaver.getBestSolutionFitness();
                 }
+                i_TimeTable.getRules().recheckBestSolution(dataSaver.getBestSolution(),i_TimeTable,dataSaver);
+                dataSaver.updateRulesAverage();
             }
 
             dataSaver.addToGeneration2BestFitnessMap(totalCounter,m_Generation.getParentByIndex(0).getFitness());
@@ -73,8 +75,6 @@ public class EvolutionEngine {
             counter=0;
 
         }
-        i_TimeTable.getRules().recheckBestSolution(dataSaver.getBestSolution(),i_TimeTable,dataSaver);
-        dataSaver.updateRulesAverage();
         return dataSaver;
     }
 
