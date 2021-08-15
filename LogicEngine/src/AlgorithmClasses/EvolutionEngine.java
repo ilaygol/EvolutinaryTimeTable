@@ -49,8 +49,9 @@ public class EvolutionEngine {
 
                 //activating mutation
                 mutationToActivateIndex=m_Mutations.getWhichMutationToActivateByIndex();
-                m_Mutations.getMutationByIndex(mutationToActivateIndex).activateMutation(m_Generation,i_AmountOfObj);
-
+                if(mutationToActivateIndex!=-1) {
+                    m_Mutations.getMutationByIndex(mutationToActivateIndex).activateMutation(m_Generation, i_AmountOfObj);
+                }
                 i_TimeTable.getRules().calculateFitnesses(m_Generation,i_TimeTable);
                 m_Generation.sortGenerationByFitness();
                 counter++;
@@ -63,18 +64,17 @@ public class EvolutionEngine {
                     dataSaver.setBestSolution(m_Generation.getParentByIndex(0));
                     bestFitness= dataSaver.getBestSolutionFitness();
                 }
-                i_TimeTable.getRules().recheckBestSolution(dataSaver.getBestSolution(),i_TimeTable,dataSaver);
-                dataSaver.updateRulesAverage();
+
             }
 
             dataSaver.addToGeneration2BestFitnessMap(totalCounter,m_Generation.getParentByIndex(0).getFitness());
-
             i_ProgressDataConsumer.accept(new ProgressData(totalCounter,m_Generation.getParentByIndex(0).getFitness()));
-
             remainingGenerations-=counter;
             counter=0;
 
         }
+        i_TimeTable.getRules().recheckBestSolution(dataSaver.getBestSolution(),i_TimeTable,dataSaver);
+        dataSaver.updateRulesAverage();
         return dataSaver;
     }
 

@@ -49,7 +49,7 @@ public class Mutations {
                 probability += m_MutationsList.get(i + 1).getProbability();
             }
         }
-        return (mutationListSize-1);
+        return -1;
 
     }
 }
