@@ -130,9 +130,8 @@ public class ConsoleUserInterfaceManager {
                         while (!isCorrect) {
                             try {
                                 printEveryAmountOfGeneration = algorithmInputScanner.nextInt();
-                                if (printEveryAmountOfGeneration > generationsNum)
-                                    System.out.println("You asked to create " + generationsNum + " Generations only!"
-                                            + System.lineSeparator() + "you should enter a number between 0 and " + generationsNum);
+                                if (printEveryAmountOfGeneration > generationsNum || printEveryAmountOfGeneration<1)
+                                    System.out.println("Error: Please enter a number between 1 and " + generationsNum);
                                 else
                                     isCorrect = true;
                             } catch (InputMismatchException e) {
