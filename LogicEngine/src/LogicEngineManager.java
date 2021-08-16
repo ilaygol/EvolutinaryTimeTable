@@ -95,14 +95,13 @@ public class LogicEngineManager {
         }
     }
 
-    public void LoadFile(String i_FileName) throws FileNotFoundException, JAXBException {
+    public void LoadFile(File i_File) throws FileNotFoundException, JAXBException {
         try {
-            File file=new File(i_FileName);
-            if (!file.exists())
+            if (i_File.exists())
                 throw new FileNotFoundException("Error: the file has not found");
             JAXBContext jaxbContext = JAXBContext.newInstance("ParsedClasses");
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            ETTDescriptor ettDescriptor = (ETTDescriptor) jaxbUnmarshaller.unmarshal(file);
+            ETTDescriptor ettDescriptor = (ETTDescriptor) jaxbUnmarshaller.unmarshal(i_File);
             CheckValidData checker=new CheckValidData(ettDescriptor);
             checker.checkFile();
             m_Descriptor=new Descriptor(ettDescriptor);
