@@ -19,6 +19,8 @@ public class Main extends Application {
         URL url = getClass().getResource("ETTUserInterface.fxml");
         fxmlLoader.setLocation(url);
         Parent root = fxmlLoader.load(url.openStream());
+        ApplicationController controller=(ApplicationController)fxmlLoader.getController();
+        controller.setStage(primaryStage);
 
         Scene scene = new Scene(root, 1124, 713);
         primaryStage.setScene(scene);
