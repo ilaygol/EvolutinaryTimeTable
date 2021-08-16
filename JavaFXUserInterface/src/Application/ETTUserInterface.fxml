@@ -9,6 +9,8 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -16,7 +18,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="1124.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.ApplicationController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="1124.0" stylesheets="@ApplicationCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.ApplicationController">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -33,7 +35,7 @@
                     </rowConstraints>
                      <children>
                         <Label text="File:" />
-                        <Label fx:id="filePathLabel" text="[File Path]" GridPane.columnIndex="1" />
+                        <Label id="filePath" fx:id="filePathLabel" styleClass="status" text="[File Path]" GridPane.columnIndex="1" />
                         <Button fx:id="loadFileBtn" mnemonicParsing="false" onAction="#onLoadFileClick" text="Load File" GridPane.columnIndex="2" />
                      </children>
                      <padding>
@@ -89,7 +91,7 @@
             </TitledPane>
             <TitledPane animated="false" collapsible="false" prefWidth="200.0" text="Controls">
                <content>
-                  <GridPane hgap="10.0">
+                  <GridPane hgap="10.0" vgap="10.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
                       <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
@@ -99,14 +101,35 @@
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="startBtn" mnemonicParsing="false" onAction="#onStartBtnClick" text="Start" />
-                        <Button fx:id="pauseBtn" mnemonicParsing="false" onAction="#onPauseBtnClick" text="Pause" GridPane.columnIndex="1" />
-                        <Button fx:id="stopBtn" mnemonicParsing="false" onAction="#onStopBtnClick" text="Stop" GridPane.columnIndex="2" />
+                        <Button fx:id="startBtn" mnemonicParsing="false" onAction="#onStartBtnClick">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@Images/play.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></Button>
+                        <Button fx:id="pauseBtn" mnemonicParsing="false" onAction="#onPauseBtnClick" GridPane.columnIndex="1">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@Images/pause.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></Button>
+                        <Button fx:id="stopBtn" mnemonicParsing="false" onAction="#onStopBtnClick" GridPane.columnIndex="2">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@Images/stop.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></Button>
                         <Label text="Status:" GridPane.columnIndex="4" />
-                        <Label fx:id="statusLineLabel" text="[Status Line]" GridPane.columnIndex="5" GridPane.hgrow="ALWAYS" />
+                        <Label id="statusLine" fx:id="statusLineLabel" maxWidth="1.7976931348623157E308" styleClass="status" text="[Status Line]" GridPane.columnIndex="5" GridPane.hgrow="ALWAYS" />
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />

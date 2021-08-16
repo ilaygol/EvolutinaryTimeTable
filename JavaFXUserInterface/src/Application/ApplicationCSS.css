@@ -1,0 +1,9 @@
+.status{
+    -fx-text-fill: blue;
+    -fx-font-weight: bold;
+    -fx-background-color: #d5d5d5;
+}
+
+#filePath{
+    -fx-text-fill: #35353a;
+}
