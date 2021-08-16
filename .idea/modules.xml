@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ConsoleUserInterface/ConsoleUserInterface.iml" filepath="$PROJECT_DIR$/ConsoleUserInterface/ConsoleUserInterface.iml" />
       <module fileurl="file://$PROJECT_DIR$/EvolutinaryTimeTable.iml" filepath="$PROJECT_DIR$/EvolutinaryTimeTable.iml" />
       <module fileurl="file://$PROJECT_DIR$/LogicEngine/LogicEngine.iml" filepath="$PROJECT_DIR$/LogicEngine/LogicEngine.iml" />
     </modules>
