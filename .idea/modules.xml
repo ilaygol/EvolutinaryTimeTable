@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EvolutinaryTimeTable.iml" filepath="$PROJECT_DIR$/EvolutinaryTimeTable.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JavaFXUserInterface/JavaFXUserInterface.iml" filepath="$PROJECT_DIR$/JavaFXUserInterface/JavaFXUserInterface.iml" />
       <module fileurl="file://$PROJECT_DIR$/LogicEngine/LogicEngine.iml" filepath="$PROJECT_DIR$/LogicEngine/LogicEngine.iml" />
     </modules>
   </component>

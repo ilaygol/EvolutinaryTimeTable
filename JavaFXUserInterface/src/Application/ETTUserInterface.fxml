@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="1124.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.ApplicationController">
+   <top>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+          <TitledPane animated="false" collapsible="false" text="Load File">
+               <content>
+                  <GridPane hgap="10.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+                      <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="File:" />
+                        <Label fx:id="filePathLabel" text="[File Path]" GridPane.columnIndex="1" />
+                        <Button fx:id="loadFileBtn" mnemonicParsing="false" onAction="#onLoadFileClick" text="Load File" GridPane.columnIndex="2" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </padding>
+                  </GridPane>
+               </content>
+            </TitledPane>
+          <TitledPane text="Algorithm Preferences">
+               <content>
+                  <GridPane hgap="10.0" vgap="5.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="NEVER" />
+                        <ColumnConstraints hgrow="NEVER" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="20.0" />
+                        <ColumnConstraints hgrow="NEVER" />
+                        <ColumnConstraints hgrow="NEVER" />
+                        <ColumnConstraints hgrow="NEVER" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="20.0" />
+                        <ColumnConstraints hgrow="NEVER" />
+                        <ColumnConstraints hgrow="NEVER" />
+                        <ColumnConstraints hgrow="NEVER" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <ComboBox fx:id="numOfGenCombo" disable="true" editable="true" maxWidth="1.7976931348623157E308" prefHeight="31.0" prefWidth="158.0" promptText="Generations" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="showEveryCombo" disable="true" editable="true" prefWidth="150.0" promptText="Generations" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="fitnessLimitCombo" disable="true" editable="true" prefWidth="150.0" promptText="Fitness limit" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="generationsLimitCombo" disable="true" editable="true" prefWidth="150.0" promptText="Generations limit" GridPane.columnIndex="8" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="timeLimitCombo" disable="true" editable="true" prefWidth="150.0" promptText="Time limit" GridPane.columnIndex="9" GridPane.rowIndex="1" />
+                        <CheckBox fx:id="fitnessCheck" mnemonicParsing="false" text="Fitness" GridPane.columnIndex="7" />
+                        <CheckBox fx:id="generationsCheck" minWidth="120.0" mnemonicParsing="false" text="Generations" GridPane.columnIndex="8" />
+                        <CheckBox fx:id="timeCheck" mnemonicParsing="false" text="Time" GridPane.columnIndex="9" />
+                        <Label minWidth="170.0" text="Number of generations:" />
+                        <Label text="Show every:" GridPane.columnIndex="1" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Entry" underline="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Stop conditions" underline="true" GridPane.columnIndex="7" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Label alignment="CENTER" text="Configuration" underline="true" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="crossoverCombo" minWidth="120.0" prefWidth="150.0" promptText="Crossover" visibleRowCount="5" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="mutationCombo" minWidth="120.0" prefWidth="150.0" promptText="Mutation" visibleRowCount="5" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="selectionCombo" minWidth="120.0" prefWidth="150.0" promptText="Selection" visibleRowCount="5" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </padding>
+                  </GridPane>
+               </content>
+            </TitledPane>
+            <TitledPane animated="false" collapsible="false" prefWidth="200.0" text="Controls">
+               <content>
+                  <GridPane hgap="10.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+                      <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button fx:id="startBtn" mnemonicParsing="false" onAction="#onStartBtnClick" text="Start" />
+                        <Button fx:id="pauseBtn" mnemonicParsing="false" onAction="#onPauseBtnClick" text="Pause" GridPane.columnIndex="1" />
+                        <Button fx:id="stopBtn" mnemonicParsing="false" onAction="#onStopBtnClick" text="Stop" GridPane.columnIndex="2" />
+                        <Label text="Status:" GridPane.columnIndex="4" />
+                        <Label fx:id="statusLineLabel" text="[Status Line]" GridPane.columnIndex="5" GridPane.hgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </padding>
+                  </GridPane>
+               </content>
+            </TitledPane>
+         </children>
+      </VBox>
+   </top>
+   <bottom>
+      <GridPane hgap="15.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ProgressBar fx:id="fitnessProgress" maxWidth="1.7976931348623157E308" prefWidth="200.0" progress="0.0" GridPane.columnIndex="1" />
+            <ProgressBar fx:id="generationsProgress" maxWidth="1.7976931348623157E308" prefWidth="200.0" progress="0.0" GridPane.columnIndex="3" />
+            <ProgressBar fx:id="timeProgress" maxWidth="1.7976931348623157E308" prefWidth="200.0" progress="0.0" GridPane.columnIndex="5" />
+            <Label text="Fitness:" />
+            <Label text="Generations:" GridPane.columnIndex="2" />
+            <Label text="Time:" GridPane.columnIndex="4" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+      </GridPane>
+   </bottom>
+   <left>
+      <ScrollPane fitToHeight="true" fitToWidth="true" minViewportHeight="200.0" prefViewportHeight="200.0">
+         <content>
+            <TitledPane alignment="CENTER" animated="false" collapsible="false" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="300.0" prefWidth="240.0" text="Rules" />
+         </content>
+      </ScrollPane>
+   </left>
+   <center>
+      <TitledPane alignment="CENTER" animated="false" collapsible="false" maxHeight="1.7976931348623157E308" text="Results" BorderPane.alignment="CENTER">
+         <content>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <HBox alignment="CENTER" spacing="20.0" VBox.vgrow="NEVER">
+                     <children>
+                        <Label text="Show:" />
+                        <ComboBox fx:id="showValueCombo" prefWidth="150.0" promptText="Value" />
+                        <Button fx:id="submitShowValueBtn" mnemonicParsing="false" onAction="#onSubmitShowValueClick" text="Submit" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <Separator prefWidth="200.0" />
+               </children>
+            </VBox>
+         </content>
+      </TitledPane>
+   </center>
+</BorderPane>
