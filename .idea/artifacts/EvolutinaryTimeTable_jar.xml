@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="EvolutinaryTimeTable:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/EvolutinaryTimeTable_jar</output-path>
+    <root id="archive" name="EvolutinaryTimeTable.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/out/production/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="EvolutinaryTimeTable" />
+      <element id="module-output" name="LogicEngine" />
+      <element id="module-output" name="JavaFXUserInterface" />
+    </root>
+  </artifact>
+</component>
