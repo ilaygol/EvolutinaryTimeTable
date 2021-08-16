@@ -1,3 +1,5 @@
+package Manager;
+
 import AlgorithmClasses.Descriptor;
 import DataClasses.FileInputDataClasses.*;
 import DataClasses.AlgorithmData.*;
