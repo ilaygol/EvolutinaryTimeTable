@@ -88,8 +88,10 @@ public class ApplicationController {
 
     public void bindFileTaskToPathLabel(Task<Boolean> aTask) {
         filePathLabelProperty.bind(aTask.messageProperty());
-        aTask.valueProperty().addListener((observable,oldVal,newVal)->
-                isFileSelected.set(newVal));
+        if(!isFileSelected.get()) {
+            aTask.valueProperty().addListener((observable, oldVal, newVal) ->
+                    isFileSelected.set(newVal));
+        }
     }
 
     @FXML
