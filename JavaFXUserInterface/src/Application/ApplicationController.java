@@ -20,7 +20,7 @@ public class ApplicationController {
 
     @FXML private Label filePathLabel;
     @FXML private Button loadFileBtn;
-    @FXML private ComboBox<?> numOfGenCombo;
+    @FXML private ComboBox<Integer> numOfGenCombo;
     @FXML private ComboBox<?> showEveryCombo;
     @FXML private ComboBox<?> fitnessLimitCombo;
     @FXML private ComboBox<?> generationsLimitCombo;
@@ -43,11 +43,13 @@ public class ApplicationController {
 
     private SimpleBooleanProperty isFileSelected;
     private SimpleStringProperty filePathLabelProperty;
+    private SimpleBooleanProperty IsActivatedAlgo;
 
     public ApplicationController()
     {
         isFileSelected=new SimpleBooleanProperty(false);
         filePathLabelProperty=new SimpleStringProperty("");
+        IsActivatedAlgo=new SimpleBooleanProperty(false);
     }
 
     @FXML
@@ -56,9 +58,26 @@ public class ApplicationController {
         startBtn.disableProperty().bind(isFileSelected.not());
         pauseBtn.disableProperty().bind(isFileSelected.not());
         stopBtn.disableProperty().bind(isFileSelected.not());
+        numOfGenCombo.disableProperty().bind(isFileSelected.not());
+        fitnessCheck.disableProperty().bind(isFileSelected.not());
+        generationsCheck.disableProperty().bind(isFileSelected.not());
+        timeCheck.disableProperty().bind(isFileSelected.not());
+        crossoverCombo.disableProperty().bind(isFileSelected.not());
+        mutationCombo.disableProperty().bind(isFileSelected.not());
+        selectionCombo.disableProperty().bind(isFileSelected.not());
+        showValueCombo.disableProperty().bind(IsActivatedAlgo.not());
+        submitShowValueBtn.disableProperty().bind(IsActivatedAlgo.not());
         filePathLabel.textProperty().bind(filePathLabelProperty);
+        fillFitnessCompoBox();
+
     }
 
+    private void fillFitnessCompoBox() {
+        for(int i=1;i<=100;i++)
+        {
+            numOfGenCombo.getItems().add(i);
+        }
+    }
 
 
     @FXML
