@@ -1,6 +1,7 @@
 package Manager;
 
 import AlgorithmClasses.Descriptor;
+import Application.ApplicationController;
 import DataClasses.FileInputDataClasses.*;
 import DataClasses.AlgorithmData.*;
 import DataTransferClasses.BestSolutionsData;
@@ -25,8 +26,13 @@ public class LogicEngineManager {
     private EvolutionEngineData m_EvolutionEngineData;
     private boolean m_IsFileLoaded=false;
     private boolean m_IsAlgoActivated=false;
+    private ApplicationController m_Controller;
 
-
+    public LogicEngineManager(){}
+    public LogicEngineManager(ApplicationController i_Controller)
+    {
+        m_Controller=i_Controller;
+    }
     public Map<Integer,Integer> PrintAlgorithmProcess() {
         if(m_IsFileLoaded) {
             if(m_IsAlgoActivated) {
@@ -97,10 +103,8 @@ public class LogicEngineManager {
         }
     }
 
-    public void LoadFile(File i_File) throws FileNotFoundException, JAXBException {
+    public void LoadFile(File i_File) throws  JAXBException {
         try {
-            if (i_File.exists())
-                throw new FileNotFoundException("Error: the file has not found");
             JAXBContext jaxbContext = JAXBContext.newInstance("ParsedClasses");
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             ETTDescriptor ettDescriptor = (ETTDescriptor) jaxbUnmarshaller.unmarshal(i_File);
