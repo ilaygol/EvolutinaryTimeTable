@@ -1,7 +1,7 @@
 package Application;
 
 import Manager.LogicEngineManager;
-import Tasks.FileLoadingTask;
+import Tasks.ActivateAlgoTask;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
-import java.io.FileNotFoundException;
 
 public class ApplicationController {
     private Stage m_Stage;
