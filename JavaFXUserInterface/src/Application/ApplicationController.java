@@ -1,9 +1,10 @@
 package Application;
 
 import Manager.LogicEngineManager;
-import Tasks.ActivateAlgoTask;
+import Tasks.LoadFileTask;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -16,6 +17,7 @@ import java.io.File;
 public class ApplicationController {
     private Stage m_Stage;
     private LogicEngineManager m_Engine;
+    private Task<Boolean> m_Task;
 
     @FXML private Label filePathLabel;
     @FXML private Button loadFileBtn;
@@ -52,8 +54,7 @@ public class ApplicationController {
     }
 
     @FXML
-    private void initialize()
-    {
+    private void initialize() {
         startBtn.disableProperty().bind(isFileSelected.not());
         pauseBtn.disableProperty().bind(isFileSelected.not());
         stopBtn.disableProperty().bind(isFileSelected.not());
@@ -67,16 +68,9 @@ public class ApplicationController {
         showValueCombo.disableProperty().bind(IsActivatedAlgo.not());
         submitShowValueBtn.disableProperty().bind(IsActivatedAlgo.not());
         filePathLabel.textProperty().bind(filePathLabelProperty);
-        fillFitnessCompoBox();
-
     }
 
-    private void fillFitnessCompoBox() {
-        for(int i=1;i<=100;i++)
-        {
-            numOfGenCombo.getItems().add(i);
-        }
-    }
+
 
 
     @FXML
@@ -87,17 +81,15 @@ public class ApplicationController {
         if(file==null) {
             return;
         }
+        m_Task=new LoadFileTask(m_Engine,file);
+        bindFileTaskToPathLabel(m_Task);
+        new Thread(m_Task).start();
+    }
 
-        try{
-            m_Engine.LoadFile(file);
-            isFileSelected.set(true);
-            filePathLabelProperty.set(file.getAbsolutePath());
-        } catch(RuntimeException e){
-            filePathLabelProperty.set(e.getLocalizedMessage());
-        } catch (JAXBException e) {
-            filePathLabelProperty.set(e.getLocalizedMessage());
-        }
-
+    public void bindFileTaskToPathLabel(Task<Boolean> aTask) {
+        filePathLabelProperty.bind(aTask.messageProperty());
+        aTask.valueProperty().addListener((observable,oldVal,newVal)->
+                isFileSelected.set(newVal));
     }
 
     @FXML
