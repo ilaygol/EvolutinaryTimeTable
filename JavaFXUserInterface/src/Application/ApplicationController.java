@@ -21,15 +21,17 @@ public class ApplicationController {
 
     @FXML private Label filePathLabel;
     @FXML private Button loadFileBtn;
-    @FXML private ComboBox<?> fitnessLimitCombo;
-    @FXML private ComboBox<?> timeLimitCombo;
-    @FXML private CheckBox fitnessCheck;
-    @FXML private CheckBox timeCheck;
-    @FXML private ComboBox<?> crossoverCombo;
-    @FXML private ComboBox<?> mutationCombo;
-    @FXML private ComboBox<?> selectionCombo;
     @FXML private TextField numOfGenTF;
     @FXML private TextField showEveryTF;
+    @FXML private ComboBox<String> selectionCombo;
+    @FXML private ComboBox<String> crossoverCombo;
+    @FXML private TextField cuttingPointsTF;
+    @FXML private ComboBox<String> crossoverAspectCombo;
+    @FXML private ComboBox<String> mutationCombo;
+    @FXML private CheckBox fitnessCheck;
+    @FXML private ComboBox<Integer> fitnessLimitCombo;
+    @FXML private CheckBox timeCheck;
+    @FXML private TextField timeLimitTF;
     @FXML private Button startBtn;
     @FXML private Button pauseBtn;
     @FXML private Button stopBtn;
@@ -37,7 +39,7 @@ public class ApplicationController {
     @FXML private ProgressBar fitnessProgress;
     @FXML private ProgressBar generationsProgress;
     @FXML private ProgressBar timeProgress;
-    @FXML private ComboBox<?> showValueCombo;
+    @FXML private ComboBox<String> showValueCombo;
     @FXML private Button submitShowValueBtn;
 
     private SimpleBooleanProperty isFileSelected;
