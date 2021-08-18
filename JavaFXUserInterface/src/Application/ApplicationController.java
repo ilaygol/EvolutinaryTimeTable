@@ -4,10 +4,16 @@ import Manager.LogicEngineManager;
 import Tasks.LoadFileTask;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -18,6 +24,7 @@ public class ApplicationController {
     private Stage m_Stage;
     private LogicEngineManager m_Engine;
     private Task<Boolean> m_Task;
+    private ValuesChecker m_ValuesChecker;
 
     @FXML private Label filePathLabel;
     @FXML private Button loadFileBtn;
@@ -49,6 +56,7 @@ public class ApplicationController {
     {
         isFileSelected=new SimpleBooleanProperty(false);
         IsActivatedAlgo=new SimpleBooleanProperty(false);
+        m_ValuesChecker=new ValuesChecker();
     }
 
     @FXML
@@ -64,7 +72,11 @@ public class ApplicationController {
         selectionCombo.disableProperty().bind(isFileSelected.not());
         showValueCombo.disableProperty().bind(isFileSelected.not());
         submitShowValueBtn.disableProperty().bind(IsActivatedAlgo.not());
+        numOfGenTF.setDisable(false);
         filePathLabel.setText("");
+
+        numOfGenTF.textProperty().addListener((observable, oldValue, newValue) -> {
+            m_ValuesChecker.checkNumOfGenerations(numOfGenTF,newValue);});
         ////////////////////////////////////////////////////////////////////
         fillComboBoxes();
 
