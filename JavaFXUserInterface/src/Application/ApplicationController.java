@@ -21,17 +21,15 @@ public class ApplicationController {
 
     @FXML private Label filePathLabel;
     @FXML private Button loadFileBtn;
-    @FXML private ComboBox<Integer> numOfGenCombo;
-    @FXML private ComboBox<?> showEveryCombo;
     @FXML private ComboBox<?> fitnessLimitCombo;
-    @FXML private ComboBox<?> generationsLimitCombo;
     @FXML private ComboBox<?> timeLimitCombo;
     @FXML private CheckBox fitnessCheck;
-    @FXML private CheckBox generationsCheck;
     @FXML private CheckBox timeCheck;
     @FXML private ComboBox<?> crossoverCombo;
     @FXML private ComboBox<?> mutationCombo;
     @FXML private ComboBox<?> selectionCombo;
+    @FXML private TextField numOfGenTF;
+    @FXML private TextField showEveryTF;
     @FXML private Button startBtn;
     @FXML private Button pauseBtn;
     @FXML private Button stopBtn;
@@ -58,9 +56,7 @@ public class ApplicationController {
         startBtn.disableProperty().bind(isFileSelected.not());
         pauseBtn.disableProperty().bind(isFileSelected.not());
         stopBtn.disableProperty().bind(isFileSelected.not());
-        numOfGenCombo.disableProperty().bind(isFileSelected.not());
         fitnessCheck.disableProperty().bind(isFileSelected.not());
-        generationsCheck.disableProperty().bind(isFileSelected.not());
         timeCheck.disableProperty().bind(isFileSelected.not());
         crossoverCombo.disableProperty().bind(isFileSelected.not());
         mutationCombo.disableProperty().bind(isFileSelected.not());
@@ -70,8 +66,15 @@ public class ApplicationController {
         filePathLabel.textProperty().bind(filePathLabelProperty);
     }
 
+    @FXML
+    void onActionFitnessCB(ActionEvent event) {
 
+    }
 
+    @FXML
+    void onActionTimeCB(ActionEvent event) {
+
+    }
 
     @FXML
     void onLoadFileClick(ActionEvent event) {
