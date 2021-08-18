@@ -21,7 +21,7 @@ public class ApplicationController {
 
     @FXML private Label filePathLabel;
     @FXML private Button loadFileBtn;
-    @FXML private ComboBox<?> fitnessLimitCombo;
+    @FXML private ComboBox<Integer> fitnessLimitCombo;
     @FXML private ComboBox<?> timeLimitCombo;
     @FXML private CheckBox fitnessCheck;
     @FXML private CheckBox timeCheck;
@@ -37,7 +37,7 @@ public class ApplicationController {
     @FXML private ProgressBar fitnessProgress;
     @FXML private ProgressBar generationsProgress;
     @FXML private ProgressBar timeProgress;
-    @FXML private ComboBox<?> showValueCombo;
+    @FXML private ComboBox<String> showValueCombo;
     @FXML private Button submitShowValueBtn;
 
     private SimpleBooleanProperty isFileSelected;
@@ -51,28 +51,24 @@ public class ApplicationController {
 
     @FXML
     private void initialize() {
-        startBtn.disableProperty().bind(isFileSelected.not());
-        pauseBtn.disableProperty().bind(isFileSelected.not());
-        stopBtn.disableProperty().bind(isFileSelected.not());
+        ///////////////////will delete soon//////////////////////////////
+        stopBtn.setDisable(true);
+        pauseBtn.setDisable(true);
+        startBtn.setDisable(true);
         fitnessCheck.disableProperty().bind(isFileSelected.not());
         timeCheck.disableProperty().bind(isFileSelected.not());
         crossoverCombo.disableProperty().bind(isFileSelected.not());
         mutationCombo.disableProperty().bind(isFileSelected.not());
         selectionCombo.disableProperty().bind(isFileSelected.not());
-        showValueCombo.disableProperty().bind(IsActivatedAlgo.not());
+        showValueCombo.disableProperty().bind(isFileSelected.not());
         submitShowValueBtn.disableProperty().bind(IsActivatedAlgo.not());
         filePathLabel.setText("");
-    }
+        ////////////////////////////////////////////////////////////////////
+        fillComboBoxes();
 
-    @FXML
-    void onActionFitnessCB(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionTimeCB(ActionEvent event) {
 
     }
+
 
     @FXML
     void onLoadFileClick(ActionEvent event) {
@@ -95,8 +91,12 @@ public class ApplicationController {
         i_Alert.contentTextProperty().bind(i_Task.messageProperty());
 
         if(!isFileSelected.get()) {
-            i_Task.valueProperty().addListener((observable, oldVal, newVal) ->
-                    isFileSelected.set(newVal));
+            i_Task.valueProperty().addListener((observable, oldVal, newVal) ->{
+                    isFileSelected.set(newVal);
+                    if(newVal.booleanValue())
+                        startBtn.setDisable(false);
+            });
+
         }
         i_Task.valueProperty().addListener(((observable, oldValue, newValue) -> {
            if(newValue.booleanValue()) {
@@ -107,17 +107,22 @@ public class ApplicationController {
 
     @FXML
     void onPauseBtnClick(ActionEvent event) {
-
+        startBtn.setDisable(false);
+        pauseBtn.setDisable(true);
     }
 
     @FXML
     void onStartBtnClick(ActionEvent event) {
-
+        pauseBtn.setDisable(false);
+        stopBtn.setDisable(false);
+        startBtn.setDisable(true);
     }
 
     @FXML
     void onStopBtnClick(ActionEvent event) {
-
+        stopBtn.setDisable(true);
+        pauseBtn.setDisable(true);
+        startBtn.setDisable(false);
     }
 
     @FXML
@@ -131,5 +136,30 @@ public class ApplicationController {
 
     public void setStage(Stage i_Stage) {
         this.m_Stage = i_Stage;
+    }
+
+    @FXML
+    void onActionFitnessCB(ActionEvent event) {
+        fitnessLimitCombo.setDisable(!fitnessCheck.isSelected());
+    }
+
+    @FXML
+    void onActionTimeCB(ActionEvent event) {
+        timeLimitCombo.setDisable(!timeCheck.isSelected());
+    }
+
+    private void fillComboBoxes()
+    {
+        //filling showValuesCombo
+        for(eResultsValues value:eResultsValues.values())
+        {
+            showValueCombo.getItems().add(value.toString());
+        }
+        //filling Fitness Compo
+        for(int i=1;i<=100;i++)
+        {
+            fitnessLimitCombo.getItems().add(i);
+        }
+
     }
 }
