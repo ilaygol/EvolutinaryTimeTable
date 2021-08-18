@@ -32,7 +32,6 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setMinWidth(1200);
         primaryStage.setMinHeight(760);
-        primaryStage.setMaximized(true);
 
         primaryStage.show();
     }

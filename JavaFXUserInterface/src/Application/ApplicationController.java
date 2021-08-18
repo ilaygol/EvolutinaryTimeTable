@@ -41,13 +41,11 @@ public class ApplicationController {
     @FXML private Button submitShowValueBtn;
 
     private SimpleBooleanProperty isFileSelected;
-    private SimpleStringProperty filePathLabelProperty;
     private SimpleBooleanProperty IsActivatedAlgo;
 
     public ApplicationController()
     {
         isFileSelected=new SimpleBooleanProperty(false);
-        filePathLabelProperty=new SimpleStringProperty("");
         IsActivatedAlgo=new SimpleBooleanProperty(false);
     }
 
@@ -63,7 +61,7 @@ public class ApplicationController {
         selectionCombo.disableProperty().bind(isFileSelected.not());
         showValueCombo.disableProperty().bind(IsActivatedAlgo.not());
         submitShowValueBtn.disableProperty().bind(IsActivatedAlgo.not());
-        filePathLabel.textProperty().bind(filePathLabelProperty);
+        filePathLabel.setText("");
     }
 
     @FXML
@@ -84,17 +82,27 @@ public class ApplicationController {
         if(file==null) {
             return;
         }
-        m_Task=new LoadFileTask(m_Engine,file);
-        bindFileTaskToPathLabel(m_Task);
+        Alert alert=new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Load File");
+        alert.setHeaderText("Loading File....");
+        m_Task=new LoadFileTask(m_Engine,file,alert);
+        bindFileTaskToUIComponents(file,m_Task,alert);
+        alert.show();
         new Thread(m_Task).start();
     }
 
-    public void bindFileTaskToPathLabel(Task<Boolean> aTask) {
-        filePathLabelProperty.bind(aTask.messageProperty());
+    public void bindFileTaskToUIComponents(File i_File,Task<Boolean> i_Task,Alert i_Alert) {
+        i_Alert.contentTextProperty().bind(i_Task.messageProperty());
+
         if(!isFileSelected.get()) {
-            aTask.valueProperty().addListener((observable, oldVal, newVal) ->
+            i_Task.valueProperty().addListener((observable, oldVal, newVal) ->
                     isFileSelected.set(newVal));
         }
+        i_Task.valueProperty().addListener(((observable, oldValue, newValue) -> {
+           if(newValue.booleanValue()) {
+               filePathLabel.setText(i_File.getAbsolutePath());
+           }
+        }));
     }
 
     @FXML
