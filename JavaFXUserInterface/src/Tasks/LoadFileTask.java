@@ -29,7 +29,6 @@ public  class LoadFileTask extends Task<Boolean> {
         try {
             m_Engine.LoadFile(m_File);
             updateMessage("File was Loaded successfully!");
-            Thread.sleep(2000);
         } catch(RuntimeException e) {
             updateMessage(e.getMessage());
             return false;

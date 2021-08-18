@@ -147,7 +147,7 @@ public class ApplicationController {
 
     @FXML
     void onActionTimeCB(ActionEvent event) {
-        timeLimitCombo.setDisable(!timeCheck.isSelected());
+        timeLimitTF.setDisable(!timeCheck.isSelected());
     }
 
     private void fillComboBoxes()
