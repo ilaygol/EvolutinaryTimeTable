@@ -2,22 +2,16 @@ package Application;
 
 import Manager.LogicEngineManager;
 import Tasks.LoadFileTask;
+import com.sun.javaws.IconUtil;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.InputMethodEvent;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import javax.xml.bind.JAXBException;
+import AlgorithmClasses.*;
 import java.io.File;
 
 public class ApplicationController {
@@ -27,27 +21,29 @@ public class ApplicationController {
     private ValuesChecker m_ValuesChecker;
 
     @FXML private Label filePathLabel;
-    @FXML private Button loadFileBtn;
+    @FXML private Label statusLineLabel;
     @FXML private TextField numOfGenTF;
     @FXML private TextField showEveryTF;
-    @FXML private ComboBox<String> selectionCombo;
-    @FXML private ComboBox<String> crossoverCombo;
     @FXML private TextField cuttingPointsTF;
-    @FXML private ComboBox<String> crossoverAspectCombo;
-    @FXML private ComboBox<String> mutationCombo;
-    @FXML private CheckBox fitnessCheck;
-    @FXML private ComboBox<Integer> fitnessLimitCombo;
-    @FXML private CheckBox timeCheck;
     @FXML private TextField timeLimitTF;
+    @FXML private Button loadFileBtn;
     @FXML private Button startBtn;
     @FXML private Button pauseBtn;
     @FXML private Button stopBtn;
-    @FXML private Label statusLineLabel;
+    @FXML private Button submitShowValueBtn;
+    @FXML private CheckBox timeCheck;
+    @FXML private CheckBox fitnessCheck;
+    @FXML private ComboBox<String> selectionCombo;
+    @FXML private ComboBox<String> crossoverCombo;
+    @FXML private ComboBox<String> crossoverAspectCombo;
+    @FXML private ComboBox<String> mutationCombo;
+    @FXML private ComboBox<Integer> elitismCB;
+    @FXML private ComboBox<Integer> fitnessLimitCombo;
+    @FXML private ComboBox<String> showValueCombo;
+
     @FXML private ProgressBar fitnessProgress;
     @FXML private ProgressBar generationsProgress;
     @FXML private ProgressBar timeProgress;
-    @FXML private ComboBox<String> showValueCombo;
-    @FXML private Button submitShowValueBtn;
 
     private SimpleBooleanProperty isFileSelected;
     private SimpleBooleanProperty IsActivatedAlgo;
@@ -61,31 +57,20 @@ public class ApplicationController {
 
     @FXML
     private void initialize() {
-        ///////////////////will delete soon//////////////////////////////
-        stopBtn.setDisable(true);
-        pauseBtn.setDisable(true);
-        startBtn.setDisable(true);
-        fitnessCheck.disableProperty().bind(isFileSelected.not());
-        timeCheck.disableProperty().bind(isFileSelected.not());
-        crossoverCombo.disableProperty().bind(isFileSelected.not());
-        mutationCombo.disableProperty().bind(isFileSelected.not());
-        selectionCombo.disableProperty().bind(isFileSelected.not());
-        showValueCombo.disableProperty().bind(isFileSelected.not());
-        submitShowValueBtn.disableProperty().bind(IsActivatedAlgo.not());
-        numOfGenTF.setDisable(false);
         filePathLabel.setText("");
-
         numOfGenTF.textProperty().addListener((observable, oldValue, newValue) -> {
             m_ValuesChecker.checkNumOfGenerations(numOfGenTF,newValue);});
-        ////////////////////////////////////////////////////////////////////
-        fillComboBoxes();
-
-
     }
 
 
-    @FXML
-    void onLoadFileClick(ActionEvent event) {
+    public void setEngine(LogicEngineManager i_Engine) {
+        m_Engine = i_Engine;
+    }
+    public void setStage(Stage i_Stage) {
+        this.m_Stage = i_Stage;
+    }
+
+    @FXML void onLoadFileClick(ActionEvent event) {
         FileChooser fileChooser=new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML files", "*.xml"));
         File file=fileChooser.showOpenDialog(m_Stage);
@@ -100,68 +85,102 @@ public class ApplicationController {
         alert.show();
         new Thread(m_Task).start();
     }
+    @FXML void onPauseBtnClick(ActionEvent event) {
+        disabilityManagementPause();
+    }
+    @FXML void onStartBtnClick(ActionEvent event) {
+        disabilityManagementPlay();
+    }
+    @FXML void onStopBtnClick(ActionEvent event) {
+        disabilityManagementStop();
+    }
+    @FXML void onSubmitShowValueClick(ActionEvent event) { }
+    @FXML void onActionFitnessCB(ActionEvent event) {
+        fitnessLimitCombo.setDisable(!fitnessCheck.isSelected());
+    }
+    @FXML void onActionTimeCB(ActionEvent event) {
+        timeLimitTF.setDisable(!timeCheck.isSelected());
+    }
 
     public void bindFileTaskToUIComponents(File i_File,Task<Boolean> i_Task,Alert i_Alert) {
         i_Alert.contentTextProperty().bind(i_Task.messageProperty());
 
         if(!isFileSelected.get()) {
             i_Task.valueProperty().addListener((observable, oldVal, newVal) ->{
-                    isFileSelected.set(newVal);
-                    if(newVal.booleanValue())
-                        startBtn.setDisable(false);
+                isFileSelected.set(newVal);
             });
 
         }
         i_Task.valueProperty().addListener(((observable, oldValue, newValue) -> {
-           if(newValue.booleanValue()) {
-               filePathLabel.setText(i_File.getAbsolutePath());
-           }
+            if(newValue.booleanValue()) {
+                filePathLabel.setText(i_File.getAbsolutePath());
+                fillComboBoxes();
+                disabilityManagementFileLoaded();
+            }
         }));
     }
-
-    @FXML
-    void onPauseBtnClick(ActionEvent event) {
+    private void disabilityManagementStop() {
         startBtn.setDisable(false);
         pauseBtn.setDisable(true);
+        stopBtn.setDisable(true);
+        crossoverCombo.setDisable(false);
+        cuttingPointsTF.setDisable(false);
+        numOfGenTF.setDisable(false);
+        showEveryTF.setDisable(true);
+        selectionCombo.setDisable(false);
+        mutationCombo.setDisable(false);
+        timeCheck.setDisable(false);
+        fitnessCheck.setDisable(false);
+        elitismCB.setDisable(false);
+        loadFileBtn.setDisable(false);
     }
-
-    @FXML
-    void onStartBtnClick(ActionEvent event) {
+    private void disabilityManagementPause() {
+        startBtn.setDisable(false);
+        pauseBtn.setDisable(true);
+        stopBtn.setDisable(true);
+        crossoverCombo.setDisable(false);
+        cuttingPointsTF.setDisable(false);
+        numOfGenTF.setDisable(false);
+        showEveryTF.setDisable(true);
+        selectionCombo.setDisable(false);
+        mutationCombo.setDisable(false);
+        timeCheck.setDisable(false);
+        fitnessCheck.setDisable(false);
+        elitismCB.setDisable(false);
+        stopBtn.setDisable(false);
+    }
+    private void disabilityManagementPlay() {
+        loadFileBtn.setDisable(true);
         pauseBtn.setDisable(false);
         stopBtn.setDisable(false);
+        numOfGenTF.setDisable(true);
+        showEveryTF.setDisable(true);
+        elitismCB.setDisable(true);
+        crossoverCombo.setDisable(true);
+        cuttingPointsTF.setDisable(true);
+        mutationCombo.setDisable(true);
+        timeCheck.setDisable(true);
+        fitnessCheck.setDisable(true);
+        selectionCombo.setDisable(true);
         startBtn.setDisable(true);
     }
-
-    @FXML
-    void onStopBtnClick(ActionEvent event) {
-        stopBtn.setDisable(true);
-        pauseBtn.setDisable(true);
+    private void disabilityManagementFileLoaded() {
         startBtn.setDisable(false);
+        pauseBtn.setDisable(true);
+        stopBtn.setDisable(true);
+        crossoverCombo.setDisable(false);
+        cuttingPointsTF.setDisable(false);
+        numOfGenTF.setDisable(false);
+        showEveryTF.setDisable(true);
+        selectionCombo.setDisable(false);
+        mutationCombo.setDisable(false);
+        timeCheck.setDisable(false);
+        fitnessCheck.setDisable(false);
+        elitismCB.setDisable(false);
+        submitShowValueBtn.setDisable(false);
+        showValueCombo.setDisable(false);
+
     }
-
-    @FXML
-    void onSubmitShowValueClick(ActionEvent event) {
-
-    }
-
-    public void setEngine(LogicEngineManager i_Engine) {
-        m_Engine = i_Engine;
-    }
-
-    public void setStage(Stage i_Stage) {
-        this.m_Stage = i_Stage;
-    }
-
-    @FXML
-    void onActionFitnessCB(ActionEvent event) {
-        fitnessLimitCombo.setDisable(!fitnessCheck.isSelected());
-    }
-
-    @FXML
-    void onActionTimeCB(ActionEvent event) {
-        timeLimitTF.setDisable(!timeCheck.isSelected());
-    }
-
     private void fillComboBoxes()
     {
         //filling showValuesCombo
@@ -169,7 +188,28 @@ public class ApplicationController {
         {
             showValueCombo.getItems().add(value.toString());
         }
-        //filling Fitness Compo
+        //filling crossover combo
+        for(eCrossover ec:eCrossover.values())
+            crossoverCombo.getItems().add(ec.toString());
+        //filling crossover aspect oriented combo
+        crossoverAspectCombo.getItems().add("Teacher");
+        crossoverAspectCombo.getItems().add("Class");
+        //filling selection combo
+        for(eSelection es:eSelection.values())
+            selectionCombo.getItems().add(es.toString());
+        //filling mutation Combo
+        for(Mutation m:m_Engine.getMutationsList())
+        {
+            mutationCombo.getItems().add(m.getEType().toString(m.getMaxTupples(),m.getChar()));
+        }
+
+        //filling elitism
+        for(int i=0;i<m_Engine.getInitialPopulation();i++)
+        {
+            elitismCB.getItems().add(i);
+        }
+
+        //filling Fitness Combo
         for(int i=1;i<=100;i++)
         {
             fitnessLimitCombo.getItems().add(i);

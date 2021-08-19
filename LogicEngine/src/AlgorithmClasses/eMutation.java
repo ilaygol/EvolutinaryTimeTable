@@ -24,6 +24,11 @@ public enum eMutation {
             parentAfterChange.setFitness(-1);
         }
 
+        @Override
+        public String toString(Integer i_Tupples,Character i_Char) {
+            return "Name=Flipping,Tupples="+i_Tupples+" ("+i_Char+")";
+        }
+
     },
     SIZER {
         @Override
@@ -48,6 +53,7 @@ public enum eMutation {
                 }
                 parentAfterChange.setFitness(-1);
             }
+
             else if(i_Tupples<0)
             {
                 int removingMaxAmount=Math.abs(i_Tupples);
@@ -60,10 +66,17 @@ public enum eMutation {
                 parentAfterChange.setFitness(-1);
             }
         }
+
+        @Override
+        public String toString(Integer i_Tupples,Character i_Char) {
+            return "Name=Sizer,Tupples="+i_Tupples;
+        }
     };
     public abstract void activate(Integer i_Tupples, Generation i_Generation,
                                         AmountOfObjectsCalc i_AmountOfObj,
                                         Character i_Char,Random i_Roller);
+
+    public abstract String toString(Integer i_Tupples,Character i_Char);
 
     public void makeAChangeInParent(Parent i_Parent,AmountOfObjectsCalc i_AmountOfObj,Character i_Char
                                     ,Integer i_LessonIndex,Random i_Roller)

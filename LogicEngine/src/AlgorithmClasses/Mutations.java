@@ -27,6 +27,7 @@ public class Mutations {
         }
     }
 
+    public List<Mutation> getMutationsList(){return m_MutationsList;}
     public List<MutationData> getMutationsDataList()
     {
         List<MutationData> retLst=new ArrayList<>();

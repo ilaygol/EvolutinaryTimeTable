@@ -41,6 +41,8 @@ public class Mutation {
         return m_Configuration;
     }
 
+    public eMutation getEType() { return m_eType; }
+
     public Integer getMaxTupples() {
         return m_Tupples;
     }

@@ -44,6 +44,12 @@ public enum eCrossover {
                     i_NextGeneration.addParentToGeneration(childTwo);
                 }
 
+                @Override
+                public String toString() {
+                    return "Day Time Oriented";
+                }
+
+
             },
     ASPECTORIENTED
             {
@@ -102,9 +108,14 @@ public enum eCrossover {
                     i_NextGeneration.addParentToGeneration(childTwo);
                 }
 
+                @Override
+                public String toString() {
+                    return "Aspect Oriented";
+                }
 
 
             };
 
     public abstract void activate(Parent p1, Parent p2, AmountOfObjectsCalc amounts,Character i_Char, Collection<Integer> cuttingPoints,Generation i_NextGeneration);
+    public abstract String toString();
 }

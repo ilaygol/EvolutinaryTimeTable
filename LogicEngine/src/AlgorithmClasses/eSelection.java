@@ -23,6 +23,11 @@ public enum eSelection {
                         i_Crossover.createNewGenerationFromGroupOfParents(generationAfterSelectingPercent, i_nextGeneration, i_AmountOfObj);
                     }
                 }
+
+                @Override
+                public String toString() {
+                    return "Truncation";
+                }
             },
     ROULETTEWHEEL
             {
@@ -38,10 +43,16 @@ public enum eSelection {
                         i_Crossover.createTwoChildren(i_nextGeneration,p1,p2,i_AmountOfObj);
                     }
                 }
+
+                @Override
+                public String toString() {
+                    return "Roulette Wheel";
+                }
             };
     public abstract void activate(Integer i_Percent, Random i_Roller, Generation i_PrevGeneration, Generation i_nextGeneration, Integer i_InitialPopulation
             , AmountOfObjectsCalc i_AmountOfObj, Crossover i_Crossover);
 
+    public abstract String toString();
     public Parent activateRouletteWheel(Generation i_Generation,Random i_Roller)
     {
         int scanner=0;

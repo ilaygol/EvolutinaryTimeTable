@@ -1,6 +1,8 @@
 package Manager;
 
 import AlgorithmClasses.Descriptor;
+import AlgorithmClasses.Mutation;
+import AlgorithmClasses.Mutations;
 import Application.ApplicationController;
 import DataClasses.FileInputDataClasses.*;
 import DataClasses.AlgorithmData.*;
@@ -147,5 +149,15 @@ public class LogicEngineManager {
 
     public boolean getIsAlgoActivated() {
         return m_IsAlgoActivated;
+    }
+
+    public List<Mutation> getMutationsList()
+    {
+        return m_Descriptor.getEvolutionEngine().getMutations().getMutationsList();
+    }
+
+    public Integer getInitialPopulation()
+    {
+        return m_Descriptor.getEvolutionEngine().getInitialPopulation();
     }
 }
