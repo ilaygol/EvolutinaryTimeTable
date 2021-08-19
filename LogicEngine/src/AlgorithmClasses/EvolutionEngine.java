@@ -8,9 +8,13 @@ import DataClasses.FileInputDataClasses.TimeTable;
 import DataTransferClasses.EvolutionEngineData;
 import DataTransferClasses.ProgressData;
 import ParsedClasses.ETTEvolutionEngine;
+import sun.security.jca.GetInstance;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 public class EvolutionEngine {
@@ -18,6 +22,7 @@ public class EvolutionEngine {
     private Integer m_NumOfGenerations;
     private Integer m_PrintingReq;
     private Integer m_ReqFitness;
+    private Long m_ReqMinutesInMillis;
     private Selection m_Selection;
     private Crossover m_Crossover;
     private Mutations m_Mutations;
@@ -36,13 +41,15 @@ public class EvolutionEngine {
         EvolutionEngineData dataSaver=new EvolutionEngineData();
         Integer remainingGenerations=m_NumOfGenerations;
         Integer counter=0,totalCounter=0,bestFitness=0;
-        Integer mutationToActivateIndex;
+        Long remainingTime=m_ReqMinutesInMillis;
+        Instant startCountingTime,endCountingTime;
         initialSolutions(i_AmountOfObj);
         i_TimeTable.getRules().calculateFitnesses(m_Generation,i_TimeTable);
         m_Generation.sortGenerationByFitness();
 
-        while(remainingGenerations>0 && bestFitness<m_ReqFitness) {
-            while(counter< m_PrintingReq && counter < remainingGenerations && bestFitness<m_ReqFitness) {
+        while(remainingGenerations>0 && bestFitness<m_ReqFitness&& remainingTime>0) {
+            startCountingTime=Instant.now();
+            while(counter< m_PrintingReq && counter < remainingGenerations && bestFitness<m_ReqFitness &&remainingTime>0) {
 
                 //activating selection (crossover activation is inside)
                 m_Generation=m_Selection.createNextGeneration(m_Generation,m_Crossover,m_InitialPopulationAmount,i_AmountOfObj);
@@ -69,6 +76,8 @@ public class EvolutionEngine {
             i_ProgressDataConsumer.accept(new ProgressData(totalCounter,m_Generation.getParentByIndex(0).getFitness()));
             remainingGenerations-=counter;
             counter=0;
+            endCountingTime=Instant.now();
+            remainingTime-= Duration.between(startCountingTime,endCountingTime).toMillis();
 
         }
         i_TimeTable.getRules().recheckBestSolution(dataSaver.getBestSolution(),i_TimeTable,dataSaver);
@@ -126,5 +135,9 @@ public class EvolutionEngine {
 
     public void setReqFitness(Integer i_ReqFitness) {
         m_ReqFitness = i_ReqFitness;
+    }
+
+    public void setReqMinutes(Integer i_ReqMinutes) {
+        m_ReqMinutesInMillis = TimeUnit.MINUTES.toMillis(i_ReqMinutes);
     }
 }
