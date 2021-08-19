@@ -1,5 +1,7 @@
 package AlgorithmClasses;
 
+import DataClasses.AlgorithmData.AmountOfObjectsCalc;
+import DataClasses.AlgorithmData.Generation;
 import DataTransferClasses.MutationData;
 import ParsedClasses.ETTMutation;
 import ParsedClasses.ETTMutations;
@@ -36,20 +38,14 @@ public class Mutations {
         return m_MutationsList.get(i_Index);
     }
 
-    public Integer getWhichMutationToActivateByIndex()
+    public void scanAndActivateMutations(Generation i_Generation, AmountOfObjectsCalc i_Amounts)
     {
-        Integer mutationListSize=m_MutationsList.size();
-        double mutationPicker=m_Roller.nextDouble();
-        double probability=m_MutationsList.get(0).getProbability();
-        for(int i=0;i<mutationListSize;i++)
+        for(Mutation m:m_MutationsList)
         {
-            if(mutationPicker<=probability)
-                return i;
-            if(i<mutationListSize-1) {
-                probability += m_MutationsList.get(i + 1).getProbability();
-            }
+            double chooseIFToActivate=m_Roller.nextDouble();
+            if(chooseIFToActivate<=m.getProbability())
+                m.activateMutation(i_Generation,i_Amounts);
         }
-        return -1;
-
     }
+
 }

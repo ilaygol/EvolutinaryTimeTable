@@ -47,11 +47,9 @@ public class EvolutionEngine {
                 //activating selection (crossover activation is inside)
                 m_Generation=m_Selection.createNextGeneration(m_Generation,m_Crossover,m_InitialPopulationAmount,i_AmountOfObj);
 
-                //activating mutation
-                mutationToActivateIndex=m_Mutations.getWhichMutationToActivateByIndex();
-                if(mutationToActivateIndex!=-1) {
-                    m_Mutations.getMutationByIndex(mutationToActivateIndex).activateMutation(m_Generation, i_AmountOfObj);
-                }
+                //activating mutations
+                m_Mutations.scanAndActivateMutations(m_Generation,i_AmountOfObj);
+
                 i_TimeTable.getRules().calculateFitnesses(m_Generation,i_TimeTable);
                 m_Generation.sortGenerationByFitness();
                 counter++;
