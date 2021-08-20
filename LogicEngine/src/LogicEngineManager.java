@@ -61,7 +61,7 @@ public class LogicEngineManager {
             m_Descriptor.getEvolutionEngine().setNumOfGenerations(i_AmountOfGeneration);
             m_Descriptor.getEvolutionEngine().setPrintingReq(i_PrintingReq);
             m_Descriptor.getEvolutionEngine().setReqFitness(i_ReqFitness);
-
+            m_Descriptor.getEvolutionEngine().setReqMinutes(i_reqTime);
             AmountOfObjectsCalc amountOfObjects =getAmountOfData();
             m_EvolutionEngineData=m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),amountOfObjects,i_ProgressDataConsumer,i_StopConditions);
             m_IsAlgoActivated=true;

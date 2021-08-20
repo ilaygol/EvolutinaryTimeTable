@@ -97,8 +97,7 @@ public class EvolutionEngine {
     {
 
         EvolutionEngineData dataSaver=new EvolutionEngineData();
-        Integer generationsMade=0;
-        Integer counter=0,totalCounter=0,bestFitness=0;
+        Integer counter=0,generationsMade=0,bestFitness=0;
         Long timePassedInMillis=(long)0;
         Instant startCountingTime,endCountingTime;
         initialSolutions(i_AmountOfObj);
@@ -107,9 +106,8 @@ public class EvolutionEngine {
         Boolean stopAlgo=false;
 
         while(!stopAlgo) {
-            startCountingTime=Instant.now();
             while(counter< m_PrintingReq && !stopAlgo) {
-
+                startCountingTime=Instant.now();
                 //activating selection (crossover activation is inside)
                 m_Generation=m_Selection.createNextGeneration(m_Generation,m_Crossover,m_InitialPopulationAmount,i_AmountOfObj);
 
@@ -119,7 +117,7 @@ public class EvolutionEngine {
                 i_TimeTable.getRules().calculateFitnesses(m_Generation,i_TimeTable);
                 m_Generation.sortGenerationByFitness();
                 counter++;
-                totalCounter++;
+                generationsMade++;
                 if(counter==1) {
                     dataSaver.setBestSolution(m_Generation.getParentByIndex(0));
                     bestFitness= dataSaver.getBestSolutionFitness();
@@ -128,18 +126,15 @@ public class EvolutionEngine {
                     dataSaver.setBestSolution(m_Generation.getParentByIndex(0));
                     bestFitness= dataSaver.getBestSolutionFitness();
                 }
+                endCountingTime=Instant.now();
+                timePassedInMillis+= Duration.between(startCountingTime,endCountingTime).toMillis();
                 stopAlgo=checkStoppingConditions(m_NumOfGenerations,generationsMade,m_ReqFitness,bestFitness,m_ReqMinutesInMillis,timePassedInMillis,i_StoppingConditions);
 
             }
 
-            dataSaver.addToGeneration2BestFitnessMap(totalCounter,m_Generation.getParentByIndex(0).getFitness());
-            i_ProgressDataConsumer.accept(new ProgressData(totalCounter,m_Generation.getParentByIndex(0).getFitness()));
-            generationsMade+=counter;
+            dataSaver.addToGeneration2BestFitnessMap(generationsMade,m_Generation.getParentByIndex(0).getFitness());
+            i_ProgressDataConsumer.accept(new ProgressData(generationsMade,m_Generation.getParentByIndex(0).getFitness()));
             counter=0;
-            endCountingTime=Instant.now();
-            timePassedInMillis+= Duration.between(startCountingTime,endCountingTime).toMillis();
-            stopAlgo=checkStoppingConditions(m_NumOfGenerations,generationsMade,m_ReqFitness,bestFitness,m_ReqMinutesInMillis,timePassedInMillis,i_StoppingConditions);
-
         }
         i_TimeTable.getRules().recheckBestSolution(dataSaver.getBestSolution(),i_TimeTable,dataSaver);
         dataSaver.updateRulesAverage();

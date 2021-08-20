@@ -156,7 +156,7 @@ public class ConsoleUserInterfaceManager {
                         System.out.print("Please Enter activating time in MINUTES: ");
                         while (!isCorrect) {
                             try {
-                                reqFitness = algorithmInputScanner.nextInt();
+                                timeReq = algorithmInputScanner.nextInt();
                                 if (timeReq<1)
                                     System.out.println("Minimum activation time is 1 MINUTE, Please enter again");
                                 else
