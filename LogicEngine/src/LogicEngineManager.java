@@ -1,4 +1,5 @@
 import AlgorithmClasses.Descriptor;
+import AlgorithmClasses.eStoppingCondition;
 import DataClasses.FileInputDataClasses.*;
 import DataClasses.AlgorithmData.*;
 import DataTransferClasses.BestSolutionsData;
@@ -13,6 +14,7 @@ import javax.xml.bind.SchemaOutputResolver;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -53,14 +55,14 @@ public class LogicEngineManager {
         }
     }
 
-    public void ActivateAlgorithm(Integer i_AmountOfGeneration,Integer i_PrintingReq, Consumer<ProgressData> i_ProgressDataConsumer,Integer i_ReqFitness) {
+    public void ActivateAlgorithm(Integer i_AmountOfGeneration, Integer i_PrintingReq, Consumer<ProgressData> i_ProgressDataConsumer, Integer i_ReqFitness, Collection<eStoppingCondition> i_StopConditions) {
         if(m_IsFileLoaded)
         {
             m_Descriptor.getEvolutionEngine().setNumOfGenerations(i_AmountOfGeneration);
             m_Descriptor.getEvolutionEngine().setPrintingReq(i_PrintingReq);
             m_Descriptor.getEvolutionEngine().setReqFitness(i_ReqFitness);
             AmountOfObjectsCalc amountOfObjects =getAmountOfData();
-            m_EvolutionEngineData=m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),amountOfObjects,i_ProgressDataConsumer);
+            m_EvolutionEngineData=m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),amountOfObjects,i_ProgressDataConsumer,i_StopConditions);
             m_IsAlgoActivated=true;
         }
         else {

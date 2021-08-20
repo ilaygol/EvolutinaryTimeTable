@@ -1,13 +1,11 @@
 
+import AlgorithmClasses.eStoppingCondition;
 import DataTransferClasses.ProgressData;
 import DataTransferClasses.StudyData;
 import DataTransferClasses.DataPrinter;
 import DataTransferClasses.SubjectData;
 
-import java.util.InputMismatchException;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class ConsoleUserInterfaceManager {
@@ -155,7 +153,11 @@ public class ConsoleUserInterfaceManager {
                             }
                         }
                         try {
-                            m_LogicEngineManager.ActivateAlgorithm(generationsNum, printEveryAmountOfGeneration, this::printProgress, reqFitness);
+                            List<eStoppingCondition> stoppingConditionList=new ArrayList<>();
+                            stoppingConditionList.add(eStoppingCondition.GENERATIONS);
+                            stoppingConditionList.add(eStoppingCondition.FITNESS);
+                            stoppingConditionList.add(eStoppingCondition.TIME);
+                            m_LogicEngineManager.ActivateAlgorithm(generationsNum, printEveryAmountOfGeneration, this::printProgress, reqFitness,stoppingConditionList);
                         } catch (RuntimeException e) {
                             System.out.println(e.getMessage());
                         }
