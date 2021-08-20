@@ -106,7 +106,7 @@ public class ConsoleUserInterfaceManager {
             boolean isContinue=!m_LogicEngineManager.getIsAlgoActivated();
                     if(isContinue||getUserContinueAlgoInput()) {
                         Scanner algorithmInputScanner = new Scanner(System.in);
-                        Integer generationsNum = 0, printEveryAmountOfGeneration = 0, reqFitness = 0;
+                        Integer generationsNum = 0, printEveryAmountOfGeneration = 0, reqFitness = 0,timeReq=0;
                         boolean isCorrect = false;
                         System.out.print("Please enter the amount of generations you would like to create: ");
                         while (!isCorrect) {
@@ -152,12 +152,26 @@ public class ConsoleUserInterfaceManager {
                                 algorithmInputScanner.nextLine();
                             }
                         }
+                        isCorrect = false;
+                        System.out.print("Please Enter activating time in MINUTES: ");
+                        while (!isCorrect) {
+                            try {
+                                reqFitness = algorithmInputScanner.nextInt();
+                                if (timeReq<1)
+                                    System.out.println("Minimum activation time is 1 MINUTE, Please enter again");
+                                else
+                                    isCorrect = true;
+                            } catch (InputMismatchException e) {
+                                System.out.println("time must be an Number , Please enter The activation time in Minutes");
+                                algorithmInputScanner.nextLine();
+                            }
+                        }
                         try {
                             List<eStoppingCondition> stoppingConditionList=new ArrayList<>();
                             stoppingConditionList.add(eStoppingCondition.GENERATIONS);
                             stoppingConditionList.add(eStoppingCondition.FITNESS);
                             stoppingConditionList.add(eStoppingCondition.TIME);
-                            m_LogicEngineManager.ActivateAlgorithm(generationsNum, printEveryAmountOfGeneration, this::printProgress, reqFitness,stoppingConditionList);
+                            m_LogicEngineManager.ActivateAlgorithm(generationsNum, printEveryAmountOfGeneration, this::printProgress, reqFitness,timeReq,stoppingConditionList);
                         } catch (RuntimeException e) {
                             System.out.println(e.getMessage());
                         }

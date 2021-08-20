@@ -128,6 +128,7 @@ public class EvolutionEngine {
                     dataSaver.setBestSolution(m_Generation.getParentByIndex(0));
                     bestFitness= dataSaver.getBestSolutionFitness();
                 }
+                stopAlgo=checkStoppingConditions(m_NumOfGenerations,generationsMade,m_ReqFitness,bestFitness,m_ReqMinutesInMillis,timePassedInMillis,i_StoppingConditions);
 
             }
 
