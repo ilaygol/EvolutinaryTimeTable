@@ -257,6 +257,36 @@ public enum eRules {
             retFitnessForRule=(classesThatHaveBreakList.size()/numOfClasses)*100;
             return retFitnessForRule;
         }
+    },
+    WORKINGHOURSPREFERENCE
+    {
+        @Override
+        public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable, Integer i_TotalHours) {
+            Integer retFitnessForRule=0;
+            Integer prefHours=10;//ill have to replace it at 3rd project
+            Integer daysInWeek=i_TimeTable.getDays();
+            Integer hoursInDay=i_TimeTable.getHours();
+            List<Integer> teachersIDWithGoodTeachingHours=new ArrayList<>();
+            List<Teacher> teachersList=i_TimeTable.getTeachers().getTeachersList();
+            for(Teacher t:teachersList)
+            {
+                List<Lesson> teacherLessons=i_Parent.getLessonsList().stream().filter(lesson -> lesson.getTeacherID().equals(t.getId())).collect(Collectors.toList());
+                int lessonsCount=0;
+                for(int i=1;i<=daysInWeek;i++)
+                    for (int j=1;j<=hoursInDay;j++)
+                    {
+                        int day=i;
+                        int hour=j;
+                        if(teacherLessons.stream().filter(lesson -> lesson.getDay().equals(day)).filter(lesson -> lesson.getHour().equals(hour)).count()>0)
+                            lessonsCount++;
+                    }
+                if(lessonsCount==prefHours)
+                    teachersIDWithGoodTeachingHours.add(t.getId());
+
+            }
+            retFitnessForRule=(teachersIDWithGoodTeachingHours.size()/i_TimeTable.getTeachers().getTeacherListSize())*100;
+            return retFitnessForRule;
+        }
     };
 
     public abstract Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable,Integer i_TotalHours);
