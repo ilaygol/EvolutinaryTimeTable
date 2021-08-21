@@ -227,7 +227,37 @@ public enum eRules {
 
                     return (classesGrades.stream().mapToInt(i->i).sum()/classesGrades.size());
                 }
-            };
+            },
+    DAYOFFCLASS
+    {
+        @Override
+        public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable, Integer i_TotalHours) {
+            Integer retFitnessForRule=0;
+            Integer numOfClasses=i_TimeTable.getClazzes().getClassesListSize();
+            Integer numOfDaysInWeek=i_TimeTable.getDays();
+            List<Integer> classesThatHaveBreakList=new ArrayList<>();
+            List<Clazz> classesList=i_TimeTable.getClazzes().getClassesList();
+            for(Clazz c:classesList)
+            {
+                boolean foundDayOff=false;
+                for(int i=1;i<=numOfDaysInWeek && !foundDayOff ;i++)
+                {
+                    Integer day=i;
+                    if(i_Parent.getLessonsList().stream()
+                            .filter(lesson->lesson.getClassID().equals(c.getId()))
+                            .filter(lesson -> lesson.getDay().equals(day)).count()==0)
+                    {
+                        foundDayOff=true;
+                        if(!classesThatHaveBreakList.contains(c.getId())) //not needed if,but ill keep
+                            classesThatHaveBreakList.add(c.getId());
+
+                    }
+                }
+            }
+            retFitnessForRule=(classesThatHaveBreakList.size()/numOfClasses)*100;
+            return retFitnessForRule;
+        }
+    };
 
     public abstract Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable,Integer i_TotalHours);
 }
