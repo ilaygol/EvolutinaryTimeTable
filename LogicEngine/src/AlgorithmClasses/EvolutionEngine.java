@@ -129,16 +129,12 @@ public class EvolutionEngine {
                 }
                 endCountingTime=Instant.now();
                 timePassedInMillis+= Duration.between(startCountingTime,endCountingTime).toMillis();
+                i_ProgressDataConsumer.accept(progressTracker);
                 stopAlgo=checkStoppingConditions(m_NumOfGenerations,generationsMade,m_ReqFitness,bestFitness,m_ReqMinutesInMillis,timePassedInMillis,i_StoppingConditions);
 
             }
-
             dataSaver.addToGeneration2BestFitnessMap(generationsMade,m_Generation.getParentByIndex(0).getFitness());
             progressTracker.setNewValues(generationsMade,bestFitness,timePassedInMillis);
-            Platform.runLater(()->
-                i_ProgressDataConsumer.accept(progressTracker)
-            );
-
             counter=0;
         }
         i_TimeTable.getRules().recheckBestSolution(dataSaver.getBestSolution(),i_TimeTable,dataSaver);

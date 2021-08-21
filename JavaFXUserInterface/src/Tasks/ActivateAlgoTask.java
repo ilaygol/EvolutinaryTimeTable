@@ -3,6 +3,7 @@ package Tasks;
 import AlgorithmClasses.eStoppingCondition;
 import DataTransferClasses.ProgressData;
 import Manager.LogicEngineManager;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 
 import java.util.Collection;
@@ -10,7 +11,7 @@ import java.util.function.Consumer;
 
 public class ActivateAlgoTask extends Task<Boolean> {
 
-    private Consumer<ProgressData> m_Consumer;
+    Consumer<ProgressData> m_Consumer;
     private Collection<eStoppingCondition> m_StoppingCondition;
     private LogicEngineManager m_Engine;
     private Integer m_ReqGeneration;
@@ -32,7 +33,16 @@ public class ActivateAlgoTask extends Task<Boolean> {
 
     @Override
     protected Boolean call() throws Exception {
-        m_Engine.ActivateAlgorithm(m_ReqGeneration,m_PrintingReq,m_ReqFitness,m_ReqTimeInMinutes,m_Consumer,m_StoppingCondition);
+
+        m_Engine.ActivateAlgorithm(m_ReqGeneration,m_PrintingReq,m_ReqFitness,m_ReqTimeInMinutes,this::updateUIAlgoTask,m_StoppingCondition);
         return true;
     }
+
+    public void updateUIAlgoTask(ProgressData i_Progress)
+    {
+        Platform.runLater(()->m_Consumer.accept(i_Progress));
+        if(i_Progress.getGeneration()%m_PrintingReq==0)
+            updateMessage("abc"); //will be changed
+    }
+
 }

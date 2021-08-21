@@ -95,11 +95,11 @@ public class ApplicationController {
         new Thread(m_Task).start();
     }
     @FXML void onStartBtnClick(ActionEvent event) {
-//        List<eStoppingCondition> stoppingConditions=new ArrayList<>();
-//        m_Task=new ActivateAlgoTask(this::updateUIFromAlgoProgress,stoppingConditions,m_Engine,m_ReqGenerations,
-//                m_ReqPrinting,m_ReqFitness,m_reqTimeInMinutes);
+//        List<eStoppingCondition> stoppingConditions=createStoppingConditions();
+////        //setmaximum for progressbar
+//        m_Task=new ActivateAlgoTask(this::updateUIFromAlgoProgress,stoppingConditions,m_Engine,m_ReqGenerations, m_ReqPrinting,m_ReqFitness,m_reqTimeInMinutes);
 //        bindAlgoTaskToUIComponents(m_Task);
-//        new Thread(m_Task).start();
+////        new Thread(m_Task).start();
         disabilityManagementPlay();
     }
     @FXML void onPauseBtnClick(ActionEvent event) {
@@ -136,6 +136,7 @@ public class ApplicationController {
     public void bindAlgoTaskToUIComponents(Task<Boolean> i_Task) {
         i_Task.valueProperty().addListener((observable, oldVal, newVal) ->{
             isActivatedAlgo.set(newVal);} );
+        statusLineLabel.textProperty().bind(i_Task.messageProperty());
     }
     private void disabilityManagementStop() {
         startBtn.setDisable(false);
@@ -238,5 +239,14 @@ public class ApplicationController {
     public void updateUIFromAlgoProgress(ProgressData i_Progress)
     {
 
+
+
     }
+
+    private List<eStoppingCondition> createStoppingConditions()
+    {
+        return null;
+    }
+
+
 }
