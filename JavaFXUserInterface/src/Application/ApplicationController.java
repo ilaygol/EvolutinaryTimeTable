@@ -95,11 +95,11 @@ public class ApplicationController {
         new Thread(m_Task).start();
     }
     @FXML void onStartBtnClick(ActionEvent event) {
-        List<eStoppingCondition> stoppingConditions=new ArrayList<>();
-        m_Task=new ActivateAlgoTask(this::updateUIFromAlgoProgress,stoppingConditions,m_Engine,m_ReqGenerations,
-                m_ReqPrinting,m_ReqFitness,m_reqTimeInMinutes);
-        bindAlgoTaskToUIComponents(m_Task);
-        new Thread(m_Task).start();
+//        List<eStoppingCondition> stoppingConditions=new ArrayList<>();
+//        m_Task=new ActivateAlgoTask(this::updateUIFromAlgoProgress,stoppingConditions,m_Engine,m_ReqGenerations,
+//                m_ReqPrinting,m_ReqFitness,m_reqTimeInMinutes);
+//        bindAlgoTaskToUIComponents(m_Task);
+//        new Thread(m_Task).start();
         disabilityManagementPlay();
     }
     @FXML void onPauseBtnClick(ActionEvent event) {
