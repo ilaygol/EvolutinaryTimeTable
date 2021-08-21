@@ -15,13 +15,19 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import AlgorithmClasses.*;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ApplicationController {
     private Stage m_Stage;
     private LogicEngineManager m_Engine;
     private Task<Boolean> m_Task;
-    private ProgressData m_ProgressInEngine;
     private ValuesChecker m_ValuesChecker;
+    private ProgressData m_ProgressInEngine;
+    private Integer m_ReqGenerations;
+    private Integer m_ReqPrinting;
+    private Integer m_ReqFitness;
+    private Integer m_reqTimeInMinutes;
 
     @FXML private Label filePathLabel;
     @FXML private Label statusLineLabel;
@@ -49,12 +55,12 @@ public class ApplicationController {
     @FXML private ProgressBar timeProgress;
 
     private SimpleBooleanProperty isFileSelected;
-    private SimpleBooleanProperty IsActivatedAlgo;
+    private SimpleBooleanProperty isActivatedAlgo;
 
     public ApplicationController()
     {
         isFileSelected=new SimpleBooleanProperty(false);
-        IsActivatedAlgo=new SimpleBooleanProperty(false);
+        isActivatedAlgo=new SimpleBooleanProperty(false);
         m_ValuesChecker=new ValuesChecker();
     }
 
@@ -89,8 +95,11 @@ public class ApplicationController {
         new Thread(m_Task).start();
     }
     @FXML void onStartBtnClick(ActionEvent event) {
-
-        //m_Task=new ActivateAlgoTask();
+        List<eStoppingCondition> stoppingConditions=new ArrayList<>();
+        m_Task=new ActivateAlgoTask(this::updateUIFromAlgoProgress,stoppingConditions,m_Engine,m_ReqGenerations,
+                m_ReqPrinting,m_ReqFitness,m_reqTimeInMinutes);
+        bindAlgoTaskToUIComponents(m_Task);
+        new Thread(m_Task).start();
         disabilityManagementPlay();
     }
     @FXML void onPauseBtnClick(ActionEvent event) {
@@ -123,6 +132,10 @@ public class ApplicationController {
                 disabilityManagementFileLoaded();
             }
         }));
+    }
+    public void bindAlgoTaskToUIComponents(Task<Boolean> i_Task) {
+        i_Task.valueProperty().addListener((observable, oldVal, newVal) ->{
+            isActivatedAlgo.set(newVal);} );
     }
     private void disabilityManagementStop() {
         startBtn.setDisable(false);
@@ -219,6 +232,11 @@ public class ApplicationController {
         {
             fitnessLimitCombo.getItems().add(i);
         }
+
+    }
+
+    public void updateUIFromAlgoProgress(ProgressData i_Progress)
+    {
 
     }
 }
