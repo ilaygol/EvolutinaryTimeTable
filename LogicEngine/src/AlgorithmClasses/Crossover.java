@@ -24,7 +24,7 @@ public class Crossover {
         m_Name=i_ETTCrossover.getName();
         m_NumOfCuttingPoints =i_ETTCrossover.getCuttingPoints();
         m_Configuration=i_ETTCrossover.getConfiguration();
-        m_eType =eCrossover.valueOf(m_Name.toUpperCase(Locale.ROOT));
+        m_eType =eCrossover.valueOf(m_Name.toUpperCase());
         m_Roller=new Random();
         extractConfiguration();
     }

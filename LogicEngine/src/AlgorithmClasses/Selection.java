@@ -15,6 +15,7 @@ public class Selection {
     private String m_Type;
     private String m_Configuration;
     private Integer m_Percent;
+    private Double m_PTE;
     private Integer m_Elitism;
     private eSelection m_eType;
     private Random m_Roller;
@@ -28,7 +29,7 @@ public class Selection {
             m_Elitism = i_ETTSelection.getETTElitism(); }
         else { m_Elitism = 0; }
 
-        m_eType=eSelection.valueOf(m_Type.toUpperCase(Locale.ROOT));
+        m_eType=eSelection.valueOf(m_Type.toUpperCase());
         m_Roller=new Random();
     }
 
@@ -61,7 +62,13 @@ public class Selection {
     {
         if(m_Configuration!=null) {
             Scanner in = new Scanner(m_Configuration.toString()).useDelimiter("[^0-9]+");
-            m_Percent = in.nextInt();
+            if(m_Type.toUpperCase()=="TOURNAMENT") {
+                m_PTE= in.nextDouble();;
+            }
+            else if(m_Type.toUpperCase()=="TRUNCATION")
+            {
+                m_Percent=in.nextInt();
+            }
             in.close();
         }
     }

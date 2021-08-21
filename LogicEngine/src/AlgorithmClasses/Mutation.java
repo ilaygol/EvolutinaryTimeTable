@@ -24,7 +24,7 @@ public class Mutation {
         m_Name=i_ETTMutation.getName();
         m_Configuration=i_ETTMutation.getConfiguration();
         extractConfiguration();
-        m_eType=eMutation.valueOf(m_Name.toUpperCase(Locale.ROOT));
+        m_eType=eMutation.valueOf(m_Name.toUpperCase());
         m_Roller=new Random();
     }
 
