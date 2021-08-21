@@ -54,7 +54,7 @@ public class Selection {
         Generation nextGeneration=new Generation();
         for(int i=0;i<m_Elitism;i++)
             nextGeneration.addParentToGeneration(i_PrevGeneration.getParentByIndex(i));
-        m_eType.activate(m_Percent,m_Roller,i_PrevGeneration,nextGeneration,i_InitialPopulation,i_AmountOfObj,i_Crossover);
+        m_eType.activate(m_Percent,m_PTE,m_Roller,i_PrevGeneration,nextGeneration,i_InitialPopulation,i_AmountOfObj,i_Crossover);
         return nextGeneration;
     }
 
