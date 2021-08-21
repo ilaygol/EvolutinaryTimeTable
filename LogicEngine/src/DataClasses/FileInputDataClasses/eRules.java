@@ -270,6 +270,7 @@ public enum eRules {
             List<Teacher> teachersList=i_TimeTable.getTeachers().getTeachersList();
             for(Teacher t:teachersList)
             {
+                //prefHours=t.getPrefHours();
                 List<Lesson> teacherLessons=i_Parent.getLessonsList().stream().filter(lesson -> lesson.getTeacherID().equals(t.getId())).collect(Collectors.toList());
                 int lessonsCount=0;
                 for(int i=1;i<=daysInWeek;i++)
