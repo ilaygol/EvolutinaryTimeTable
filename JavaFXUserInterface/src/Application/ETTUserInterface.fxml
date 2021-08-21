@@ -8,6 +8,7 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
@@ -59,8 +60,9 @@
                      <children>
                         <GridPane hgap="10.0" vgap="10.0">
                           <columnConstraints>
+                              <ColumnConstraints hgrow="NEVER" />
                             <ColumnConstraints hgrow="NEVER" />
-                            <ColumnConstraints hgrow="NEVER" />
+                            <ColumnConstraints hgrow="NEVER" minWidth="100.0" prefWidth="100.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -68,18 +70,21 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label minWidth="170.0" text="Number of generations:" />
-                              <TextField fx:id="numOfGenTF" disable="true" minWidth="50.0" prefWidth="80.0" promptText="Number" GridPane.rowIndex="1" />
-                              <Label minWidth="90.0" text="Show every:" GridPane.columnIndex="1" />
-                              <TextField fx:id="showEveryTF" disable="true" minWidth="100.0" prefWidth="100.0" promptText="Number" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" text="Entry" underline="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="Stop conditions" underline="true" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="fitnessCheck" disable="true" mnemonicParsing="false" onAction="#onActionFitnessCB" text="Fitness" GridPane.columnIndex="1" />
+                              <ComboBox fx:id="fitnessLimitCombo" disable="true" minWidth="140.0" prefWidth="140.0" promptText="Fitness limit" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="timeCheck" disable="true" mnemonicParsing="false" onAction="#onActionTimeCB" text="Time" GridPane.columnIndex="2" />
+                              <TextField fx:id="timeLimitTF" disable="true" promptText="Minutes" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="generationsCheck" disable="true" minWidth="110.0" mnemonicParsing="false" onAction="#onActionGenerationsCB" prefWidth="110.0" text="Generations" />
+                              <TextField fx:id="numOfGenTF" disable="true" minWidth="110.0" prefWidth="110.0" promptText="Number" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                         <GridPane hgap="10.0" vgap="10.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="NEVER" minWidth="120.0" prefWidth="120.0" />
                             <ColumnConstraints hgrow="NEVER" minWidth="120.0" prefWidth="120.0" />
-                              <ColumnConstraints hgrow="NEVER" minWidth="100.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="NEVER" />
+                              <ColumnConstraints hgrow="NEVER" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -87,13 +92,14 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label alignment="CENTER" text="Selection" underline="true" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                              <Label alignment="CENTER" text="Selection" underline="true" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                               <ComboBox fx:id="selectionCombo" disable="true" maxWidth="1.7976931348623157E308" promptText="Selection" visibleRowCount="5" GridPane.rowIndex="1" />
                               <Label text="Type:" />
                               <Label text="Top percent:" GridPane.columnIndex="1" />
                               <Label text="Elitism:" GridPane.columnIndex="2" />
                               <ComboBox disable="true" prefWidth="150.0" promptText="Percent" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <ComboBox fx:id="elitismCB" disable="true" prefWidth="150.0" promptText="Elitism" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <Slider fx:id="elitismSlider" blockIncrement="1.0" disable="true" minWidth="170.0" prefWidth="170.0" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <TextField fx:id="elitismSliderReflectionTF" alignment="CENTER" editable="false" minWidth="50.0" prefWidth="50.0" promptText="0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                         <GridPane hgap="10.0" vgap="10.0">
@@ -120,7 +126,9 @@
                         <GridPane hgap="10.0" vgap="10.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="NEVER" />
+                              <ColumnConstraints hgrow="NEVER" />
                             <ColumnConstraints hgrow="NEVER" />
+                              <ColumnConstraints hgrow="NEVER" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -128,29 +136,19 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label alignment="CENTER" text="Mutation" underline="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                              <Label fx:id="mutationSetBtn" alignment="CENTER" text="Mutation" underline="true" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                               <ComboBox fx:id="mutationCombo" disable="true" minWidth="120.0" prefWidth="120.0" promptText="Mutation" visibleRowCount="5" GridPane.rowIndex="1" />
                               <Label text="Type:" />
-                              <Label text="On:" GridPane.columnIndex="1" />
-                              <ComboBox disable="true" minWidth="130.0" prefWidth="130.0" promptText="Parameter" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                           </children>
-                        </GridPane>
-                        <GridPane hgap="10.0" vgap="10.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="NEVER" />
-                            <ColumnConstraints hgrow="NEVER" minWidth="100.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" text="Stop conditions" underline="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                              <CheckBox fx:id="fitnessCheck" disable="true" mnemonicParsing="false" onAction="#onActionFitnessCB" text="Fitness" />
-                              <ComboBox fx:id="fitnessLimitCombo" disable="true" minWidth="140.0" prefWidth="140.0" promptText="Fitness limit" GridPane.rowIndex="1" />
-                              <CheckBox fx:id="timeCheck" disable="true" mnemonicParsing="false" onAction="#onActionTimeCB" text="Time" GridPane.columnIndex="1" />
-                              <TextField fx:id="timeLimitTF" disable="true" promptText="Minutes" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text="Component:" GridPane.columnIndex="2" />
+                              <ComboBox fx:id="componentCombo" disable="true" minWidth="135.0" prefWidth="135.0" promptText="Component" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <Label text="Tupples:" GridPane.columnIndex="1" />
+                              <TextField fx:id="tupplesTF" disable="true" prefWidth="100.0" promptText="Number" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Button fx:id="mutationSetBtn" mnemonicParsing="false" onAction="#onMutationSetBtnClick" text="Set" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <Label fx:id="mutationUpdateStatusLabel" text="[Update status]" textFill="#50dd52" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                              </Label>
                            </children>
                         </GridPane>
                      </children>
@@ -167,7 +165,8 @@
                       <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
                       <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
                         <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                        <ColumnConstraints hgrow="NEVER" />
+                        <ColumnConstraints hgrow="NEVER" />
                         <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -185,7 +184,7 @@
                            </graphic></Button>
                         <Button fx:id="pauseBtn" disable="true" mnemonicParsing="false" onAction="#onPauseBtnClick" GridPane.columnIndex="1">
                            <graphic>
-                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="pauseBtn" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@Images/pause.png" />
                                  </image>
@@ -199,8 +198,14 @@
                                  </image>
                               </ImageView>
                            </graphic></Button>
-                        <Label text="Status:" GridPane.columnIndex="4" />
-                        <Label id="statusLine" fx:id="statusLineLabel" maxWidth="1.7976931348623157E308" styleClass="status" text="[Status Line]" GridPane.columnIndex="5" GridPane.hgrow="ALWAYS" />
+                        <Label text="Status:" GridPane.columnIndex="5" />
+                        <Label id="statusLine" fx:id="statusLineLabel" maxWidth="1.7976931348623157E308" styleClass="status" text="[Status Line]" GridPane.columnIndex="6" GridPane.hgrow="ALWAYS" />
+                        <Label minWidth="90.0" text="Show every:" GridPane.columnIndex="3">
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <TextField fx:id="showEveryTF" disable="true" minWidth="100.0" prefWidth="100.0" promptText="Generations" GridPane.columnIndex="4" />
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
