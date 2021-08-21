@@ -1,11 +1,38 @@
 package Tasks;
 
+import AlgorithmClasses.eStoppingCondition;
+import DataTransferClasses.ProgressData;
+import Manager.LogicEngineManager;
 import javafx.concurrent.Task;
 
-public class ActivateAlgoTask extends Task<Void> {
+import java.util.Collection;
+import java.util.function.Consumer;
+
+public class ActivateAlgoTask extends Task<Boolean> {
+
+    private Consumer<ProgressData> m_Consumer;
+    private Collection<eStoppingCondition> m_StoppingCondition;
+    private LogicEngineManager m_Engine;
+    private Integer m_ReqGeneration;
+    private Integer m_PrintingReq;
+    private Integer m_ReqFitness;
+    private Integer m_ReqTimeInMinutes;
+
+    public ActivateAlgoTask(Consumer<ProgressData> i_Consumer,Collection<eStoppingCondition> i_StoppingCondition,LogicEngineManager i_Engine
+            ,Integer i_ReqGeneration,Integer i_PrintingReq,Integer i_ReqFitness,Integer i_ReqTimeInMinutes)
+    {
+        m_Consumer=i_Consumer;
+        m_StoppingCondition=i_StoppingCondition;
+        m_Engine=i_Engine;
+        m_ReqGeneration=i_ReqGeneration;
+        m_PrintingReq=i_PrintingReq;
+        m_ReqFitness=i_ReqFitness;
+        m_ReqTimeInMinutes=i_ReqTimeInMinutes;
+    }
 
     @Override
-    protected Void call() throws Exception {
-        return null;
+    protected Boolean call() throws Exception {
+        m_Engine.ActivateAlgorithm(m_ReqGeneration,m_PrintingReq,m_ReqFitness,m_ReqTimeInMinutes,m_Consumer,m_StoppingCondition);
+        return true;
     }
 }

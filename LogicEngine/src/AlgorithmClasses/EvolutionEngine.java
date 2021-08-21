@@ -8,6 +8,7 @@ import DataClasses.FileInputDataClasses.TimeTable;
 import DataTransferClasses.EvolutionEngineData;
 import DataTransferClasses.ProgressData;
 import ParsedClasses.ETTEvolutionEngine;
+import javafx.application.Platform;
 import sun.security.jca.GetInstance;
 
 import java.time.Duration;
@@ -95,8 +96,8 @@ public class EvolutionEngine {
 
     public EvolutionEngineData activateAlgorithm(TimeTable i_TimeTable, AmountOfObjectsCalc i_AmountOfObj, Consumer<ProgressData> i_ProgressDataConsumer, Collection<eStoppingCondition> i_StoppingConditions)
     {
-
         EvolutionEngineData dataSaver=new EvolutionEngineData();
+        ProgressData progressTracker=new ProgressData(0, 0, (long)0);
         Integer counter=0,generationsMade=0,bestFitness=0;
         Long timePassedInMillis=(long)0;
         Instant startCountingTime,endCountingTime;
@@ -133,7 +134,11 @@ public class EvolutionEngine {
             }
 
             dataSaver.addToGeneration2BestFitnessMap(generationsMade,m_Generation.getParentByIndex(0).getFitness());
-            i_ProgressDataConsumer.accept(new ProgressData(generationsMade,m_Generation.getParentByIndex(0).getFitness()));
+            progressTracker.setNewValues(generationsMade,bestFitness,timePassedInMillis);
+            Platform.runLater(()->
+                i_ProgressDataConsumer.accept(progressTracker)
+            );
+
             counter=0;
         }
         i_TimeTable.getRules().recheckBestSolution(dataSaver.getBestSolution(),i_TimeTable,dataSaver);

@@ -1,6 +1,8 @@
 package Application;
 
+import DataTransferClasses.ProgressData;
 import Manager.LogicEngineManager;
+import Tasks.ActivateAlgoTask;
 import Tasks.LoadFileTask;
 import com.sun.javaws.IconUtil;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -18,6 +20,7 @@ public class ApplicationController {
     private Stage m_Stage;
     private LogicEngineManager m_Engine;
     private Task<Boolean> m_Task;
+    private ProgressData m_ProgressInEngine;
     private ValuesChecker m_ValuesChecker;
 
     @FXML private Label filePathLabel;
@@ -85,11 +88,13 @@ public class ApplicationController {
         alert.show();
         new Thread(m_Task).start();
     }
+    @FXML void onStartBtnClick(ActionEvent event) {
+
+        //m_Task=new ActivateAlgoTask();
+        disabilityManagementPlay();
+    }
     @FXML void onPauseBtnClick(ActionEvent event) {
         disabilityManagementPause();
-    }
-    @FXML void onStartBtnClick(ActionEvent event) {
-        disabilityManagementPlay();
     }
     @FXML void onStopBtnClick(ActionEvent event) {
         disabilityManagementStop();
