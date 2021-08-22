@@ -116,6 +116,7 @@ public class ApplicationController {
     }
     @FXML void onPauseBtnClick(ActionEvent event) {
         disabilityManagementPause();
+
     }
     @FXML void onStopBtnClick(ActionEvent event) {
         disabilityManagementStop();

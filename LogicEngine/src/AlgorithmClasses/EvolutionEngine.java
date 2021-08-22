@@ -104,8 +104,7 @@ public class EvolutionEngine {
 
     }
 
-    public EvolutionEngineData activateAlgorithm(TimeTable i_TimeTable, AmountOfObjectsCalc i_AmountOfObj, Consumer<ProgressData> i_ProgressDataConsumer, Collection<eStoppingCondition> i_StoppingConditions)
-    {
+    public synchronized EvolutionEngineData activateAlgorithm(TimeTable i_TimeTable, AmountOfObjectsCalc i_AmountOfObj, Consumer<ProgressData> i_ProgressDataConsumer, Collection<eStoppingCondition> i_StoppingConditions) {
         EvolutionEngineData dataSaver=new EvolutionEngineData();
         ProgressData progressTracker=new ProgressData(0, 0, (long)0);
         Integer counter=0,generationsMade=0,bestFitness=0;
@@ -117,6 +116,13 @@ public class EvolutionEngine {
 
         while(!getStopBoolean()) {
             while(counter< m_PrintingReq && !getStopBoolean()) {
+                if(Thread.interrupted()) {
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        System.out.println("bla bla");
+                    }
+                }
                 startCountingTime=Instant.now();
                 //activating selection (crossover activation is inside)
                 m_Generation=m_Selection.createNextGeneration(m_Generation,m_Crossover,m_InitialPopulationAmount,i_AmountOfObj);

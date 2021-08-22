@@ -146,6 +146,7 @@ public class LogicEngineManager {
         return maxValues;
     }
 
+
     public boolean getIsFileLoaded() {
         return m_IsFileLoaded;
     }
@@ -172,5 +173,14 @@ public class LogicEngineManager {
     public void setStopBoolean(Boolean i_Boolean)
     {
         m_Descriptor.getEvolutionEngine().setStopBoolean(i_Boolean);
+    }
+
+    public void pauseAlgo()
+    {
+
+    }
+    public void resumeAlgo()
+    {
+        m_Descriptor.getEvolutionEngine().notifyAll();
     }
 }
