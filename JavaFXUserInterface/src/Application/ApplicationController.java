@@ -76,7 +76,7 @@ public class ApplicationController {
         filePathLabel.setText("");
         numOfGenTF.textProperty().addListener((observable, oldValue, newValue) ->
             m_ValuesChecker.checkNumOfGenerations(numOfGenTF,newValue));
-        elitismSlider.valueProperty().addListener((observable, oldValue, newValue) ->elitismSliderReflectionTF.setText(newValue.toString()));
+        elitismSlider.valueProperty().addListener((observable, oldValue, newValue) ->elitismSliderReflectionTF.setText(String.valueOf(newValue.intValue())));
     }
 
 
