@@ -30,29 +30,36 @@ public class ApplicationController {
     private Integer m_reqTimeInMinutes;
 
     @FXML private Label filePathLabel;
+    @FXML private Label mutationUpdateStatusLabel;
     @FXML private Label statusLineLabel;
-    @FXML private TextField numOfGenTF;
-    @FXML private TextField showEveryTF;
-    @FXML private TextField cuttingPointsTF;
-    @FXML private TextField timeLimitTF;
+    @FXML private Label pauseStatusLabel;
     @FXML private Button loadFileBtn;
+    @FXML private Button mutationSetBtn;
     @FXML private Button startBtn;
     @FXML private Button pauseBtn;
     @FXML private Button stopBtn;
     @FXML private Button submitShowValueBtn;
-    @FXML private CheckBox timeCheck;
+    @FXML private TextField timeLimitTF;
+    @FXML private TextField numOfGenTF;
+    @FXML private TextField elitismSliderReflectionTF;
+    @FXML private TextField cuttingPointsTF;
+    @FXML private TextField tupplesTF;
+    @FXML private TextField showEveryTF;
     @FXML private CheckBox fitnessCheck;
+    @FXML private CheckBox timeCheck;
+    @FXML private CheckBox generationsCheck;
+    @FXML private ComboBox<Integer> fitnessLimitCombo;
     @FXML private ComboBox<String> selectionCombo;
     @FXML private ComboBox<String> crossoverCombo;
     @FXML private ComboBox<String> crossoverAspectCombo;
     @FXML private ComboBox<String> mutationCombo;
-    @FXML private ComboBox<Integer> elitismCB;
-    @FXML private ComboBox<Integer> fitnessLimitCombo;
+    @FXML private ComboBox<String> componentCombo;
+    @FXML private ComboBox<Double> probabilityCombo;
     @FXML private ComboBox<String> showValueCombo;
-
     @FXML private ProgressBar fitnessProgress;
     @FXML private ProgressBar generationsProgress;
     @FXML private ProgressBar timeProgress;
+    @FXML private Slider elitismSlider;
 
     private SimpleBooleanProperty isFileSelected;
     private SimpleBooleanProperty isActivatedAlgo;
@@ -67,8 +74,9 @@ public class ApplicationController {
     @FXML
     private void initialize() {
         filePathLabel.setText("");
-        numOfGenTF.textProperty().addListener((observable, oldValue, newValue) -> {
-            m_ValuesChecker.checkNumOfGenerations(numOfGenTF,newValue);});
+        numOfGenTF.textProperty().addListener((observable, oldValue, newValue) ->
+            m_ValuesChecker.checkNumOfGenerations(numOfGenTF,newValue));
+        elitismSlider.valueProperty().addListener((observable, oldValue, newValue) ->elitismSliderReflectionTF.setText(newValue.toString()));
     }
 
 
@@ -115,6 +123,10 @@ public class ApplicationController {
     @FXML void onActionTimeCB(ActionEvent event) {
         timeLimitTF.setDisable(!timeCheck.isSelected());
     }
+    @FXML void onActionGenerationsCB(ActionEvent event) {    }
+    @FXML void onMutationSetBtnClick(ActionEvent event) {
+
+    }
 
     public void bindFileTaskToUIComponents(File i_File,Task<Boolean> i_Task,Alert i_Alert) {
         i_Alert.contentTextProperty().bind(i_Task.messageProperty());
@@ -150,7 +162,7 @@ public class ApplicationController {
         mutationCombo.setDisable(false);
         timeCheck.setDisable(false);
         fitnessCheck.setDisable(false);
-        elitismCB.setDisable(false);
+        elitismSlider.setDisable(false);
         loadFileBtn.setDisable(false);
     }
     private void disabilityManagementPause() {
@@ -165,7 +177,7 @@ public class ApplicationController {
         mutationCombo.setDisable(false);
         timeCheck.setDisable(false);
         fitnessCheck.setDisable(false);
-        elitismCB.setDisable(false);
+        elitismSlider.setDisable(false);
         stopBtn.setDisable(false);
     }
     private void disabilityManagementPlay() {
@@ -174,7 +186,7 @@ public class ApplicationController {
         stopBtn.setDisable(false);
         numOfGenTF.setDisable(true);
         showEveryTF.setDisable(true);
-        elitismCB.setDisable(true);
+        elitismSlider.setDisable(true);
         crossoverCombo.setDisable(true);
         cuttingPointsTF.setDisable(true);
         mutationCombo.setDisable(true);
@@ -195,7 +207,7 @@ public class ApplicationController {
         mutationCombo.setDisable(false);
         timeCheck.setDisable(false);
         fitnessCheck.setDisable(false);
-        elitismCB.setDisable(false);
+        elitismSlider.setDisable(false);
         submitShowValueBtn.setDisable(false);
         showValueCombo.setDisable(false);
 
@@ -223,10 +235,7 @@ public class ApplicationController {
         }
 
         //filling elitism
-        for(int i=0;i<m_Engine.getInitialPopulation();i++)
-        {
-            elitismCB.getItems().add(i);
-        }
+        elitismSlider.setMax(m_Engine.getInitialPopulation()-1);
 
         //filling Fitness Combo
         for(int i=1;i<=100;i++)
