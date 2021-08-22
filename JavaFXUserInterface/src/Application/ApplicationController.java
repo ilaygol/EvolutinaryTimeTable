@@ -67,6 +67,7 @@ public class ApplicationController {
     private SimpleBooleanProperty isFileSelected;
     private SimpleBooleanProperty isActivatedAlgo;
     private Boolean isPaused=false;
+    private Boolean stoppedByUser=false;
 
     public ApplicationController()
     {
@@ -123,6 +124,7 @@ public class ApplicationController {
             m_AlgoThread = new Thread(m_Task);
             m_AlgoThread.start();
         }
+        stoppedByUser=false;
         disabilityManagementPlay();
     }
     @FXML void onPauseBtnClick(ActionEvent event) {
@@ -132,7 +134,7 @@ public class ApplicationController {
 
     }
     @FXML void onStopBtnClick(ActionEvent event) {
-        disabilityManagementStop();
+        stoppedByUser=true;
         m_Engine.setStopBoolean(true);
         if(isPaused=true) {
             m_Engine.resumeAlgo();
@@ -174,17 +176,24 @@ public class ApplicationController {
         i_Task.valueProperty().addListener((observable, oldVal, newVal) ->{
             isActivatedAlgo.set(newVal);
             disabilityManagementStop();
-            pauseStatusLabel.setText("Done");
-            pauseStatusLabel.setVisible(true);
         } );
         statusLineLabel.textProperty().bind(i_Task.messageProperty());
     }
     private void disabilityManagementStop() {
         disabilityManagementFileLoaded();
+        if(!stoppedByUser) {
+            pauseStatusLabel.setText("Done");
+        }
+        else{
+            pauseStatusLabel.setText("Stopped");
+        }
+        pauseStatusLabel.setVisible(true);
     }
     private void disabilityManagementPause() {
         disabilityManagementFileLoaded();
         stopBtn.setDisable(false);
+        pauseStatusLabel.setText("Paused");
+        pauseStatusLabel.setVisible(true);
     }
     private void disabilityManagementPlay() {
         //Controls
@@ -194,6 +203,7 @@ public class ApplicationController {
         showEveryTF.setDisable(true);
         submitShowValueBtn.setDisable(true);
         showValueCombo.setDisable(true);
+        pauseStatusLabel.setVisible(false);
 
         //Stop conditions
         generationsCheck.setDisable(true);
@@ -224,6 +234,7 @@ public class ApplicationController {
         showEveryTF.setDisable(false);
         submitShowValueBtn.setDisable(false);
         showValueCombo.setDisable(false);
+        pauseStatusLabel.setVisible(false);
 
         //Stop conditions
         generationsCheck.setDisable(false);
