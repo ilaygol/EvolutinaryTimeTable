@@ -42,7 +42,7 @@ public class ActivateAlgoTask extends Task<Boolean> {
     {
         Platform.runLater(()->m_Consumer.accept(i_Progress));
         if(i_Progress.getGeneration()%m_PrintingReq==0)
-            updateMessage("abc"); //will be changed
+            updateMessage("Done making "+i_Progress.getGeneration()+" Generations, Best fitness is:"+i_Progress.getFitness()); //will be changed
     }
 
 }

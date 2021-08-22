@@ -103,11 +103,12 @@ public class ApplicationController {
         new Thread(m_Task).start();
     }
     @FXML void onStartBtnClick(ActionEvent event) {
-//        List<eStoppingCondition> stoppingConditions=createStoppingConditions();
-////        //setmaximum for progressbar
-//        m_Task=new ActivateAlgoTask(this::updateUIFromAlgoProgress,stoppingConditions,m_Engine,m_ReqGenerations, m_ReqPrinting,m_ReqFitness,m_reqTimeInMinutes);
-//        bindAlgoTaskToUIComponents(m_Task);
-////        new Thread(m_Task).start();
+        List<eStoppingCondition> stoppingConditions=createStoppingConditions();
+        m_ReqPrinting=Integer.parseInt(showEveryTF.getText());
+        //bind the progress bars
+        m_Task=new ActivateAlgoTask(this::updateUIFromAlgoProgress,stoppingConditions,m_Engine,m_ReqGenerations, m_ReqPrinting,m_ReqFitness,m_reqTimeInMinutes);
+        bindAlgoTaskToUIComponents(m_Task);
+        new Thread(m_Task).start();
         disabilityManagementPlay();
     }
     @FXML void onPauseBtnClick(ActionEvent event) {
@@ -123,7 +124,9 @@ public class ApplicationController {
     @FXML void onActionTimeCB(ActionEvent event) {
         timeLimitTF.setDisable(!timeCheck.isSelected());
     }
-    @FXML void onActionGenerationsCB(ActionEvent event) {    }
+    @FXML void onActionGenerationsCB(ActionEvent event) {
+        numOfGenTF.setDisable(!generationsCheck.isSelected());
+    }
     @FXML void onMutationSetBtnClick(ActionEvent event) {
 
     }
@@ -147,7 +150,11 @@ public class ApplicationController {
     }
     public void bindAlgoTaskToUIComponents(Task<Boolean> i_Task) {
         i_Task.valueProperty().addListener((observable, oldVal, newVal) ->{
-            isActivatedAlgo.set(newVal);} );
+            isActivatedAlgo.set(newVal);
+            disabilityManagementStop();
+            pauseStatusLabel.setText("Done");
+            pauseStatusLabel.setVisible(true);
+        } );
         statusLineLabel.textProperty().bind(i_Task.messageProperty());
     }
     private void disabilityManagementStop() {
@@ -194,6 +201,7 @@ public class ApplicationController {
         fitnessCheck.setDisable(true);
         selectionCombo.setDisable(true);
         startBtn.setDisable(true);
+        showEveryTF.setDisable(true);
     }
     private void disabilityManagementFileLoaded() {
         startBtn.setDisable(false);
@@ -210,6 +218,8 @@ public class ApplicationController {
         elitismSlider.setDisable(false);
         submitShowValueBtn.setDisable(false);
         showValueCombo.setDisable(false);
+        generationsCheck.setDisable(false);
+        showEveryTF.setDisable(false);
 
     }
     private void fillComboBoxes()
@@ -250,11 +260,38 @@ public class ApplicationController {
 
 
 
+
     }
 
     private List<eStoppingCondition> createStoppingConditions()
     {
-        return null;
+        List<eStoppingCondition> stoppingConditionList=new ArrayList<>();
+
+        if(generationsCheck.isSelected()) {
+            stoppingConditionList.add(eStoppingCondition.GENERATIONS);
+            m_ReqGenerations=Integer.parseInt(numOfGenTF.getText());
+        }
+        else
+        {
+            m_ReqGenerations=0;
+        }
+        if(timeCheck.isSelected()) {
+            stoppingConditionList.add(eStoppingCondition.TIME);
+            m_reqTimeInMinutes=Integer.parseInt(timeLimitTF.getText());
+        }
+        else
+        {
+            m_reqTimeInMinutes=0;
+        }
+        if(fitnessCheck.isSelected()) {
+            stoppingConditionList.add(eStoppingCondition.FITNESS);
+            m_ReqFitness=fitnessLimitCombo.getValue();
+        }
+        else
+        {
+            m_ReqFitness=100;
+        }
+        return stoppingConditionList;
     }
 
 
