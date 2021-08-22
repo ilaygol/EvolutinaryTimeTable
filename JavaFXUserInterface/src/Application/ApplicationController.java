@@ -180,73 +180,71 @@ public class ApplicationController {
         statusLineLabel.textProperty().bind(i_Task.messageProperty());
     }
     private void disabilityManagementStop() {
-        startBtn.setDisable(false);
-        pauseBtn.setDisable(true);
-        stopBtn.setDisable(true);
-        crossoverCombo.setDisable(false);
-        cuttingPointsTF.setDisable(false);
-        numOfGenTF.setDisable(false);
-        showEveryTF.setDisable(true);
-        selectionCombo.setDisable(false);
-        mutationCombo.setDisable(false);
-        timeCheck.setDisable(false);
-        fitnessCheck.setDisable(false);
-        elitismSlider.setDisable(false);
-        loadFileBtn.setDisable(false);
-        showEveryTF.setDisable(false);
+        disabilityManagementFileLoaded();
     }
     private void disabilityManagementPause() {
-        startBtn.setDisable(false);
-        pauseBtn.setDisable(true);
-        stopBtn.setDisable(true);
-        crossoverCombo.setDisable(false);
-        cuttingPointsTF.setDisable(false);
-        numOfGenTF.setDisable(false);
-        showEveryTF.setDisable(true);
-        selectionCombo.setDisable(false);
-        mutationCombo.setDisable(false);
-        timeCheck.setDisable(false);
-        fitnessCheck.setDisable(false);
-        elitismSlider.setDisable(false);
+        disabilityManagementFileLoaded();
         stopBtn.setDisable(false);
     }
     private void disabilityManagementPlay() {
-        loadFileBtn.setDisable(true);
+        //Controls
+        startBtn.setDisable(true);
         pauseBtn.setDisable(false);
         stopBtn.setDisable(false);
-        numOfGenTF.setDisable(true);
         showEveryTF.setDisable(true);
-        elitismSlider.setDisable(true);
-        crossoverCombo.setDisable(true);
-        cuttingPointsTF.setDisable(true);
-        mutationCombo.setDisable(true);
+        submitShowValueBtn.setDisable(true);
+        showValueCombo.setDisable(true);
+
+        //Stop conditions
+        generationsCheck.setDisable(true);
         timeCheck.setDisable(true);
         fitnessCheck.setDisable(true);
+
+        //Selection
         selectionCombo.setDisable(true);
-        startBtn.setDisable(true);
-        showEveryTF.setDisable(true);
-        generationsCheck.setDisable(true);
-        numOfGenTF.setDisable(true);
-        fitnessLimitCombo.setDisable(true);
+        selectionPercentCombo.setDisable(true);
+        elitismSlider.setDisable(true);
+
+        //Crossover
+        crossoverCombo.setDisable(true);
+        cuttingPointsTF.setDisable(true);
+        crossoverAspectCombo.setDisable(true);
+
+        //Mutation
+        mutationCombo.setDisable(true);
+        probabilityCombo.setDisable(true);
+        tupplesTF.setDisable(true);
+        mutationSetBtn.setDisable(true);
     }
     private void disabilityManagementFileLoaded() {
+        //Controls
         startBtn.setDisable(false);
         pauseBtn.setDisable(true);
         stopBtn.setDisable(true);
-        crossoverCombo.setDisable(false);
-        cuttingPointsTF.setDisable(false);
-        numOfGenTF.setDisable(false);
-        showEveryTF.setDisable(true);
-        selectionCombo.setDisable(false);
-        mutationCombo.setDisable(false);
-        timeCheck.setDisable(false);
-        fitnessCheck.setDisable(false);
-        elitismSlider.setDisable(false);
+        showEveryTF.setDisable(false);
         submitShowValueBtn.setDisable(false);
         showValueCombo.setDisable(false);
-        generationsCheck.setDisable(false);
-        showEveryTF.setDisable(false);
 
+        //Stop conditions
+        generationsCheck.setDisable(false);
+        timeCheck.setDisable(false);
+        fitnessCheck.setDisable(false);
+
+        //Selection
+        selectionCombo.setDisable(false);
+        selectionPercentCombo.setDisable(false);
+        elitismSlider.setDisable(false);
+
+        //Crossover
+        crossoverCombo.setDisable(false);
+        cuttingPointsTF.setDisable(false);
+        crossoverAspectCombo.setDisable(false);
+
+        //Mutation
+        mutationCombo.setDisable(false);
+        probabilityCombo.setDisable(false);
+        tupplesTF.setDisable(false);
+        mutationSetBtn.setDisable(false);
     }
     private void fillComboBoxes()
     {
