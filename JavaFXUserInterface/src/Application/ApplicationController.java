@@ -23,6 +23,7 @@ public class ApplicationController {
     private Stage m_Stage;
     private LogicEngineManager m_Engine;
     private Task<Boolean> m_Task;
+    private Thread m_AlgoThread;
     private ValuesChecker m_ValuesChecker;
     private ProgressData m_ProgressInEngine;
     private Integer m_ReqGenerations;
@@ -64,6 +65,7 @@ public class ApplicationController {
 
     private SimpleBooleanProperty isFileSelected;
     private SimpleBooleanProperty isActivatedAlgo;
+    private Boolean isPaused=false;
 
     public ApplicationController()
     {
@@ -104,23 +106,37 @@ public class ApplicationController {
         new Thread(m_Task).start();
     }
     @FXML void onStartBtnClick(ActionEvent event) {
-        //checking values
-        resetProgressBars();
-        List<eStoppingCondition> stoppingConditions=createStoppingConditions();
-        m_ReqPrinting=Integer.parseInt(showEveryTF.getText());
-        //bind the progress bars
-        m_Task=new ActivateAlgoTask(this::updateUIFromAlgoProgress,stoppingConditions,m_Engine,m_ReqGenerations, m_ReqPrinting,m_ReqFitness,m_reqTimeInMinutes);
-        bindAlgoTaskToUIComponents(m_Task);
-        new Thread(m_Task).start();
+        if(isPaused)
+        {
+            m_Engine.resumeAlgo();
+            isPaused=false;
+        }
+        else {
+            //checking values
+            resetProgressBars();
+            List<eStoppingCondition> stoppingConditions = createStoppingConditions();
+            m_ReqPrinting = Integer.parseInt(showEveryTF.getText());
+            //bind the progress bars
+            m_Task = new ActivateAlgoTask(this::updateUIFromAlgoProgress, stoppingConditions, m_Engine, m_ReqGenerations, m_ReqPrinting, m_ReqFitness, m_reqTimeInMinutes);
+            bindAlgoTaskToUIComponents(m_Task);
+            m_AlgoThread = new Thread(m_Task);
+            m_AlgoThread.start();
+        }
         disabilityManagementPlay();
     }
     @FXML void onPauseBtnClick(ActionEvent event) {
         disabilityManagementPause();
+        m_AlgoThread.interrupt();
+        isPaused=true;
 
     }
     @FXML void onStopBtnClick(ActionEvent event) {
         disabilityManagementStop();
         m_Engine.setStopBoolean(true);
+        if(isPaused=true) {
+            m_Engine.resumeAlgo();
+            isPaused = false;
+        }
     }
     @FXML void onSubmitShowValueClick(ActionEvent event) { }
     @FXML void onActionFitnessCB(ActionEvent event) {

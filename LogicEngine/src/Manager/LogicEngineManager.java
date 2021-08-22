@@ -175,12 +175,9 @@ public class LogicEngineManager {
         m_Descriptor.getEvolutionEngine().setStopBoolean(i_Boolean);
     }
 
-    public void pauseAlgo()
-    {
 
-    }
     public void resumeAlgo()
     {
-        m_Descriptor.getEvolutionEngine().notifyAll();
+        m_Descriptor.getEvolutionEngine().resumeAlgo();
     }
 }

@@ -31,13 +31,14 @@ public class EvolutionEngine {
     private Generation m_Generation;
     private Boolean m_isStop;
 
+    public EvolutionEngine(){}
     public EvolutionEngine(ETTEvolutionEngine i_ETTEvolutionEngine)
     {
         m_InitialPopulationAmount =i_ETTEvolutionEngine.getETTInitialPopulation().getSize();
         m_Selection=new Selection(i_ETTEvolutionEngine.getETTSelection());
         m_Crossover=new Crossover(i_ETTEvolutionEngine.getETTCrossover());
         m_Mutations=new Mutations(i_ETTEvolutionEngine.getETTMutations());
-        setStopBoolean(false);
+        m_isStop=false;
     }
 
     public Integer getInitialPopulation() {
@@ -68,8 +69,10 @@ public class EvolutionEngine {
         return m_ReqFitness;
     }
 
-    public synchronized Boolean getStopBoolean() {
-        return m_isStop;
+    public Boolean getStopBoolean() {
+        synchronized (m_isStop) {
+            return m_isStop;
+        }
     }
 
     public void setNumOfGenerations(Integer i_NumOfGenerations) {
@@ -88,8 +91,10 @@ public class EvolutionEngine {
         m_ReqMinutesInMillis = TimeUnit.MINUTES.toMillis(i_ReqMinutes);
     }
 
-    public synchronized void setStopBoolean(Boolean i_isStop) {
-        m_isStop = i_isStop;
+    public void setStopBoolean(Boolean i_isStop) {
+        synchronized (m_isStop) {
+            m_isStop = i_isStop;
+        }
     }
 
     public void initialSolutions(AmountOfObjectsCalc i_AmountOfObj)
@@ -105,6 +110,7 @@ public class EvolutionEngine {
     }
 
     public synchronized EvolutionEngineData activateAlgorithm(TimeTable i_TimeTable, AmountOfObjectsCalc i_AmountOfObj, Consumer<ProgressData> i_ProgressDataConsumer, Collection<eStoppingCondition> i_StoppingConditions) {
+        setStopBoolean(false);
         EvolutionEngineData dataSaver=new EvolutionEngineData();
         ProgressData progressTracker=new ProgressData(0, 0, (long)0);
         Integer counter=0,generationsMade=0,bestFitness=0;
@@ -116,13 +122,7 @@ public class EvolutionEngine {
 
         while(!getStopBoolean()) {
             while(counter< m_PrintingReq && !getStopBoolean()) {
-                if(Thread.interrupted()) {
-                    try {
-                        wait();
-                    } catch (InterruptedException e) {
-                        System.out.println("bla bla");
-                    }
-                }
+
                 startCountingTime=Instant.now();
                 //activating selection (crossover activation is inside)
                 m_Generation=m_Selection.createNextGeneration(m_Generation,m_Crossover,m_InitialPopulationAmount,i_AmountOfObj);
@@ -149,6 +149,13 @@ public class EvolutionEngine {
                 if(!getStopBoolean()) {
                     setStopBoolean(checkStoppingConditions(m_NumOfGenerations, generationsMade, m_ReqFitness, bestFitness, m_ReqMinutesInMillis, timePassedInMillis, i_StoppingConditions));
                 }
+                if(Thread.interrupted()) {
+                    try {
+                        this.wait();
+                    } catch (InterruptedException e) {
+                        System.out.println("Interrupted while waiting");
+                    }
+                }
             }
             dataSaver.addToGeneration2BestFitnessMap(generationsMade,m_Generation.getParentByIndex(0).getFitness());
             counter=0;
@@ -156,6 +163,11 @@ public class EvolutionEngine {
         i_TimeTable.getRules().recheckBestSolution(dataSaver.getBestSolution(),i_TimeTable,dataSaver);
         dataSaver.updateRulesAverage();
         return dataSaver;
+    }
+
+    public synchronized void resumeAlgo()
+    {
+        notifyAll();
     }
 
     private Boolean checkStoppingConditions(Integer m_numOfGenerations, Integer i_GenerationsMade, Integer i_ReqFitness, Integer i_BestFitness,
