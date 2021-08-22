@@ -29,6 +29,7 @@ public class EvolutionEngine {
     private Crossover m_Crossover;
     private Mutations m_Mutations;
     private Generation m_Generation;
+    private Boolean m_isStop;
 
     public EvolutionEngine(ETTEvolutionEngine i_ETTEvolutionEngine)
     {
@@ -36,6 +37,7 @@ public class EvolutionEngine {
         m_Selection=new Selection(i_ETTEvolutionEngine.getETTSelection());
         m_Crossover=new Crossover(i_ETTEvolutionEngine.getETTCrossover());
         m_Mutations=new Mutations(i_ETTEvolutionEngine.getETTMutations());
+        setStopBoolean(false);
     }
 
     public Integer getInitialPopulation() {
@@ -66,6 +68,10 @@ public class EvolutionEngine {
         return m_ReqFitness;
     }
 
+    public synchronized Boolean getStopBoolean() {
+        return m_isStop;
+    }
+
     public void setNumOfGenerations(Integer i_NumOfGenerations) {
         m_NumOfGenerations = i_NumOfGenerations;
     }
@@ -80,6 +86,10 @@ public class EvolutionEngine {
 
     public void setReqMinutes(Integer i_ReqMinutes) {
         m_ReqMinutesInMillis = TimeUnit.MINUTES.toMillis(i_ReqMinutes);
+    }
+
+    public synchronized void setStopBoolean(Boolean i_isStop) {
+        m_isStop = i_isStop;
     }
 
     public void initialSolutions(AmountOfObjectsCalc i_AmountOfObj)
@@ -104,10 +114,9 @@ public class EvolutionEngine {
         initialSolutions(i_AmountOfObj);
         i_TimeTable.getRules().calculateFitnesses(m_Generation,i_TimeTable);
         m_Generation.sortGenerationByFitness();
-        Boolean stopAlgo=false;
 
-        while(!stopAlgo) {
-            while(counter< m_PrintingReq && !stopAlgo) {
+        while(!getStopBoolean()) {
+            while(counter< m_PrintingReq && !getStopBoolean()) {
                 startCountingTime=Instant.now();
                 //activating selection (crossover activation is inside)
                 m_Generation=m_Selection.createNextGeneration(m_Generation,m_Crossover,m_InitialPopulationAmount,i_AmountOfObj);
@@ -131,8 +140,9 @@ public class EvolutionEngine {
                 timePassedInMillis+= Duration.between(startCountingTime,endCountingTime).toMillis();
                 progressTracker.setNewValues(generationsMade,bestFitness,timePassedInMillis);
                 i_ProgressDataConsumer.accept(progressTracker);
-                stopAlgo=checkStoppingConditions(m_NumOfGenerations,generationsMade,m_ReqFitness,bestFitness,m_ReqMinutesInMillis,timePassedInMillis,i_StoppingConditions);
-
+                if(!getStopBoolean()) {
+                    setStopBoolean(checkStoppingConditions(m_NumOfGenerations, generationsMade, m_ReqFitness, bestFitness, m_ReqMinutesInMillis, timePassedInMillis, i_StoppingConditions));
+                }
             }
             dataSaver.addToGeneration2BestFitnessMap(generationsMade,m_Generation.getParentByIndex(0).getFitness());
             counter=0;

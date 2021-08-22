@@ -154,6 +154,11 @@ public class LogicEngineManager {
         return m_IsAlgoActivated;
     }
 
+    public Boolean getStopBoolean()
+    {
+        return m_Descriptor.getEvolutionEngine().getStopBoolean();
+    }
+
     public List<Mutation> getMutationsList()
     {
         return m_Descriptor.getEvolutionEngine().getMutations().getMutationsList();
@@ -162,5 +167,10 @@ public class LogicEngineManager {
     public Integer getInitialPopulation()
     {
         return m_Descriptor.getEvolutionEngine().getInitialPopulation();
+    }
+
+    public void setStopBoolean(Boolean i_Boolean)
+    {
+        m_Descriptor.getEvolutionEngine().setStopBoolean(i_Boolean);
     }
 }

@@ -119,6 +119,7 @@ public class ApplicationController {
     }
     @FXML void onStopBtnClick(ActionEvent event) {
         disabilityManagementStop();
+        m_Engine.setStopBoolean(true);
     }
     @FXML void onSubmitShowValueClick(ActionEvent event) { }
     @FXML void onActionFitnessCB(ActionEvent event) {

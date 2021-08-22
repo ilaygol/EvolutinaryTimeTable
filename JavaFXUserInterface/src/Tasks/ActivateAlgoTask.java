@@ -41,7 +41,7 @@ public class ActivateAlgoTask extends Task<Boolean> {
     public void updateUIAlgoTask(ProgressData i_Progress)
     {
         Platform.runLater(()->m_Consumer.accept(i_Progress));
-        if(i_Progress.getGeneration()%m_PrintingReq==0)
+        if(i_Progress.getGeneration()%m_PrintingReq==0 || m_Engine.getStopBoolean())
             updateMessage("Done making "+i_Progress.getGeneration()+" Generations, Best fitness is:"+i_Progress.getFitness()); //will be changed
     }
 
