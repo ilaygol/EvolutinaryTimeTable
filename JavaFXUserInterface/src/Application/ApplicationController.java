@@ -17,6 +17,7 @@ import AlgorithmClasses.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ApplicationController {
     private Stage m_Stage;
@@ -103,6 +104,8 @@ public class ApplicationController {
         new Thread(m_Task).start();
     }
     @FXML void onStartBtnClick(ActionEvent event) {
+        //checking values
+        resetProgressBars();
         List<eStoppingCondition> stoppingConditions=createStoppingConditions();
         m_ReqPrinting=Integer.parseInt(showEveryTF.getText());
         //bind the progress bars
@@ -171,6 +174,7 @@ public class ApplicationController {
         fitnessCheck.setDisable(false);
         elitismSlider.setDisable(false);
         loadFileBtn.setDisable(false);
+        showEveryTF.setDisable(false);
     }
     private void disabilityManagementPause() {
         startBtn.setDisable(false);
@@ -202,6 +206,9 @@ public class ApplicationController {
         selectionCombo.setDisable(true);
         startBtn.setDisable(true);
         showEveryTF.setDisable(true);
+        generationsCheck.setDisable(true);
+        numOfGenTF.setDisable(true);
+        fitnessLimitCombo.setDisable(true);
     }
     private void disabilityManagementFileLoaded() {
         startBtn.setDisable(false);
@@ -257,6 +264,22 @@ public class ApplicationController {
 
     public void updateUIFromAlgoProgress(ProgressData i_Progress)
     {
+        double generation,fitness,time;
+        if(generationsCheck.isSelected()) {
+            generation = ((double) i_Progress.getGeneration() / (double) m_ReqGenerations);
+            generationsProgress.setProgress(generation);
+        }
+        if(fitnessCheck.isSelected())
+        {
+            fitness=(double) i_Progress.getFitness()/(double) m_ReqFitness;
+            fitnessProgress.setProgress(fitness);
+        }
+        if(timeCheck.isSelected())
+        {
+            Long totalTimeInMillis= TimeUnit.MINUTES.toMillis(m_reqTimeInMinutes);
+            time=(double) i_Progress.getTimePassedInMillis()/(double) totalTimeInMillis;
+            timeProgress.setProgress(time);
+        }
 
 
 
@@ -289,9 +312,16 @@ public class ApplicationController {
         }
         else
         {
-            m_ReqFitness=100;
+            m_ReqFitness=0;
         }
         return stoppingConditionList;
+    }
+
+    private void resetProgressBars()
+    {
+        timeProgress.setProgress(0);
+        fitnessProgress.setProgress(0);
+        generationsProgress.setProgress(0);
     }
 
 
