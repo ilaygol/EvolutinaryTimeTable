@@ -50,6 +50,10 @@ public class Selection {
         return m_Percent;
     }
 
+    public Integer getElitism() {
+        return m_Elitism;
+    }
+
     public Generation createNextGeneration(Generation i_PrevGeneration, Crossover i_Crossover, Integer i_InitialPopulation, AmountOfObjectsCalc i_AmountOfObj){
         Generation nextGeneration=new Generation();
         for(int i=0;i<m_Elitism;i++)

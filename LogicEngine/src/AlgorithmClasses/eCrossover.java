@@ -11,7 +11,7 @@ public enum eCrossover {
     DAYTIMEORIENTED
             {
                 @Override
-                public  void activate(Parent p1, Parent p2, AmountOfObjectsCalc amounts,Character i_Char
+                public void activate(Parent p1, Parent p2, AmountOfObjectsCalc amounts,Character i_Char
                         , Collection<Integer> cuttingPoints, Generation i_NextGeneration) {
 
                     int index = 0;

@@ -81,7 +81,7 @@ public class LogicEngineManager {
         }
     }
 
-    public DataPrinter PrintFileData() {
+    public DataPrinter getFileData() {
         if(m_IsFileLoaded) {
             DataPrinter dataPrinter = new DataPrinter();
             //building Subject map

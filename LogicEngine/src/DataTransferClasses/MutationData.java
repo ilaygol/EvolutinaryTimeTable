@@ -7,13 +7,15 @@ import java.util.List;
 public class MutationData {
     private double m_Probability;
     private String m_Name;
-    private String m_Configuration;
+    private Integer m_Tupples;
+    private Character m_Component;
 
     public MutationData(Mutation i_Mutation)
     {
         m_Name=i_Mutation.getName();
         m_Probability=i_Mutation.getProbability();
-        m_Configuration= i_Mutation.getConfiguration();
+        m_Tupples=i_Mutation.getMaxTupples();
+        m_Component=i_Mutation.getChar();
     }
 
     public double getProbability() {
@@ -24,7 +26,16 @@ public class MutationData {
         return m_Name;
     }
 
-    public String getConfiguration() {
-        return m_Configuration;
+    public Integer getTupples() {
+        return m_Tupples;
+    }
+
+    public Character getComponent() {
+        return m_Component;
+    }
+
+    @Override
+    public String toString() {
+        return "Name="+m_Name+", Tupples="+m_Tupples+" ("+m_Component+")";
     }
 }

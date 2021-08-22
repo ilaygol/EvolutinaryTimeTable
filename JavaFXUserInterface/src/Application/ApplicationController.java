@@ -58,6 +58,7 @@ public class ApplicationController {
     @FXML private ComboBox<String> componentCombo;
     @FXML private ComboBox<Double> probabilityCombo;
     @FXML private ComboBox<String> showValueCombo;
+    @FXML private ComboBox<Integer> selectionPercentCombo;
     @FXML private ProgressBar fitnessProgress;
     @FXML private ProgressBar generationsProgress;
     @FXML private ProgressBar timeProgress;
@@ -249,35 +250,26 @@ public class ApplicationController {
     }
     private void fillComboBoxes()
     {
-        //filling showValuesCombo
-        for(eResultsValues value:eResultsValues.values())
-        {
-            showValueCombo.getItems().add(value.toString());
-        }
-        //filling crossover combo
-        for(eCrossover ec:eCrossover.values())
-            crossoverCombo.getItems().add(ec.toString());
-        //filling crossover aspect oriented combo
-        crossoverAspectCombo.getItems().add("Teacher");
-        crossoverAspectCombo.getItems().add("Class");
-        //filling selection combo
-        for(eSelection es:eSelection.values())
-            selectionCombo.getItems().add(es.toString());
-        //filling mutation Combo
-        for(Mutation m:m_Engine.getMutationsList())
-        {
-            mutationCombo.getItems().add(m.getEType().toString(m.getMaxTupples(),m.getChar()));
-        }
+        ArgumentsFiller filler=new ArgumentsFiller(m_Engine.getFileData());
+        //Fitness filler
+        filler.setFitnessCombo(fitnessLimitCombo);
 
-        //filling elitism
-        elitismSlider.setMax(m_Engine.getInitialPopulation()-1);
+        //Show values filler
+        filler.setShowValuesCombo(showValueCombo);
 
-        //filling Fitness Combo
-        for(int i=1;i<=100;i++)
-        {
-            fitnessLimitCombo.getItems().add(i);
-        }
+        //Selection fillers
+        filler.setSelectionTypeCombo(selectionCombo);
+        filler.setSelectionTopPercentCombo(selectionPercentCombo);
+        filler.setSelectionElitismSliderMax(elitismSlider);
 
+        //Crossover fillers
+        filler.setCrossoverTypeCombo(crossoverCombo);
+        filler.setCrossoverAspectCombo(crossoverAspectCombo);
+
+        //Mutation fillers
+        filler.setMutationTypeCombo(mutationCombo);
+        filler.setMutationProbabilityCombo(probabilityCombo);
+        filler.setMutationComponentCombo(componentCombo);
     }
 
     public void updateUIFromAlgoProgress(ProgressData i_Progress)

@@ -5,35 +5,35 @@ public enum eResultsValues {
             {
                 @Override
                 public String toString() {
-                    return "Show File Data";
+                    return "Show file data";
                 }
             },
     BESTSOLUTIONBYROW
             {
                 @Override
                 public String toString() {
-                    return "Best Solution-By Raw";
+                    return "Best solution- By raw";
                 }
             },
     BESTSOLUTIONBYTEACHER
             {
                 @Override
                 public String toString() {
-                    return "Best Solution-By Teacher";
+                    return "Best solution- By teacher";
                 }
             },
     BESTSOLUTIONBYCLASS
             {
                 @Override
                 public String toString() {
-                    return "Best Solution-By Class";
+                    return "Best solution- By class";
                 }
             },
     EVOLUTION
             {
                 @Override
                 public String toString() {
-                    return "Algorithm Evolution";
+                    return "Algorithm evolution";
                 }
             };
     public abstract String toString();

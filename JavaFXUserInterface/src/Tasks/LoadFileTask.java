@@ -1,5 +1,6 @@
 package Tasks;
 
+import Application.ArgumentsFiller;
 import Manager.LogicEngineManager;
 import javafx.concurrent.Task;
 import javafx.scene.control.Alert;
@@ -22,13 +23,13 @@ public  class LoadFileTask extends Task<Boolean> {
 
     @Override
     protected Boolean call() throws Exception {
-        updateMessage("Loading File...");
-        Thread.sleep(1500);
-        updateMessage("Checking File Content...");
-        Thread.sleep(1500);
+        updateMessage("Loading file...");
+        Thread.sleep(1200);
+        updateMessage("Checking file content...");
+        Thread.sleep(1200);
         try {
             m_Engine.LoadFile(m_File);
-            updateMessage("File was Loaded successfully!");
+            updateMessage("File has been loaded successfully!");
         } catch(RuntimeException e) {
             updateMessage(e.getMessage());
             return false;
