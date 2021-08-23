@@ -75,8 +75,22 @@ public class EvolutionEngine {
         }
     }
 
+
+
     public void setNumOfGenerations(Integer i_NumOfGenerations) {
         m_NumOfGenerations = i_NumOfGenerations;
+    }
+
+    public void setSelection(Selection i_Selection) {
+        m_Selection = i_Selection;
+    }
+
+    public void setCrossover(Crossover i_Crossover) {
+        m_Crossover = i_Crossover;
+    }
+
+    public void setMutations(Mutations i_Mutations) {
+        m_Mutations = i_Mutations;
     }
 
     public void setPrintingReq(Integer i_PrintingReq) {

@@ -29,6 +29,16 @@ public class Crossover {
         extractConfiguration();
     }
 
+    public Crossover(CrossoverData i_CrossoverData)
+    {
+        m_Name=i_CrossoverData.getName();
+        m_NumOfCuttingPoints=i_CrossoverData.getNumOfCuttingPoints();
+        m_Configuration="";
+        m_Char=i_CrossoverData.getAspect();
+        m_eType=eCrossover.valueOf(m_Name.toUpperCase());
+        m_Roller=new Random();
+    }
+
     public CrossoverData getCrossoverData()
     {
         return new CrossoverData(this);
@@ -69,12 +79,6 @@ public class Crossover {
         m_eType.activate(i_P1,i_P2,i_AmountOfObj,m_Char,cuttingPoints,i_NextGeneration);
     }
 
-    public boolean checkIfConfigurationEmpty()
-    {
-        if(m_Configuration==null)
-            return true;
-        return false;
-    }
 
     private List<Integer> rollCuttingPoints(Integer i_Max)
     {
@@ -98,6 +102,10 @@ public class Crossover {
                 count++;
             count++;
             m_Char = chars[count];
+        }
+        else//day time oriented, it has no char
+        {
+            m_Char=' ';
         }
     }
 }

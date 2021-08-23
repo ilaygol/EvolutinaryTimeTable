@@ -9,21 +9,21 @@ import java.util.*;
 
 public class Mutation {
 
-    private double m_Probability;
     private String m_Name;
     private String m_Configuration;
     private Integer m_Tupples;
     private Character m_Char;
+    private double m_Probability;
     private eMutation m_eType;
     private Random m_Roller;
 
 
     public Mutation(ETTMutation i_ETTMutation)
     {
-        m_Probability=i_ETTMutation.getProbability();
         m_Name=i_ETTMutation.getName();
         m_Configuration=i_ETTMutation.getConfiguration();
         extractConfiguration();
+        m_Probability=i_ETTMutation.getProbability();
         m_eType=eMutation.valueOf(m_Name.toUpperCase());
         m_Roller=new Random();
     }
@@ -69,11 +69,18 @@ public class Mutation {
     }
 
     private void extractConfiguration() {
-        Scanner scanner = new Scanner(m_Configuration.toString()).useDelimiter("[^0-9]+");
-        m_Tupples = scanner.nextInt();
-        int size = m_Configuration.length();
-        m_Char = m_Configuration.charAt(size - 1);
-        //System.out.println("we Had a flipping Mutation"+System.lineSeparator()+"Max tupples: "+m_Tupples+" the Char is: "+m_Char);
-        scanner.close();
+        if(m_Configuration!=null) {
+            Scanner scanner = new Scanner(m_Configuration.toString()).useDelimiter("[^0-9]+");
+            m_Tupples = scanner.nextInt();
+            int size = m_Configuration.length();
+            if(m_Name.toUpperCase().equals("FLIPPING")) {
+                m_Char = m_Configuration.charAt(size - 1);
+            }
+            else if(m_Name.toUpperCase().equals("SIZER")) {
+                m_Char = ' ';
+            }
+
+            scanner.close();
+        }
     }
 }

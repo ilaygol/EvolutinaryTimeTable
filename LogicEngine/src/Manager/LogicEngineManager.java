@@ -1,16 +1,10 @@
 package Manager;
 
-import AlgorithmClasses.Descriptor;
-import AlgorithmClasses.Mutation;
-import AlgorithmClasses.Mutations;
-import AlgorithmClasses.eStoppingCondition;
+import AlgorithmClasses.*;
 import Application.ApplicationController;
 import DataClasses.FileInputDataClasses.*;
 import DataClasses.AlgorithmData.*;
-import DataTransferClasses.BestSolutionsData;
-import DataTransferClasses.DataPrinter;
-import DataTransferClasses.EvolutionEngineData;
-import DataTransferClasses.ProgressData;
+import DataTransferClasses.*;
 import ParsedClasses.ETTDescriptor;
 
 import javax.xml.bind.JAXBContext;
@@ -125,9 +119,7 @@ public class LogicEngineManager {
         }
     }
 
-
-    public AmountOfObjectsCalc getAmountOfData()
-    {
+    public AmountOfObjectsCalc getAmountOfData() {
         TimeTable table= m_Descriptor.getTimeTable();
         Integer lessonInSolution=0;
         List<Clazz> classesList = table.getClazzes().getClassesList();
@@ -146,7 +138,6 @@ public class LogicEngineManager {
         return maxValues;
     }
 
-
     public boolean getIsFileLoaded() {
         return m_IsFileLoaded;
     }
@@ -160,8 +151,7 @@ public class LogicEngineManager {
         return m_Descriptor.getEvolutionEngine().getStopBoolean();
     }
 
-    public List<Mutation> getMutationsList()
-    {
+    public List<Mutation> getMutationsList() {
         return m_Descriptor.getEvolutionEngine().getMutations().getMutationsList();
     }
 
@@ -170,11 +160,39 @@ public class LogicEngineManager {
         return m_Descriptor.getEvolutionEngine().getInitialPopulation();
     }
 
+    public CrossoverData getCurrentActivatedCrossover()
+    {
+        CrossoverData retData=new CrossoverData(m_Descriptor.getEvolutionEngine().getCrossover());
+        return retData;
+    }
+
+    public SelectionData getCurrentActivatedSelection()
+    {
+        SelectionData retData=new SelectionData(m_Descriptor.getEvolutionEngine().getSelection());
+        return retData;
+    }
+
+    public void setNewCrossover(CrossoverData i_CrossoverData)
+    {
+        Crossover crossover=new Crossover(i_CrossoverData);
+        m_Descriptor.getEvolutionEngine().setCrossover(crossover);
+    }
+
+    public void setNewSelection(SelectionData i_SelectionData)
+    {
+        Selection selection=new Selection(i_SelectionData);
+        m_Descriptor.getEvolutionEngine().setSelection(selection);
+    }
+
+    public void setSpecificMutationSettings(String i_MutationString,MutationData i_MutationData)
+    {
+
+    }
+
     public void setStopBoolean(Boolean i_Boolean)
     {
         m_Descriptor.getEvolutionEngine().setStopBoolean(i_Boolean);
     }
-
 
     public void resumeAlgo()
     {

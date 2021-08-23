@@ -1,6 +1,7 @@
 package DataTransferClasses;
 
 import AlgorithmClasses.Mutation;
+import AlgorithmClasses.eMutation;
 
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class MutationData {
 
     @Override
     public String toString() {
-        return "Name="+m_Name+", Tupples="+m_Tupples+" ("+m_Component+")";
+        eMutation eType=eMutation.valueOf(m_Name.toUpperCase());
+        return eType.toString(m_Tupples,m_Component);
     }
 }

@@ -33,6 +33,18 @@ public class Selection {
         m_Roller=new Random();
     }
 
+    public Selection(SelectionData i_SelectionData)
+    {
+        m_Type=i_SelectionData.getType();
+        m_Configuration="";
+        m_Percent=i_SelectionData.getPercent();
+        m_PTE=i_SelectionData.getPTE();
+        m_Elitism=i_SelectionData.getElitism();
+        m_eType=eSelection.valueOf(m_Type.toUpperCase());
+        m_Roller=new Random();
+    }
+
+
     public String getType() {
         return m_Type;
     }
@@ -50,6 +62,10 @@ public class Selection {
         return m_Percent;
     }
 
+    public Double getPTE() {
+        return m_PTE;
+    }
+
     public Integer getElitism() {
         return m_Elitism;
     }
@@ -62,18 +78,30 @@ public class Selection {
         return nextGeneration;
     }
 
+    public void setElitism(Integer i_Elitism)
+    {
+        m_Elitism=i_Elitism;
+    }
+
     public void extractConfiguration()
     {
         if(m_Configuration!=null) {
             Scanner in = new Scanner(m_Configuration.toString()).useDelimiter("[^0-9]+");
-            if(m_Type.toUpperCase()=="TOURNAMENT") {
+            if(m_Type.toUpperCase().equals("TOURNAMENT")) {
                 m_PTE= in.nextDouble();;
+                m_Percent=0;
             }
-            else if(m_Type.toUpperCase()=="TRUNCATION")
+            else if(m_Type.toUpperCase().equals("TRUNCATION"))
             {
                 m_Percent=in.nextInt();
+                m_PTE=(double)0;
             }
             in.close();
+        }
+        else
+        {
+            m_PTE=(double)0;
+            m_Percent=0;
         }
     }
 }
