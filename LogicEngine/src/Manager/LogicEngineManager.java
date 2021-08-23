@@ -154,6 +154,9 @@ public class LogicEngineManager {
     public List<Mutation> getMutationsList() {
         return m_Descriptor.getEvolutionEngine().getMutations().getMutationsList();
     }
+    public List<MutationData> getMutationDataList(){
+        return m_Descriptor.getEvolutionEngine().getMutations().getMutationsDataList();
+    }
 
     public Integer getInitialPopulation()
     {

@@ -35,6 +35,18 @@ public class MutationData {
         return m_Component;
     }
 
+    public void setProbability(double i_Probability) {
+        m_Probability = i_Probability;
+    }
+
+    public void setTupples(Integer i_Tupples) {
+        m_Tupples = i_Tupples;
+    }
+
+    public void setComponent(Character i_Component) {
+        m_Component = i_Component;
+    }
+
     @Override
     public String toString() {
         eMutation eType=eMutation.valueOf(m_Name.toUpperCase());

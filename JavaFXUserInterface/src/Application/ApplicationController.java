@@ -1,5 +1,6 @@
 package Application;
 
+import DataTransferClasses.MutationData;
 import DataTransferClasses.ProgressData;
 import Manager.LogicEngineManager;
 import Tasks.ActivateAlgoTask;
@@ -22,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationController {
     private Stage m_Stage;
     private LogicEngineManager m_Engine;
+    private ArgumentsFiller m_Filler;
     private Task<Boolean> m_Task;
     private Thread m_AlgoThread;
     private ValuesChecker m_ValuesChecker;
@@ -153,6 +155,35 @@ public class ApplicationController {
     }
     @FXML void onMutationSetBtnClick(ActionEvent event) {
 
+        if(mutationCombo.getValue()!=null) {
+            //checks
+            String mutationString = mutationCombo.getValue();
+            MutationData mutationData = m_Engine.getSpecificMutation(mutationString);
+            if(probabilityCombo.getValue()==null && tupplesTF.getText().equals("")&& componentCombo.getValue()==null)
+                mutationUpdateStatusLabel.setText("Please pick changes.");
+            else
+            {
+                if(probabilityCombo.getValue()!=null) {
+                    //double probability=probabilityCombo.getValue();
+                    //mutationData.setProbability(probability);
+                }
+                if(tupplesTF.getText()!="")
+                    mutationData.setTupples(Integer.parseInt(tupplesTF.getText()));
+                if(componentCombo.getValue()!=null)
+                    mutationData.setComponent(componentCombo.getValue().charAt(0));
+                m_Engine.setSpecificMutationSettings(mutationString,mutationData);
+                mutationCombo.getItems().removeAll();
+                m_Filler.setMutationTypeCombo(mutationCombo);
+
+
+                mutationUpdateStatusLabel.setText("changes Saved.");
+            }
+
+        }
+        else
+            mutationUpdateStatusLabel.setText("Please pick Mutation.");
+
+
     }
 
     public void bindFileTaskToUIComponents(File i_File,Task<Boolean> i_Task,Alert i_Alert) {
@@ -259,26 +290,26 @@ public class ApplicationController {
     }
     private void fillComboBoxes()
     {
-        ArgumentsFiller filler=new ArgumentsFiller(m_Engine.getFileData());
+        m_Filler=new ArgumentsFiller(m_Engine.getFileData());
         //Fitness filler
-        filler.setFitnessCombo(fitnessLimitCombo);
+        m_Filler.setFitnessCombo(fitnessLimitCombo);
 
         //Show values filler
-        filler.setShowValuesCombo(showValueCombo);
+        m_Filler.setShowValuesCombo(showValueCombo);
 
         //Selection fillers
-        filler.setSelectionTypeCombo(selectionCombo);
-        filler.setSelectionTopPercentCombo(selectionPercentCombo);
-        filler.setSelectionElitismSliderMax(elitismSlider);
+        m_Filler.setSelectionTypeCombo(selectionCombo);
+        m_Filler.setSelectionTopPercentCombo(selectionPercentCombo);
+        m_Filler.setSelectionElitismSliderMax(elitismSlider);
 
         //Crossover fillers
-        filler.setCrossoverTypeCombo(crossoverCombo);
-        filler.setCrossoverAspectCombo(crossoverAspectCombo);
+        m_Filler.setCrossoverTypeCombo(crossoverCombo);
+        m_Filler.setCrossoverAspectCombo(crossoverAspectCombo);
 
         //Mutation fillers
-        filler.setMutationTypeCombo(mutationCombo);
-        filler.setMutationProbabilityCombo(probabilityCombo);
-        filler.setMutationComponentCombo(componentCombo);
+        m_Filler.setMutationTypeCombo(mutationCombo);
+        m_Filler.setMutationProbabilityCombo(probabilityCombo);
+        m_Filler.setMutationComponentCombo(componentCombo);
     }
 
     public void updateUIFromAlgoProgress(ProgressData i_Progress)

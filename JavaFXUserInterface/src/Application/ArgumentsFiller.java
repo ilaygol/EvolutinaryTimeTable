@@ -92,4 +92,9 @@ public class ArgumentsFiller {
         i_ComboBox.getItems().add("Day");
         i_ComboBox.getItems().add("Hour");
     }
+
+    public void refreshMutationTypeCompo(ComboBox i_ComboBox)
+    {
+
+    }
 }
