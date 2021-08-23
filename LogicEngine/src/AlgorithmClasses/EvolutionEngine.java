@@ -6,6 +6,7 @@ import DataClasses.AlgorithmData.Parent;
 import DataClasses.AlgorithmData.Generation;
 import DataClasses.FileInputDataClasses.TimeTable;
 import DataTransferClasses.EvolutionEngineData;
+import DataTransferClasses.MutationData;
 import DataTransferClasses.ProgressData;
 import ParsedClasses.ETTEvolutionEngine;
 import javafx.application.Platform;
@@ -69,6 +70,18 @@ public class EvolutionEngine {
         return m_ReqFitness;
     }
 
+    public MutationData getMutationDataByString(String i_String){
+        Mutation mutation= m_Mutations.getMutationByString(i_String);
+        return (new MutationData(mutation));
+    }
+
+    public void setMutationSettings(String i_String,MutationData i_MutationData)
+    {
+        Mutation mutation=m_Mutations.getMutationByString(i_String);
+        mutation.setChar(i_MutationData.getComponent());
+        mutation.setProbability(i_MutationData.getProbability());
+        mutation.setTupples(i_MutationData.getTupples());
+    }
     public Boolean getStopBoolean() {
         synchronized (m_isStop) {
             return m_isStop;

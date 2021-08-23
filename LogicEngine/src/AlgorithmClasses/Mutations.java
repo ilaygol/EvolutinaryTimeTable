@@ -38,6 +38,20 @@ public class Mutations {
     public Mutation getMutationByIndex(Integer i_Index){
         return m_MutationsList.get(i_Index);
     }
+    public Mutation getMutationByString(String i_String)
+    {
+        Mutation retMutation=null;
+        for(Mutation m:m_MutationsList)
+        {
+            String mutationString;
+            mutationString=m.getEType().toString(m.getMaxTupples(),m.getChar());
+            if(mutationString.equals(i_String)) {
+                retMutation = m;
+                break;
+            }
+        }
+        return retMutation;
+    }
 
     public void scanAndActivateMutations(Generation i_Generation, AmountOfObjectsCalc i_Amounts)
     {

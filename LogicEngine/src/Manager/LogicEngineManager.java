@@ -172,6 +172,11 @@ public class LogicEngineManager {
         return retData;
     }
 
+    public void setNewElitism(Integer i_Elitism)
+    {
+        m_Descriptor.getEvolutionEngine().getSelection().setElitism(i_Elitism);
+    }
+
     public void setNewCrossover(CrossoverData i_CrossoverData)
     {
         Crossover crossover=new Crossover(i_CrossoverData);
@@ -186,7 +191,11 @@ public class LogicEngineManager {
 
     public void setSpecificMutationSettings(String i_MutationString,MutationData i_MutationData)
     {
+        m_Descriptor.getEvolutionEngine().setMutationSettings(i_MutationString,i_MutationData);
+    }
 
+    public MutationData getSpecificMutation(String i_MutationString){
+        return m_Descriptor.getEvolutionEngine().getMutationDataByString(i_MutationString);
     }
 
     public void setStopBoolean(Boolean i_Boolean)

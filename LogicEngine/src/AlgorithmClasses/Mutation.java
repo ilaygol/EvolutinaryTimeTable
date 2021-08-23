@@ -51,6 +51,17 @@ public class Mutation {
         return m_Char;
     }
 
+    public void setTupples(Integer i_Tupples) {
+        m_Tupples = i_Tupples;
+    }
+
+    public void setChar(Character i_Char) {
+        m_Char = i_Char;
+    }
+
+    public void setProbability(double i_Probability) {
+        m_Probability = i_Probability;
+    }
 
     public void activateMutation(Generation i_Generation, AmountOfObjectsCalc i_AmountOfObj) {
         m_eType.activate(m_Tupples, i_Generation, i_AmountOfObj, m_Char, m_Roller);
