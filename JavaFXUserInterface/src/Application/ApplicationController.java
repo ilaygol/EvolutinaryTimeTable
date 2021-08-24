@@ -187,6 +187,15 @@ public class ApplicationController {
         else
             mutationUpdateStatusLabel.setText("Please pick Mutation.");
     }
+    @FXML void onCrossoverComboChanged(ActionEvent event) {
+
+    }
+    @FXML void onMutationComboChanged(ActionEvent event) {
+
+    }
+    @FXML void onSelectionComboChanged(ActionEvent event) {
+
+    }
 
     public void bindFileTaskToUIComponents(File i_File,Task<Boolean> i_Task,Alert i_Alert) {
         i_Alert.contentTextProperty().bind(i_Task.messageProperty());
@@ -316,10 +325,12 @@ public class ApplicationController {
         //Crossover fillers
         filler.setCrossoverTypeCombo(crossoverCombo);
         filler.setCrossoverAspectCombo(crossoverAspectCombo);
+        filler.setCrossoverCuttingPoints(cuttingPointsTF);
 
         //Mutation fillers
         filler.setMutationTypeCombo(mutationCombo);
         filler.setMutationProbabilityCombo(probabilityCombo);
+        filler.setMutationTupples(tupplesTF);
         filler.setMutationComponentCombo(componentCombo);
     }
 

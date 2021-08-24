@@ -4,6 +4,8 @@ import DataTransferClasses.DataPrinter;
 import DataTransferClasses.MutationData;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.util.List;
 
@@ -44,6 +46,7 @@ public class ArgumentsFiller {
         {
             i_ComboBox.getItems().add(name);
         }
+        i_ComboBox.getSelectionModel().select(m_DataPrinter.getSelectionData().getType());
     }
     public void setSelectionTopPercentCombo(ComboBox i_ComboBox)
     {
@@ -51,16 +54,23 @@ public class ArgumentsFiller {
         {
             i_ComboBox.getItems().add(i);
         }
+        if(m_DataPrinter.getSelectionData().getType().toUpperCase().equals("TRUNCATION"))
+            i_ComboBox.getSelectionModel().select(m_DataPrinter.getSelectionData().getPercent());
     }
     public void setSelectionElitismSliderMax(Slider i_Slider)
     {
         i_Slider.setMax(m_DataPrinter.getInitialPopulation()-1);
+        i_Slider.setValue(m_DataPrinter.getSelectionData().getElitism());
     }
     public void setSelectionPTECombo(ComboBox i_ComboBox)
     {
         for(int i=1;i<=9;i++)
         {
             i_ComboBox.getItems().add(String.valueOf((double)i/(double)10));
+        }
+        if(m_DataPrinter.getSelectionData().getType().toUpperCase().equals("TOURNAMENT")) {
+            i_ComboBox.getSelectionModel().select(m_DataPrinter.getSelectionData().getPTE());
+            //i_ComboBox.setDisable(false);
         }
     }
 
@@ -71,11 +81,27 @@ public class ArgumentsFiller {
         {
             i_ComboBox.getItems().add(name);
         }
+        i_ComboBox.getSelectionModel().select(m_DataPrinter.getCrossoverData().getName());
     }
     public void setCrossoverAspectCombo(ComboBox i_ComboBox)
     {
         i_ComboBox.getItems().add("Teacher");
         i_ComboBox.getItems().add("Class");
+        if(m_DataPrinter.getCrossoverData().getName().toUpperCase().equals("ASPECTORIENTED")) {
+            Character aspect = m_DataPrinter.getCrossoverData().getAspect();
+            switch (aspect) {
+                case 'T':
+                    i_ComboBox.getSelectionModel().select("Teacher");
+                    break;
+                case 'C':
+                    i_ComboBox.getSelectionModel().select("Class");
+                    break;
+            }
+        }
+    }
+    public void setCrossoverCuttingPoints(TextField i_TextField)
+    {
+        i_TextField.setText(m_DataPrinter.getCrossoverData().getNumOfCuttingPoints().toString());
     }
 
     //Mutation fillers
@@ -86,6 +112,7 @@ public class ArgumentsFiller {
         {
             i_ComboBox.getItems().add(i+". "+mutationsDataList.get(i-1).getName());
         }
+        i_ComboBox.getSelectionModel().select(0);
     }
     public void setMutationProbabilityCombo(ComboBox i_ComboBox)
     {
@@ -93,7 +120,14 @@ public class ArgumentsFiller {
         {
             i_ComboBox.getItems().add(String.valueOf((double)i/(double)10));
         }
+        i_ComboBox.getSelectionModel().select(m_DataPrinter.getMutationsDataList().get(0).getProbability());
     }
+
+    public void setMutationTupples(TextField i_TextField)
+    {
+        i_TextField.setText(m_DataPrinter.getMutationsDataList().get(0).getTupples().toString());
+    }
+
     public void setMutationComponentCombo(ComboBox i_ComboBox)
     {
         i_ComboBox.getItems().add("Teacher");
@@ -101,5 +135,28 @@ public class ArgumentsFiller {
         i_ComboBox.getItems().add("Subject");
         i_ComboBox.getItems().add("Day");
         i_ComboBox.getItems().add("Hour");
+
+        if(m_DataPrinter.getMutationsDataList().get(0).getName().toUpperCase().equals("FLIPPING"))
+        {
+            Character component=m_DataPrinter.getMutationsDataList().get(0).getComponent();
+            switch (component)
+            {
+                case 'T':
+                    i_ComboBox.getSelectionModel().select("Teacher");
+                    break;
+                case 'C':
+                    i_ComboBox.getSelectionModel().select("Class");
+                    break;
+                case 'S':
+                    i_ComboBox.getSelectionModel().select("Subject");
+                    break;
+                case 'D':
+                    i_ComboBox.getSelectionModel().select("Day");
+                    break;
+                case 'H':
+                    i_ComboBox.getSelectionModel().select("Hour");
+                    break;
+            }
+        }
     }
 }
