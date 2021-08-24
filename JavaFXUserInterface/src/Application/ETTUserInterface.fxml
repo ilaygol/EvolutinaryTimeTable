@@ -85,8 +85,9 @@
                         <GridPane hgap="10.0" styleClass="preferencesGrid" vgap="10.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="NEVER" minWidth="120.0" prefWidth="120.0" />
-                            <ColumnConstraints hgrow="NEVER" />
                               <ColumnConstraints hgrow="NEVER" />
+                              <ColumnConstraints hgrow="NEVER" />
+                            <ColumnConstraints hgrow="NEVER" />
                               <ColumnConstraints hgrow="NEVER" />
                           </columnConstraints>
                           <rowConstraints>
@@ -95,14 +96,20 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label alignment="CENTER" text="Selection" underline="true" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                              <Label alignment="CENTER" text="Selection" underline="true" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                               <ComboBox fx:id="selectionCombo" disable="true" maxWidth="1.7976931348623157E308" promptText="Selection" visibleRowCount="5" GridPane.rowIndex="1" />
                               <Label text="Type:" />
-                              <Label text="Top percent:" GridPane.columnIndex="1" />
-                              <Label text="Elitism:" GridPane.columnIndex="2" />
-                              <ComboBox fx:id="selectionPercentCombo" disable="true" minWidth="110.0" prefWidth="110.0" promptText="Percent" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Slider fx:id="elitismSlider" blockIncrement="1.0" disable="true" minWidth="170.0" prefWidth="170.0" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                              <TextField fx:id="elitismSliderReflectionTF" alignment="CENTER" disable="true" editable="false" minWidth="50.0" prefWidth="50.0" promptText="0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <Label text="Top percent:" GridPane.columnIndex="3" />
+                              <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="1">
+                                 <children>
+                                    <Label text="Elitism:" />
+                                    <TextField fx:id="elitismSliderReflectionTF" alignment="CENTER" disable="true" editable="false" minWidth="50.0" prefWidth="50.0" promptText="0" />
+                                 </children>
+                              </HBox>
+                              <ComboBox fx:id="selectionPercentCombo" disable="true" minWidth="110.0" prefWidth="110.0" promptText="Percent" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <Slider fx:id="elitismSlider" blockIncrement="1.0" disable="true" minWidth="170.0" prefWidth="170.0" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text="PTE:" GridPane.columnIndex="4" />
+                              <ComboBox fx:id="selectionPTECombo" disable="true" minWidth="-Infinity" prefWidth="85.0" promptText="PTE" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                            </children>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

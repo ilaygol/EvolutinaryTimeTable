@@ -24,7 +24,7 @@ public class Main extends Application {
         Parent root = fxmlLoader.load(url.openStream());
         ApplicationController controller=(ApplicationController)fxmlLoader.getController();
         controller.setStage(primaryStage);
-        m_Engine=new LogicEngineManager(controller);
+        m_Engine=new LogicEngineManager();
         controller.setEngine(m_Engine);
 
         Scene scene = new Scene(root, 1124, 713);

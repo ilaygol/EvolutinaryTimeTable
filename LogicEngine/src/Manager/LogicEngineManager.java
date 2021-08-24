@@ -24,13 +24,7 @@ public class LogicEngineManager {
     private EvolutionEngineData m_EvolutionEngineData;
     private boolean m_IsFileLoaded=false;
     private boolean m_IsAlgoActivated=false;
-    private ApplicationController m_Controller;
 
-    public LogicEngineManager(){}
-    public LogicEngineManager(ApplicationController i_Controller)
-    {
-        m_Controller=i_Controller;
-    }
     public Map<Integer,Integer> PrintAlgorithmProcess() {
         if(m_IsFileLoaded) {
             if(m_IsAlgoActivated) {

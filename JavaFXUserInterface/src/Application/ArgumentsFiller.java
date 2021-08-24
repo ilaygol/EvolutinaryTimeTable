@@ -5,6 +5,8 @@ import DataTransferClasses.MutationData;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
 
+import java.util.List;
+
 public class ArgumentsFiller {
     private DataPrinter m_DataPrinter;
 
@@ -54,6 +56,13 @@ public class ArgumentsFiller {
     {
         i_Slider.setMax(m_DataPrinter.getInitialPopulation()-1);
     }
+    public void setSelectionPTECombo(ComboBox i_ComboBox)
+    {
+        for(int i=1;i<=9;i++)
+        {
+            i_ComboBox.getItems().add(String.valueOf((double)i/(double)10));
+        }
+    }
 
     //Crossover fillers
     public void setCrossoverTypeCombo(ComboBox i_ComboBox)
@@ -72,9 +81,10 @@ public class ArgumentsFiller {
     //Mutation fillers
     public void setMutationTypeCombo(ComboBox i_ComboBox)
     {
-        for(String name: m_DataPrinter.getMutationNamesList())
+        List<MutationData> mutationsDataList = m_DataPrinter.getMutationsDataList();
+        for(int i=1;i<= mutationsDataList.size();i++)
         {
-            i_ComboBox.getItems().add(name);
+            i_ComboBox.getItems().add(i+". "+mutationsDataList.get(i-1).getName());
         }
     }
     public void setMutationProbabilityCombo(ComboBox i_ComboBox)
@@ -91,10 +101,5 @@ public class ArgumentsFiller {
         i_ComboBox.getItems().add("Subject");
         i_ComboBox.getItems().add("Day");
         i_ComboBox.getItems().add("Hour");
-    }
-
-    public void refreshMutationTypeCompo(ComboBox i_ComboBox)
-    {
-
     }
 }

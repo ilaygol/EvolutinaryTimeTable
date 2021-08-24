@@ -1,5 +1,6 @@
 package Application;
 
+import DataTransferClasses.DataPrinter;
 import DataTransferClasses.MutationData;
 import DataTransferClasses.ProgressData;
 import Manager.LogicEngineManager;
@@ -23,11 +24,11 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationController {
     private Stage m_Stage;
     private LogicEngineManager m_Engine;
-    private ArgumentsFiller m_Filler;
+    private DataPrinter m_FileDataPrinter;
+    private DataPrinter m_UpdatedDataPrinter;
     private Task<Boolean> m_Task;
     private Thread m_AlgoThread;
     private ValuesChecker m_ValuesChecker;
-    private ProgressData m_ProgressInEngine;
     private Integer m_ReqGenerations;
     private Integer m_ReqPrinting;
     private Integer m_ReqFitness;
@@ -61,6 +62,7 @@ public class ApplicationController {
     @FXML private ComboBox<Double> probabilityCombo;
     @FXML private ComboBox<String> showValueCombo;
     @FXML private ComboBox<Integer> selectionPercentCombo;
+    @FXML private ComboBox<Double> selectionPTECombo;
     @FXML private ProgressBar fitnessProgress;
     @FXML private ProgressBar generationsProgress;
     @FXML private ProgressBar timeProgress;
@@ -83,9 +85,12 @@ public class ApplicationController {
         filePathLabel.setText("");
         numOfGenTF.textProperty().addListener((observable, oldValue, newValue) ->
             m_ValuesChecker.checkNumOfGenerations(numOfGenTF));
+        timeLimitTF.textProperty().addListener((observable, oldValue, newValue) ->
+                m_ValuesChecker.checkTime(timeLimitTF));
+        showEveryTF.textProperty().addListener((observable, oldValue, newValue) ->
+                m_ValuesChecker.checkShowEvery(showEveryTF));
         elitismSlider.valueProperty().addListener((observable, oldValue, newValue) ->elitismSliderReflectionTF.setText(String.valueOf(newValue.intValue())));
     }
-
 
     public void setEngine(LogicEngineManager i_Engine) {
         m_Engine = i_Engine;
@@ -173,17 +178,12 @@ public class ApplicationController {
                     mutationData.setComponent(componentCombo.getValue().charAt(0));
                 m_Engine.setSpecificMutationSettings(mutationString,mutationData);
                 mutationCombo.getItems().removeAll();
-                m_Filler.setMutationTypeCombo(mutationCombo);
-
-
                 mutationUpdateStatusLabel.setText("changes Saved.");
             }
 
         }
         else
             mutationUpdateStatusLabel.setText("Please pick Mutation.");
-
-
     }
 
     public void bindFileTaskToUIComponents(File i_File,Task<Boolean> i_Task,Alert i_Alert) {
@@ -198,6 +198,11 @@ public class ApplicationController {
         i_Task.valueProperty().addListener(((observable, oldValue, newValue) -> {
             if(newValue.booleanValue()) {
                 filePathLabel.setText(i_File.getAbsolutePath());
+                m_FileDataPrinter=m_Engine.getFileData();
+                cuttingPointsTF.textProperty().addListener((a, b, c) ->
+                        m_ValuesChecker.checkCuttingPoints(cuttingPointsTF));
+                tupplesTF.textProperty().addListener((a, b, c) ->
+                        m_ValuesChecker.checkTupples(tupplesTF));
                 fillComboBoxes();
                 disabilityManagementFileLoaded();
             }
@@ -210,6 +215,7 @@ public class ApplicationController {
         } );
         statusLineLabel.textProperty().bind(i_Task.messageProperty());
     }
+
     private void disabilityManagementStop() {
         disabilityManagementFileLoaded();
         if(!stoppedByUser) {
@@ -219,6 +225,7 @@ public class ApplicationController {
             pauseStatusLabel.setText("Stopped");
         }
         pauseStatusLabel.setVisible(true);
+        loadFileBtn.setDisable(false);
     }
     private void disabilityManagementPause() {
         disabilityManagementFileLoaded();
@@ -227,6 +234,9 @@ public class ApplicationController {
         pauseStatusLabel.setVisible(true);
     }
     private void disabilityManagementPlay() {
+        //File
+        loadFileBtn.setDisable(true);
+
         //Controls
         startBtn.setDisable(true);
         pauseBtn.setDisable(false);
@@ -245,6 +255,7 @@ public class ApplicationController {
         selectionCombo.setDisable(true);
         selectionPercentCombo.setDisable(true);
         elitismSlider.setDisable(true);
+        selectionPTECombo.setDisable(true);
 
         //Crossover
         crossoverCombo.setDisable(true);
@@ -274,13 +285,11 @@ public class ApplicationController {
 
         //Selection
         selectionCombo.setDisable(false);
-        selectionPercentCombo.setDisable(false);
         elitismSlider.setDisable(false);
 
         //Crossover
         crossoverCombo.setDisable(false);
         cuttingPointsTF.setDisable(false);
-        crossoverAspectCombo.setDisable(false);
 
         //Mutation
         mutationCombo.setDisable(false);
@@ -288,28 +297,30 @@ public class ApplicationController {
         tupplesTF.setDisable(false);
         mutationSetBtn.setDisable(false);
     }
+
     private void fillComboBoxes()
     {
-        m_Filler=new ArgumentsFiller(m_Engine.getFileData());
+        ArgumentsFiller filler=new ArgumentsFiller(m_FileDataPrinter);
         //Fitness filler
-        m_Filler.setFitnessCombo(fitnessLimitCombo);
+        filler.setFitnessCombo(fitnessLimitCombo);
 
         //Show values filler
-        m_Filler.setShowValuesCombo(showValueCombo);
+        filler.setShowValuesCombo(showValueCombo);
 
         //Selection fillers
-        m_Filler.setSelectionTypeCombo(selectionCombo);
-        m_Filler.setSelectionTopPercentCombo(selectionPercentCombo);
-        m_Filler.setSelectionElitismSliderMax(elitismSlider);
+        filler.setSelectionTypeCombo(selectionCombo);
+        filler.setSelectionTopPercentCombo(selectionPercentCombo);
+        filler.setSelectionElitismSliderMax(elitismSlider);
+        filler.setSelectionPTECombo(selectionPTECombo);
 
         //Crossover fillers
-        m_Filler.setCrossoverTypeCombo(crossoverCombo);
-        m_Filler.setCrossoverAspectCombo(crossoverAspectCombo);
+        filler.setCrossoverTypeCombo(crossoverCombo);
+        filler.setCrossoverAspectCombo(crossoverAspectCombo);
 
         //Mutation fillers
-        m_Filler.setMutationTypeCombo(mutationCombo);
-        m_Filler.setMutationProbabilityCombo(probabilityCombo);
-        m_Filler.setMutationComponentCombo(componentCombo);
+        filler.setMutationTypeCombo(mutationCombo);
+        filler.setMutationProbabilityCombo(probabilityCombo);
+        filler.setMutationComponentCombo(componentCombo);
     }
 
     public void updateUIFromAlgoProgress(ProgressData i_Progress)
@@ -330,10 +341,6 @@ public class ApplicationController {
             time=(double) i_Progress.getTimePassedInMillis()/(double) totalTimeInMillis;
             timeProgress.setProgress(time);
         }
-
-
-
-
     }
 
     private List<eStoppingCondition> createStoppingConditions()
@@ -373,6 +380,4 @@ public class ApplicationController {
         fitnessProgress.setProgress(0);
         generationsProgress.setProgress(0);
     }
-
-
 }

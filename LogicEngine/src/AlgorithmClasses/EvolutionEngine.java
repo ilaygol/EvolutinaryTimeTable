@@ -32,7 +32,6 @@ public class EvolutionEngine {
     private Generation m_Generation;
     private Boolean m_isStop;
 
-    public EvolutionEngine(){}
     public EvolutionEngine(ETTEvolutionEngine i_ETTEvolutionEngine)
     {
         m_InitialPopulationAmount =i_ETTEvolutionEngine.getETTInitialPopulation().getSize();

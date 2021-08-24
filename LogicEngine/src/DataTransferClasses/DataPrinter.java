@@ -14,7 +14,6 @@ public class DataPrinter {
 
     private List<String> m_CrossoverNamesList;
     private List<String> m_SelectionNamesList;
-    private List<String> m_MutationNamesList;
 
     public DataPrinter()
     {
@@ -90,11 +89,6 @@ public class DataPrinter {
 
     public void setMutationsDataList(List<MutationData> i_MutationsDataList) {
         this.m_MutationsDataList = i_MutationsDataList;
-        m_MutationNamesList=new ArrayList<>();
-        for(MutationData mutation:m_MutationsDataList)
-        {
-            m_MutationNamesList.add(mutation.toString());
-        }
     }
 
     public List<String> getCrossoverNamesList() {
@@ -103,9 +97,5 @@ public class DataPrinter {
 
     public List<String> getSelectionNamesList() {
         return m_SelectionNamesList;
-    }
-
-    public List<String> getMutationNamesList() {
-        return m_MutationNamesList;
     }
 }
