@@ -75,8 +75,7 @@ public class EvolutionEngine {
         return (new MutationData(mutation));
     }
 
-    public void setMutationSettings(String i_String,MutationData i_MutationData)
-    {
+    public void setMutationSettings(String i_String,MutationData i_MutationData) {
         Mutation mutation=m_Mutations.getMutationByString(i_String);
         mutation.setChar(i_MutationData.getComponent());
         mutation.setProbability(i_MutationData.getProbability());
@@ -136,9 +135,8 @@ public class EvolutionEngine {
 
     }
 
-    public synchronized EvolutionEngineData activateAlgorithm(TimeTable i_TimeTable, AmountOfObjectsCalc i_AmountOfObj, Consumer<ProgressData> i_ProgressDataConsumer, Collection<eStoppingCondition> i_StoppingConditions) {
+    public synchronized void activateAlgorithm(TimeTable i_TimeTable, AmountOfObjectsCalc i_AmountOfObj,EvolutionEngineData i_EvolutionEngineData ,Consumer<ProgressData> i_ProgressDataConsumer, Collection<eStoppingCondition> i_StoppingConditions) {
         setStopBoolean(false);
-        EvolutionEngineData dataSaver=new EvolutionEngineData();
         ProgressData progressTracker=new ProgressData(0, 0, (long)0);
         Integer counter=0,generationsMade=0,bestFitness=0;
         Long timePassedInMillis=(long)0;
@@ -162,12 +160,12 @@ public class EvolutionEngine {
                 counter++;
                 generationsMade++;
                 if(counter==1) {
-                    dataSaver.setBestSolution(m_Generation.getParentByIndex(0));
-                    bestFitness= dataSaver.getBestSolutionFitness();
+                    i_EvolutionEngineData.setBestSolution(m_Generation.getParentByIndex(0));
+                    bestFitness= i_EvolutionEngineData.getBestSolutionFitness();
                 }
-                else if(dataSaver.getBestSolutionFitness()<m_Generation.getParentByIndex(0).getFitness()) {
-                    dataSaver.setBestSolution(m_Generation.getParentByIndex(0));
-                    bestFitness= dataSaver.getBestSolutionFitness();
+                else if(i_EvolutionEngineData.getBestSolutionFitness()<m_Generation.getParentByIndex(0).getFitness()) {
+                    i_EvolutionEngineData.setBestSolution(m_Generation.getParentByIndex(0));
+                    bestFitness= i_EvolutionEngineData.getBestSolutionFitness();
                 }
                 endCountingTime=Instant.now();
                 timePassedInMillis+= Duration.between(startCountingTime,endCountingTime).toMillis();
@@ -184,12 +182,11 @@ public class EvolutionEngine {
                     }
                 }
             }
-            dataSaver.addToGeneration2BestFitnessMap(generationsMade,m_Generation.getParentByIndex(0).getFitness());
+            i_EvolutionEngineData.addToGeneration2BestFitnessMap(generationsMade,m_Generation.getParentByIndex(0).getFitness());
             counter=0;
         }
-        i_TimeTable.getRules().recheckBestSolution(dataSaver.getBestSolution(),i_TimeTable,dataSaver);
-        dataSaver.updateRulesAverage();
-        return dataSaver;
+        i_TimeTable.getRules().recheckBestSolution(i_EvolutionEngineData.getBestSolution(),i_TimeTable,i_EvolutionEngineData);
+        i_EvolutionEngineData.updateRulesAverage();
     }
 
     public synchronized void resumeAlgo()

@@ -62,12 +62,13 @@ public class LogicEngineManager {
     public void ActivateAlgorithm(Integer i_ReqGenerations, Integer i_PrintingReq,Integer i_ReqFitness,Integer i_ReqTimeInMinutes, Consumer<ProgressData> i_ProgressDataConsumer,  Collection<eStoppingCondition> i_StopConditions) {
         if(m_IsFileLoaded)
         {
+            m_EvolutionEngineData=new EvolutionEngineData();
             m_Descriptor.getEvolutionEngine().setNumOfGenerations(i_ReqGenerations);
             m_Descriptor.getEvolutionEngine().setPrintingReq(i_PrintingReq);
             m_Descriptor.getEvolutionEngine().setReqFitness(i_ReqFitness);
             m_Descriptor.getEvolutionEngine().setReqMinutes(i_ReqTimeInMinutes);
             AmountOfObjectsCalc amountOfObjects =getAmountOfData();
-            m_EvolutionEngineData=m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),amountOfObjects,i_ProgressDataConsumer,i_StopConditions);
+            m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),amountOfObjects,m_EvolutionEngineData,i_ProgressDataConsumer,i_StopConditions);
             m_IsAlgoActivated=true;
         }
         else {
