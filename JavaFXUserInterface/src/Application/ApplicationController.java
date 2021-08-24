@@ -194,7 +194,23 @@ public class ApplicationController {
 
     }
     @FXML void onSelectionComboChanged(ActionEvent event) {
-
+        if(!selectionCombo.getItems().isEmpty()) {
+            String selectionName = selectionCombo.getValue().toUpperCase();
+            switch (selectionName) {
+                case "TRUNCATION":
+                    selectionPercentCombo.setDisable(false);
+                    selectionPTECombo.setDisable(true);
+                    break;
+                case "ROULETTEWHEEL":
+                    selectionPercentCombo.setDisable(true);
+                    selectionPTECombo.setDisable(true);
+                    break;
+                case "TOURNAMENT":
+                    selectionPercentCombo.setDisable(true);
+                    selectionPTECombo.setDisable(false);
+                    break;
+            }
+        }
     }
 
     public void bindFileTaskToUIComponents(File i_File,Task<Boolean> i_Task,Alert i_Alert) {

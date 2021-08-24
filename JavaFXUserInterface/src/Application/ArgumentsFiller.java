@@ -24,6 +24,7 @@ public class ArgumentsFiller {
     //Fitness filler
     public void setFitnessCombo(ComboBox i_ComboBox)
     {
+        i_ComboBox.getItems().clear();
         for(int i=1;i<=100;i++)
         {
             i_ComboBox.getItems().add(i);
@@ -33,6 +34,7 @@ public class ArgumentsFiller {
     //Show values filler
     public void setShowValuesCombo(ComboBox i_ComboBox)
     {
+        i_ComboBox.getItems().clear();
         for(eResultsValues value:eResultsValues.values())
         {
             i_ComboBox.getItems().add(value.toString());
@@ -42,6 +44,7 @@ public class ArgumentsFiller {
     //Selection fillers
     public void setSelectionTypeCombo(ComboBox i_ComboBox)
     {
+        i_ComboBox.getItems().clear();
         for(String name:m_DataPrinter.getSelectionNamesList())
         {
             i_ComboBox.getItems().add(name);
@@ -50,6 +53,7 @@ public class ArgumentsFiller {
     }
     public void setSelectionTopPercentCombo(ComboBox i_ComboBox)
     {
+        i_ComboBox.getItems().clear();
         for(int i=1;i<=100;i++)
         {
             i_ComboBox.getItems().add(i);
@@ -64,6 +68,7 @@ public class ArgumentsFiller {
     }
     public void setSelectionPTECombo(ComboBox i_ComboBox)
     {
+        i_ComboBox.getItems().clear();
         for(int i=1;i<=9;i++)
         {
             i_ComboBox.getItems().add(String.valueOf((double)i/(double)10));
@@ -77,6 +82,7 @@ public class ArgumentsFiller {
     //Crossover fillers
     public void setCrossoverTypeCombo(ComboBox i_ComboBox)
     {
+        i_ComboBox.getItems().clear();
         for(String name:m_DataPrinter.getCrossoverNamesList())
         {
             i_ComboBox.getItems().add(name);
@@ -85,6 +91,7 @@ public class ArgumentsFiller {
     }
     public void setCrossoverAspectCombo(ComboBox i_ComboBox)
     {
+        i_ComboBox.getItems().clear();
         i_ComboBox.getItems().add("Teacher");
         i_ComboBox.getItems().add("Class");
         if(m_DataPrinter.getCrossoverData().getName().toUpperCase().equals("ASPECTORIENTED")) {
@@ -107,6 +114,7 @@ public class ArgumentsFiller {
     //Mutation fillers
     public void setMutationTypeCombo(ComboBox i_ComboBox)
     {
+        i_ComboBox.getItems().clear();
         List<MutationData> mutationsDataList = m_DataPrinter.getMutationsDataList();
         for(int i=1;i<= mutationsDataList.size();i++)
         {
@@ -116,6 +124,7 @@ public class ArgumentsFiller {
     }
     public void setMutationProbabilityCombo(ComboBox i_ComboBox)
     {
+        i_ComboBox.getItems().clear();
         for(int i=0;i<=10;i++)
         {
             i_ComboBox.getItems().add(String.valueOf((double)i/(double)10));
@@ -130,6 +139,7 @@ public class ArgumentsFiller {
 
     public void setMutationComponentCombo(ComboBox i_ComboBox)
     {
+        i_ComboBox.getItems().clear();
         i_ComboBox.getItems().add("Teacher");
         i_ComboBox.getItems().add("Class");
         i_ComboBox.getItems().add("Subject");
