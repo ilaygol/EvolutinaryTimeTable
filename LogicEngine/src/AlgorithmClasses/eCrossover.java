@@ -46,7 +46,7 @@ public enum eCrossover {
 
                 @Override
                 public String toString() {
-                    return "Day Time Oriented";
+                    return "DayTimeOriented";
                 }
 
 
@@ -110,7 +110,7 @@ public enum eCrossover {
 
                 @Override
                 public String toString() {
-                    return "Aspect Oriented";
+                    return "AspectOriented";
                 }
 
 

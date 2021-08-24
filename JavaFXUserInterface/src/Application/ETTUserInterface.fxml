@@ -132,8 +132,8 @@
                               <Label text="Type:" />
                               <Label text="Cutting points:" GridPane.columnIndex="1" />
                               <TextField fx:id="cuttingPointsTF" disable="true" promptText="Number" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label text="Sort by:" GridPane.columnIndex="2" />
-                              <ComboBox fx:id="crossoverAspectCombo" disable="true" minWidth="100.0" prefWidth="100.0" promptText="Aspect" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <Label text="Aspect:" GridPane.columnIndex="2" />
+                              <ComboBox fx:id="crossoverAspectCombo" disable="true" promptText="Aspect" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                            </children>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

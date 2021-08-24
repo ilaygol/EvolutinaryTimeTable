@@ -26,6 +26,7 @@ public class ApplicationController {
     private LogicEngineManager m_Engine;
     private DataPrinter m_FileDataPrinter;
     private DataPrinter m_UpdatedDataPrinter;
+    private ArgumentsFiller m_ArgumentsFiller;
     private Task<Boolean> m_Task;
     private Thread m_AlgoThread;
     private ValuesChecker m_ValuesChecker;
@@ -188,10 +189,36 @@ public class ApplicationController {
             mutationUpdateStatusLabel.setText("Please pick Mutation.");
     }
     @FXML void onCrossoverComboChanged(ActionEvent event) {
-
+        if(!crossoverCombo.getItems().isEmpty()) {
+            String crossoverName = crossoverCombo.getValue().toUpperCase();
+            switch (crossoverName) {
+                case "DAYTIMEORIENTED":
+                    crossoverAspectCombo.getSelectionModel().clearSelection();
+                    crossoverAspectCombo.setDisable(true);
+                    break;
+                case "ASPECTORIENTED":
+                    crossoverAspectCombo.setDisable(false);
+                    break;
+            }
+        }
     }
     @FXML void onMutationComboChanged(ActionEvent event) {
-
+        if(!mutationCombo.getItems().isEmpty()) {
+            Integer mutationIndex = Integer.parseInt(String.valueOf(mutationCombo.getValue().charAt(0)))-1;
+            MutationData mutationData=m_UpdatedDataPrinter.getMutationsDataList().get(mutationIndex);
+            m_ArgumentsFiller.updateMutationProbabilityCombo(probabilityCombo,mutationIndex);
+            m_ArgumentsFiller.updateMutationTupples(tupplesTF,mutationIndex);
+            switch (mutationData.getName().toUpperCase()) {
+                case "FLIPPING":
+                    m_ArgumentsFiller.updateMutationComponentCombo(componentCombo,mutationIndex);
+                    componentCombo.setDisable(false);
+                    break;
+                case "SIZER":
+                    componentCombo.getSelectionModel().clearSelection();
+                    componentCombo.setDisable(true);
+                    break;
+            }
+        }
     }
     @FXML void onSelectionComboChanged(ActionEvent event) {
         if(!selectionCombo.getItems().isEmpty()) {
@@ -199,13 +226,17 @@ public class ApplicationController {
             switch (selectionName) {
                 case "TRUNCATION":
                     selectionPercentCombo.setDisable(false);
+                    selectionPTECombo.getSelectionModel().clearSelection();
                     selectionPTECombo.setDisable(true);
                     break;
                 case "ROULETTEWHEEL":
+                    selectionPercentCombo.getSelectionModel().clearSelection();
                     selectionPercentCombo.setDisable(true);
+                    selectionPTECombo.getSelectionModel().clearSelection();
                     selectionPTECombo.setDisable(true);
                     break;
                 case "TOURNAMENT":
+                    selectionPercentCombo.getSelectionModel().clearSelection();
                     selectionPercentCombo.setDisable(true);
                     selectionPTECombo.setDisable(false);
                     break;
@@ -226,6 +257,8 @@ public class ApplicationController {
             if(newValue.booleanValue()) {
                 filePathLabel.setText(i_File.getAbsolutePath());
                 m_FileDataPrinter=m_Engine.getFileData();
+                m_UpdatedDataPrinter=m_Engine.getFileData();
+                m_ArgumentsFiller=new ArgumentsFiller(m_UpdatedDataPrinter);
                 cuttingPointsTF.textProperty().addListener((a, b, c) ->
                         m_ValuesChecker.checkCuttingPoints(cuttingPointsTF, m_Engine.getMaxLessons()));
                 fillComboBoxes();
@@ -325,29 +358,28 @@ public class ApplicationController {
 
     private void fillComboBoxes()
     {
-        ArgumentsFiller filler=new ArgumentsFiller(m_FileDataPrinter);
         //Fitness filler
-        filler.setFitnessCombo(fitnessLimitCombo);
+        m_ArgumentsFiller.setFitnessCombo(fitnessLimitCombo);
 
         //Show values filler
-        filler.setShowValuesCombo(showValueCombo);
+        m_ArgumentsFiller.setShowValuesCombo(showValueCombo);
 
         //Selection fillers
-        filler.setSelectionTypeCombo(selectionCombo);
-        filler.setSelectionTopPercentCombo(selectionPercentCombo);
-        filler.setSelectionElitismSliderMax(elitismSlider);
-        filler.setSelectionPTECombo(selectionPTECombo);
+        m_ArgumentsFiller.setSelectionTypeCombo(selectionCombo);
+        m_ArgumentsFiller.setSelectionTopPercentCombo(selectionPercentCombo);
+        m_ArgumentsFiller.setSelectionElitismSliderMax(elitismSlider);
+        m_ArgumentsFiller.setSelectionPTECombo(selectionPTECombo);
 
         //Crossover fillers
-        filler.setCrossoverTypeCombo(crossoverCombo);
-        filler.setCrossoverAspectCombo(crossoverAspectCombo);
-        filler.setCrossoverCuttingPoints(cuttingPointsTF);
+        m_ArgumentsFiller.setCrossoverTypeCombo(crossoverCombo);
+        m_ArgumentsFiller.setCrossoverAspectCombo(crossoverAspectCombo);
+        m_ArgumentsFiller.setCrossoverCuttingPoints(cuttingPointsTF);
 
         //Mutation fillers
-        filler.setMutationTypeCombo(mutationCombo);
-        filler.setMutationProbabilityCombo(probabilityCombo);
-        filler.setMutationTupples(tupplesTF);
-        filler.setMutationComponentCombo(componentCombo);
+        m_ArgumentsFiller.setMutationTypeCombo(mutationCombo);
+        m_ArgumentsFiller.setMutationProbabilityCombo(probabilityCombo);
+        m_ArgumentsFiller.setMutationTupples(tupplesTF);
+        m_ArgumentsFiller.setMutationComponentCombo(componentCombo);
     }
 
     public void updateUIFromAlgoProgress(ProgressData i_Progress)

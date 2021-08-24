@@ -132,9 +132,19 @@ public class ArgumentsFiller {
         i_ComboBox.getSelectionModel().select(m_DataPrinter.getMutationsDataList().get(0).getProbability());
     }
 
+    public void updateMutationProbabilityCombo(ComboBox i_ComboBox,Integer i_MutationIndex)
+    {
+        i_ComboBox.getSelectionModel().select(m_DataPrinter.getMutationsDataList().get(i_MutationIndex).getProbability());
+    }
+
     public void setMutationTupples(TextField i_TextField)
     {
         i_TextField.setText(m_DataPrinter.getMutationsDataList().get(0).getTupples().toString());
+    }
+
+    public void updateMutationTupples(TextField i_TextField,Integer i_MutationIndex)
+    {
+        i_TextField.setText(m_DataPrinter.getMutationsDataList().get(i_MutationIndex).getTupples().toString());
     }
 
     public void setMutationComponentCombo(ComboBox i_ComboBox)
@@ -167,6 +177,29 @@ public class ArgumentsFiller {
                     i_ComboBox.getSelectionModel().select("Hour");
                     break;
             }
+        }
+    }
+
+    public void updateMutationComponentCombo(ComboBox i_ComboBox,Integer i_MutationIndex)
+    {
+        Character component=m_DataPrinter.getMutationsDataList().get(i_MutationIndex).getComponent();
+        switch (component)
+        {
+            case 'T':
+                i_ComboBox.getSelectionModel().select("Teacher");
+                break;
+            case 'C':
+                i_ComboBox.getSelectionModel().select("Class");
+                break;
+            case 'S':
+                i_ComboBox.getSelectionModel().select("Subject");
+                break;
+            case 'D':
+                i_ComboBox.getSelectionModel().select("Day");
+                break;
+            case 'H':
+                i_ComboBox.getSelectionModel().select("Hour");
+                break;
         }
     }
 }
