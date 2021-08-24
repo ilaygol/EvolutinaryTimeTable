@@ -148,54 +148,29 @@ public class LogicEngineManager {
         return m_Descriptor.getEvolutionEngine().getStopBoolean();
     }
 
-    public List<Mutation> getMutationsList() {
-        return m_Descriptor.getEvolutionEngine().getMutations().getMutationsList();
-    }
-    public List<MutationData> getMutationDataList(){
-        return m_Descriptor.getEvolutionEngine().getMutations().getMutationsDataList();
-    }
-
-    public Integer getInitialPopulation()
+    public void updateAlgoData(DataPrinter i_DataPrinter)
     {
-        return m_Descriptor.getEvolutionEngine().getInitialPopulation();
+        setNewCrossover(i_DataPrinter.getCrossoverData());
+        setNewSelection(i_DataPrinter.getSelectionData());
+        setNewMutations(i_DataPrinter.getMutationsDataList());
     }
 
-    public CrossoverData getCurrentActivatedCrossover()
-    {
-        CrossoverData retData=new CrossoverData(m_Descriptor.getEvolutionEngine().getCrossover());
-        return retData;
-    }
-
-    public SelectionData getCurrentActivatedSelection()
-    {
-        SelectionData retData=new SelectionData(m_Descriptor.getEvolutionEngine().getSelection());
-        return retData;
-    }
-
-    public void setNewElitism(Integer i_Elitism)
-    {
-        m_Descriptor.getEvolutionEngine().getSelection().setElitism(i_Elitism);
-    }
-
-    public void setNewCrossover(CrossoverData i_CrossoverData)
+    private void setNewCrossover(CrossoverData i_CrossoverData)
     {
         Crossover crossover=new Crossover(i_CrossoverData);
         m_Descriptor.getEvolutionEngine().setCrossover(crossover);
     }
 
-    public void setNewSelection(SelectionData i_SelectionData)
+    private void setNewSelection(SelectionData i_SelectionData)
     {
         Selection selection=new Selection(i_SelectionData);
         m_Descriptor.getEvolutionEngine().setSelection(selection);
     }
 
-    public void setSpecificMutationSettings(String i_MutationString,MutationData i_MutationData)
+    private void setNewMutations(List<MutationData> i_MutationsDataList)
     {
-        m_Descriptor.getEvolutionEngine().setMutationSettings(i_MutationString,i_MutationData);
-    }
-
-    public MutationData getSpecificMutation(String i_MutationString){
-        return m_Descriptor.getEvolutionEngine().getMutationDataByString(i_MutationString);
+        Mutations mutations=new Mutations(i_MutationsDataList);
+        m_Descriptor.getEvolutionEngine().setMutations(mutations);
     }
 
     public Integer getMaxLessons()

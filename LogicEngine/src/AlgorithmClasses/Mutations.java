@@ -23,8 +23,18 @@ public class Mutations {
         for(ETTMutation mutation:ettMutations)
         {
             m_MutationsList.add(new Mutation(mutation));
-            m_Roller=new Random();
         }
+        m_Roller=new Random();
+    }
+
+    public Mutations(List<MutationData> i_MutationDataList)
+    {
+        m_MutationsList=new ArrayList<>();
+        for(MutationData mutation:i_MutationDataList)
+        {
+            m_MutationsList.add(new Mutation(mutation));
+        }
+        m_Roller=new Random();
     }
 
     public List<Mutation> getMutationsList(){return m_MutationsList;}

@@ -1,6 +1,12 @@
 package Application;
 
+import DataTransferClasses.MutationData;
+import Tasks.LoadFileTask;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+
+import java.util.List;
 
 public class ValuesChecker {
 
@@ -82,6 +88,21 @@ public class ValuesChecker {
         }
 
         return isGood;
+    }
+
+    public void checkMutationArguments(MutationData i_MutationsData, ComboBox i_Probability, TextField i_Tupples, ComboBox i_Component)
+    {
+        String mutationName=i_MutationsData.getName();
+        Boolean check=i_Probability.getSelectionModel().isEmpty();
+        check=i_Tupples.getText().isEmpty();
+        check=mutationName.toUpperCase().equals("FLIPPING")&&i_Component.getSelectionModel().isEmpty();
+        if(i_Probability.getValue()==null||i_Tupples.getText().isEmpty()||
+                (mutationName.toUpperCase().equals("FLIPPING")&&i_Component.getValue()==null))
+        {
+            throw new RuntimeException("There are empty arguments!");
+        }
+        if(!checkTupples(i_Tupples))
+            throw new RuntimeException("Wrong tupples value. Should be 1-50");
     }
 
     private Boolean checkIfTextFieldInteger(TextField i_TextField)

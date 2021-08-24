@@ -93,6 +93,7 @@ public class ApplicationController {
         showEveryTF.textProperty().addListener((observable, oldValue, newValue) ->
                 m_ValuesChecker.checkShowEvery(showEveryTF));
         elitismSlider.valueProperty().addListener((observable, oldValue, newValue) ->elitismSliderReflectionTF.setText(String.valueOf(newValue.intValue())));
+        mutationUpdateStatusLabel.setText("");
     }
 
     public void setEngine(LogicEngineManager i_Engine) {
@@ -114,10 +115,13 @@ public class ApplicationController {
         alert.setHeaderText("Loading File....");
         m_Task=new LoadFileTask(m_Engine,file,alert);
         bindFileTaskToUIComponents(file,m_Task,alert);
+        alert.setWidth(Control.USE_COMPUTED_SIZE);
         alert.show();
         new Thread(m_Task).start();
     }
     @FXML void onStartBtnClick(ActionEvent event) {
+        //update UpdatedDataPrinter...
+        m_Engine.updateAlgoData(m_UpdatedDataPrinter);
         if(isPaused)
         {
             m_Engine.resumeAlgo();
@@ -162,31 +166,33 @@ public class ApplicationController {
         numOfGenTF.setDisable(!generationsCheck.isSelected());
     }
     @FXML void onMutationSetBtnClick(ActionEvent event) {
-
         if(mutationCombo.getValue()!=null) {
-            //checks
-            String mutationString = mutationCombo.getValue();
-            MutationData mutationData = m_Engine.getSpecificMutation(mutationString);
-            if(probabilityCombo.getValue()==null && tupplesTF.getText().equals("")&& componentCombo.getValue()==null)
-                mutationUpdateStatusLabel.setText("Please pick changes.");
-            else
-            {
-                if(probabilityCombo.getValue()!=null) {
-                    //double probability=probabilityCombo.getValue();
-                    //mutationData.setProbability(probability);
-                }
-                if(tupplesTF.getText()!="")
-                    mutationData.setTupples(Integer.parseInt(tupplesTF.getText()));
+            Boolean isCorrect = true;
+            Integer mutationIndex = Integer.parseInt(String.valueOf(mutationCombo.getValue().charAt(0))) - 1;
+            MutationData mutationData = m_UpdatedDataPrinter.getMutationsDataList().get(mutationIndex);
+            try {
+                m_ValuesChecker.checkMutationArguments(mutationData, probabilityCombo, tupplesTF, componentCombo);
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Set mutation error");
+                alert.setHeaderText("ERROR!");
+                alert.setContentText(e.getMessage());
+                alert.setWidth(Control.USE_COMPUTED_SIZE);
+                alert.show();
+                isCorrect = false;
+            }
+            if (isCorrect) {
                 if(componentCombo.getValue()!=null)
                     mutationData.setComponent(componentCombo.getValue().charAt(0));
-                m_Engine.setSpecificMutationSettings(mutationString,mutationData);
-                mutationCombo.getItems().removeAll();
-                mutationUpdateStatusLabel.setText("changes Saved.");
+                mutationData.setProbability(Double.valueOf(String.valueOf(probabilityCombo.getValue())));
+                mutationData.setTupples(Integer.parseInt(tupplesTF.getText()));
+                mutationUpdateStatusLabel.setText("Update succeeded");
             }
-
+            else
+            {
+                mutationUpdateStatusLabel.setText("");
+            }
         }
-        else
-            mutationUpdateStatusLabel.setText("Please pick Mutation.");
     }
     @FXML void onCrossoverComboChanged(ActionEvent event) {
         if(!crossoverCombo.getItems().isEmpty()) {
@@ -219,6 +225,7 @@ public class ApplicationController {
                     break;
             }
         }
+        mutationUpdateStatusLabel.setText("");
     }
     @FXML void onSelectionComboChanged(ActionEvent event) {
         if(!selectionCombo.getItems().isEmpty()) {
@@ -325,6 +332,7 @@ public class ApplicationController {
         probabilityCombo.setDisable(true);
         tupplesTF.setDisable(true);
         mutationSetBtn.setDisable(true);
+        mutationUpdateStatusLabel.setText("");
     }
     private void disabilityManagementFileLoaded() {
         //Controls

@@ -91,6 +91,11 @@ public class DataPrinter {
         this.m_MutationsDataList = i_MutationsDataList;
     }
 
+    public void replaceMutationData(Integer i_Index, MutationData i_MutationData)
+    {
+        m_MutationsDataList.set(i_Index,i_MutationData);
+    }
+
     public List<String> getCrossoverNamesList() {
         return m_CrossoverNamesList;
     }
