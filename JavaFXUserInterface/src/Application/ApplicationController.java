@@ -87,6 +87,8 @@ public class ApplicationController {
             m_ValuesChecker.checkNumOfGenerations(numOfGenTF));
         timeLimitTF.textProperty().addListener((observable, oldValue, newValue) ->
                 m_ValuesChecker.checkTime(timeLimitTF));
+        tupplesTF.textProperty().addListener((a, b, c) ->
+                m_ValuesChecker.checkTupples(tupplesTF));
         showEveryTF.textProperty().addListener((observable, oldValue, newValue) ->
                 m_ValuesChecker.checkShowEvery(showEveryTF));
         elitismSlider.valueProperty().addListener((observable, oldValue, newValue) ->elitismSliderReflectionTF.setText(String.valueOf(newValue.intValue())));
@@ -200,9 +202,7 @@ public class ApplicationController {
                 filePathLabel.setText(i_File.getAbsolutePath());
                 m_FileDataPrinter=m_Engine.getFileData();
                 cuttingPointsTF.textProperty().addListener((a, b, c) ->
-                        m_ValuesChecker.checkCuttingPoints(cuttingPointsTF));
-                tupplesTF.textProperty().addListener((a, b, c) ->
-                        m_ValuesChecker.checkTupples(tupplesTF));
+                        m_ValuesChecker.checkCuttingPoints(cuttingPointsTF, m_Engine.getMaxLessons()));
                 fillComboBoxes();
                 disabilityManagementFileLoaded();
             }

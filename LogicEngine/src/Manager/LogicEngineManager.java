@@ -22,6 +22,7 @@ import java.util.function.Consumer;
 public class LogicEngineManager {
     private Descriptor m_Descriptor;
     private EvolutionEngineData m_EvolutionEngineData;
+    private AmountOfObjectsCalc m_MaxAmountOfObjects;
     private boolean m_IsFileLoaded=false;
     private boolean m_IsAlgoActivated=false;
 
@@ -61,8 +62,8 @@ public class LogicEngineManager {
             m_Descriptor.getEvolutionEngine().setPrintingReq(i_PrintingReq);
             m_Descriptor.getEvolutionEngine().setReqFitness(i_ReqFitness);
             m_Descriptor.getEvolutionEngine().setReqMinutes(i_ReqTimeInMinutes);
-            AmountOfObjectsCalc amountOfObjects =getAmountOfData();
-            m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),amountOfObjects,m_EvolutionEngineData,i_ProgressDataConsumer,i_StopConditions);
+            //AmountOfObjectsCalc amountOfObjects =getAmountOfData();
+            m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),m_MaxAmountOfObjects,m_EvolutionEngineData,i_ProgressDataConsumer,i_StopConditions);
             m_IsAlgoActivated=true;
         }
         else {
@@ -106,6 +107,7 @@ public class LogicEngineManager {
             CheckValidData checker=new CheckValidData(ettDescriptor);
             checker.checkFile();
             m_Descriptor=new Descriptor(ettDescriptor);
+            m_MaxAmountOfObjects =getAmountOfData();
             m_IsFileLoaded=true;
             m_IsAlgoActivated=false;
         }
@@ -194,6 +196,14 @@ public class LogicEngineManager {
 
     public MutationData getSpecificMutation(String i_MutationString){
         return m_Descriptor.getEvolutionEngine().getMutationDataByString(i_MutationString);
+    }
+
+    public Integer getMaxLessons()
+    {
+        if(m_MaxAmountOfObjects==null)
+            return 0;
+        else
+            return m_MaxAmountOfObjects.getMaxAmountOfLessons();
     }
 
     public void setStopBoolean(Boolean i_Boolean)

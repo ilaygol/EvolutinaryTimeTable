@@ -36,10 +36,10 @@ public class ValuesChecker {
         return isGood;
     }
 
-    public Boolean checkCuttingPoints(TextField i_CuttingPoints)
+    public Boolean checkCuttingPoints(TextField i_CuttingPoints, Integer i_MaxLessons)
     {
         Boolean isGood=true;
-        if(checkIfTextFieldInteger(i_CuttingPoints))
+        if(checkIfTextFieldInteger(i_CuttingPoints)&&Integer.parseInt(i_CuttingPoints.getText())<i_MaxLessons-1)
         {
             changeToGoodBorder(i_CuttingPoints);
         }
@@ -55,7 +55,7 @@ public class ValuesChecker {
     public Boolean checkTupples(TextField i_Tupples)
     {
         Boolean isGood=true;
-        if(checkIfTextFieldInteger(i_Tupples))
+        if(checkIfTextFieldInteger(i_Tupples)&&Integer.parseInt(i_Tupples.getText())<=50)
         {
             changeToGoodBorder(i_Tupples);
         }
