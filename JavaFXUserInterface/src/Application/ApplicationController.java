@@ -1,19 +1,22 @@
 package Application;
 
+import AlgorithmClasses.eStoppingCondition;
 import DataTransferClasses.*;
+import FilePrinter.FilePrinterController;
 import Manager.LogicEngineManager;
 import Tasks.ActivateAlgoTask;
 import Tasks.LoadFileTask;
-import com.sun.javaws.IconUtil;
 import javafx.beans.property.SimpleBooleanProperty;
-
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import AlgorithmClasses.*;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +35,9 @@ public class ApplicationController {
     private Integer m_ReqPrinting;
     private Integer m_ReqFitness;
     private Integer m_reqTimeInMinutes;
+    private FilePrinterController m_FilePrinterController;
 
+    @FXML private Pane dynamicPane;
     @FXML private Label filePathLabel;
     @FXML private Label mutationUpdateStatusLabel;
     @FXML private Label statusLineLabel;
@@ -504,5 +509,14 @@ public class ApplicationController {
         timeProgress.setProgress(0);
         fitnessProgress.setProgress(0);
         generationsProgress.setProgress(0);
+    }
+
+    public void setFilePrinterController(FilePrinterController i_FilePrinterController) {
+        this.m_FilePrinterController = i_FilePrinterController;
+    }
+
+    public void setDynamicPane(Node i_Node)
+    {
+        dynamicPane.getChildren().add(i_Node);
     }
 }
