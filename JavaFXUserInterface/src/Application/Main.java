@@ -1,10 +1,15 @@
 package Application;
 
+import FilePrinter.FilePrinterController;
 import Manager.LogicEngineManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -27,6 +32,14 @@ public class Main extends Application {
         m_Engine=new LogicEngineManager();
         controller.setEngine(m_Engine);
 
+        fxmlLoader = new FXMLLoader();
+        url = getClass().getResource("/FilePrinter/FilePrinterComponent.fxml");
+        fxmlLoader.setLocation(url);
+        GridPane fileComponentRoot=fxmlLoader.load(url.openStream());
+        FilePrinterController filePrinterController=(FilePrinterController) fxmlLoader.getController();
+
+        controller.setFilePrinterController(filePrinterController);
+        controller.setDynamicPane(fileComponentRoot);
         Scene scene = new Scene(root, 1124, 713);
         primaryStage.setTitle("Evolutionary Time Table");
         primaryStage.setScene(scene);
