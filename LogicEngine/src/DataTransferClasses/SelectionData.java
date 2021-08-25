@@ -32,4 +32,20 @@ public class SelectionData {
     }
 
     public double getPTE(){return m_PTE;}
+
+    public void setType(String i_Type) {
+        this.m_Type = i_Type;
+    }
+
+    public void setPercent(Integer i_Percent) {
+        this.m_Percent = i_Percent;
+    }
+
+    public void setPTE(double i_PTE) {
+        this.m_PTE = i_PTE;
+    }
+
+    public void setElitism(Integer i_Elitism) {
+        this.m_Elitism = i_Elitism;
+    }
 }

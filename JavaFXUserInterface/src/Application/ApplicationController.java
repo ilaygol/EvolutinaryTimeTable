@@ -1,8 +1,6 @@
 package Application;
 
-import DataTransferClasses.DataPrinter;
-import DataTransferClasses.MutationData;
-import DataTransferClasses.ProgressData;
+import DataTransferClasses.*;
 import Manager.LogicEngineManager;
 import Tasks.ActivateAlgoTask;
 import Tasks.LoadFileTask;
@@ -122,8 +120,8 @@ public class ApplicationController {
     @FXML void onStartBtnClick(ActionEvent event) {
         Boolean isCorrect=checkArgumentsBeforePlay();
         if(isCorrect) {
-            //update UpdatedDataPrinter...
-            //m_Engine.updateAlgoData(m_UpdatedDataPrinter);
+            updateDataPrinter();
+            m_Engine.updateAlgoData(m_UpdatedDataPrinter);
             if (isPaused) {
                 m_Engine.resumeAlgo();
                 isPaused = false;
@@ -480,6 +478,25 @@ public class ApplicationController {
             m_ReqFitness=0;
         }
         return stoppingConditionList;
+    }
+
+    private void updateDataPrinter()
+    {
+        //Selection
+        SelectionData selectionData=m_UpdatedDataPrinter.getSelectionData();
+        selectionData.setType(selectionCombo.getValue().toString());
+        selectionData.setElitism(Integer.parseInt(elitismSliderReflectionTF.getText()));
+        if(selectionPercentCombo.getValue()!=null)
+            selectionData.setPercent(selectionPercentCombo.getValue());
+        if(selectionPTECombo.getValue()!=null)
+            selectionData.setPTE(selectionPTECombo.getValue());
+
+        //Crossover
+        CrossoverData crossoverData=m_UpdatedDataPrinter.getCrossoverData();
+        crossoverData.setName(crossoverCombo.getValue());
+        if(crossoverAspectCombo.getValue()!=null)
+            crossoverData.setAspect(crossoverAspectCombo.getValue().charAt(0));
+        crossoverData.setNumOfCuttingPoints(Integer.parseInt(cuttingPointsTF.getText()));
     }
 
     private void resetProgressBars()

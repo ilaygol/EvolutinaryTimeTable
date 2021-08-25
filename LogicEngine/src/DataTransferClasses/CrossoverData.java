@@ -25,4 +25,16 @@ public class CrossoverData {
     public Character getAspect() {
         return m_Aspect;
     }
+
+    public void setName(String i_Name) {
+        this.m_Name = i_Name;
+    }
+
+    public void setNumOfCuttingPoints(Integer i_NumOfCuttingPoints) {
+        this.m_NumOfCuttingPoints = i_NumOfCuttingPoints;
+    }
+
+    public void setAspect(Character i_Aspect) {
+        this.m_Aspect = i_Aspect;
+    }
 }
