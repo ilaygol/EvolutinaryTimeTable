@@ -120,26 +120,27 @@ public class ApplicationController {
         new Thread(m_Task).start();
     }
     @FXML void onStartBtnClick(ActionEvent event) {
-        //update UpdatedDataPrinter...
-        m_Engine.updateAlgoData(m_UpdatedDataPrinter);
-        if(isPaused)
-        {
-            m_Engine.resumeAlgo();
-            isPaused=false;
+        Boolean isCorrect=checkArgumentsBeforePlay();
+        if(isCorrect) {
+            //update UpdatedDataPrinter...
+            //m_Engine.updateAlgoData(m_UpdatedDataPrinter);
+            if (isPaused) {
+                m_Engine.resumeAlgo();
+                isPaused = false;
+            } else {
+                //checking values
+                resetProgressBars();
+                List<eStoppingCondition> stoppingConditions = createStoppingConditions();
+                m_ReqPrinting = Integer.parseInt(showEveryTF.getText());
+                //bind the progress bars
+                m_Task = new ActivateAlgoTask(this::updateUIFromAlgoProgress, stoppingConditions, m_Engine, m_ReqGenerations, m_ReqPrinting, m_ReqFitness, m_reqTimeInMinutes);
+                bindAlgoTaskToUIComponents(m_Task);
+                m_AlgoThread = new Thread(m_Task);
+                m_AlgoThread.start();
+            }
+            stoppedByUser = false;
+            disabilityManagementPlay();
         }
-        else {
-            //checking values
-            resetProgressBars();
-            List<eStoppingCondition> stoppingConditions = createStoppingConditions();
-            m_ReqPrinting = Integer.parseInt(showEveryTF.getText());
-            //bind the progress bars
-            m_Task = new ActivateAlgoTask(this::updateUIFromAlgoProgress, stoppingConditions, m_Engine, m_ReqGenerations, m_ReqPrinting, m_ReqFitness, m_reqTimeInMinutes);
-            bindAlgoTaskToUIComponents(m_Task);
-            m_AlgoThread = new Thread(m_Task);
-            m_AlgoThread.start();
-        }
-        stoppedByUser=false;
-        disabilityManagementPlay();
     }
     @FXML void onPauseBtnClick(ActionEvent event) {
         disabilityManagementPause();
@@ -158,12 +159,26 @@ public class ApplicationController {
     @FXML void onSubmitShowValueClick(ActionEvent event) { }
     @FXML void onActionFitnessCB(ActionEvent event) {
         fitnessLimitCombo.setDisable(!fitnessCheck.isSelected());
+        if(!fitnessCheck.isSelected())
+        {
+            fitnessLimitCombo.getSelectionModel().clearSelection();
+        }
     }
     @FXML void onActionTimeCB(ActionEvent event) {
         timeLimitTF.setDisable(!timeCheck.isSelected());
+        if(!timeCheck.isSelected())
+        {
+            timeLimitTF.setText("");
+            m_ValuesChecker.changeToDefaultBorder(timeLimitTF);
+        }
     }
     @FXML void onActionGenerationsCB(ActionEvent event) {
         numOfGenTF.setDisable(!generationsCheck.isSelected());
+        if(!generationsCheck.isSelected())
+        {
+            numOfGenTF.setText("");
+            m_ValuesChecker.changeToDefaultBorder(numOfGenTF);
+        }
     }
     @FXML void onMutationSetBtnClick(ActionEvent event) {
         if(mutationCombo.getValue()!=null) {
@@ -197,6 +212,8 @@ public class ApplicationController {
     @FXML void onCrossoverComboChanged(ActionEvent event) {
         if(!crossoverCombo.getItems().isEmpty()) {
             String crossoverName = crossoverCombo.getValue().toUpperCase();
+            m_ArgumentsFiller.updateCrossoverAspectCombo(crossoverAspectCombo);
+            m_ArgumentsFiller.updateCrossoverCuttingPoints(cuttingPointsTF);
             switch (crossoverName) {
                 case "DAYTIMEORIENTED":
                     crossoverAspectCombo.getSelectionModel().clearSelection();
@@ -230,6 +247,9 @@ public class ApplicationController {
     @FXML void onSelectionComboChanged(ActionEvent event) {
         if(!selectionCombo.getItems().isEmpty()) {
             String selectionName = selectionCombo.getValue().toUpperCase();
+            m_ArgumentsFiller.updateSelectionElitismSlider(elitismSlider);
+            m_ArgumentsFiller.updateSelectionTopPercentCombo(selectionPercentCombo);
+            m_ArgumentsFiller.updateSelectionPTECombo(selectionPTECombo);
             switch (selectionName) {
                 case "TRUNCATION":
                     selectionPercentCombo.setDisable(false);
@@ -408,6 +428,27 @@ public class ApplicationController {
             time=(double) i_Progress.getTimePassedInMillis()/(double) totalTimeInMillis;
             timeProgress.setProgress(time);
         }
+    }
+
+    private Boolean checkArgumentsBeforePlay()
+    {
+        Boolean isCorrect=true;
+        try {
+            m_ValuesChecker.checkStopConditionsArguments(generationsCheck,numOfGenTF,fitnessCheck,fitnessLimitCombo,timeCheck,timeLimitTF,showEveryTF);
+            m_ValuesChecker.checkSelectionArguments(selectionCombo,selectionPercentCombo,selectionPTECombo);
+            m_ValuesChecker.checkCrossoverArguments(crossoverCombo, cuttingPointsTF, crossoverAspectCombo, m_Engine.getMaxLessons());
+        }
+        catch (Exception e)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Arguments error");
+            alert.setHeaderText("ERROR!");
+            alert.setContentText(e.getMessage());
+            alert.setWidth(Control.USE_COMPUTED_SIZE);
+            alert.show();
+            isCorrect=false;
+        }
+        return isCorrect;
     }
 
     private List<eStoppingCondition> createStoppingConditions()

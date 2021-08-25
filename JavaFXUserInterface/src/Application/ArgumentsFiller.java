@@ -61,9 +61,20 @@ public class ArgumentsFiller {
         if(m_DataPrinter.getSelectionData().getType().toUpperCase().equals("TRUNCATION"))
             i_ComboBox.getSelectionModel().select(m_DataPrinter.getSelectionData().getPercent());
     }
+    public void updateSelectionTopPercentCombo(ComboBox i_ComboBox)
+    {
+        if(m_DataPrinter.getSelectionData().getPercent()!=0)
+            i_ComboBox.getSelectionModel().select(m_DataPrinter.getSelectionData().getPercent());
+        else
+            i_ComboBox.getSelectionModel().clearSelection();
+    }
     public void setSelectionElitismSliderMax(Slider i_Slider)
     {
         i_Slider.setMax(m_DataPrinter.getInitialPopulation()-1);
+        i_Slider.setValue(m_DataPrinter.getSelectionData().getElitism());
+    }
+    public void updateSelectionElitismSlider(Slider i_Slider)
+    {
         i_Slider.setValue(m_DataPrinter.getSelectionData().getElitism());
     }
     public void setSelectionPTECombo(ComboBox i_ComboBox)
@@ -75,7 +86,12 @@ public class ArgumentsFiller {
         }
         if(m_DataPrinter.getSelectionData().getType().toUpperCase().equals("TOURNAMENT")) {
             i_ComboBox.getSelectionModel().select(m_DataPrinter.getSelectionData().getPTE());
-            //i_ComboBox.setDisable(false);
+        }
+    }
+    public void updateSelectionPTECombo(ComboBox i_ComboBox)
+    {
+        if(m_DataPrinter.getSelectionData().getType().toUpperCase().equals("TOURNAMENT")) {
+            i_ComboBox.getSelectionModel().select(m_DataPrinter.getSelectionData().getPTE());
         }
     }
 
@@ -106,7 +122,25 @@ public class ArgumentsFiller {
             }
         }
     }
+    public void updateCrossoverAspectCombo(ComboBox i_ComboBox)
+    {
+        if(m_DataPrinter.getCrossoverData().getName().toUpperCase().equals("ASPECTORIENTED")) {
+            Character aspect = m_DataPrinter.getCrossoverData().getAspect();
+            switch (aspect) {
+                case 'T':
+                    i_ComboBox.getSelectionModel().select("Teacher");
+                    break;
+                case 'C':
+                    i_ComboBox.getSelectionModel().select("Class");
+                    break;
+            }
+        }
+    }
     public void setCrossoverCuttingPoints(TextField i_TextField)
+    {
+        i_TextField.setText(m_DataPrinter.getCrossoverData().getNumOfCuttingPoints().toString());
+    }
+    public void updateCrossoverCuttingPoints(TextField i_TextField)
     {
         i_TextField.setText(m_DataPrinter.getCrossoverData().getNumOfCuttingPoints().toString());
     }
@@ -131,22 +165,18 @@ public class ArgumentsFiller {
         }
         i_ComboBox.getSelectionModel().select(m_DataPrinter.getMutationsDataList().get(0).getProbability());
     }
-
     public void updateMutationProbabilityCombo(ComboBox i_ComboBox,Integer i_MutationIndex)
     {
         i_ComboBox.getSelectionModel().select(m_DataPrinter.getMutationsDataList().get(i_MutationIndex).getProbability());
     }
-
     public void setMutationTupples(TextField i_TextField)
     {
         i_TextField.setText(m_DataPrinter.getMutationsDataList().get(0).getTupples().toString());
     }
-
     public void updateMutationTupples(TextField i_TextField,Integer i_MutationIndex)
     {
         i_TextField.setText(m_DataPrinter.getMutationsDataList().get(i_MutationIndex).getTupples().toString());
     }
-
     public void setMutationComponentCombo(ComboBox i_ComboBox)
     {
         i_ComboBox.getItems().clear();
@@ -179,7 +209,6 @@ public class ArgumentsFiller {
             }
         }
     }
-
     public void updateMutationComponentCombo(ComboBox i_ComboBox,Integer i_MutationIndex)
     {
         Character component=m_DataPrinter.getMutationsDataList().get(i_MutationIndex).getComponent();
