@@ -160,7 +160,7 @@ public class ApplicationController {
         }
     }
     @FXML void onSubmitShowValueClick(ActionEvent event) {
-        if(showValueCombo.getSelectionModel()!=null)
+        if(showValueCombo.getValue()!=null)
         {
             eResultsValues userChoice=eResultsValues.getResultsValueByName(showValueCombo.getValue().toString());
             userChoice.show(m_FileDataPrinter,m_FilePrinterController,dynamicPane);
