@@ -17,6 +17,7 @@ public class MutationData {
         m_Probability=i_Mutation.getProbability();
         m_Tupples=i_Mutation.getMaxTupples();
         m_Component=i_Mutation.getChar();
+
     }
 
     public double getProbability() {

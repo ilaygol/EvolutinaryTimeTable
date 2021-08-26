@@ -37,7 +37,7 @@ public class ApplicationController {
     private Integer m_reqTimeInMinutes;
     private FilePrinterController m_FilePrinterController;
 
-    @FXML private Pane dynamicPane;
+    @FXML private ScrollPane dynamicPane;
     @FXML private Label filePathLabel;
     @FXML private Label mutationUpdateStatusLabel;
     @FXML private Label statusLineLabel;
@@ -159,7 +159,13 @@ public class ApplicationController {
             isPaused = false;
         }
     }
-    @FXML void onSubmitShowValueClick(ActionEvent event) { }
+    @FXML void onSubmitShowValueClick(ActionEvent event) {
+        if(showValueCombo.getSelectionModel()!=null)
+        {
+            eResultsValues userChoice=eResultsValues.getResultsValueByName(showValueCombo.getValue().toString());
+            userChoice.show(m_FileDataPrinter,m_FilePrinterController,dynamicPane);
+        }
+    }
     @FXML void onActionFitnessCB(ActionEvent event) {
         fitnessLimitCombo.setDisable(!fitnessCheck.isSelected());
         if(!fitnessCheck.isSelected())
@@ -513,10 +519,5 @@ public class ApplicationController {
 
     public void setFilePrinterController(FilePrinterController i_FilePrinterController) {
         this.m_FilePrinterController = i_FilePrinterController;
-    }
-
-    public void setDynamicPane(Node i_Node)
-    {
-        dynamicPane.getChildren().add(i_Node);
     }
 }

@@ -37,4 +37,14 @@ public class CrossoverData {
     public void setAspect(Character i_Aspect) {
         this.m_Aspect = i_Aspect;
     }
+
+    @Override
+    public String toString() {
+        String outputString="";
+        outputString+="Name: "+m_Name;
+        outputString+=" Cutting points: "+m_NumOfCuttingPoints;
+        if(m_Name.toUpperCase().equals("ASPECTORIENTED"))
+            outputString+=" Aspect: "+m_Aspect;
+        return outputString;
+    }
 }
