@@ -39,7 +39,7 @@ public class Main extends Application {
         FilePrinterController filePrinterController=(FilePrinterController) fxmlLoader.getController();
 
         controller.setFilePrinterController(filePrinterController);
-        controller.setDynamicPane(fileComponentRoot);
+
         Scene scene = new Scene(root, 1124, 713);
         primaryStage.setTitle("Evolutionary Time Table");
         primaryStage.setScene(scene);

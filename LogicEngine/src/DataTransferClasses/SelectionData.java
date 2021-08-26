@@ -16,7 +16,6 @@ public class SelectionData {
         m_Percent=i_Selection.getPercent();
         m_Elitism=i_Selection.getElitism();
         m_PTE=i_Selection.getPTE();
-
     }
 
     public String getType() {
@@ -47,5 +46,17 @@ public class SelectionData {
 
     public void setElitism(Integer i_Elitism) {
         this.m_Elitism = i_Elitism;
+    }
+
+    @Override
+    public String toString() {
+        String outputString="";
+        outputString+="Name: "+m_Type;
+        outputString+=" Elitism: "+m_Elitism;
+        if(m_Type.toUpperCase().equals("TRUNCATION"))
+            outputString+=" Top percent: "+m_Percent;
+        if(m_Type.toUpperCase().equals("TOURNAMENT"))
+            outputString+=" PTE: "+m_PTE;
+        return outputString;
     }
 }
