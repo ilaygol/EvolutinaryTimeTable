@@ -16,6 +16,6 @@
   </rowConstraints>
    <children>
       <TextArea fx:id="valuesTextArea" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
-      <ListView fx:id="valuesListView" editable="true" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="200.0" prefWidth="170.0" GridPane.hgrow="NEVER" GridPane.vgrow="ALWAYS" />
+      <ListView fx:id="valuesListView" editable="true" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="200.0" prefWidth="180.0" GridPane.hgrow="NEVER" GridPane.vgrow="ALWAYS" />
    </children>
 </GridPane>
