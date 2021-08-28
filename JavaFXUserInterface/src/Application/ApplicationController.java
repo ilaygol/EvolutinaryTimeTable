@@ -164,7 +164,7 @@ public class ApplicationController {
         if(showValueCombo.getValue()!=null)
         {
             eResultsValues userChoice=eResultsValues.getResultsValueByName(showValueCombo.getValue().toString());
-            userChoice.show(m_FileDataPrinter,m_FilePrinterController,dynamicPane);
+            userChoice.show(this);
         }
     }
     @FXML void onActionFitnessCB(ActionEvent event) {
@@ -520,5 +520,30 @@ public class ApplicationController {
 
     public void setFilePrinterController(FilePrinterController i_FilePrinterController) {
         this.m_FilePrinterController = i_FilePrinterController;
+    }
+
+    public ScrollPane getDynamicRulesPane() {
+        return dynamicRulesPane;
+    }
+
+    public ScrollPane getDynamicPane()
+    {
+        return dynamicPane;
+    }
+
+    public FilePrinterController getFilePrinterController() {
+        return m_FilePrinterController;
+    }
+
+    public DataPrinter getFileDataPrinter() {
+        return m_FileDataPrinter;
+    }
+
+    public DataPrinter getUpdatedDataPrinter() {
+        return m_UpdatedDataPrinter;
+    }
+
+    public LogicEngineManager getEngine() {
+        return m_Engine;
     }
 }

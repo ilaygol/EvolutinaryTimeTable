@@ -1,12 +1,16 @@
 package Application;
 
 import DataTransferClasses.DataPrinter;
+import DataTransferClasses.RuleData;
 import FilePrinter.FilePrinterController;
+import RulesPrinter.RuleController;
+import RulesPrinter.RulesPrinter;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 
 import javax.swing.text.html.ListView;
+import java.util.List;
 
 public enum eResultsValues {
     FILEDATA
@@ -17,13 +21,11 @@ public enum eResultsValues {
                 }
 
                 @Override
-                public void show(DataPrinter i_DataPrinter, Object i_Controller, ScrollPane i_DynamicPane)
+                public void show(ApplicationController i_Controller)
                 {
                     System.out.println("file data");
-                    FilePrinterController controller=(FilePrinterController) i_Controller;
-                    i_DynamicPane.setContent(controller.getComponent());
-                    controller.setView(i_DataPrinter);
-
+                    i_Controller.getDynamicPane().setContent(i_Controller.getFilePrinterController().getComponent());
+                    i_Controller.getFilePrinterController().setView(i_Controller.getFileDataPrinter());
                 }
             },
     BESTSOLUTIONBYROW
@@ -34,9 +36,12 @@ public enum eResultsValues {
                 }
 
                 @Override
-                public void show(DataPrinter i_DataPrinter, Object i_Controller, ScrollPane i_DynamicPane)
+                public void show(ApplicationController i_Controller)
                 {
-                    System.out.println("Hello!");
+                    System.out.println("RAW");
+                    List<RuleData> rulesDataList = i_Controller.getEngine().getBestSolutionData().getRulesDataList();
+                    RulesPrinter rulesPrinter=new RulesPrinter(rulesDataList,i_Controller.getDynamicRulesPane());
+                    rulesPrinter.showRules();
                 }
             },
     BESTSOLUTIONBYTEACHER
@@ -47,7 +52,7 @@ public enum eResultsValues {
                 }
 
                 @Override
-                public void show(DataPrinter i_DataPrinter, Object i_Controller, ScrollPane i_DynamicPane)
+                public void show(ApplicationController i_Controller)
                 {
                     System.out.println("Hello!");
                 }
@@ -60,7 +65,7 @@ public enum eResultsValues {
                 }
 
                 @Override
-                public void show(DataPrinter i_DataPrinter, Object i_Controller, ScrollPane i_DynamicPane)
+                public void show(ApplicationController i_Controller)
                 {
                     System.out.println("Hello!");
                 }
@@ -73,13 +78,13 @@ public enum eResultsValues {
                 }
 
                 @Override
-                public void show(DataPrinter i_DataPrinter, Object i_Controller, ScrollPane i_DynamicPane)
+                public void show(ApplicationController i_Controller)
                 {
                     System.out.println("Hello!");
                 }
             };
     public abstract String toString();
-    public abstract void show(DataPrinter i_DataPrinter, Object i_Controller, ScrollPane i_DynamicPane);
+    public abstract void show(ApplicationController i_Controller);
     public static eResultsValues getResultsValueByName(String i_Name)
     {
         for(eResultsValues instance:eResultsValues.values())
