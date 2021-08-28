@@ -18,4 +18,23 @@ public class RuleController {
     @FXML
     private Label ruleScoreLabel;
 
+    public void setRuleNameText(String i_Text)
+    {
+        ruleNameText.setText(i_Text);
+    }
+
+    public void setRuleTypeLabel(String i_Text)
+    {
+        ruleTypeLabel.setText(i_Text);
+    }
+
+    public void setRuleParamLabel(String i_Text)
+    {
+        ruleParamLabel.setText(i_Text);
+    }
+
+    public void setRuleScoreLabel(String i_Text)
+    {
+        ruleScoreLabel.setText(i_Text);
+    }
 }
