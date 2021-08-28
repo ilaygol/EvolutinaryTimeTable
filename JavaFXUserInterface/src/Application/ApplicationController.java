@@ -38,6 +38,7 @@ public class ApplicationController {
     private FilePrinterController m_FilePrinterController;
 
     @FXML private ScrollPane dynamicPane;
+    @FXML private ScrollPane dynamicRulesPane;
     @FXML private Label filePathLabel;
     @FXML private Label mutationUpdateStatusLabel;
     @FXML private Label statusLineLabel;
