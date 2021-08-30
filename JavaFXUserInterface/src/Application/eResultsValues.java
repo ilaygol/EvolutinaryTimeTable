@@ -1,15 +1,22 @@
 package Application;
 
+import BestSolutionPrinter.BestSolutionController;
+import BestSolutionPrinter.LessonController;
 import DataTransferClasses.DataPrinter;
 import DataTransferClasses.RuleData;
 import FilePrinter.FilePrinterController;
 import RulesPrinter.RuleController;
 import RulesPrinter.RulesPrinter;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 import javax.swing.text.html.ListView;
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 public enum eResultsValues {
@@ -28,7 +35,7 @@ public enum eResultsValues {
                     i_Controller.getFilePrinterController().setView(i_Controller.getFileDataPrinter());
                 }
             },
-    BESTSOLUTIONBYROW
+    BESTSOLUTIONBYRAW
             {
                 @Override
                 public String toString() {
@@ -39,9 +46,18 @@ public enum eResultsValues {
                 public void show(ApplicationController i_Controller)
                 {
                     System.out.println("RAW");
-                    List<RuleData> rulesDataList = i_Controller.getEngine().getBestSolutionData().getRulesDataList();
-                    RulesPrinter rulesPrinter=new RulesPrinter(rulesDataList,i_Controller.getDynamicRulesPane());
-                    rulesPrinter.showRules();
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    URL url = getClass().getResource("/BestSolutionPrinter/BestSolutionPrinterComponent.fxml");
+                    fxmlLoader.setLocation(url);
+                    GridPane root = null;
+                    try {
+                        root = fxmlLoader.load(url.openStream());
+                        BestSolutionController controller = (BestSolutionController) fxmlLoader.getController();
+                        controller.setView(i_Controller.getDynamicPane(),i_Controller.getDynamicRulesPane(),i_Controller.getEngine().getBestSolutionData(),i_Controller.getEngine().getAmountOfData());
+                        controller.printByRaw();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             },
     BESTSOLUTIONBYTEACHER
