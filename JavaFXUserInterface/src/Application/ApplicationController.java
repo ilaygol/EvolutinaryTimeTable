@@ -514,7 +514,7 @@ public class ApplicationController {
         if(selectionPercentCombo.getValue()!=null)
             selectionData.setPercent(selectionPercentCombo.getValue());
         if(selectionPTECombo.getValue()!=null)
-            selectionData.setPTE(selectionPTECombo.getValue());
+            selectionData.setPTE(Double.parseDouble(String.valueOf(selectionPTECombo.getValue())));
 
         //Crossover
         CrossoverData crossoverData=m_UpdatedDataPrinter.getCrossoverData();
