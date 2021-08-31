@@ -8,6 +8,9 @@ import FilePrinter.FilePrinterController;
 import RulesPrinter.RuleController;
 import RulesPrinter.RulesPrinter;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
@@ -18,6 +21,7 @@ import javax.swing.text.html.ListView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 
 public enum eResultsValues {
     FILEDATA
@@ -31,6 +35,7 @@ public enum eResultsValues {
                 public void show(ApplicationController i_Controller)
                 {
                     System.out.println("file data");
+                    i_Controller.getDynamicRulesPane().setContent(null);
                     i_Controller.getDynamicPane().setContent(i_Controller.getFilePrinterController().getComponent());
                     i_Controller.getFilePrinterController().setView(i_Controller.getFileDataPrinter());
                 }
@@ -120,7 +125,25 @@ public enum eResultsValues {
                 @Override
                 public void show(ApplicationController i_Controller)
                 {
-                    System.out.println("Hello!");
+                    System.out.println("Evolution");
+                    i_Controller.getDynamicRulesPane().setContent(null);
+                    NumberAxis xAxis = new NumberAxis();
+                    xAxis.setLabel("Generations");
+
+                    NumberAxis yAxis = new NumberAxis();
+                    yAxis.setLabel("Fitness");
+
+                    LineChart lineChart = new LineChart(xAxis, yAxis);
+
+                    XYChart.Series dataSeries1 = new XYChart.Series();
+
+                    Map<Integer, Integer> fitnessesMap = i_Controller.getEngine().PrintAlgorithmProcess();
+                    for(Map.Entry<Integer,Integer> entry:fitnessesMap.entrySet()) {
+                        dataSeries1.getData().add(new XYChart.Data(entry.getKey(), entry.getValue()));
+                    }
+                    lineChart.getData().add(dataSeries1);
+
+                    i_Controller.getDynamicPane().setContent(lineChart);
                 }
             };
     public abstract String toString();
