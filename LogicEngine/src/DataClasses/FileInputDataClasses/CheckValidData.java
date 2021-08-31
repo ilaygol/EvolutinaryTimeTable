@@ -2,10 +2,7 @@ package DataClasses.FileInputDataClasses;
 
 import ParsedClasses.*;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 
 public class CheckValidData {
@@ -93,11 +90,14 @@ public class CheckValidData {
     private void checkRuleAppearOnce() throws RuntimeException
     {
         List<ETTRule> ruleList= m_Descriptor.getETTTimeTable().getETTRules().getETTRule();
-        Set<ETTRule> rulesSet=new HashSet<>();
-        for(ETTRule r:ruleList) {
-            if(rulesSet.contains(r))
-                throw new RuntimeException("Error: Same rule appear twice!");
-            rulesSet.add(r);
+        List<ETTRule> rulesCountedAlready=new ArrayList<>();
+        for(ETTRule ruleToCheck:ruleList) {
+            for(ETTRule countedRule:rulesCountedAlready)
+            {
+                if(ruleToCheck.getETTRuleId().equals(countedRule.getETTRuleId()))
+                    throw new RuntimeException(("Error: 2 Rules with the same id!"));
+            }
+            rulesCountedAlready.add(ruleToCheck);
         }
     }
 
