@@ -190,4 +190,14 @@ public class LogicEngineManager {
     {
         m_Descriptor.getEvolutionEngine().resumeAlgo();
     }
+
+    public String getTeacherNameById(Integer i_ID)
+    {
+        return m_Descriptor.getTimeTable().getTeachers().getTeacherNameById(i_ID);
+    }
+
+    public String getClassNameById(Integer i_ID)
+    {
+        return m_Descriptor.getTimeTable().getClazzes().getClassNameById(i_ID);
+    }
 }
