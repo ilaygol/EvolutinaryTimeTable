@@ -63,7 +63,7 @@ public class ValuesChecker {
     public Boolean checkTupples(TextField i_Tupples)
     {
         Boolean isGood=true;
-        if(checkIfTextFieldInteger(i_Tupples)&&Integer.parseInt(i_Tupples.getText())<=50)
+        if(checkIfTextFieldInteger(i_Tupples)&&Integer.parseInt(i_Tupples.getText())>0)
         {
             changeToGoodBorder(i_Tupples);
         }
@@ -101,7 +101,7 @@ public class ValuesChecker {
             throw new RuntimeException("There are empty mutation arguments!");
         }
         if(!checkTupples(i_Tupples))
-            throw new RuntimeException("Wrong tupples value. Should be 1-50");
+            throw new RuntimeException("Wrong tupples value. must be a positive number");
     }
 
     public void checkCrossoverArguments(ComboBox i_CrossoverType, TextField i_CuttingPoints, ComboBox i_Aspect, Integer i_MaxLessons)

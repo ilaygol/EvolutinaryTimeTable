@@ -169,10 +169,10 @@ public class EvolutionEngine {
                 endCountingTime=Instant.now();
                 timePassedInMillis+= Duration.between(startCountingTime,endCountingTime).toMillis();
                 progressTracker.setNewValues(generationsMade,bestFitness,timePassedInMillis);
-                i_ProgressDataConsumer.accept(progressTracker);
                 if(!getStopBoolean()) {
                     setStopBoolean(checkStoppingConditions(m_NumOfGenerations, generationsMade, m_ReqFitness, bestFitness, m_ReqMinutesInMillis, timePassedInMillis, i_StoppingConditions));
                 }
+                i_ProgressDataConsumer.accept(progressTracker);
                 if(Thread.interrupted()) {
                     try {
                         this.wait();

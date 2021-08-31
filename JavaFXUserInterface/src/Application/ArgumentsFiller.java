@@ -80,7 +80,7 @@ public class ArgumentsFiller {
     public void setSelectionPTECombo(ComboBox i_ComboBox)
     {
         i_ComboBox.getItems().clear();
-        for(int i=1;i<=9;i++)
+        for(int i=0;i<=10;i++)
         {
             i_ComboBox.getItems().add(String.valueOf((double)i/(double)10));
         }
