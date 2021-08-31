@@ -163,8 +163,19 @@ public class ApplicationController {
     @FXML void onSubmitShowValueClick(ActionEvent event) {
         if(showValueCombo.getValue()!=null)
         {
-            eResultsValues userChoice=eResultsValues.getResultsValueByName(showValueCombo.getValue().toString());
-            userChoice.show(this);
+            try {
+                eResultsValues userChoice = eResultsValues.getResultsValueByName(showValueCombo.getValue().toString());
+                userChoice.show(this);
+            }
+            catch (Exception e)
+            {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Logic Error");
+                alert.setHeaderText("ERROR!");
+                alert.setContentText(e.getMessage());
+                alert.setWidth(Control.USE_COMPUTED_SIZE);
+                alert.show();
+            }
         }
     }
     @FXML void onActionFitnessCB(ActionEvent event) {
