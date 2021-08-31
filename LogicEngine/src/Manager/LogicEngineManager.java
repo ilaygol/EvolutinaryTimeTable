@@ -200,4 +200,9 @@ public class LogicEngineManager {
     {
         return m_Descriptor.getTimeTable().getClazzes().getClassNameById(i_ID);
     }
+
+    public String getSubjectNameById(Integer i_ID)
+    {
+        return m_Descriptor.getTimeTable().getSubjects().getSubjectNameById(i_ID);
+    }
 }

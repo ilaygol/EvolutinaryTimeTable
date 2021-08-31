@@ -25,16 +25,15 @@ public class Subjects {
 
     public Integer getSubjectsListSize(){return m_SubjectsList.size();}
 
-    public String getSubjectNameById(Integer i_Id)
-    {
-        Optional<Subject> subj = m_SubjectsList.stream().filter(subject -> subject.getId().equals(i_Id)).findFirst();
-        return subj.get().getFullName().toString();
-    }
-
     public Set<SubjectData> getSubjectSet(){
         Set<SubjectData> retSet=new TreeSet<>();
         m_SubjectsList.forEach(subj-> retSet.add(new SubjectData(subj)));
         return retSet;
+    }
+
+    public String getSubjectNameById(Integer i_ID)
+    {
+        return m_SubjectsList.stream().filter(subject->subject.getId().equals(i_ID)).findFirst().get().getFullName();
     }
 
     @Override
