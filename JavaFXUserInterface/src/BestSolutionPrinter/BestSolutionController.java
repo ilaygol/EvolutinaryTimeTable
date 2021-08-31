@@ -137,9 +137,9 @@ public class BestSolutionController {
             LessonController controller = (LessonController) fxmlLoader.getController();
             controller.setDayText(i_LessonData.getDay().toString());
             controller.setHourText(i_LessonData.getHour().toString());
-            controller.setClassText(i_LessonData.getClassID().toString());
-            controller.setTeacherText(i_LessonData.getTeacherID().toString());
-            controller.setSubjectText(i_LessonData.getSubjectID().toString());
+            controller.setClassText(m_AppController.getEngine().getClassNameById(i_LessonData.getClassID()));
+            controller.setTeacherText(m_AppController.getEngine().getTeacherNameById(i_LessonData.getTeacherID()));
+            controller.setSubjectText(m_AppController.getEngine().getSubjectNameById(i_LessonData.getSubjectID()));
             return root;
         } catch (IOException e) {
             e.printStackTrace();

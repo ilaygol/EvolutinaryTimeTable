@@ -27,8 +27,7 @@ public class RulesPrinter {
     {
         VBox vbox=new VBox();
         vbox.setSpacing(10);
-        for(RuleData data:m_RulesDataList)
-        {
+        for(RuleData data:m_RulesDataList) {
             FXMLLoader fxmlLoader = new FXMLLoader();
             URL url = getClass().getResource("RuleComponent.fxml");
             fxmlLoader.setLocation(url);
@@ -38,10 +37,19 @@ public class RulesPrinter {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            RuleController controller=(RuleController)fxmlLoader.getController();
+            RuleController controller = (RuleController) fxmlLoader.getController();
             controller.setRuleNameText(data.getName());
             controller.setRuleTypeLabel(data.getType());
             controller.setRuleScoreLabel(data.getGrade().toString());
+            if (data.getName().toUpperCase().equals("SEQUENTIALITY"))
+            {
+                controller.setRuleParamLabel(data.getTotalHours().toString());
+            }
+            else
+            {
+                controller.setRuleParamLabel("none");
+            }
+
             vbox.getChildren().add(root);
         }
         m_Root.setContent(vbox);
