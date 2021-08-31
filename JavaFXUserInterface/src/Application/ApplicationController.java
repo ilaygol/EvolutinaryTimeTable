@@ -12,6 +12,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -37,6 +39,7 @@ public class ApplicationController {
     private Integer m_reqTimeInMinutes;
     private FilePrinterController m_FilePrinterController;
 
+    @FXML private BorderPane mainBorderPane;
     @FXML private ScrollPane dynamicPane;
     @FXML private ScrollPane dynamicRulesPane;
     @FXML private Label filePathLabel;
@@ -59,6 +62,8 @@ public class ApplicationController {
     @FXML private CheckBox fitnessCheck;
     @FXML private CheckBox timeCheck;
     @FXML private CheckBox generationsCheck;
+    @FXML private CheckBox animationsCheck;
+    @FXML private ComboBox<String> visualsCombo;
     @FXML private ComboBox<Integer> fitnessLimitCombo;
     @FXML private ComboBox<String> selectionCombo;
     @FXML private ComboBox<String> crossoverCombo;
@@ -99,6 +104,17 @@ public class ApplicationController {
                 m_ValuesChecker.checkShowEvery(showEveryTF));
         elitismSlider.valueProperty().addListener((observable, oldValue, newValue) ->elitismSliderReflectionTF.setText(String.valueOf(newValue.intValue())));
         mutationUpdateStatusLabel.setText("");
+
+        mainBorderPane.getChildren().forEach(node->{
+            if(node instanceof GridPane)
+                node.getStyleClass().add("grid-pane");
+        });
+
+        visualsCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+                onVisualsComboChanged(new ActionEvent()));
+        visualsCombo.getItems().add("Light Mode");
+        visualsCombo.getItems().add("Dark Mode");
+        visualsCombo.getSelectionModel().selectFirst();
     }
 
     public void setEngine(LogicEngineManager i_Engine) {
@@ -290,6 +306,19 @@ public class ApplicationController {
                     selectionPTECombo.setDisable(false);
                     break;
             }
+        }
+    }
+    @FXML void onVisualsComboChanged(ActionEvent event) {
+        switch (visualsCombo.getValue())
+        {
+            case "Light Mode":
+                mainBorderPane.getStylesheets().clear();
+                mainBorderPane.getStylesheets().add("/Application/ApplicationCSS.css");
+                break;
+            case "Dark Mode":
+                mainBorderPane.getStylesheets().clear();
+                mainBorderPane.getStylesheets().add("/Application/DarkModeCSS.css");
+                break;
         }
     }
 
