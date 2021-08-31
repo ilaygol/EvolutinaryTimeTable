@@ -190,7 +190,9 @@
                         <ColumnConstraints hgrow="NEVER" />
                         <ColumnConstraints hgrow="NEVER" />
                         <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
-                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints hgrow="NEVER" />
+                        <ColumnConstraints hgrow="ALWAYS" />
                         <ColumnConstraints hgrow="SOMETIMES" />
                     </columnConstraints>
                     <rowConstraints>
@@ -223,13 +225,15 @@
                            </graphic></Button>
                         <Label text="Status:" GridPane.columnIndex="5" />
                         <Label id="statusLine" fx:id="statusLineLabel" maxWidth="1.7976931348623157E308" styleClass="status" text="[Status Line]" GridPane.columnIndex="6" GridPane.hgrow="ALWAYS" />
-                        <Label minWidth="90.0" text="Show every:" GridPane.columnIndex="3">
+                        <Label text="Show every:" GridPane.columnIndex="3">
                            <GridPane.margin>
-                              <Insets left="10.0" />
+                              <Insets />
                            </GridPane.margin>
                         </Label>
                         <TextField fx:id="showEveryTF" disable="true" minWidth="100.0" prefWidth="100.0" promptText="Generations" GridPane.columnIndex="4" />
-                        <Label fx:id="pauseStatusLabel" text="Paused" textFill="RED" visible="false" GridPane.columnIndex="7" />
+                        <Label fx:id="pauseStatusLabel" text="Paused" textFill="RED" visible="false" GridPane.columnIndex="9" />
+                        <Label text="Updates:" GridPane.columnIndex="7" />
+                        <Label fx:id="updateLineLabel" maxWidth="1.7976931348623157E308" styleClass="status" text="[Update Line]" GridPane.columnIndex="8" GridPane.hgrow="ALWAYS" />
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
