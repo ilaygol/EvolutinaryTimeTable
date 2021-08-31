@@ -52,4 +52,9 @@ public class Teachers {
     {
         return m_TeachersList.stream().filter(teacher->teacher.getId().equals(i_ID)).findFirst().get();
     }
+
+    public String getTeacherNameById(Integer i_ID)
+    {
+        return m_TeachersList.stream().filter(teacher->teacher.getId().equals(i_ID)).findFirst().get().getFullName();
+    }
 }

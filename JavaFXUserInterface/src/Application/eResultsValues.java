@@ -53,7 +53,7 @@ public enum eResultsValues {
                     try {
                         root = fxmlLoader.load(url.openStream());
                         BestSolutionController controller = (BestSolutionController) fxmlLoader.getController();
-                        controller.setView(i_Controller.getDynamicPane(),i_Controller.getDynamicRulesPane(),i_Controller.getEngine().getBestSolutionData(),i_Controller.getEngine().getAmountOfData());
+                        controller.setView(i_Controller,i_Controller.getDynamicPane(),i_Controller.getDynamicRulesPane(),i_Controller.getEngine().getBestSolutionData(),i_Controller.getEngine().getAmountOfData());
                         controller.printByRaw();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -70,7 +70,19 @@ public enum eResultsValues {
                 @Override
                 public void show(ApplicationController i_Controller)
                 {
-                    System.out.println("Hello!");
+                    System.out.println("Teacher");
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    URL url = getClass().getResource("/BestSolutionPrinter/BestSolutionPrinterComponent.fxml");
+                    fxmlLoader.setLocation(url);
+                    GridPane root = null;
+                    try {
+                        root = fxmlLoader.load(url.openStream());
+                        BestSolutionController controller = (BestSolutionController) fxmlLoader.getController();
+                        controller.setView(i_Controller,i_Controller.getDynamicPane(),i_Controller.getDynamicRulesPane(),i_Controller.getEngine().getBestSolutionData(),i_Controller.getEngine().getAmountOfData());
+                        controller.printByTeacher();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             },
     BESTSOLUTIONBYCLASS
@@ -83,7 +95,19 @@ public enum eResultsValues {
                 @Override
                 public void show(ApplicationController i_Controller)
                 {
-                    System.out.println("Hello!");
+                    System.out.println("Teacher");
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    URL url = getClass().getResource("/BestSolutionPrinter/BestSolutionPrinterComponent.fxml");
+                    fxmlLoader.setLocation(url);
+                    GridPane root = null;
+                    try {
+                        root = fxmlLoader.load(url.openStream());
+                        BestSolutionController controller = (BestSolutionController) fxmlLoader.getController();
+                        controller.setView(i_Controller,i_Controller.getDynamicPane(),i_Controller.getDynamicRulesPane(),i_Controller.getEngine().getBestSolutionData(),i_Controller.getEngine().getAmountOfData());
+                        controller.printByClass();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             },
     EVOLUTION
