@@ -42,6 +42,7 @@ public class ApplicationController {
     @FXML private Label filePathLabel;
     @FXML private Label mutationUpdateStatusLabel;
     @FXML private Label statusLineLabel;
+    @FXML private Label updateLineLabel;
     @FXML private Label pauseStatusLabel;
     @FXML private Button loadFileBtn;
     @FXML private Button mutationSetBtn;
@@ -319,7 +320,8 @@ public class ApplicationController {
             isActivatedAlgo.set(newVal);
             disabilityManagementStop();
         } );
-        statusLineLabel.textProperty().bind(i_Task.messageProperty());
+        statusLineLabel.textProperty().bind(i_Task.titleProperty());
+        updateLineLabel.textProperty().bind(i_Task.messageProperty());
     }
 
     private void disabilityManagementStop() {
