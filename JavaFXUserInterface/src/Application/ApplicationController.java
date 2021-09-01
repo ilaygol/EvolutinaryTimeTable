@@ -6,6 +6,7 @@ import FilePrinter.FilePrinterController;
 import Manager.LogicEngineManager;
 import Tasks.ActivateAlgoTask;
 import Tasks.LoadFileTask;
+import javafx.animation.FadeTransition;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -111,6 +113,8 @@ public class ApplicationController {
         visualsCombo.getItems().add("Light Mode");
         visualsCombo.getItems().add("Dark Mode");
         visualsCombo.getSelectionModel().selectFirst();
+
+        animationsCheck.setSelected(true);
     }
 
     public void setEngine(LogicEngineManager i_Engine) {
@@ -201,6 +205,18 @@ public class ApplicationController {
             try {
                 eResultsValues userChoice = eResultsValues.getResultsValueByName(showValueCombo.getValue().toString());
                 userChoice.show(this);
+
+                if(animationsCheck.isSelected()) {
+                    FadeTransition dynamicPaneFT = new FadeTransition(Duration.millis(2000), dynamicPane);
+                    dynamicPaneFT.setFromValue(0.0);
+                    dynamicPaneFT.setToValue(1.0);
+                    FadeTransition dynamicRulesFT = new FadeTransition(Duration.millis(2000), dynamicRulesPane);
+                    dynamicRulesFT.setFromValue(0.0);
+                    dynamicRulesFT.setToValue(1.0);
+
+                    dynamicPaneFT.play();
+                    dynamicRulesFT.play();
+                }
             }
             catch (Exception e)
             {
@@ -360,6 +376,7 @@ public class ApplicationController {
                 fillComboBoxes();
                 disabilityManagementFileLoaded();
                 clearDynamicPanes();
+                isActivatedAlgo=false;
             }
         }));
     }
@@ -558,7 +575,11 @@ public class ApplicationController {
         //Selection
         SelectionData selectionData=m_UpdatedDataPrinter.getSelectionData();
         selectionData.setType(selectionCombo.getValue().toString());
-        selectionData.setElitism(Integer.parseInt(elitismSliderReflectionTF.getText()));
+        String elitismText=elitismSliderReflectionTF.getText();
+        if(!elitismText.isEmpty())
+            selectionData.setElitism(Integer.parseInt(elitismSliderReflectionTF.getText()));
+        else
+            selectionData.setElitism(0);
         if(selectionPercentCombo.getValue()!=null)
             selectionData.setPercent(selectionPercentCombo.getValue());
         if(selectionPTECombo.getValue()!=null)
