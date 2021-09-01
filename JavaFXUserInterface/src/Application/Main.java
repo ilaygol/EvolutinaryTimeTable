@@ -40,11 +40,11 @@ public class Main extends Application {
 
         controller.setFilePrinterController(filePrinterController);
 
-        Scene scene = new Scene(root, 1124, 713);
+        Scene scene = new Scene(root, 1000, 750);
         primaryStage.setTitle("Evolutionary Time Table");
         primaryStage.setScene(scene);
-        primaryStage.setMinWidth(1200);
-        primaryStage.setMinHeight(760);
+        primaryStage.setMinWidth(500);
+        primaryStage.setMinHeight(500);
 
         primaryStage.show();
     }

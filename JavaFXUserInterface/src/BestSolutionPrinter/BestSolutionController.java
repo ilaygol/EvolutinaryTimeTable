@@ -19,6 +19,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
@@ -196,6 +197,8 @@ public class BestSolutionController {
         gridPane.setGridLinesVisible(true);
         gridPane.setAlignment(Pos.CENTER);
         gridPane.getStyleClass().add("grid-pane");
+        gridPane.setMinWidth(Region.USE_COMPUTED_SIZE);
+        gridPane.setMinHeight(Region.USE_COMPUTED_SIZE);
 
         for(int h=0;h<m_MaxAmounts.getAmountOfHours()+1;h++)
         {

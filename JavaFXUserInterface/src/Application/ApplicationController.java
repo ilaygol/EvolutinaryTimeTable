@@ -39,7 +39,7 @@ public class ApplicationController {
     private Integer m_reqTimeInMinutes;
     private FilePrinterController m_FilePrinterController;
 
-    @FXML private BorderPane mainBorderPane;
+    @FXML private GridPane mainBorderPane;
     @FXML private ScrollPane dynamicPane;
     @FXML private ScrollPane dynamicRulesPane;
     @FXML private Label filePathLabel;
