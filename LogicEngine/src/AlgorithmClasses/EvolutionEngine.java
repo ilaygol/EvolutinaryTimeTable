@@ -175,6 +175,8 @@ public class EvolutionEngine {
                 i_ProgressDataConsumer.accept(progressTracker);
                 if(Thread.interrupted()) {
                     try {
+                        i_TimeTable.getRules().recheckBestSolution(i_EvolutionEngineData.getBestSolution(),i_TimeTable,i_EvolutionEngineData);
+                        i_EvolutionEngineData.updateRulesAverage();
                         this.wait();
                     } catch (InterruptedException e) {
                         System.out.println("Interrupted while waiting");

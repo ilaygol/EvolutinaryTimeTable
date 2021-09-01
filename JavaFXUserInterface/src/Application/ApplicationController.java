@@ -133,6 +133,7 @@ public class ApplicationController {
                 m_Engine.resumeAlgo();
                 isPaused = false;
             } else {
+
                 //checking values
                 resetProgressBars();
                 List<eStoppingCondition> stoppingConditions = createStoppingConditions();
