@@ -62,9 +62,8 @@ public class LogicEngineManager {
             m_Descriptor.getEvolutionEngine().setPrintingReq(i_PrintingReq);
             m_Descriptor.getEvolutionEngine().setReqFitness(i_ReqFitness);
             m_Descriptor.getEvolutionEngine().setReqMinutes(i_ReqTimeInMinutes);
-            //AmountOfObjectsCalc amountOfObjects =getAmountOfData();
-            m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),m_MaxAmountOfObjects,m_EvolutionEngineData,i_ProgressDataConsumer,i_StopConditions);
             m_IsAlgoActivated=true;
+            m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),m_MaxAmountOfObjects,m_EvolutionEngineData,i_ProgressDataConsumer,i_StopConditions);
         }
         else {
             throw new RuntimeException("ERROR: No file has been loaded, Please load a file before choosing this option.");
@@ -128,7 +127,7 @@ public class LogicEngineManager {
 
         AmountOfObjectsCalc maxValues=new AmountOfObjectsCalc(table.getDays(), table.getHours(),
                 table.getTeachers().getTeachersList().size(),
-                table.getSubjects().getSubjectsList().size(),
+                table.getClazzes().getClassesList().size(),
                 table.getSubjects().getSubjectsList().size(),
                 lessonInSolution);
 

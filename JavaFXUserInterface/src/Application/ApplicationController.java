@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationController {
@@ -76,15 +77,13 @@ public class ApplicationController {
     @FXML private ProgressBar timeProgress;
     @FXML private Slider elitismSlider;
 
-    private SimpleBooleanProperty isFileSelected;
-    private SimpleBooleanProperty isActivatedAlgo;
+    private Boolean isFileSelected=false;
+    private Boolean isActivatedAlgo=false;
     private Boolean isPaused=false;
     private Boolean stoppedByUser=false;
 
     public ApplicationController()
     {
-        isFileSelected=new SimpleBooleanProperty(false);
-        isActivatedAlgo=new SimpleBooleanProperty(false);
         m_ValuesChecker=new ValuesChecker();
     }
 
@@ -138,14 +137,35 @@ public class ApplicationController {
         new Thread(m_Task).start();
     }
     @FXML void onStartBtnClick(ActionEvent event) {
-        Boolean isCorrect=checkArgumentsBeforePlay();
-        if(isCorrect) {
-            updateDataPrinter();
-            m_Engine.updateAlgoData(m_UpdatedDataPrinter);
-            if (isPaused) {
+        if(isPaused) {
+            if (checkArgumentsBeforePlay()) {
+                updateDataPrinter();
+                m_Engine.updateAlgoData(m_UpdatedDataPrinter);
                 m_Engine.resumeAlgo();
                 isPaused = false;
-            } else {
+                clearDynamicPanes();
+                stoppedByUser = false;
+                disabilityManagementPlay();
+            }
+        }
+        else
+        {
+            if(isActivatedAlgo)
+            {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Dialog");
+                alert.setHeaderText("WARNING!");
+                alert.setContentText("Algorithm has been already activated."+System.lineSeparator()+
+                        "All data will be lost."+System.lineSeparator()+"Would you like to continue?");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() != ButtonType.OK){
+                    return;
+                }
+            }
+            if (checkArgumentsBeforePlay()) {
+                updateDataPrinter();
+                m_Engine.updateAlgoData(m_UpdatedDataPrinter);
                 //checking values
                 resetProgressBars();
                 List<eStoppingCondition> stoppingConditions = createStoppingConditions();
@@ -155,9 +175,10 @@ public class ApplicationController {
                 bindAlgoTaskToUIComponents(m_Task);
                 m_AlgoThread = new Thread(m_Task);
                 m_AlgoThread.start();
+                clearDynamicPanes();
+                stoppedByUser = false;
+                disabilityManagementPlay();
             }
-            stoppedByUser = false;
-            disabilityManagementPlay();
         }
     }
     @FXML void onPauseBtnClick(ActionEvent event) {
@@ -322,9 +343,9 @@ public class ApplicationController {
     public void bindFileTaskToUIComponents(File i_File,Task<Boolean> i_Task,Alert i_Alert) {
         i_Alert.contentTextProperty().bind(i_Task.messageProperty());
 
-        if(!isFileSelected.get()) {
+        if(!isFileSelected) {
             i_Task.valueProperty().addListener((observable, oldVal, newVal) ->{
-                isFileSelected.set(newVal);
+                isFileSelected=newVal;
             });
 
         }
@@ -338,12 +359,13 @@ public class ApplicationController {
                         m_ValuesChecker.checkCuttingPoints(cuttingPointsTF, m_Engine.getMaxLessons()));
                 fillComboBoxes();
                 disabilityManagementFileLoaded();
+                clearDynamicPanes();
             }
         }));
     }
     public void bindAlgoTaskToUIComponents(Task<Boolean> i_Task) {
         i_Task.valueProperty().addListener((observable, oldVal, newVal) ->{
-            isActivatedAlgo.set(newVal);
+            isActivatedAlgo=newVal;
             disabilityManagementStop();
         } );
         statusLineLabel.textProperty().bind(i_Task.titleProperty());
@@ -584,5 +606,12 @@ public class ApplicationController {
 
     public LogicEngineManager getEngine() {
         return m_Engine;
+    }
+
+    private void clearDynamicPanes()
+    {
+        dynamicPane.setContent(null);
+        dynamicRulesPane.setContent(null);
+        showValueCombo.getSelectionModel().clearSelection();
     }
 }

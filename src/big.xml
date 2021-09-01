@@ -132,7 +132,7 @@
 		</ETT-Rules>
 	</ETT-TimeTable>
 	<ETT-EvolutionEngine>
-		<ETT-InitialPopulation size="500"/>
+		<ETT-InitialPopulation size="200"/>
 		<ETT-Selection type="RouletteWheel">
 			<ETT-Elitism>20</ETT-Elitism>
 		</ETT-Selection>

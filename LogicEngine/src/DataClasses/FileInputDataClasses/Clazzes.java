@@ -57,6 +57,7 @@ public class Clazzes {
 
     public String getClassNameById(Integer i_ID)
     {
-        return m_ClassesList.stream().filter(clazz->clazz.getId().equals(i_ID)).findFirst().get().getFullName();
+        String name=m_ClassesList.stream().filter(clazz->clazz.getId().equals(i_ID)).findFirst().get().getFullName();
+        return name;
     }
 }
