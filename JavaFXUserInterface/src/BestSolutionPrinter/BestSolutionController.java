@@ -195,6 +195,7 @@ public class BestSolutionController {
         gridPane.setPadding(new Insets(10,10,10,10));
         gridPane.setGridLinesVisible(true);
         gridPane.setAlignment(Pos.CENTER);
+        gridPane.getStyleClass().add("grid-pane");
 
         for(int h=0;h<m_MaxAmounts.getAmountOfHours()+1;h++)
         {
