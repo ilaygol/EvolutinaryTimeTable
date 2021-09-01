@@ -25,6 +25,31 @@
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
+            <TitledPane expanded="false" text="Graphics">
+               <content>
+                  <GridPane hgap="20.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="NEVER" />
+                      <ColumnConstraints hgrow="NEVER" />
+                        <ColumnConstraints hgrow="NEVER" />
+                        <ColumnConstraints hgrow="NEVER" />
+                        <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Visuals:" />
+                        <ComboBox fx:id="visualsCombo" onAction="#onVisualsComboChanged" prefWidth="150.0" promptText="Style" GridPane.columnIndex="1" />
+                        <Label text="Animations:" GridPane.columnIndex="2" />
+                        <CheckBox fx:id="animationsCheck" mnemonicParsing="false" text="Enabled" GridPane.columnIndex="3" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </padding>
+                  </GridPane>
+               </content>
+            </TitledPane>
           <TitledPane animated="false" collapsible="false" text="Load File">
                <content>
                   <GridPane hgap="10.0">
@@ -47,31 +72,6 @@
                                  </image>
                               </ImageView>
                            </graphic></Button>
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-                     </padding>
-                  </GridPane>
-               </content>
-            </TitledPane>
-            <TitledPane expanded="false" text="Graphics">
-               <content>
-                  <GridPane hgap="20.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="NEVER" />
-                      <ColumnConstraints hgrow="NEVER" />
-                        <ColumnConstraints hgrow="NEVER" />
-                        <ColumnConstraints hgrow="NEVER" />
-                        <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Label text="Visuals:" />
-                        <ComboBox fx:id="visualsCombo" onAction="#onVisualsComboChanged" prefWidth="150.0" promptText="Style" GridPane.columnIndex="1" />
-                        <Label text="Animations:" GridPane.columnIndex="2" />
-                        <CheckBox fx:id="animationsCheck" mnemonicParsing="false" text="Enabled" GridPane.columnIndex="3" />
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />

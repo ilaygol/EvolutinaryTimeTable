@@ -22,6 +22,19 @@
     -fx-border-color: #b6b6b6;
 }
 
+.titled-pane
+{
+    -fx-text-fill: white;
+}
+
+.titled-pane > .title
+{
+    -fx-background-color: -fx-box-border, -fx-inner-border, #404040;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0;
+    -fx-padding: 0.166667em 0.833333em 0.25em 0.833333em; /* 2 10 3 10 */
+}
+
 .titled-pane > *.content
 {
     -fx-background-color:
@@ -29,15 +42,18 @@
             #121212;
     -fx-background-insets: 0, 0 1 1 1;
     -fx-padding: 0.167em;
+    -fx-background-image: url("/Application/Images/blackBack.jpg");
 }
 
 .scroll-pane > .viewport {
     -fx-background-color: #121212;
+    -fx-background-image: url("/Application/Images/blackBack.jpg");
 }
 
 .root
 {
     -fx-background-color: #121212;
+    -fx-background-image: url("/Application/Images/blackBack.jpg");
 }
 
 .grid-pane
