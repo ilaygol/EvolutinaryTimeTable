@@ -86,10 +86,10 @@ public class ValuesChecker {
         return isGood;
     }
 
-    public Boolean checkShowEvery(TextField i_ShowEvery)
+    public Boolean checkShowEvery(TextField i_ShowEvery,CheckBox i_GenCheck, TextField i_GenNum)
     {
         Boolean isGood=true;
-        if(checkIfTextFieldInteger(i_ShowEvery))
+        if(checkIfTextFieldInteger(i_ShowEvery)&&checkShowEveryBelowGenerations(i_ShowEvery,i_GenCheck,i_GenNum))
         {
             changeToGoodBorder(i_ShowEvery);
         }
@@ -99,6 +99,17 @@ public class ValuesChecker {
             isGood=false;
         }
 
+        return isGood;
+    }
+
+    private Boolean checkShowEveryBelowGenerations(TextField i_ShowEvery, CheckBox i_GenCheck, TextField i_GenNum)
+    {
+        Boolean isGood=true;
+        if(i_GenCheck.isSelected()&&checkNumOfGenerations(i_GenNum))
+        {
+            if(Integer.parseInt(i_ShowEvery.getText())>Integer.parseInt(i_GenNum.getText()))
+                isGood=false;
+        }
         return isGood;
     }
 
@@ -149,7 +160,7 @@ public class ValuesChecker {
             if (i_TimeCheck.isSelected() && !checkTime(i_TimeTF)) {
                 throw new RuntimeException("Wrong time stop condition argument!");
             }
-            if (!checkShowEvery(i_ShowEvery)) {
+            if (!checkShowEvery(i_ShowEvery,i_GenerationsCheck,i_GenerationsTF)) {
                 throw new RuntimeException("Wrong show every argument!");
             }
         }

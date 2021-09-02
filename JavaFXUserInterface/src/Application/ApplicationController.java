@@ -101,7 +101,7 @@ public class ApplicationController {
         tupplesTF.textProperty().addListener((a, b, c) ->
                 m_ValuesChecker.checkTupples(tupplesTF));
         showEveryTF.textProperty().addListener((observable, oldValue, newValue) ->
-                m_ValuesChecker.checkShowEvery(showEveryTF));
+                m_ValuesChecker.checkShowEvery(showEveryTF,generationsCheck,numOfGenTF));
         elitismSlider.valueProperty().addListener((observable, oldValue, newValue) ->elitismSliderReflectionTF.setText(String.valueOf(newValue.intValue())));
         mutationUpdateStatusLabel.setText("");
 
@@ -384,6 +384,8 @@ public class ApplicationController {
                 fillComboBoxes();
                 disabilityManagementFileLoaded();
                 clearDynamicPanes();
+                statusLineLabel.setText("[Status Line]");
+                updateLineLabel.setText("[Update Line]");
                 isActivatedAlgo=false;
             }
         }));
