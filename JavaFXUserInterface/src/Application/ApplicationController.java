@@ -356,6 +356,7 @@ public class ApplicationController {
             case "Dark Mode":
                 mainBorderPane.getStylesheets().clear();
                 mainBorderPane.getStylesheets().add("/Application/DarkModeCSS.css");
+                break;
             case "Yellow Mode":
                 mainBorderPane.getStylesheets().clear();
                 mainBorderPane.getStylesheets().add("/Application/YellowModeCSS.css");
