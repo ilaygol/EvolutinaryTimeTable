@@ -384,8 +384,6 @@ public class ApplicationController {
                 fillComboBoxes();
                 disabilityManagementFileLoaded();
                 clearDynamicPanes();
-                statusLineLabel.setText("[Status Line]");
-                updateLineLabel.setText("[Update Line]");
                 isActivatedAlgo=false;
             }
         }));
