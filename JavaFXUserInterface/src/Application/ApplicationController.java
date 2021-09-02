@@ -114,6 +114,7 @@ public class ApplicationController {
                 onVisualsComboChanged(new ActionEvent()));
         visualsCombo.getItems().add("Light Mode");
         visualsCombo.getItems().add("Dark Mode");
+        visualsCombo.getItems().add("Yellow Mode");
         visualsCombo.getSelectionModel().selectFirst();
 
         animationsCheck.setSelected(true);
@@ -355,6 +356,9 @@ public class ApplicationController {
             case "Dark Mode":
                 mainBorderPane.getStylesheets().clear();
                 mainBorderPane.getStylesheets().add("/Application/DarkModeCSS.css");
+            case "Yellow Mode":
+                mainBorderPane.getStylesheets().clear();
+                mainBorderPane.getStylesheets().add("/Application/YellowModeCSS.css");
                 break;
         }
     }
