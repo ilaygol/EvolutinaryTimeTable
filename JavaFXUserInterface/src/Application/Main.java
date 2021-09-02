@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -40,11 +41,11 @@ public class Main extends Application {
 
         controller.setFilePrinterController(filePrinterController);
 
-        Scene scene = new Scene(root, 1000, 750);
+        Scene scene = new Scene(root, Pane.USE_COMPUTED_SIZE, Pane.USE_COMPUTED_SIZE);
         primaryStage.setTitle("Evolutionary Time Table");
         primaryStage.setScene(scene);
-        primaryStage.setMinWidth(500);
-        primaryStage.setMinHeight(500);
+        primaryStage.setMinWidth(600);
+        primaryStage.setMinHeight(600);
 
         primaryStage.show();
     }
