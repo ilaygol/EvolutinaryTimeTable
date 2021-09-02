@@ -7,6 +7,7 @@ import DataTransferClasses.LessonData;
 import DataTransferClasses.RuleData;
 import RulesPrinter.RuleController;
 import RulesPrinter.RulesPrinter;
+import javafx.animation.FillTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
@@ -21,6 +22,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -71,12 +76,12 @@ public class BestSolutionController {
                 .thenComparing(LessonData::getTeacherID));
         for(LessonData lesson:m_BestSolutionData.getLessonsDataList())
         {
-            flowPane.getChildren().add(createNewLessonComponent(lesson));
+            flowPane.getChildren().add(createNewLessonComponent(lesson,m_AppController.isAnimated()));
         }
         m_DynamicRoot.setContent(flowPane);
         List<RuleData> rulesDataList = m_BestSolutionData.getRulesDataList();
         RulesPrinter rulesPrinter=new RulesPrinter(rulesDataList,m_RulesRoot);
-        rulesPrinter.showRules();
+        rulesPrinter.showRules(m_AppController.isAnimated());
     }
 
     public void printByTeacher()
@@ -114,7 +119,7 @@ public class BestSolutionController {
                 List<LessonData> dayHourLessons = lessonsOfClassList.stream().filter(
                         lesson -> lesson.getDay().equals(day) && lesson.getHour().equals(hour)).collect(Collectors.toList());
                 if(!dayHourLessons.isEmpty()) {
-                    StackPane newLessonComponent = createNewLessonComponent(dayHourLessons.get(0));
+                    StackPane newLessonComponent = createNewLessonComponent(dayHourLessons.get(0),m_AppController.isAnimated());
                     gridPane.add(newLessonComponent,day,hour);
                 }
             }
@@ -124,10 +129,10 @@ public class BestSolutionController {
         m_DynamicRoot.setContent(mainGridPane);
         List<RuleData> rulesDataList = m_BestSolutionData.getRulesDataList();
         RulesPrinter rulesPrinter=new RulesPrinter(rulesDataList,m_RulesRoot);
-        rulesPrinter.showRules();
+        rulesPrinter.showRules(m_AppController.isAnimated());
     }
 
-    private StackPane createNewLessonComponent(LessonData i_LessonData)
+    private StackPane createNewLessonComponent(LessonData i_LessonData, Boolean i_IsAnimated)
     {
         FXMLLoader fxmlLoader = new FXMLLoader();
         URL url = getClass().getResource("LessonComponent.fxml");
@@ -141,6 +146,8 @@ public class BestSolutionController {
             controller.setClassText(m_AppController.getEngine().getClassNameById(i_LessonData.getClassID()));
             controller.setTeacherText(m_AppController.getEngine().getTeacherNameById(i_LessonData.getTeacherID()));
             controller.setSubjectText(m_AppController.getEngine().getSubjectNameById(i_LessonData.getSubjectID()));
+            if(i_IsAnimated)
+                controller.startStrokeTransition();
             return root;
         } catch (IOException e) {
             e.printStackTrace();
@@ -175,7 +182,7 @@ public class BestSolutionController {
                 List<LessonData> dayHourLessons = lessonsOfTeacherList.stream().filter(
                         lesson -> lesson.getDay().equals(day) && lesson.getHour().equals(hour)).collect(Collectors.toList());
                 if(!dayHourLessons.isEmpty()) {
-                    StackPane newLessonComponent = createNewLessonComponent(dayHourLessons.get(0));
+                    StackPane newLessonComponent = createNewLessonComponent(dayHourLessons.get(0),m_AppController.isAnimated());
                     gridPane.add(newLessonComponent,day,hour);
                 }
             }
@@ -185,7 +192,7 @@ public class BestSolutionController {
         m_DynamicRoot.setContent(mainGridPane);
         List<RuleData> rulesDataList = m_BestSolutionData.getRulesDataList();
         RulesPrinter rulesPrinter=new RulesPrinter(rulesDataList,m_RulesRoot);
-        rulesPrinter.showRules();
+        rulesPrinter.showRules(m_AppController.isAnimated());
     }
 
     private GridPane initialGridPane()

@@ -1,10 +1,16 @@
 package RulesPrinter;
 
+import javafx.animation.StrokeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 public class RuleController {
+
+    @FXML private Rectangle shape;
 
     @FXML
     private Text ruleNameText;
@@ -36,5 +42,13 @@ public class RuleController {
     public void setRuleScoreLabel(String i_Text)
     {
         ruleScoreLabel.setText(i_Text);
+    }
+
+    public void startStrokeTransition()
+    {
+        StrokeTransition strokeTransition=new StrokeTransition(Duration.seconds(2),shape, Color.GREEN,Color.RED);
+        strokeTransition.setAutoReverse(true);
+        strokeTransition.setCycleCount(4);
+        strokeTransition.play();
     }
 }

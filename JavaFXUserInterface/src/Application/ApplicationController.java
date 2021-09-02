@@ -7,6 +7,8 @@ import Manager.LogicEngineManager;
 import Tasks.ActivateAlgoTask;
 import Tasks.LoadFileTask;
 import javafx.animation.FadeTransition;
+import javafx.animation.FillTransition;
+import javafx.animation.ScaleTransition;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -210,6 +212,7 @@ public class ApplicationController {
                     FadeTransition dynamicPaneFT = new FadeTransition(Duration.millis(2000), dynamicPane);
                     dynamicPaneFT.setFromValue(0.0);
                     dynamicPaneFT.setToValue(1.0);
+
                     FadeTransition dynamicRulesFT = new FadeTransition(Duration.millis(2000), dynamicRulesPane);
                     dynamicRulesFT.setFromValue(0.0);
                     dynamicRulesFT.setToValue(1.0);
@@ -634,5 +637,10 @@ public class ApplicationController {
         dynamicPane.setContent(null);
         dynamicRulesPane.setContent(null);
         showValueCombo.getSelectionModel().clearSelection();
+    }
+
+    public Boolean isAnimated()
+    {
+        return animationsCheck.isSelected();
     }
 }

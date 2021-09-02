@@ -23,7 +23,7 @@ public class RulesPrinter {
         m_Root=i_Root;
     }
 
-    public void showRules()
+    public void showRules(Boolean i_isAnimated)
     {
         VBox vbox=new VBox();
         vbox.setSpacing(10);
@@ -34,23 +34,24 @@ public class RulesPrinter {
             StackPane root = null;
             try {
                 root = fxmlLoader.load(url.openStream());
+                RuleController controller = (RuleController) fxmlLoader.getController();
+                controller.setRuleNameText(data.getName());
+                controller.setRuleTypeLabel(data.getType());
+                controller.setRuleScoreLabel(data.getGrade().toString());
+                if (data.getName().toUpperCase().equals("SEQUENTIALITY"))
+                {
+                    controller.setRuleParamLabel(data.getTotalHours().toString());
+                }
+                else
+                {
+                    controller.setRuleParamLabel("none");
+                }
+                if(i_isAnimated)
+                    controller.startStrokeTransition();
+                vbox.getChildren().add(root);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            RuleController controller = (RuleController) fxmlLoader.getController();
-            controller.setRuleNameText(data.getName());
-            controller.setRuleTypeLabel(data.getType());
-            controller.setRuleScoreLabel(data.getGrade().toString());
-            if (data.getName().toUpperCase().equals("SEQUENTIALITY"))
-            {
-                controller.setRuleParamLabel(data.getTotalHours().toString());
-            }
-            else
-            {
-                controller.setRuleParamLabel("none");
-            }
-
-            vbox.getChildren().add(root);
         }
         m_Root.setContent(vbox);
     }

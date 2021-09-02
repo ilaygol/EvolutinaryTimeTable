@@ -9,10 +9,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
-
 <StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RulesPrinter.RuleController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c4e2ff" height="160.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="160.0" />
+      <Rectangle fx:id="shape" arcHeight="5.0" arcWidth="5.0" fill="#c4e2ff" height="160.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" styleClass="rectangle" width="160.0" />
       <GridPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="160.0">
         <columnConstraints>
           <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
@@ -25,7 +24,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text fx:id="ruleNameText" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="[Rule Name]" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
+            <Text fx:id="ruleNameText" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" styleClass="label" text="[Rule Name]" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
             <Label text="Type:" GridPane.rowIndex="1" />
             <Label text="Param:" GridPane.rowIndex="2" />
             <Label text="Score:" GridPane.rowIndex="3" />

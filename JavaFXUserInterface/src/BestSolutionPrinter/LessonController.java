@@ -1,9 +1,16 @@
 package BestSolutionPrinter;
 
+import javafx.animation.StrokeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 public class LessonController {
+
+    @FXML
+    private Rectangle shape;
 
     @FXML
     private Label hourLabel;
@@ -38,5 +45,13 @@ public class LessonController {
 
     public void setSubjectText(String i_Text) {
         this.subjectLabel.setText(i_Text);
+    }
+
+    public void startStrokeTransition()
+    {
+        StrokeTransition strokeTransition=new StrokeTransition(Duration.seconds(2),shape, Color.GREEN,Color.RED);
+        strokeTransition.setAutoReverse(true);
+        strokeTransition.setCycleCount(4);
+        strokeTransition.play();
     }
 }
