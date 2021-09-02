@@ -54,23 +54,24 @@ public class FilePrinterController {
 
     private void printFileData(String i_PrintValue)
     {
-        switch (i_PrintValue)
-        {
-            case "Subjects":
-                showSubjectsData();
-                break;
-            case "Teachers":
-                showTeachersData();
-                break;
-            case "Classes":
-                showClassesData();
-                break;
-            case "Rules":
-                showRulesData();
-                break;
-            case "Algorithm Preferences":
-                showAlgorithmPreferencesData();
-                break;
+        if(i_PrintValue!=null) {
+            switch (i_PrintValue) {
+                case "Subjects":
+                    showSubjectsData();
+                    break;
+                case "Teachers":
+                    showTeachersData();
+                    break;
+                case "Classes":
+                    showClassesData();
+                    break;
+                case "Rules":
+                    showRulesData();
+                    break;
+                case "Algorithm Preferences":
+                    showAlgorithmPreferencesData();
+                    break;
+            }
         }
     }
 

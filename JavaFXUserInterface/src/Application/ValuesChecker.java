@@ -12,6 +12,16 @@ import java.util.List;
 
 public class ValuesChecker {
 
+    public Boolean checkAtLeastOneStopCondition(CheckBox i_GenerationsCheck, CheckBox i_FitnessCheck, CheckBox i_TimeCheck)
+    {
+        Boolean isGood=true;
+        if(!(i_GenerationsCheck.isSelected()||i_FitnessCheck.isSelected()||i_TimeCheck.isSelected()))
+        {
+            isGood=false;
+        }
+        return isGood;
+    }
+
     public Boolean checkNumOfGenerations(TextField i_NumOfGen)
     {
         Boolean isGood=true;
@@ -129,21 +139,23 @@ public class ValuesChecker {
     public void checkStopConditionsArguments(CheckBox i_GenerationsCheck, TextField i_GenerationsTF,CheckBox i_FitnessCheck, ComboBox i_FitnessCombo,
                                              CheckBox i_TimeCheck, TextField i_TimeTF,TextField i_ShowEvery)
     {
-        if(i_GenerationsCheck.isSelected()&&!checkNumOfGenerations(i_GenerationsTF))
-        {
-            throw new RuntimeException("Wrong generations stop condition argument!");
+        if(checkAtLeastOneStopCondition(i_GenerationsCheck,i_FitnessCheck,i_TimeCheck)) {
+            if (i_GenerationsCheck.isSelected() && !checkNumOfGenerations(i_GenerationsTF)) {
+                throw new RuntimeException("Wrong generations stop condition argument!");
+            }
+            if (i_FitnessCheck.isSelected() && i_FitnessCombo.getValue() == null) {
+                throw new RuntimeException("Empty fitness stop condition argument!");
+            }
+            if (i_TimeCheck.isSelected() && !checkTime(i_TimeTF)) {
+                throw new RuntimeException("Wrong time stop condition argument!");
+            }
+            if (!checkShowEvery(i_ShowEvery)) {
+                throw new RuntimeException("Wrong show every argument!");
+            }
         }
-        if(i_FitnessCheck.isSelected()&&i_FitnessCombo.getValue()==null)
+        else
         {
-            throw new RuntimeException("Empty fitness stop condition argument!");
-        }
-        if(i_TimeCheck.isSelected()&&!checkTime(i_TimeTF))
-        {
-            throw new RuntimeException("Wrong time stop condition argument!");
-        }
-        if(!checkShowEvery(i_ShowEvery))
-        {
-            throw new RuntimeException("Wrong show every argument!");
+            throw new RuntimeException("At least one stop condition should be selected!");
         }
     }
 
