@@ -79,6 +79,11 @@ public enum eSelection {
         int scanner=0;
         int index=0;
         int fitness=i_Generation.getSumOfFitness();
+        if(fitness==0) //in case all parents with fitness 0
+        {
+            index=i_Roller.nextInt(i_Generation.getGenerationSize());
+            return i_Generation.getParentByIndex(index);
+        }
         int rouletteWheelResult=i_Roller.nextInt(fitness);
         if(rouletteWheelResult==0)
             return i_Generation.getParentByIndex(0);
@@ -113,4 +118,5 @@ public enum eSelection {
         return retParent;
 
     }
+
 }
