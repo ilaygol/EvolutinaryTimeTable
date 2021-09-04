@@ -6,6 +6,7 @@ import DataClasses.AlgorithmData.Parent;
 import DataTransferClasses.CrossoverData;
 import ParsedClasses.ETTCrossover;
 
+import javax.naming.NameNotFoundException;
 import java.util.*;
 
 public class Crossover {
@@ -18,6 +19,20 @@ public class Crossover {
     private Random m_Roller;
 
 
+    public Crossover(String i_Name,String i_NumOfCuttingPoints,String i_Char)
+    {
+        this.setName(i_Name);
+        this.setNumOfCuttingPoints(i_NumOfCuttingPoints);
+        if(i_Name.toUpperCase().equals("ASPECTORIENTED")) {
+            this.setChar(i_Char);
+        }
+        else {
+            this.m_Char = ' ';
+        }
+        m_eType=eCrossover.valueOf(i_Name.toUpperCase());
+        m_Roller=new Random();
+
+    }
 
     public Crossover(ETTCrossover i_ETTCrossover)
     {
@@ -60,7 +75,34 @@ public class Crossover {
         return m_Char;
     }
 
-    public void createNewGenerationFromGroupOfParents(Generation i_PrevGeneration,Generation i_NextGeneration, AmountOfObjectsCalc i_AmountOfObj){
+    public void setName(String i_Name) {
+        if(i_Name.toUpperCase().equals("DAYTIMEORIENTED") || i_Name.toUpperCase().equals("ASPECTORIENTED"))
+            this.m_Name = i_Name;
+        else
+            throw new RuntimeException("Error, Invalid crossover name.");
+    }
+
+    public void setNumOfCuttingPoints(String i_NumOfCuttingPoints) {
+        try {
+            Integer cuttingPoints=Integer.parseInt(i_NumOfCuttingPoints);
+            if(cuttingPoints>=1)
+                this.m_NumOfCuttingPoints=cuttingPoints;
+            else
+                throw new RuntimeException("Error: Cutting Points must be positive");
+        }catch(Exception e)
+        {
+            throw new RuntimeException("Error: Cutting points Must be an Integer.");
+        }
+    }
+
+    public void setChar(String i_Char) {
+        if(i_Char.toUpperCase().equals("CLASS")||i_Char.toUpperCase().equals("TEACHER"))
+            this.m_Char = i_Char.charAt(0);
+        else
+            throw new RuntimeException("Error: Invalid AspectOriented Character");
+    }
+
+    public void createNewGenerationFromGroupOfParents(Generation i_PrevGeneration, Generation i_NextGeneration, AmountOfObjectsCalc i_AmountOfObj){
         Integer generationSize=i_PrevGeneration.getGenerationSize();
         List<Integer> cuttingPoints = rollCuttingPoints(i_AmountOfObj.getMaxAmountOfLessons());////rolling the cutting points
         for (int i = 0; i < generationSize; i += 2) {
