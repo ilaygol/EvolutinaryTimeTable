@@ -70,6 +70,25 @@ public class LogicEngineManager {
         }
     }
 
+    public void ActivateAlgorithm(String i_ReqGenerations, String i_PrintingReq,String i_ReqFitness,String i_ReqTimeInMinutes, Consumer<ProgressData> i_ProgressDataConsumer,  Collection<eStoppingCondition> i_StopConditions) {
+        if(m_IsFileLoaded)
+        {
+            checkArguements(i_ReqGenerations,i_PrintingReq,i_ReqFitness,i_ReqTimeInMinutes);
+            m_EvolutionEngineData=new EvolutionEngineData();
+            m_Descriptor.getEvolutionEngine().setNumOfGenerations(Integer.parseInt(i_ReqGenerations));
+            m_Descriptor.getEvolutionEngine().setPrintingReq(Integer.parseInt(i_PrintingReq));
+            m_Descriptor.getEvolutionEngine().setReqFitness(Integer.parseInt(i_ReqFitness));
+            m_Descriptor.getEvolutionEngine().setReqMinutes(Integer.parseInt(i_ReqTimeInMinutes));
+            m_IsAlgoActivated=true;
+            m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),m_MaxAmountOfObjects,m_EvolutionEngineData,i_ProgressDataConsumer,i_StopConditions);
+        }
+        else {
+            throw new RuntimeException("ERROR: No file has been loaded, Please load a file before choosing this option.");
+        }
+    }
+
+
+
     public DataPrinter getFileData() {
         if(m_IsFileLoaded) {
             DataPrinter dataPrinter = new DataPrinter();
@@ -203,5 +222,39 @@ public class LogicEngineManager {
     public String getSubjectNameById(Integer i_ID)
     {
         return m_Descriptor.getTimeTable().getSubjects().getSubjectNameById(i_ID);
+    }
+
+    private void checkArguements(String i_reqGenerations, String i_printingReq, String i_reqFitness, String i_reqTimeInMinutes) {
+        try {
+            int reqGeneraions = Integer.parseInt(i_reqGenerations);
+            if(reqGeneraions<=0)
+                throw new RuntimeException("Error, Number of generations must be positive");
+        } catch (Exception e) {
+            throw new RuntimeException("Error, Generations to make must be a number.");
+        }
+        try {
+            int printingReq = Integer.parseInt(i_printingReq);
+            if(printingReq<=0)
+                throw new RuntimeException("Error, Show every must be a positive number.");
+            if(printingReq>Integer.parseInt(i_reqGenerations))
+                throw new RuntimeException("Error: Show every parameter cant be bigger than Generations number");
+        } catch (Exception e) {
+            throw new RuntimeException("Error, Show Every must be a number.");
+        }
+        try {
+            int reqFitness = Integer.parseInt(i_reqFitness);
+            if(reqFitness<0 || reqFitness>100)
+                throw new RuntimeException("Error: Req fitness must be between 1-100");
+        } catch (Exception e) {
+            throw new RuntimeException("Error, Req fitness must be a number.");
+        }
+        try {
+            int reqTime = Integer.parseInt(i_reqTimeInMinutes);
+            if(reqTime<=0)
+                throw new RuntimeException("Error, Req time must be a positive number.");
+        } catch (Exception e) {
+            throw new RuntimeException("Error, Req time must be an Integer.");
+        }
+
     }
 }

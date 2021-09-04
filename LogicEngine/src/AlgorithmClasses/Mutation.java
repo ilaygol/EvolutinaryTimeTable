@@ -18,6 +18,18 @@ public class Mutation {
     private eMutation m_eType;
     private Random m_Roller;
 
+    public Mutation(String i_Name,String i_Tupples,String i_Char,String i_Probability)
+    {
+        this.setName(i_Name);
+        this.setTupples(i_Tupples);
+        this.setProbability(i_Probability);
+        if(i_Name.toUpperCase().equals("FLIPPING"))
+            this.setChar(i_Char);
+        else
+            m_Char=' ';
+        m_eType=eMutation.valueOf(i_Name.toUpperCase());
+        m_Roller=new Random();
+    }
     public Mutation(ETTMutation i_ETTMutation)
     {
         m_Name=i_ETTMutation.getName();
@@ -61,16 +73,60 @@ public class Mutation {
         return m_Char;
     }
 
+    public void setName(String i_Name) {
+        if(i_Name.toUpperCase().equals("FLIPPING")|| i_Name.toUpperCase(Locale.ROOT).equals("SIZER"))
+            this.m_Name = i_Name;
+        else
+            throw new RuntimeException("Error: Invalid mutation name.");
+    }
+
     public void setTupples(Integer i_Tupples) {
         m_Tupples = i_Tupples;
     }
+    public void setTupples(String i_Tupples)
+    {
+        try
+        {
+            Integer tupples=Integer.parseInt(i_Tupples);
+            if(tupples>0)
+                m_Tupples=tupples;
+            else
+                throw new RuntimeException("Error, number of Tupples must be positive.");
 
+        }catch(Exception e)
+        {
+            throw new RuntimeException("Error: Tupples amount must be a number.");
+        }
+    }
     public void setChar(Character i_Char) {
         m_Char = i_Char;
+    }
+    public void setChar(String i_Char)
+    {
+        if(i_Char.toUpperCase().equals("CLASS")||i_Char.toUpperCase().equals("TEACHER")
+            ||i_Char.toUpperCase().equals("SUBJECT")||i_Char.toUpperCase().equals("DAY")||
+                i_Char.toUpperCase().equals("HOUR"))
+            m_Char=i_Char.charAt(0);
+        else
+            throw new RuntimeException("Error: Invalid Mutation Component.");
     }
 
     public void setProbability(double i_Probability) {
         m_Probability = i_Probability;
+    }
+    public void setProbability(String i_Probability)
+    {
+        try
+        {
+            Double probability=Double.parseDouble(i_Probability);
+            if(probability>=0 && probability<=1)
+                m_Probability=probability;
+            else
+                throw new RuntimeException("Error, Mutation probability must be between 0-1.");
+        }catch(Exception e)
+        {
+            throw new RuntimeException("Error: Mutation probability must be a number between 0-1");
+        }
     }
 
     public void activateMutation(Generation i_Generation, AmountOfObjectsCalc i_AmountOfObj) {

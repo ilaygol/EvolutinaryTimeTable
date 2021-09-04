@@ -35,6 +35,8 @@ public class Selection {
                 this.setPTE(i_PTE);
                 break;
         }
+        m_eType=eSelection.valueOf(i_Type.toUpperCase());
+        m_Roller=new Random();
     }
 
     public Selection(ETTSelection i_ETTSelection) {

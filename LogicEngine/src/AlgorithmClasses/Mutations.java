@@ -73,4 +73,13 @@ public class Mutations {
         }
     }
 
+    public void createAndAddMutationToList(String i_Name,String i_Tupples,String i_Char,String i_Probability)
+    {
+        Mutation mutation=new Mutation(i_Name,i_Tupples,i_Char,i_Probability);
+        m_MutationsList.add(mutation);
+    }
+
+    public void addMutationToList(Mutation i_Mutation){m_MutationsList.add(i_Mutation);}
+
+
 }

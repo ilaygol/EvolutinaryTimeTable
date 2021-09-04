@@ -99,7 +99,7 @@ public class Crossover {
         if(i_Char.toUpperCase().equals("CLASS")||i_Char.toUpperCase().equals("TEACHER"))
             this.m_Char = i_Char.charAt(0);
         else
-            throw new RuntimeException("Error: Invalid AspectOriented Character");
+            throw new RuntimeException("Error: Invalid AspectOriented Component.");
     }
 
     public void createNewGenerationFromGroupOfParents(Generation i_PrevGeneration, Generation i_NextGeneration, AmountOfObjectsCalc i_AmountOfObj){
