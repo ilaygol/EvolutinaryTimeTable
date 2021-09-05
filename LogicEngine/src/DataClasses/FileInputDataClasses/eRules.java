@@ -263,14 +263,13 @@ public enum eRules {
         @Override
         public Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable, Integer i_TotalHours) {
             Integer retFitnessForRule=0;
-            Integer prefHours=10;//ill have to replace it at 3rd project
             Integer daysInWeek=i_TimeTable.getDays();
             Integer hoursInDay=i_TimeTable.getHours();
             List<Integer> teachersIDWithGoodTeachingHours=new ArrayList<>();
             List<Teacher> teachersList=i_TimeTable.getTeachers().getTeachersList();
             for(Teacher t:teachersList)
             {
-                //prefHours=t.getPrefHours();
+                Integer prefHours=t.getTeacherHours();
                 List<Lesson> teacherLessons=i_Parent.getLessonsList().stream().filter(lesson -> lesson.getTeacherID().equals(t.getId())).collect(Collectors.toList());
                 int lessonsCount=0;
                 for(int i=1;i<=daysInWeek;i++)

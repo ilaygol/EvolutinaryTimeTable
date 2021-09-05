@@ -8,14 +8,16 @@ import java.util.List;
 import java.util.Objects;
 
 public class Teacher {
-    private String m_FullName;
-    private List<Integer> m_SubjectsIDList;
     private final Integer m_Id;
+    private String m_FullName;
+    private Integer m_TeacherHours;
+    private List<Integer> m_SubjectsIDList;
 
     public Teacher(ETTTeacher i_ETTTeacher)
     {
         m_Id=i_ETTTeacher.getId();
         m_FullName=i_ETTTeacher.getETTName();
+        m_TeacherHours=i_ETTTeacher.getETTWorkingHours();
         m_SubjectsIDList=new ArrayList<>();
         List<ETTTeaches> ettSubjects = i_ETTTeacher.getETTTeaching().getETTTeaches();
         for(ETTTeaches subject:ettSubjects)
@@ -62,4 +64,6 @@ public class Teacher {
     public Integer getId() {
         return m_Id;
     }
+
+    public Integer getTeacherHours() { return m_TeacherHours; }
 }

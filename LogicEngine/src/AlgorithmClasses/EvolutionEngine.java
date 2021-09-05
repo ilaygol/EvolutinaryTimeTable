@@ -8,7 +8,6 @@ import DataClasses.FileInputDataClasses.TimeTable;
 import DataTransferClasses.EvolutionEngineData;
 import DataTransferClasses.MutationData;
 import DataTransferClasses.ProgressData;
-import ParsedClasses.ETTEvolutionEngine;
 import javafx.application.Platform;
 import sun.security.jca.GetInstance;
 
@@ -32,14 +31,14 @@ public class EvolutionEngine {
     private Generation m_Generation;
     private Boolean m_isStop;
 
-    public EvolutionEngine(ETTEvolutionEngine i_ETTEvolutionEngine)
-    {
-        m_InitialPopulationAmount =i_ETTEvolutionEngine.getETTInitialPopulation().getSize();
-        m_Selection=new Selection(i_ETTEvolutionEngine.getETTSelection());
-        m_Crossover=new Crossover(i_ETTEvolutionEngine.getETTCrossover());
-        m_Mutations=new Mutations(i_ETTEvolutionEngine.getETTMutations());
-        m_isStop=false;
-    }
+//    public EvolutionEngine(ETTEvolutionEngine i_ETTEvolutionEngine)
+//    {
+//        m_InitialPopulationAmount =i_ETTEvolutionEngine.getETTInitialPopulation().getSize();
+//        m_Selection=new Selection(i_ETTEvolutionEngine.getETTSelection());
+//        m_Crossover=new Crossover(i_ETTEvolutionEngine.getETTCrossover());
+//        m_Mutations=new Mutations(i_ETTEvolutionEngine.getETTMutations());
+//        m_isStop=false;
+//    }
 
     public Integer getInitialPopulation() {
         return m_InitialPopulationAmount;

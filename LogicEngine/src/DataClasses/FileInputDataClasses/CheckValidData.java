@@ -30,8 +30,10 @@ public class CheckValidData {
         checkTeacherSubjects();
         checkClassSubjects();
         checkLimitHours();
-        checkElitism();
+        checkTeacherTeachingHours();
     }
+
+
 
 
     //a method to check subjects id (if they appear in order and no Duplication)
@@ -154,13 +156,16 @@ public class CheckValidData {
 
     }
 
-    private void checkElitism() throws RuntimeException
-    {
-        if(m_Descriptor.getETTEvolutionEngine().getETTSelection().getETTElitism()!=null) {
-            Integer elitism = m_Descriptor.getETTEvolutionEngine().getETTSelection().getETTElitism();
-            Integer initialPopulation = m_Descriptor.getETTEvolutionEngine().getETTInitialPopulation().getSize();
-            if (elitism >= initialPopulation)
-                throw new RuntimeException("Error: Elitism cant be bigger than the initial population");
+
+    private void checkTeacherTeachingHours() {
+        int dayInWeek=m_Descriptor.getETTTimeTable().getDays();
+        int hoursInDay=m_Descriptor.getETTTimeTable().getHours();
+        int totalWorkingHoursAvailable=dayInWeek*hoursInDay;
+        List<ETTTeacher> teachersListInFile=m_Descriptor.getETTTimeTable().getETTTeachers().getETTTeacher();
+        for(ETTTeacher t:teachersListInFile)
+        {
+            if(t.getETTWorkingHours()>totalWorkingHoursAvailable)
+                throw new RuntimeException("Error: The teacher "+t.getETTName()+" working hours are more than available");
         }
     }
 

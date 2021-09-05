@@ -1,7 +1,6 @@
 package Manager;
 
 import AlgorithmClasses.*;
-import Application.ApplicationController;
 import DataClasses.FileInputDataClasses.*;
 import DataClasses.AlgorithmData.*;
 import DataTransferClasses.*;

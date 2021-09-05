@@ -4,7 +4,6 @@ package AlgorithmClasses;
 import DataClasses.AlgorithmData.AmountOfObjectsCalc;
 import DataClasses.AlgorithmData.Generation;
 import DataTransferClasses.MutationData;
-import ParsedClasses.ETTMutation;
 
 import java.util.*;
 
@@ -30,15 +29,16 @@ public class Mutation {
         m_eType=eMutation.valueOf(i_Name.toUpperCase());
         m_Roller=new Random();
     }
-    public Mutation(ETTMutation i_ETTMutation)
-    {
-        m_Name=i_ETTMutation.getName();
-        m_Configuration=i_ETTMutation.getConfiguration();
-        extractConfiguration();
-        m_Probability=i_ETTMutation.getProbability();
-        m_eType=eMutation.valueOf(m_Name.toUpperCase());
-        m_Roller=new Random();
-    }
+
+//    public Mutation(ETTMutation i_ETTMutation)
+//    {
+//        m_Name=i_ETTMutation.getName();
+//        m_Configuration=i_ETTMutation.getConfiguration();
+//        extractConfiguration();
+//        m_Probability=i_ETTMutation.getProbability();
+//        m_eType=eMutation.valueOf(m_Name.toUpperCase());
+//        m_Roller=new Random();
+//    }
 
     public Mutation(MutationData i_MutationData)
     {

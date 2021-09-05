@@ -4,7 +4,6 @@ package AlgorithmClasses;
 import DataClasses.AlgorithmData.AmountOfObjectsCalc;
 import DataClasses.AlgorithmData.Generation;
 import DataTransferClasses.SelectionData;
-import ParsedClasses.ETTSelection;
 
 import java.util.*;
 
@@ -39,19 +38,19 @@ public class Selection {
         m_Roller=new Random();
     }
 
-    public Selection(ETTSelection i_ETTSelection) {
-        m_Type = i_ETTSelection.getType();
-        m_Configuration = i_ETTSelection.getConfiguration();
-        extractConfiguration();
-        if (i_ETTSelection.getETTElitism() != null) {
-            m_Elitism = i_ETTSelection.getETTElitism();
-        } else {
-            m_Elitism = 0;
-        }
-
-        m_eType = eSelection.valueOf(m_Type.toUpperCase());
-        m_Roller = new Random();
-    }
+//    public Selection(ETTSelection i_ETTSelection) {
+//        m_Type = i_ETTSelection.getType();
+//        m_Configuration = i_ETTSelection.getConfiguration();
+//        extractConfiguration();
+//        if (i_ETTSelection.getETTElitism() != null) {
+//            m_Elitism = i_ETTSelection.getETTElitism();
+//        } else {
+//            m_Elitism = 0;
+//        }
+//
+//        m_eType = eSelection.valueOf(m_Type.toUpperCase());
+//        m_Roller = new Random();
+//    }
 
     public Selection(SelectionData i_SelectionData) {
         m_Type = i_SelectionData.getType();

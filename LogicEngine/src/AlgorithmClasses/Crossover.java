@@ -4,7 +4,6 @@ import DataClasses.AlgorithmData.AmountOfObjectsCalc;
 import DataClasses.AlgorithmData.Generation;
 import DataClasses.AlgorithmData.Parent;
 import DataTransferClasses.CrossoverData;
-import ParsedClasses.ETTCrossover;
 
 import javax.naming.NameNotFoundException;
 import java.util.*;
@@ -34,15 +33,15 @@ public class Crossover {
 
     }
 
-    public Crossover(ETTCrossover i_ETTCrossover)
-    {
-        m_Name=i_ETTCrossover.getName();
-        m_NumOfCuttingPoints =i_ETTCrossover.getCuttingPoints();
-        m_Configuration=i_ETTCrossover.getConfiguration();
-        m_eType =eCrossover.valueOf(m_Name.toUpperCase());
-        m_Roller=new Random();
-        extractConfiguration();
-    }
+//    public Crossover(ETTCrossover i_ETTCrossover)
+//    {
+//        m_Name=i_ETTCrossover.getName();
+//        m_NumOfCuttingPoints =i_ETTCrossover.getCuttingPoints();
+//        m_Configuration=i_ETTCrossover.getConfiguration();
+//        m_eType =eCrossover.valueOf(m_Name.toUpperCase());
+//        m_Roller=new Random();
+//        extractConfiguration();
+//    }
 
     public Crossover(CrossoverData i_CrossoverData)
     {
