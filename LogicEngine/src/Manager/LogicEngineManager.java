@@ -226,18 +226,22 @@ public class LogicEngineManager {
 
     private void checkArguements(String i_reqGenerations, String i_printingReq, String i_reqFitness, String i_reqTimeInMinutes) {
         try {
-            int reqGeneraions = Integer.parseInt(i_reqGenerations);
-            if(reqGeneraions<=0)
-                throw new RuntimeException("Error, Number of generations must be positive");
+            if(i_reqGenerations!=null) {
+                int reqGeneraions = Integer.parseInt(i_reqGenerations);
+                if (reqGeneraions <= 0)
+                    throw new RuntimeException("Error, Number of generations must be positive");
+            }
         } catch (Exception e) {
             throw new RuntimeException("Error, Generations to make must be a number.");
         }
         try {
-            int printingReq = Integer.parseInt(i_printingReq);
-            if(printingReq<=0)
-                throw new RuntimeException("Error, Show every must be a positive number.");
-            if(printingReq>Integer.parseInt(i_reqGenerations))
-                throw new RuntimeException("Error: Show every parameter cant be bigger than Generations number");
+            if (i_printingReq != null) {
+                int printingReq = Integer.parseInt(i_printingReq);
+                if (printingReq <= 0)
+                    throw new RuntimeException("Error, Show every must be a positive number.");
+                if (printingReq > Integer.parseInt(i_reqGenerations))
+                    throw new RuntimeException("Error: Show every parameter cant be bigger than Generations number");
+            }
         } catch (Exception e) {
             throw new RuntimeException("Error, Show Every must be a number.");
         }
@@ -249,9 +253,11 @@ public class LogicEngineManager {
             throw new RuntimeException("Error, Req fitness must be a number.");
         }
         try {
-            int reqTime = Integer.parseInt(i_reqTimeInMinutes);
-            if(reqTime<=0)
-                throw new RuntimeException("Error, Req time must be a positive number.");
+            if(i_reqFitness!=null) {
+                int reqTime = Integer.parseInt(i_reqTimeInMinutes);
+                if (reqTime <= 0)
+                    throw new RuntimeException("Error, Req time must be a positive number.");
+            }
         } catch (Exception e) {
             throw new RuntimeException("Error, Req time must be an Integer.");
         }
