@@ -12,7 +12,6 @@ public class Crossover {
 
     private String m_Name;
     private Integer m_NumOfCuttingPoints;
-    private String m_Configuration;
     private Character m_Char;
     private eCrossover m_eType;
     private Random m_Roller;
@@ -33,21 +32,11 @@ public class Crossover {
 
     }
 
-//    public Crossover(ETTCrossover i_ETTCrossover)
-//    {
-//        m_Name=i_ETTCrossover.getName();
-//        m_NumOfCuttingPoints =i_ETTCrossover.getCuttingPoints();
-//        m_Configuration=i_ETTCrossover.getConfiguration();
-//        m_eType =eCrossover.valueOf(m_Name.toUpperCase());
-//        m_Roller=new Random();
-//        extractConfiguration();
-//    }
 
     public Crossover(CrossoverData i_CrossoverData)
     {
         m_Name=i_CrossoverData.getName();
         m_NumOfCuttingPoints=i_CrossoverData.getNumOfCuttingPoints();
-        m_Configuration="";
         m_Char=i_CrossoverData.getAspect();
         m_eType=eCrossover.valueOf(m_Name.toUpperCase());
         m_Roller=new Random();
@@ -134,19 +123,4 @@ public class Crossover {
         return retList;
     }
 
-    private void extractConfiguration() {
-        if(m_Configuration!=null) {
-            int configurationSize = m_Configuration.length();
-            char[] chars = m_Configuration.toCharArray();
-            int count = 0;
-            while (chars[count] != '=')
-                count++;
-            count++;
-            m_Char = chars[count];
-        }
-        else//day time oriented, it has no char
-        {
-            m_Char=' ';
-        }
-    }
 }

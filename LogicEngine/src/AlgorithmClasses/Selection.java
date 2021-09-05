@@ -10,7 +10,6 @@ import java.util.*;
 public class Selection {
 
     private String m_Type;
-    private String m_Configuration;
     private Integer m_Percent;
     private Double m_PTE;
     private Integer m_Elitism;
@@ -54,7 +53,6 @@ public class Selection {
 
     public Selection(SelectionData i_SelectionData) {
         m_Type = i_SelectionData.getType();
-        m_Configuration = "";
         m_Percent = i_SelectionData.getPercent();
         m_PTE = i_SelectionData.getPTE();
         m_Elitism = i_SelectionData.getElitism();
@@ -67,9 +65,6 @@ public class Selection {
         return m_Type;
     }
 
-    public String getConfiguration() {
-        return m_Configuration;
-    }
 
     public SelectionData getSelectionData() {
         return new SelectionData(this);
@@ -147,22 +142,4 @@ public class Selection {
         return nextGeneration;
     }
 
-
-    public void extractConfiguration() {
-        if (m_Configuration != null) {
-            Scanner in = new Scanner(m_Configuration.toString()).useDelimiter("[^0-9]+");
-            if (m_Type.toUpperCase().equals("TOURNAMENT")) {
-                m_PTE = in.nextDouble();
-                ;
-                m_Percent = 0;
-            } else if (m_Type.toUpperCase().equals("TRUNCATION")) {
-                m_Percent = in.nextInt();
-                m_PTE = (double) 0;
-            }
-            in.close();
-        } else {
-            m_PTE = (double) 0;
-            m_Percent = 0;
-        }
-    }
 }

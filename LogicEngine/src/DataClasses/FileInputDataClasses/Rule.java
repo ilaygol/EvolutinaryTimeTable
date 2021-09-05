@@ -12,24 +12,14 @@ public class Rule {
 
     private eRules m_eRule;
     private eType m_Type;
-    private String m_Configuration;
     private Integer m_TotalHours;
 
     public Rule(ETTRule i_ETTRule)
     {
         m_eRule=eRules.valueOf(i_ETTRule.getETTRuleId().toUpperCase());
         m_Type=eType.valueOf(i_ETTRule.getType().toUpperCase());
-        m_Configuration=i_ETTRule.getETTConfiguration();
-        extractConfiguration();
-    }
-
-    @Override
-    public String toString() {
-        return "Rule{" +
-                "m_Id=" + m_eRule.toString() +
-                ", m_Type=" + m_Type +
-                ", m_Configuration=" + m_Configuration +
-                '}';
+        String configuration=i_ETTRule.getETTConfiguration();
+        extractConfiguration(configuration);
     }
 
     @Override
@@ -57,14 +47,10 @@ public class Rule {
         return m_TotalHours;
     }
 
-    public String getConfiguration() {
-        return m_Configuration;
-    }
-
-    public void extractConfiguration()
+    public void extractConfiguration(String i_Configuration)
     {
-        if(m_Configuration!=null) {
-            Scanner in = new Scanner(m_Configuration.toString()).useDelimiter("[^0-9]+");
+        if(i_Configuration!=null) {
+            Scanner in = new Scanner(i_Configuration.toString()).useDelimiter("[^0-9]+");
             m_TotalHours = in.nextInt();
             in.close();
         }

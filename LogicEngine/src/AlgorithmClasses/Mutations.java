@@ -15,16 +15,6 @@ public class Mutations {
     private List<Mutation> m_MutationsList;
     private Random m_Roller;
 
-//    public Mutations(ETTMutations i_ETTMutations)
-//    {
-//        m_MutationsList=new ArrayList<>();
-//        List<ETTMutation> ettMutations = i_ETTMutations.getETTMutation();
-//        for(ETTMutation mutation:ettMutations)
-//        {
-//            m_MutationsList.add(new Mutation(mutation));
-//        }
-//        m_Roller=new Random();
-//    }
 
     public Mutations(List<MutationData> i_MutationDataList)
     {
