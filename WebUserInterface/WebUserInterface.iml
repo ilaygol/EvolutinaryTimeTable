@@ -19,5 +19,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.70" level="application_server_libraries" />
+    <orderEntry type="module" module-name="LogicEngine" />
   </component>
 </module>
