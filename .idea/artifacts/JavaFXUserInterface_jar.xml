@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="JavaFXUserInterface:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/JavaFXUserInterface_jar</output-path>
-    <root id="archive" name="JavaFXUserInterface.jar">
-      <element id="module-output" name="JavaFXUserInterface" />
-      <element id="module-output" name="LogicEngine" />
-    </root>
-  </artifact>
-</component>

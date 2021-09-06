@@ -31,7 +31,6 @@ public class EvolutionEngine {
     private Generation m_Generation;
     private Boolean m_isStop;
 
-
     public Integer getInitialPopulation() {
         return m_InitialPopulationAmount;
     }
