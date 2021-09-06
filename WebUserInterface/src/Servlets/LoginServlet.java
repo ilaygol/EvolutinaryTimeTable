@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class UserManagementServlet extends HttpServlet{
+public class LoginServlet extends HttpServlet{
 
     private void processRequest(HttpServletRequest i_Request,HttpServletResponse i_Response) throws IOException, ServletException {
         i_Response.setContentType("text/html;charset=UTF-8");
