@@ -1,23 +1,22 @@
 package Utils;
 
+import Constants.Constants;
 import Users.UserManager;
 
 import javax.servlet.ServletContext;
 
 public class ServletUtils {
-    private static final String USER_MANAGER_ATTRIBUTE_NAME = "userManager";
+     static final Object m_UserManagerLock=new Object();
 
-    private static final Object m_UserManagerLock=new Object();
 
     public static UserManager getUserManager(ServletContext i_ServletContext)
     {
         synchronized (m_UserManagerLock) {
-            if (i_ServletContext.getAttribute(USER_MANAGER_ATTRIBUTE_NAME) == null) {
-                UserManager userManager=new UserManager();
-                i_ServletContext.setAttribute(USER_MANAGER_ATTRIBUTE_NAME,userManager);
+            if (i_ServletContext.getAttribute(Constants.USER_MANAGER) == null) {
+                i_ServletContext.setAttribute(Constants.USER_MANAGER,new UserManager());
             }
         }
-        return (UserManager) i_ServletContext.getAttribute(USER_MANAGER_ATTRIBUTE_NAME);
+        return (UserManager) i_ServletContext.getAttribute(Constants.USER_MANAGER);
 
     }
 }

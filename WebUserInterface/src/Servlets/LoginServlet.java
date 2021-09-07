@@ -1,4 +1,5 @@
 package Servlets;
+import Constants.Constants;
 import Users.UserManager;
 import Utils.ServletUtils;
 import Utils.SessionUtils;
@@ -21,7 +22,7 @@ public class LoginServlet extends HttpServlet{
         }
         else //new username
         {
-            String newBrowserUserName =i_Request.getParameter("username");
+            String newBrowserUserName =i_Request.getParameter(Constants.USERNAME);
             if(newBrowserUserName ==null || newBrowserUserName.isEmpty())//not legal text
                 i_Response.sendRedirect("pages/homepage.html");
             else {
@@ -31,13 +32,13 @@ public class LoginServlet extends HttpServlet{
                     if(!userManager.isUserExists(newBrowserUserName))
                     {
                         userManager.addUser(newBrowserUserName);
-                        i_Request.getSession(true).setAttribute("userName",newBrowserUserName);
+                        i_Request.getSession(true).setAttribute(Constants.USERNAME,newBrowserUserName);
                         i_Response.sendRedirect("pages/homepage.html");
                     }
                     else
                     {
                         String error="Error: Username "+newBrowserUserName+" already exist";
-                        i_Request.setAttribute("error",error);
+                        i_Request.setAttribute(Constants.USERNAME_ERROR,error);
                         getServletContext().getRequestDispatcher("/pages/login_error.jsp").forward(i_Request,i_Response);
                     }
                 }

@@ -10,6 +10,7 @@
 <html>
 
 <%@ page import="Utils.SessionUtils" %>
+<%@ page import="Constants.Constants" %>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Online Chat</title>
@@ -22,14 +23,14 @@
 <body>
 <div class="container">
     <% String usernameFromSession = SessionUtils.getUsername(request);%>
-    <% String usernameFromParameter = request.getParameter("username") != null ? request.getParameter("username") : "";%>
+    <% String usernameFromParameter = request.getParameter(Constants.USERNAME) != null ? request.getParameter(Constants.USERNAME) : "";%>
     <% if (usernameFromSession == null) {%>
     <h2>login</h2>
     <form action="login" method="get">
         <input name="username" type="text"/>
         <input type="submit" value="login"/>
     </form>
-    <% Object errorMessage = request.getAttribute("error");%>
+    <% Object errorMessage = request.getAttribute(Constants.USERNAME_ERROR);%>
     <% if (errorMessage != null) {%>
     <span class="bg-danger" style="color:red;"><%=errorMessage%></span>
     <% } %>
