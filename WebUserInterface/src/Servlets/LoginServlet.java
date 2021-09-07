@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+//url: LocalHost:8080/TimeTable/login
 public class LoginServlet extends HttpServlet{
 
     private void processRequest(HttpServletRequest i_Request,HttpServletResponse i_Response) throws IOException, ServletException {
@@ -24,7 +25,7 @@ public class LoginServlet extends HttpServlet{
         {
             String newBrowserUserName =i_Request.getParameter(Constants.USERNAME);
             if(newBrowserUserName ==null || newBrowserUserName.isEmpty())//not legal text
-                i_Response.sendRedirect("pages/homepage.html");
+                i_Response.sendRedirect("index.html");
             else {
                 newBrowserUserName = newBrowserUserName.trim();
                 synchronized (this)

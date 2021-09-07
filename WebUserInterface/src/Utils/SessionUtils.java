@@ -19,4 +19,10 @@ public class SessionUtils {
         return username;
 
     }
+
+    public static void removeSession(HttpServletRequest i_Request)
+    {
+        //invalidate is a function that remove session
+        i_Request.getSession().invalidate();
+    }
 }
