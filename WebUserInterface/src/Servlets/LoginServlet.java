@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet{
         String username= SessionUtils.getUsername(i_Request);
         if(username!=null) //old username
         {
-            i_Response.sendRedirect("pages/homepage.html");
+            i_Response.sendRedirect("homepage.html");
         }
         else //new username
         {
@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet{
                     {
                         userManager.addUser(newBrowserUserName);
                         i_Request.getSession(true).setAttribute(Constants.USERNAME,newBrowserUserName);
-                        i_Response.sendRedirect("pages/homepage.html");
+                        i_Response.sendRedirect("homepage.html");
                     }
                     else
                     {
