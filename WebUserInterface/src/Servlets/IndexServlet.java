@@ -1,27 +1,25 @@
 package Servlets;
 
-import Users.UserManager;
-import Utils.ServletUtils;
 import Utils.SessionUtils;
-
+import Constants.Constants;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//url: LocalHost:8080/TimeTable/logout
-public class LogoutServlet extends HttpServlet {
+//url: localHost:8080/TimeTable/index
+public class IndexServlet extends HttpServlet {
 
-    private void processRequest(HttpServletRequest i_Request, HttpServletResponse i_Response) throws IOException, ServletException {
-        UserManager userManager= ServletUtils.getUserManager(getServletContext());
-        String username= SessionUtils.getUsername(i_Request);
-        if(username!=null)
-        {
-            userManager.removeUser(username);
-            SessionUtils.removeSession(i_Request);
-            i_Response.sendRedirect(i_Request.getContextPath()+"/index.html");
+    private void processRequest(HttpServletRequest i_request, HttpServletResponse i_response) throws IOException, ServletException{
+        String username= SessionUtils.getUsername(i_request);
+        if(username==null){
+            i_response.getOutputStream().println(Constants.LOGIN_PAGE_PATH);
         }
+        else{
+            i_response.getOutputStream().println(Constants.HOME_PAGE_PATH);
+        }
+        i_response.setStatus(200);
     }
 
 

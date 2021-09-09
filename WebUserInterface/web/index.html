@@ -2,13 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>index</title>
+    <script src="resources/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function(){
+            $.ajax({
+                data: "",
+                url: "index",
+                timeout:4000,
+                success:function(response){
+                    window.location.replace(response);
+                },
+                error:function(response){
+                    console.log("Error with index servlet");
+                }
+            })
+        })
+    </script>
 </head>
 <body>
-<h2>login</h2>
-<form action="login" method="get">
-    <input name="username" type="text"/>
-    <input type="submit" value="login"/>
-</form>
+
 </body>
 </html>

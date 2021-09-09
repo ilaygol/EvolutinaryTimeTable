@@ -14,18 +14,22 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet{
 
     private void processRequest(HttpServletRequest i_Request,HttpServletResponse i_Response) throws IOException, ServletException {
-        i_Response.setContentType("text/html;charset=UTF-8");
+        i_Response.setContentType("text/plain;charset=UTF-8");
         UserManager userManager= ServletUtils.getUserManager(getServletContext());
         String username= SessionUtils.getUsername(i_Request);
         if(username!=null) //old username
         {
-            i_Response.sendRedirect("homepage.html");
+            i_Response.setStatus(200);
+            i_Response.getOutputStream().println(Constants.HOME_PAGE_PATH);
         }
         else //new username
         {
             String newBrowserUserName =i_Request.getParameter(Constants.USERNAME);
             if(newBrowserUserName ==null || newBrowserUserName.isEmpty())//not legal text
-                i_Response.sendRedirect("index.html");
+            {
+                i_Response.setStatus(401);
+                i_Response.getOutputStream().println("Error: Please enter username");
+            }
             else {
                 newBrowserUserName = newBrowserUserName.trim();
                 synchronized (this)
@@ -34,13 +38,14 @@ public class LoginServlet extends HttpServlet{
                     {
                         userManager.addUser(newBrowserUserName);
                         i_Request.getSession(true).setAttribute(Constants.USERNAME,newBrowserUserName);
-                        i_Response.sendRedirect("homepage.html");
+                        i_Response.setStatus(200);
+                        i_Response.getOutputStream().println(Constants.HOME_PAGE_PATH);
                     }
                     else
                     {
                         String error="Error: Username "+newBrowserUserName+" already exist";
-                        i_Request.setAttribute(Constants.USERNAME_ERROR,error);
-                        getServletContext().getRequestDispatcher("/pages/login_error.jsp").forward(i_Request,i_Response);
+                        i_Response.setStatus(401);
+                        i_Response.getOutputStream().println(error);
                     }
                 }
             }
