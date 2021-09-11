@@ -8,46 +8,39 @@
     <script src="loginpage.js"></script>
 
 </head>
-<body class="bg-gradient-primary">
+<body>
 
-<div class="container">
-    <!-- Outer Row -->
-    <div class="row justify-content-center">
+<section class="vh-100" style="background-image: url('../../images/bgImage.png');
+    background-size:cover;
+    opacity: .25;
+    position: absolute;
+    background-position:center;
+    top:0;bottom:0;left:0;right:0;">
+</section>
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-2-strong" style="border-radius: 1rem; opacity: 1;">
+                    <div class="card-body p-5 text-center">
 
-        <div class="col-xl-10 col-lg-12 col-md-9">
+                        <h3 class="mb-5">Welcome!</h3>
 
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Welcome!</h1>
-                                </div>
-                                <form id="loginForm" action="login" method="get">
-                                    <div class="form-floating mb-3">
-                                        <input name="username" type="text" class="form-control" id="floatingInput" placeholder="Enter User Name...">
-                                        <label for="floatingInput">User Name</label>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary mb-3">Login</button>
-                                    <div id="errormessage">
-
-                                    </div>
-                                </form>
-                            </div>
+                        <form id="loginForm" action="login" method="get">
+                        <div class="form-floating mb-5">
+                            <input name="username" type="text" class="form-control" id="floatingInput" placeholder="User Name">
+                            <label for="floatingInput">User Name</label>
                         </div>
+
+                        <button class="btn btn-primary btn-lg" type="submit">Login</button>
+                        </form>
+                        <div id="errormessage"></div>
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 
-</div>
-
-<script src="../../resources/bootstrap-5.1.1-dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+<script src="../../resources/bootstrap-5.1.1-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
