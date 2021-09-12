@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//LocalHost:8080/TimeTable/welcome
+//LocalHost:8080/TimeTable/pages/homepage/welcome
 public class WelcomeServlet extends HttpServlet {
     private void processRequest(HttpServletRequest i_Request, HttpServletResponse i_Response) throws IOException, ServletException {
         i_Response.setContentType("text/plain;charset=UTF-8");

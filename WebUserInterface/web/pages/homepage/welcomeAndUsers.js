@@ -12,3 +12,33 @@ $(function() {
     });
 });
 
+$(function() {
+    $.ajax({
+        url: "userList",
+        success: function (usersList) {
+            refreshUsersList(usersList);
+        }
+    });
+});
+
+$(function (){
+    setInterval(userListManager,2000);
+})
+
+
+function userListManager()
+{
+    $.ajax({
+        url:"userList",
+        success:function (usersList){
+            refreshUsersList(usersList)
+        }
+    })
+}
+
+function refreshUsersList(usersList){
+    $("#usersList").empty();
+    $.each(usersList || [],function (index,username){
+        $("<tr><td>"+username+"</td></tr>").appendTo($("#usersList"));
+    })
+}

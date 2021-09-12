@@ -18,9 +18,14 @@
         <servlet-class>Servlets.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>UsersListServlet</servlet-name>
+        <servlet-class>Servlets.UsersListServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>WelcomeServlet</servlet-name>
         <servlet-class>Servlets.WelcomeServlet</servlet-class>
     </servlet>
+
 
 
     <servlet-mapping>
@@ -34,6 +39,10 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/pages/homepage/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsersListServlet</servlet-name>
+        <url-pattern>/pages/homepage/userList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>WelcomeServlet</servlet-name>

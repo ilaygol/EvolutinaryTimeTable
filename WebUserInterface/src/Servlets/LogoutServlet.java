@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//url: LocalHost:8080/TimeTable/logout
+//url: LocalHost:8080/TimeTable/pages/homepage/logout
 public class LogoutServlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest i_Request, HttpServletResponse i_Response) throws IOException, ServletException {
