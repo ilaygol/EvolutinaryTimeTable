@@ -165,7 +165,7 @@ public class CheckValidData {
         for(ETTTeacher t:teachersListInFile)
         {
             if(t.getETTWorkingHours()>totalWorkingHoursAvailable)
-                throw new RuntimeException("Error: The teacher "+t.getETTName()+" working hours are more than available");
+                throw new RuntimeException("Error: The teacher "+t.getETTName()+" preferred working hours are more than available");
         }
     }
 

@@ -39,11 +39,12 @@ public class LoadFileServlet extends HttpServlet {
             } catch (JAXBException e) {
                 i_Response.setStatus(401);
                 i_Response.getOutputStream().println(e.getMessage());
-
+                break;
 
             } catch(RuntimeException e){
                 i_Response.setStatus(400);
                 i_Response.getOutputStream().println(e.getMessage());
+                break;
             }
 
         }
