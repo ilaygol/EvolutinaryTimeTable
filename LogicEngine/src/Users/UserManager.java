@@ -1,30 +1,39 @@
 package Users;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class UserManager {
-    private final Set<String> usersSet;
+    private  List<User> m_UsersList;
 
     public UserManager() {
-        usersSet = new HashSet<>();
+        m_UsersList = new ArrayList<>();
     }
 
-    public synchronized void addUser(String username) {
-        usersSet.add(username);
+    public synchronized Integer addUser(String i_Username) {
+        Integer retID=m_UsersList.size();
+        m_UsersList.add(new User(retID,i_Username ));
+        return retID;
     }
 
-    public synchronized void removeUser(String username) {
-        usersSet.remove(username);
+    public synchronized void removeUser(Integer i_ID) {
+        m_UsersList.remove(i_ID.intValue());
     }
 
-    public synchronized Set<String> getUsers() {
-        return Collections.unmodifiableSet(usersSet);
+    public synchronized List<User> getUsers() {
+        return Collections.unmodifiableList(m_UsersList);
     }
 
-    public boolean isUserExists(String username) {
-        return usersSet.contains(username);
+    public boolean isUserExists(String i_Username) {
+
+        if(m_UsersList.stream().filter(user->user.getUsername().equals(i_Username)).count()>0)
+            return true;
+        else
+            return false;
+    }
+
+    public String getUserNameByID(String i_ID){
+        Integer userID=Integer.parseInt(i_ID);
+        return m_UsersList.get(userID).getUsername();
     }
 
 }

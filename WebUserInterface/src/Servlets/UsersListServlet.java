@@ -1,5 +1,6 @@
 package Servlets;
 
+import Users.User;
 import Users.UserManager;
 import Utils.ServletUtils;
 import com.google.gson.Gson;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Set;
+import java.util.List;
 
 //LocalHost:8080/TimeTable/pages/homepage/userList
 public class UsersListServlet extends HttpServlet {
@@ -19,7 +20,7 @@ public class UsersListServlet extends HttpServlet {
         try(PrintWriter out=i_Response.getWriter()) {
             Gson gson = new Gson();
             UserManager userManager = ServletUtils.getUserManager(getServletContext());
-            Set<String> users = userManager.getUsers();
+            List<User> users = userManager.getUsers();
             String json = gson.toJson(users);
             out.println(json);
             out.flush();

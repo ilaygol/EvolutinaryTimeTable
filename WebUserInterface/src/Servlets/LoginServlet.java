@@ -16,13 +16,13 @@ public class LoginServlet extends HttpServlet{
     private void processRequest(HttpServletRequest i_Request,HttpServletResponse i_Response) throws IOException, ServletException {
         i_Response.setContentType("text/plain;charset=UTF-8");
         UserManager userManager= ServletUtils.getUserManager(getServletContext());
-        String username= SessionUtils.getUsername(i_Request);
-        if(username!=null) //old username
+        String userID= SessionUtils.getUserID(i_Request);
+        if(userID!=null) //old client
         {
             i_Response.setStatus(200);
             i_Response.getOutputStream().println(Constants.HOME_PAGE_PATH);
         }
-        else //new username
+        else //new client
         {
             String newBrowserUserName =i_Request.getParameter(Constants.USERNAME);
             if(newBrowserUserName ==null || newBrowserUserName.isEmpty())//not legal text
@@ -36,8 +36,8 @@ public class LoginServlet extends HttpServlet{
                 {
                     if(!userManager.isUserExists(newBrowserUserName))
                     {
-                        userManager.addUser(newBrowserUserName);
-                        i_Request.getSession(true).setAttribute(Constants.USERNAME,newBrowserUserName);
+                        Integer userId=userManager.addUser(newBrowserUserName);
+                        i_Request.getSession(true).setAttribute(Constants.USER_ID,userId);
                         i_Response.setStatus(200);
                         i_Response.getOutputStream().println(Constants.HOME_PAGE_PATH);
                     }

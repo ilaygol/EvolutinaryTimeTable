@@ -13,8 +13,8 @@ public class IndexServlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest i_request, HttpServletResponse i_Response) throws IOException, ServletException{
         i_Response.setContentType("text/plain;charset=UTF-8");
-        String username= SessionUtils.getUsername(i_request);
-        if(username==null){
+        String userID= SessionUtils.getUserID(i_request);
+        if(userID==null){
             i_Response.getOutputStream().println(Constants.LOGIN_PAGE_PATH);
         }
         else{

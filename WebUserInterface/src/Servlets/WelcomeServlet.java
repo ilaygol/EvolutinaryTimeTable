@@ -1,6 +1,8 @@
 package Servlets;
 
 import Constants.Constants;
+import Users.UserManager;
+import Utils.ServletUtils;
 import Utils.SessionUtils;
 
 import javax.servlet.ServletException;
@@ -13,10 +15,11 @@ import java.io.IOException;
 public class WelcomeServlet extends HttpServlet {
     private void processRequest(HttpServletRequest i_Request, HttpServletResponse i_Response) throws IOException, ServletException {
         i_Response.setContentType("text/plain;charset=UTF-8");
-        String username= SessionUtils.getUsername(i_Request);
-        if(username!=null)
+        String userID= SessionUtils.getUserID(i_Request);
+        UserManager userManager= ServletUtils.getUserManager(getServletContext());
+        if(userID!=null)
         {
-            i_Response.getOutputStream().println(username);
+            i_Response.getOutputStream().println(userManager.getUserNameByID(userID));
             i_Response.setStatus(200);
         }
         else

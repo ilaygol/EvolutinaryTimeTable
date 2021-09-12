@@ -4,6 +4,7 @@ public class Constants {
 
     public static final String USERNAME="username";
     public static final String USER_MANAGER="userManager";
+    public static final String USER_ID="userID";
 
 
     //PAGES PATH

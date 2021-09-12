@@ -7,7 +7,7 @@ $(function() {
             window.location.replace(loginURL);
             },
         success: function (clientName) {
-            $("h1","#welcomeTxt").text("Welcome "+clientName+"!");
+            $("h1","#welcomeTxt").text("Welcome "+clientName.trim()+"!");
         }
     });
 });
@@ -38,7 +38,8 @@ function userListManager()
 
 function refreshUsersList(usersList){
     $("#usersList").empty();
-    $.each(usersList || [],function (index,username){
-        $("<tr><td>"+username+"</td></tr>").appendTo($("#usersList"));
+    $.each(usersList || [],function (index,user){
+        $("<tr><td>"+user["m_Username"]+"</td></tr>").appendTo($("#usersList"));
     })
 }
+

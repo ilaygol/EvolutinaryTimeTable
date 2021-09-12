@@ -7,16 +7,16 @@ import javax.servlet.http.HttpSession;
 
 public class SessionUtils {
 
-    public static String getUsername(HttpServletRequest i_Request)
+    public static String getUserID(HttpServletRequest i_Request)
     {
-        String username=null;
+        String userID=null;
         HttpSession session=i_Request.getSession(false);
         if(session!=null) {
-            Object sessionAttribute=session.getAttribute(Constants.USERNAME);
+            Object sessionAttribute=session.getAttribute(Constants.USER_ID);
             if(sessionAttribute!=null)
-                username=sessionAttribute.toString();
+                userID=sessionAttribute.toString();
         }
-        return username;
+        return userID;
 
     }
 

@@ -15,10 +15,10 @@ public class LogoutServlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest i_Request, HttpServletResponse i_Response) throws IOException, ServletException {
         UserManager userManager= ServletUtils.getUserManager(getServletContext());
-        String username= SessionUtils.getUsername(i_Request);
-        if(username!=null)
+        String userID= SessionUtils.getUserID(i_Request);
+        if(userID!=null)
         {
-            userManager.removeUser(username);
+            userManager.removeUser(Integer.parseInt(userID));
             SessionUtils.removeSession(i_Request);
             i_Response.sendRedirect(i_Request.getContextPath()+"/index.html");
         }
