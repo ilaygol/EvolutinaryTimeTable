@@ -19,8 +19,8 @@ public class ActivateAlgoTask extends Task<Boolean> {
     private Integer m_ReqFitness;
     private Integer m_ReqTimeInMinutes;
 
-    public ActivateAlgoTask(Consumer<ProgressData> i_Consumer,Collection<eStoppingCondition> i_StoppingCondition,LogicEngineManager i_Engine
-            ,Integer i_ReqGeneration,Integer i_PrintingReq,Integer i_ReqFitness,Integer i_ReqTimeInMinutes)
+    public ActivateAlgoTask(Consumer<ProgressData> i_Consumer, Collection<eStoppingCondition> i_StoppingCondition, LogicEngineManager i_Engine
+            , Integer i_ReqGeneration, Integer i_PrintingReq, Integer i_ReqFitness, Integer i_ReqTimeInMinutes)
     {
         m_Consumer=i_Consumer;
         m_StoppingCondition=i_StoppingCondition;

@@ -1,14 +1,19 @@
 package Servlets;
 
+import Manager.LogicEngineManager;
+import Users.TimeTableHostManager;
+import Utils.ServletUtils;
+import Utils.SessionUtils;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Scanner;
 
@@ -20,13 +25,26 @@ public class LoadFileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest i_Request, HttpServletResponse i_Response)
             throws ServletException, IOException {
         i_Response.setContentType("text/html");
-        PrintWriter responseOut=i_Response.getWriter();
         Collection<Part> parts= i_Request.getParts();
-        StringBuilder fileContent = new StringBuilder();
         for(Part part:parts)
         {
             //converting the received file content(from client) into string
-            fileContent.append(readFromInputStream(part.getInputStream())).append("\n");
+            TimeTableHostManager hostManager= ServletUtils.getTimeTableInstances(getServletContext());
+            LogicEngineManager logicEngineManager=new LogicEngineManager();
+            try {
+                logicEngineManager.LoadFile(part.getInputStream());
+                hostManager.addInstance(SessionUtils.getUserID(i_Request),logicEngineManager);
+                i_Response.setStatus(200);
+                i_Response.getOutputStream().println("File was Loaded successfully!");
+            } catch (JAXBException e) {
+                i_Response.setStatus(401);
+                i_Response.getOutputStream().println(e.getMessage());
+
+
+            } catch(RuntimeException e){
+                i_Response.setStatus(400);
+                i_Response.getOutputStream().println(e.getMessage());
+            }
 
         }
 

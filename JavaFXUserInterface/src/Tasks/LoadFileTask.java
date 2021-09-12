@@ -1,6 +1,5 @@
 package Tasks;
 
-import Application.ArgumentsFiller;
 import Manager.LogicEngineManager;
 import javafx.concurrent.Task;
 import javafx.scene.control.Alert;
@@ -14,7 +13,7 @@ public  class LoadFileTask extends Task<Boolean> {
     private File m_File;
     private Alert m_Alert;
 
-    public LoadFileTask(LogicEngineManager i_Engine,File i_File,Alert i_Alert)
+    public LoadFileTask(LogicEngineManager i_Engine, File i_File, Alert i_Alert)
     {
         m_Engine=i_Engine;
         m_File=i_File;

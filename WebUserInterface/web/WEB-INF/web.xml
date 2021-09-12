@@ -42,7 +42,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoadFileServlet</servlet-name>
-        <url-pattern>/pages/loginpage/LoadFileServlet</url-pattern>
+        <url-pattern>/pages/homepage/loadfile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>

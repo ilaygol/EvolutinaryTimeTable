@@ -97,7 +97,7 @@ public class CheckValidData {
             for(ETTRule countedRule:rulesCountedAlready)
             {
                 if(ruleToCheck.getETTRuleId().equals(countedRule.getETTRuleId()))
-                    throw new RuntimeException(("Error: 2 Rules with the same id!"));
+                    throw new RuntimeException(("Error: 2 Rules with the name ["+ruleToCheck.getETTRuleId()+"]"));
             }
             rulesCountedAlready.add(ruleToCheck);
         }

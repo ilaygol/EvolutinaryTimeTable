@@ -12,6 +12,7 @@ import javax.xml.bind.SchemaOutputResolver;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -122,6 +123,24 @@ public class LogicEngineManager {
             JAXBContext jaxbContext = JAXBContext.newInstance("ParsedClasses");
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             ETTDescriptor ettDescriptor = (ETTDescriptor) jaxbUnmarshaller.unmarshal(i_File);
+            CheckValidData checker=new CheckValidData(ettDescriptor);
+            checker.checkFile();
+            m_Descriptor=new Descriptor(ettDescriptor);
+            m_MaxAmountOfObjects =getAmountOfData();
+            m_IsFileLoaded=true;
+            m_IsAlgoActivated=false;
+        }
+        catch (JAXBException e) {
+            throw new JAXBException("Error: an error with unmarshalling the file");
+        }
+    }
+
+    public void LoadFile(InputStream i_InputStream) throws  JAXBException {
+        try {
+
+            JAXBContext jaxbContext = JAXBContext.newInstance("ParsedClasses");
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            ETTDescriptor ettDescriptor = (ETTDescriptor) jaxbUnmarshaller.unmarshal(i_InputStream);
             CheckValidData checker=new CheckValidData(ettDescriptor);
             checker.checkFile();
             m_Descriptor=new Descriptor(ettDescriptor);
