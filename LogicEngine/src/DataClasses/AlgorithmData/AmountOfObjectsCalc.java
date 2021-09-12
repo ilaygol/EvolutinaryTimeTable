@@ -6,10 +6,15 @@ public class AmountOfObjectsCalc {
     private Integer m_AmountOfTeachers;
     private Integer m_AmountOfClasses;
     private Integer m_AmountOfSubjects;
+    private Integer m_HardRolesCount;
+    private Integer m_SoftRolesCount;
     private Integer m_LessonsInSolution;
+
+
 
     public AmountOfObjectsCalc(Integer i_AmountOfDays, Integer i_AmountOfHours, Integer i_AmountOfTeachers,
                                Integer i_AmountOfClasses, Integer i_AmountOfSubjects,
+                               Integer i_HardRolesCount,Integer i_SoftRolesCount,
                                Integer i_LessonsInSolution)
     {
         m_AmountOfDays = i_AmountOfDays;
@@ -17,6 +22,8 @@ public class AmountOfObjectsCalc {
         m_AmountOfTeachers= i_AmountOfTeachers;
         m_AmountOfSubjects= i_AmountOfSubjects;
         m_AmountOfClasses= i_AmountOfClasses;
+        m_HardRolesCount=i_HardRolesCount;
+        m_SoftRolesCount=i_SoftRolesCount;
         m_LessonsInSolution=i_LessonsInSolution;
     }
 

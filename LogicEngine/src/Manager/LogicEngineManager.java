@@ -25,6 +25,7 @@ public class LogicEngineManager {
     private boolean m_IsFileLoaded=false;
     private boolean m_IsAlgoActivated=false;
 
+
     public Map<Integer,Integer> PrintAlgorithmProcess() {
         if(m_IsFileLoaded) {
             if(m_IsAlgoActivated) {
@@ -135,20 +136,30 @@ public class LogicEngineManager {
 
     public AmountOfObjectsCalc getAmountOfData() {
         TimeTable table= m_Descriptor.getTimeTable();
-        Integer lessonInSolution=0;
+        Integer lessonInSolution=0,hardRolesCount=0,softRolesCount=0;
         List<Clazz> classesList = table.getClazzes().getClassesList();
         for(Clazz c:classesList)
         {
             int sum=c.getRequirements().getStudyList().stream().mapToInt(study-> study.getHours()).sum();
             lessonInSolution+=sum;
         }
+        List<Rule> rulesList=table.getRules().getRulesList();
+        for(Rule rule:rulesList)
+        {
+            if(rule.getType().equals(Rule.eType.HARD)) {
+                hardRolesCount++;
+            }
+            else {
+                softRolesCount++;
+            }
+        }
 
         AmountOfObjectsCalc maxValues=new AmountOfObjectsCalc(table.getDays(), table.getHours(),
                 table.getTeachers().getTeachersList().size(),
                 table.getClazzes().getClassesList().size(),
                 table.getSubjects().getSubjectsList().size(),
+                hardRolesCount,softRolesCount,
                 lessonInSolution);
-
         return maxValues;
     }
 
