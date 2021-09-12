@@ -25,7 +25,8 @@ public class LoadFileServlet extends HttpServlet {
         StringBuilder fileContent = new StringBuilder();
         for(Part part:parts)
         {
-            fileContent.append(readFromInputStream(part.getInputStream())).append("\n"); //converting the file content into string
+            //converting the received file content(from client) into string
+            fileContent.append(readFromInputStream(part.getInputStream())).append("\n");
 
         }
 
