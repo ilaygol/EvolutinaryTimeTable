@@ -6,6 +6,7 @@ $(function() {
             url: this.action,
             timeout: 2000,
             error: function (errorObject) {
+                $("#errormessage").empty();
                 $("#errormessage").append(errorObject.responseText);
             },
             success: function (nextDirection) {
