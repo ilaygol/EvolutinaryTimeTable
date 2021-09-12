@@ -1,5 +1,4 @@
 
-
 $(function() {
     $("#loginForm").submit(function () {
         $.ajax({

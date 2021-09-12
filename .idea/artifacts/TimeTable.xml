@@ -7,6 +7,10 @@
           <element id="module-output" name="WebUserInterface" />
           <element id="module-output" name="LogicEngine" />
         </element>
+        <element id="directory" name="lib">
+          <element id="artifact" artifact-name="gson-2.8.2.jar" />
+          <element id="artifact" artifact-name="LogicEngine:jar" />
+        </element>
       </element>
       <element id="javaee-facet-resources" facet="WebUserInterface/web/Web" />
     </root>

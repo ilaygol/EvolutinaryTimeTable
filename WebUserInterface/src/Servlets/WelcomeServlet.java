@@ -1,26 +1,29 @@
 package Servlets;
 
-import Utils.SessionUtils;
 import Constants.Constants;
+import Utils.SessionUtils;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//url: localHost:8080/TimeTable/index
-public class IndexServlet extends HttpServlet {
-
-    private void processRequest(HttpServletRequest i_request, HttpServletResponse i_Response) throws IOException, ServletException{
+//LocalHost:8080/TimeTable/welcome
+public class WelcomeServlet extends HttpServlet {
+    private void processRequest(HttpServletRequest i_Request, HttpServletResponse i_Response) throws IOException, ServletException {
         i_Response.setContentType("text/plain;charset=UTF-8");
-        String username= SessionUtils.getUsername(i_request);
-        if(username==null){
+        String username= SessionUtils.getUsername(i_Request);
+        if(username!=null)
+        {
+            i_Response.getOutputStream().println(username);
+            i_Response.setStatus(200);
+        }
+        else
+        { //something wrong happened, client reached homepage without a session!
             i_Response.getOutputStream().println(Constants.LOGIN_PAGE_PATH);
+            i_Response.setStatus(400);
         }
-        else{
-            i_Response.getOutputStream().println(Constants.HOME_PAGE_PATH);
-        }
-        i_Response.setStatus(200);
     }
 
 
