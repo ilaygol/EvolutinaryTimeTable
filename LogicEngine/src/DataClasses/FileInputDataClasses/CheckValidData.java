@@ -43,13 +43,13 @@ public class CheckValidData {
 
         for(ETTSubject s:subjList) {
             if(m_SubjIDSet.contains(s.getId()))
-                throw new RuntimeException("Error: There is more than one Subject with same id!");
+                throw new RuntimeException("There is more than one Subject with same id!");
             m_SubjIDSet.add(s.getId());
         }
 
         for(int i=1;i<=subListLength;i++) {
             if (!m_SubjIDSet.contains(i))
-                throw new RuntimeException("Error: Subject's ID doesnt appear in serial order!");
+                throw new RuntimeException("Subject's ID doesnt appear in serial order!");
         }
 
     }
@@ -61,13 +61,13 @@ public class CheckValidData {
 
         for(ETTTeacher t:teachersList) {
             if(m_TeachersIDSet.contains(t.getId()))
-                throw new RuntimeException("Error: There is more than one Teacher with same id!");
+                throw new RuntimeException("There is more than one Teacher with same id!");
             m_TeachersIDSet.add(t.getId());
         }
 
         for(int i=1;i<=teachersListLength;i++) {
             if (!m_TeachersIDSet.contains(i))
-                throw new RuntimeException("Error: Teacher's ID doesnt appear in serial order!");
+                throw new RuntimeException("Teacher's ID doesn't appear in serial order!");
         }
     }
 
@@ -78,13 +78,13 @@ public class CheckValidData {
 
         for(ETTClass c:classList) {
             if(m_ClassIDSet.contains(c.getId()))
-                throw new RuntimeException("Error: There is more than one Class with same id!");
+                throw new RuntimeException("There is more than one Class with same id!");
             m_ClassIDSet.add(c.getId());
         }
 
         for(int i=1;i<=classListLength;i++) {
             if (!m_ClassIDSet.contains(i))
-                throw new RuntimeException("Error: Classes ID doesnt appear in serial order!");
+                throw new RuntimeException("Classes ID doesnt appear in serial order!");
         }
     }
 
@@ -97,7 +97,7 @@ public class CheckValidData {
             for(ETTRule countedRule:rulesCountedAlready)
             {
                 if(ruleToCheck.getETTRuleId().equals(countedRule.getETTRuleId()))
-                    throw new RuntimeException(("Error: 2 Rules with the name ["+ruleToCheck.getETTRuleId()+"]"));
+                    throw new RuntimeException(("Two Rules with the name ["+ruleToCheck.getETTRuleId()+"]"));
             }
             rulesCountedAlready.add(ruleToCheck);
         }
@@ -117,7 +117,7 @@ public class CheckValidData {
         for(ETTTeaches t:subjectsList)
         {
             if(!m_SubjIDSet.contains(t.getSubjectId()))
-                throw new RuntimeException("Error: The teacher "+i_Teacher.getETTName()+" with id " +i_Teacher.getId()
+                throw new RuntimeException("The teacher "+i_Teacher.getETTName()+" with id " +i_Teacher.getId()
                 +" teaches an unknown subject");
         }
     }
@@ -136,7 +136,7 @@ public class CheckValidData {
         for(ETTStudy s:subjectsList)
         {
             if(!m_SubjIDSet.contains(s.getSubjectId()))
-                throw new RuntimeException("Error: The class "+i_Class.getETTName()+" with id " +i_Class.getId()
+                throw new RuntimeException("The class "+i_Class.getETTName()+" with id " +i_Class.getId()
                         +" learns an unknown subject");
         }
     }
@@ -150,7 +150,7 @@ public class CheckValidData {
         {
             int hours=c.getETTRequirements().getETTStudy().stream().mapToInt(study->study.getHours()).sum();
             if(hours>limitHours)
-                throw new RuntimeException("Error: The class "+c.getETTName()+" with id " +c.getId()
+                throw new RuntimeException("The class "+c.getETTName()+" with id " +c.getId()
                         +" learns more than the limit hours");
         }
 
@@ -165,7 +165,7 @@ public class CheckValidData {
         for(ETTTeacher t:teachersListInFile)
         {
             if(t.getETTWorkingHours()>totalWorkingHoursAvailable)
-                throw new RuntimeException("Error: The teacher "+t.getETTName()+" preferred working hours are more than available");
+                throw new RuntimeException("The teacher "+t.getETTName()+" preferred working hours are more than available");
         }
     }
 

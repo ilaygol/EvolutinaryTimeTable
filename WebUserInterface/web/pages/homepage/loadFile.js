@@ -13,10 +13,16 @@ $(function() { // onload...do
             contentType: false, // Set content type to false as jQuery will tell the server its a query string request
             timeout: 4000,
             error: function(errorObject) {
-                $("#fileSituation").empty().append(errorObject.responseText)
+                var myModal = new bootstrap.Modal(document.getElementById('fileModal'));
+                $("#titleModalLabel").text("ERROR!");
+                $("#bodyModalLabel").text(errorObject.responseText);
+                myModal.show();
             },
             success: function(r) {
-                $("#fileSituation").text("File was loaded successfully");
+                var myModal = new bootstrap.Modal(document.getElementById('fileModal'));
+                $("#titleModalLabel").text("SUCCESS!");
+                $("#bodyModalLabel").text("The file has been loaded successfully");
+                myModal.show();
             }
         });
 

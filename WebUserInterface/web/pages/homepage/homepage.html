@@ -10,15 +10,17 @@
 </head>
 <body>
 <!-- Welcome section -->
-<section id="welcomeTxt" class="p-4">
-    <h1 class="text-center"></h1>
+<section id="welcomeTxt" class="p-4 bg-dark bg-gradient text-light">
+    <div class="container position-relative">
+        <h1 class="text-center"></h1>
+        <a href="logout" class="btn btn-outline-danger btn-sm position-absolute start-0 top-50 translate-middle">Logout</a>
+    </div>
 </section>
-<a href="logout" class="text-center">logout</a>
 
 <!-- File upload section -->
 <section class="p-2 bg-secondary bg-gradient text-light">
     <div class="container">
-        <div class="d-md-flex justify-content-start align-items-center ">
+        <div class="d-md-flex justify-content-center align-items-center">
             <h3 class="fs-6 text-nowrap px-3 mb-0">File loader</h3>
             <form action="loadfile" id="loadForm" enctype="multipart/form-data" method="POST">
             <div class="input-group">
@@ -26,7 +28,7 @@
                     <button class="btn btn-outline-dark text-light" type="submit">Upload</button>
             </div>
             </form>
-            <div id="fileSituation"></div>
+<!--            <div id="fileSituation"></div>-->
         </div>
     </div>
 </section>
@@ -83,6 +85,23 @@
 </section>
 
 
+<!-- Modal -->
+<div class="modal fade" id="fileModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titleModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p id="bodyModalLabel"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="../../resources/bootstrap-5.1.1-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
