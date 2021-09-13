@@ -51,6 +51,14 @@ public class AmountOfObjectsCalc {
         return m_LessonsInSolution;
     }
 
+    public Integer getHardRolesCount() {
+        return m_HardRolesCount;
+    }
+
+    public Integer getSoftRolesCount() {
+        return m_SoftRolesCount;
+    }
+
     //function that calculate the maximum length of a solution array
     public Integer getMaxAmountOfLessons()
     {

@@ -26,6 +26,10 @@
         <servlet-class>Servlets.UsersListServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>InstanceRowServlet</servlet-name>
+        <servlet-class>Servlets.InstancesRowServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>WelcomeServlet</servlet-name>
         <servlet-class>Servlets.WelcomeServlet</servlet-class>
     </servlet>
@@ -51,6 +55,10 @@
     <servlet-mapping>
         <servlet-name>UsersListServlet</servlet-name>
         <url-pattern>/pages/homepage/userList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InstanceRowServlet</servlet-name>
+        <url-pattern>/pages/homepage/rows</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>WelcomeServlet</servlet-name>

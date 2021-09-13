@@ -1,9 +1,11 @@
 package Users;
 
+import DataTransferClasses.RowData;
 import Manager.LogicEngineManager;
 import Manager.InstanceManager;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,9 +22,10 @@ public class TimeTableHostManager {
     }
 
 
-    public synchronized void addInstance(String i_HostID, LogicEngineManager i_LogicEngineManager) {
+    public synchronized void addInstance(String i_HostID,String i_HostName, LogicEngineManager i_LogicEngineManager) {
         Integer hostID=Integer.parseInt(i_HostID);
-        InstanceManager instance=new InstanceManager(hostID,i_LogicEngineManager);
+
+        InstanceManager instance=new InstanceManager(hostID,i_HostName,i_LogicEngineManager);
         m_InstancesList.add(instance);
     }
 
@@ -37,8 +40,12 @@ public class TimeTableHostManager {
     }
 
 
-    public List<InstanceManager> getInstanceByHostID(String i_ID){
-        Integer userID=Integer.parseInt(i_ID);
-        return m_InstancesList.stream().filter(instance->instance.getHostID()==userID).collect(Collectors.toList());
+    public List<RowData> getRowDataList(){
+        List<RowData> retList=new ArrayList<>();
+        for(InstanceManager instance:m_InstancesList)
+        {
+            retList.add(instance.getRowData());
+        }
+        return Collections.unmodifiableList(retList);
     }
 }

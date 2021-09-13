@@ -2,6 +2,7 @@ package Servlets;
 
 import Manager.LogicEngineManager;
 import Users.TimeTableHostManager;
+import Users.UserManager;
 import Utils.ServletUtils;
 import Utils.SessionUtils;
 
@@ -30,10 +31,13 @@ public class LoadFileServlet extends HttpServlet {
         {
             //converting the received file content(from client) into string
             TimeTableHostManager hostManager= ServletUtils.getTimeTableInstances(getServletContext());
+            UserManager userManager=ServletUtils.getUserManager(getServletContext());
             LogicEngineManager logicEngineManager=new LogicEngineManager();
             try {
                 logicEngineManager.LoadFile(part.getInputStream());
-                hostManager.addInstance(SessionUtils.getUserID(i_Request),logicEngineManager);
+                String userID=SessionUtils.getUserID(i_Request);
+                String userName=userManager.getUserNameByID(userID);
+                hostManager.addInstance(userID,userName,logicEngineManager);
                 i_Response.setStatus(200);
                 i_Response.getOutputStream().println("File has been loaded successfully!");
             } catch (JAXBException e) {
