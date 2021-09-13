@@ -35,7 +35,7 @@ public class LoadFileServlet extends HttpServlet {
                 logicEngineManager.LoadFile(part.getInputStream());
                 hostManager.addInstance(SessionUtils.getUserID(i_Request),logicEngineManager);
                 i_Response.setStatus(200);
-                i_Response.getOutputStream().println("File was Loaded successfully!");
+                i_Response.getOutputStream().println("File has been loaded successfully!");
             } catch (JAXBException e) {
                 i_Response.setStatus(401);
                 i_Response.getOutputStream().println(e.getMessage());

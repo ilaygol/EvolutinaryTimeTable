@@ -1,10 +1,10 @@
 package Manager;
 
-public class LogicEngineManagerWithID {
+public class InstanceManager {
     private Integer m_HostID;
     private LogicEngineManager m_Manager;
 
-    public LogicEngineManagerWithID(Integer i_HostID, LogicEngineManager i_LogicEngineManager)
+    public InstanceManager(Integer i_HostID, LogicEngineManager i_LogicEngineManager)
     {
         m_HostID=i_HostID;
         m_Manager=i_LogicEngineManager;
