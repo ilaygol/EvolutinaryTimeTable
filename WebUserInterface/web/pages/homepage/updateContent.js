@@ -18,11 +18,17 @@ $(function() {
             refreshUsersList(usersList);
         }
     });
+    $.ajax({
+        url:"rows",
+        success:function(rowsList){
+            refreshRows(rowsList);
+        }
+    });
 });
 
 $(function (){
     setInterval(contentUpdate,2000);
-})
+});
 
 
 function contentUpdate()
@@ -64,6 +70,21 @@ function refreshRows(rowsList){
             "</td><td>"+row["m_SolvingUsers"]+
             "</td><td>"+row["m_MaxFitness"]+
             "</td><td><button class='btn btn-secondary solvebtn' id='"+index+"'>Solve</button></td></tr>").appendTo($("#tableBody"));
+    })
+    $(".solvebtn").click(function()
+    {
+        $.ajax({
+            data: "managerIndex="+this.getAttribute("id"),
+            url: "algo-entry",
+            timeout: 2000,
+            success: (function(nextURL){
+                window.location.replace(nextURL);
+            }),
+            error: function (){
+                console.log("Error moving to algo page");
+            }
+
+        })
     })
 }
 

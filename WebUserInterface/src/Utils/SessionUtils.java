@@ -17,7 +17,19 @@ public class SessionUtils {
                 userID=sessionAttribute.toString();
         }
         return userID;
-
+    }
+    
+    public static String getManagerIndex(HttpServletRequest i_Request)
+    {
+        String managerIndex=null;
+        HttpSession session=i_Request.getSession(false);
+        if(session!=null) {
+            Object sessionAttribute = session.getAttribute(Constants.MANAGER_INDEX);
+            if (sessionAttribute != null) {
+                managerIndex = sessionAttribute.toString();
+            }
+        }
+        return managerIndex;
     }
 
     public static void removeSession(HttpServletRequest i_Request)

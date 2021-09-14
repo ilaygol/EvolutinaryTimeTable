@@ -11,8 +11,8 @@ import java.io.IOException;
 //url: LocalHost:8080/TimeTable/pages/algopage/algo-leave
 public class AlgoPageLeavingServlet extends HttpServlet {
     private void processRequest(HttpServletRequest i_request, HttpServletResponse i_response) throws IOException {
-        i_response.setContentType("text/plain;charset=UTF-8");
-        i_response.getOutputStream().println(Constants.HOME_PAGE_PATH);
+        i_response.setContentType("html/plain;charset=UTF-8");
+        i_response.sendRedirect(Constants.HOME_PAGE_PATH);
         i_response.setStatus(200);
     }
 

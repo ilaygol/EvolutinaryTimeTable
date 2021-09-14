@@ -1,6 +1,9 @@
 package Servlets;
 
 import Constants.Constants;
+import Users.UserManager;
+import Utils.ServletUtils;
+import Utils.SessionUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -8,15 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//url: LocalHost:8080/TimeTable/pages/homepage/algo-entry
-public class AlgoPageEntry extends HttpServlet {
-    private void processRequest(HttpServletRequest i_request, HttpServletResponse i_response) throws IOException {
-        i_response.setContentType("text/plain;charset=UTF-8");
-        String managerIndex=i_request.getParameter(Constants.MANAGER_INDEX);
-        i_request.getSession().setAttribute(Constants.MANAGER_INDEX,managerIndex);
-        i_response.getOutputStream().println(Constants.ALGO_PAGE);
-        i_response.setStatus(200);
+//url: LocalHost:8080/TimeTable/pages/algopage/filedata
+public class FileDataServlet extends HttpServlet {
+    private void processRequest(HttpServletRequest i_Request, HttpServletResponse i_Response) throws IOException, ServletException {
+        i_Response.setContentType("text/plain;charset=UTF-8");
+        String ret=SessionUtils.getManagerIndex(i_Request);
+        i_Response.getOutputStream().println(ret);
+        i_Response.setStatus(200);
     }
+
+
 
 
 
@@ -25,9 +29,6 @@ public class AlgoPageEntry extends HttpServlet {
             throws ServletException, IOException {
         processRequest(i_Request, i_Response);
     }
-
-
-
     @Override
     protected void doGet(HttpServletRequest i_Request, HttpServletResponse i_Response)
             throws ServletException, IOException {
