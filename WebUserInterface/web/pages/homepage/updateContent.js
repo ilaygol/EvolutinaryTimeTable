@@ -53,19 +53,17 @@ function refreshUsersList(usersList){
 function refreshRows(rowsList){
     $("#tableBody").empty();
     $.each(rowsList || [],function (index,row){
-        $("<tr>").appendTo($("#tableBody"));
-        $("<td>"+row["m_HostName"]+"</td>").appendTo($("#tableBody"));
-        $("<td>"+row["m_AmountOfDays"]+"</td>").appendTo($("#tableBody"));
-        $("<td>"+row["m_AmountOfHours"]+"</td>").appendTo($("#tableBody"));
-        $("<td>"+row["m_AmountOfClasses"]+"</td>").appendTo($("#tableBody"));
-        $("<td>"+row["m_AmountOfTeachers"]+"</td>").appendTo($("#tableBody"));
-        $("<td>"+row["m_AmountOfSubjects"]+"</td>").appendTo($("#tableBody"));
-        $("<td>"+row["m_HardRolesCount"]+"</td>").appendTo($("#tableBody"));
-        $("<td>"+row["m_SoftRolesCount"]+"</td>").appendTo($("#tableBody"));
-        $("<td>"+row["m_SolvingUsers"]+"</td>").appendTo($("#tableBody"));
-        $("<td>"+row["m_MaxFitness"]+"</td>").appendTo($("#tableBody"));
-        $("<td><button class='btn btn-secondary' id='"+index+"'>Solve</button></td>").appendTo($("#tableBody"));
-        $("</tr>").appendTo($("#tableBody"));
+        $("<tr><td>"+row["m_HostName"]+
+            "</td><td>"+row["m_AmountOfDays"]+
+            "</td><td>"+row["m_AmountOfHours"]+
+            "</td><td>"+row["m_AmountOfClasses"]+
+            "</td><td>"+row["m_AmountOfTeachers"]+
+            "</td><td>"+row["m_AmountOfSubjects"]+
+            "</td><td>"+row["m_HardRolesCount"]+
+            "</td><td>"+row["m_SoftRolesCount"]+
+            "</td><td>"+row["m_SolvingUsers"]+
+            "</td><td>"+row["m_MaxFitness"]+
+            "</td><td><button class='btn btn-secondary' id='"+index+"'>Solve</button></td></tr>").appendTo($("#tableBody"));
     })
 }
 
