@@ -63,7 +63,7 @@ function refreshRows(rowsList){
             "</td><td>"+row["m_SoftRolesCount"]+
             "</td><td>"+row["m_SolvingUsers"]+
             "</td><td>"+row["m_MaxFitness"]+
-            "</td><td><button class='btn btn-secondary' id='"+index+"'>Solve</button></td></tr>").appendTo($("#tableBody"));
+            "</td><td><button class='btn btn-secondary solvebtn' id='"+index+"'>Solve</button></td></tr>").appendTo($("#tableBody"));
     })
 }
 

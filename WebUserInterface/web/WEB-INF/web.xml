@@ -6,6 +6,14 @@
 
 
     <servlet>
+        <servlet-name>AlgoPageEntry</servlet-name>
+        <servlet-class>Servlets.AlgoPageEntry</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AlgoPageLeavingServlet</servlet-name>
+        <servlet-class>Servlets.AlgoPageLeavingServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>IndexServlet</servlet-name>
         <servlet-class>Servlets.IndexServlet</servlet-class>
     </servlet>
@@ -35,7 +43,14 @@
     </servlet>
 
 
-
+    <servlet-mapping>
+        <servlet-name>AlgoPageEntry</servlet-name>
+        <url-pattern>/pages/homepage/algo-entry</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlgoPageLeavingServlet</servlet-name>
+        <url-pattern>/pages/algopage/algo-leave</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
         <url-pattern>/index</url-pattern>
