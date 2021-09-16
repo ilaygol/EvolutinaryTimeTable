@@ -16,7 +16,15 @@ public class UserManager {
     }
 
     public synchronized void removeUser(Integer i_ID) {
-        m_UsersList.remove(i_ID.intValue());
+        User deleteUser=null;
+        for(User user:m_UsersList)
+        {
+            if(user.getID()==i_ID) {
+                deleteUser = user;
+                break;
+            }
+        }
+        m_UsersList.remove(deleteUser);
     }
 
     public synchronized List<User> getUsers() {
