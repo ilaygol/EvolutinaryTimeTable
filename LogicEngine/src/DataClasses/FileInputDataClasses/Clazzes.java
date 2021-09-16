@@ -1,7 +1,9 @@
 package DataClasses.FileInputDataClasses;
 
+import DataTransferClasses.ClassData;
 import DataTransferClasses.StudyData;
 import DataTransferClasses.SubjectData;
+import DataTransferClasses.TeacherData;
 import ParsedClasses.ETTClass;
 import ParsedClasses.ETTClasses;
 
@@ -48,6 +50,13 @@ public class Clazzes {
             retMap.put(c.getId(),classSubjectsSet);
         }
         return retMap;
+    }
+
+    public Set<ClassData> getClassesData(Subjects i_AllSubjects)
+    {
+        Set<ClassData> retClassesSet=new TreeSet<>();
+        m_ClassesList.forEach(clazz->retClassesSet.add(new ClassData(clazz,i_AllSubjects)));
+        return retClassesSet;
     }
 
     public Clazz getClassById(Integer i_ID)

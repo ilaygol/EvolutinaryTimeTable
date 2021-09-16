@@ -3,13 +3,12 @@ package DataClasses.FileInputDataClasses;
 import DataClasses.AlgorithmData.Generation;
 import DataClasses.AlgorithmData.Parent;
 import DataTransferClasses.EvolutionEngineData;
+import DataTransferClasses.RuleFileData;
+import DataTransferClasses.TeacherData;
 import ParsedClasses.ETTRule;
 import ParsedClasses.ETTRules;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Rules {
     private List<Rule> m_RulesList;
@@ -26,6 +25,13 @@ public class Rules {
         {
             m_RulesList.add(new Rule(rule));
         }
+    }
+
+    public Set<RuleFileData> getRulesData()
+    {
+        Set<RuleFileData> retRuleSet=new HashSet<>();
+        m_RulesList.forEach(rule->retRuleSet.add(new RuleFileData(rule)));
+        return retRuleSet;
     }
 
     @Override

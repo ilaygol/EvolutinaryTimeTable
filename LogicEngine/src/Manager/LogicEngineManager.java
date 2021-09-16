@@ -116,15 +116,16 @@ public class LogicEngineManager {
         }
     }
 
+    public WebFileData getWebFileData()
+    {
+        WebFileData webFileData=new WebFileData();
+        webFileData.setSubjectsData(m_Descriptor.getTimeTable().getSubjects().getSubjectSet());
+        webFileData.setTeacherData(m_Descriptor.getTimeTable().getTeachers().getTeachersData(m_Descriptor.getTimeTable().getSubjects()));
+        webFileData.setClassData(m_Descriptor.getTimeTable().getClazzes().getClassesData(m_Descriptor.getTimeTable().getSubjects()));
+        webFileData.setRuleData(m_Descriptor.getTimeTable().getRules().getRulesData());
+        return webFileData;
+    }
 
-    public Set<SubjectData> getSubjectsDataSet()
-    {
-        return m_Descriptor.getTimeTable().getSubjects().getSubjectSet();
-    }
-    public Set<TeacherData> getTeacherDataSet()
-    {
-        return m_Descriptor.getTimeTable().getTeachers().getTeachersData(m_Descriptor.getTimeTable().getSubjects());
-    }
 
 
     public void LoadFile(File i_File) throws  JAXBException {
