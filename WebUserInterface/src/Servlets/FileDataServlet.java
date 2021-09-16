@@ -26,12 +26,11 @@ public class FileDataServlet extends HttpServlet {
     private void processRequest(HttpServletRequest i_Request, HttpServletResponse i_Response) throws IOException, ServletException {
         i_Response.setContentType("application/json");
         String managerIndex=SessionUtils.getManagerIndex(i_Request);
-        TimeTableHostManager hostManager=ServletUtils.getTimeTableInstances(getServletContext());
-        InstanceManager instanceManager=hostManager.getAllInstances().get(Integer.parseInt(managerIndex));
+        TimeTableHostManager timeTableHostManager=ServletUtils.getTimeTableInstances(getServletContext());
+        InstanceManager instanceManager=timeTableHostManager.getAllInstances().get(Integer.parseInt(managerIndex));
         try(PrintWriter out=i_Response.getWriter()) {
             Gson gson = new Gson();
-            WebFileData fileData=instanceManager.getManager().getWebFileData();
-            String json = gson.toJson(fileData);
+            String json = gson.toJson(instanceManager.getFileDataSaver());
             out.println(json);
             out.flush();
         }
