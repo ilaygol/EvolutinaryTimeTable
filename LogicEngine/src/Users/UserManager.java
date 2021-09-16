@@ -4,13 +4,16 @@ import java.util.*;
 
 public class UserManager {
     private  List<User> m_UsersList;
+    private Integer m_Index;
 
     public UserManager() {
         m_UsersList = new ArrayList<>();
+        m_Index=0;
     }
 
     public synchronized Integer addUser(String i_Username) {
-        Integer retID=m_UsersList.size();
+        Integer retID=m_Index;
+        m_Index++;
         m_UsersList.add(new User(retID,i_Username ));
         return retID;
     }
@@ -40,8 +43,15 @@ public class UserManager {
     }
 
     public String getUserNameByID(String i_ID){
-        Integer userID=Integer.parseInt(i_ID);
-        return m_UsersList.get(userID).getUsername();
+        User wantedUser=null;
+        for(User user:m_UsersList)
+        {
+            if(user.getID()==Integer.parseInt(i_ID)) {
+                wantedUser = user;
+                break;
+            }
+        }
+        return wantedUser.getUsername();
     }
 
 }
