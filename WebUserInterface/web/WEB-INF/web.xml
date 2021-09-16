@@ -59,7 +59,6 @@
         <servlet-name>FileDataServlet</servlet-name>
         <url-pattern>/pages/algopage/filedata</url-pattern>
     </servlet-mapping>
-    /pages/algopage/filedata
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
         <url-pattern>/index</url-pattern>
@@ -74,7 +73,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
-        <url-pattern>/pages/homepage/logout</url-pattern>
+        <url-pattern>/pages/logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UsersListServlet</servlet-name>
