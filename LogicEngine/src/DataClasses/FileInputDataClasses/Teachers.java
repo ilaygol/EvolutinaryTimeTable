@@ -1,6 +1,7 @@
 package DataClasses.FileInputDataClasses;
 
 import DataTransferClasses.SubjectData;
+import DataTransferClasses.TeacherData;
 import ParsedClasses.ETTTeacher;
 import ParsedClasses.ETTTeachers;
 
@@ -32,6 +33,12 @@ public class Teachers {
 
     public Integer getTeacherListSize(){return m_TeachersList.size();}
 
+    public Set<TeacherData> getTeachersData(Subjects i_AllSubjects)
+    {
+        Set<TeacherData> retTeacherSet=new TreeSet<>();
+        m_TeachersList.forEach(teacher->retTeacherSet.add(new TeacherData(teacher,i_AllSubjects)));
+        return retTeacherSet;
+    }
 
     public Map<Integer, Set<SubjectData>> getTeacherID2SubjectsMap(Collection<SubjectData> i_SubjectSet)
     {

@@ -2,6 +2,8 @@ package DataTransferClasses;
 
 import DataClasses.FileInputDataClasses.Subject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class SubjectData implements Comparable<SubjectData>{

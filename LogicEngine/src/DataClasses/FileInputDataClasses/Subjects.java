@@ -36,6 +36,18 @@ public class Subjects {
         return m_SubjectsList.stream().filter(subject->subject.getId().equals(i_ID)).findFirst().get().getFullName();
     }
 
+    public SubjectData getSubjectDataWithSubjID(Integer i_SubjID)
+    {
+        Subject wantedSubj=null;
+        for(Subject subj:m_SubjectsList)
+        {
+            if(subj.getId()==i_SubjID)
+                wantedSubj=subj;
+        }
+        SubjectData retSubjData=new SubjectData(wantedSubj);
+        return retSubjData;
+    }
+
     @Override
     public String toString() {
         return "Subjects{" +

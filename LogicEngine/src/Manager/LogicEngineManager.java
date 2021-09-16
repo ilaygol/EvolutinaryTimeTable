@@ -8,14 +8,13 @@ import ParsedClasses.ETTDescriptor;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.SchemaOutputResolver;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 
 
@@ -116,6 +115,17 @@ public class LogicEngineManager {
             throw new RuntimeException("ERROR: No file has been loaded, Please load a file before choosing this option");
         }
     }
+
+
+    public Set<SubjectData> getSubjectsDataSet()
+    {
+        return m_Descriptor.getTimeTable().getSubjects().getSubjectSet();
+    }
+    public Set<TeacherData> getTeacherDataSet()
+    {
+        return m_Descriptor.getTimeTable().getTeachers().getTeachersData(m_Descriptor.getTimeTable().getSubjects());
+    }
+
 
     public void LoadFile(File i_File) throws  JAXBException {
         try {
