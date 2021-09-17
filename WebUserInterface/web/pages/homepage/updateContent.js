@@ -50,8 +50,8 @@ function contentUpdate()
 
 function refreshUsersList(usersList){
     $("#usersList").empty();
-    $.each(usersList || [],function (index,name){
-        $("<tr><td>"+name+"</td></tr>").appendTo($("#usersList"));
+    $.each(usersList || [],function (index,username){
+        $("<tr><td>"+username+"</td></tr>").appendTo($("#usersList"));
     })
 }
 
