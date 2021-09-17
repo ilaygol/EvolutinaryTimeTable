@@ -1,13 +1,7 @@
 package Servlets;
 
-import Constants.Constants;
-import DataTransferClasses.SubjectData;
-import DataTransferClasses.TeacherData;
-import DataTransferClasses.WebFileData;
 import Manager.InstanceManager;
 import Users.TimeTableHostManager;
-import Users.User;
-import Users.UserManager;
 import Utils.ServletUtils;
 import Utils.SessionUtils;
 import com.google.gson.Gson;
@@ -18,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.Set;
 
 //url: LocalHost:8080/TimeTable/pages/algopage/filedata
 public class FileDataServlet extends HttpServlet {

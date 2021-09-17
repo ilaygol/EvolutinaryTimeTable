@@ -1,7 +1,8 @@
 package Servlets;
 
 import Constants.Constants;
-import Users.UserManager;
+import Users.OnlineUsersManager;
+import Users.PermUserManager;
 import Utils.ServletUtils;
 import Utils.SessionUtils;
 
@@ -16,10 +17,10 @@ public class WelcomeServlet extends HttpServlet {
     private void processRequest(HttpServletRequest i_Request, HttpServletResponse i_Response) throws IOException, ServletException {
         i_Response.setContentType("text/plain;charset=UTF-8");
         String userID= SessionUtils.getUserID(i_Request);
-        UserManager userManager= ServletUtils.getUserManager(getServletContext());
+        PermUserManager permUserManager= ServletUtils.getPermUserManager(getServletContext());
         if(userID!=null)
         {
-            i_Response.getOutputStream().println(userManager.getUserNameByID(userID));
+            i_Response.getOutputStream().println(permUserManager.getUserNameByID(userID));
             i_Response.setStatus(200);
         }
         else

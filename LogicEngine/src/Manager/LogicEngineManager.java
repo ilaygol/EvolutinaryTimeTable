@@ -31,7 +31,6 @@ public class LogicEngineManager {
     public LogicEngineManager(LogicEngineManager i_LogicEngineManager)
     {
         m_Descriptor=new Descriptor(i_LogicEngineManager.getDescriptor());
-        m_ProblemIndex=i_LogicEngineManager.getProblemIndex();
     }
     public Map<Integer,Integer> PrintAlgorithmProcess() {
         if(m_IsFileLoaded) {

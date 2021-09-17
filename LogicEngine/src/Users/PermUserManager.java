@@ -1,12 +1,14 @@
 package Users;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-public class UserManager {
-    private  List<User> m_UsersList;
+public class PermUserManager {
+    private List<User> m_UsersList;
     private Integer m_Index;
 
-    public UserManager() {
+    public PermUserManager() {
         m_UsersList = new ArrayList<>();
         m_Index=0;
     }
@@ -42,6 +44,18 @@ public class UserManager {
             return false;
     }
 
+    public Integer getUserIdByName(String i_Username) {
+        User wantedUser=null;
+        for(User user:m_UsersList) {
+            if(user.getUsername().equals(i_Username)) {
+                wantedUser=user;
+                break;
+            }
+        }
+        return wantedUser.getID();
+    }
+
+
     public String getUserNameByID(String i_ID){
         User wantedUser=null;
         for(User user:m_UsersList)
@@ -54,4 +68,17 @@ public class UserManager {
         return wantedUser.getUsername();
     }
 
+    public User getUserByID(String i_ID)
+    {
+        User wantedUser=null;
+        for(User user:m_UsersList)
+        {
+            if(user.getID()==Integer.parseInt(i_ID)) {
+                wantedUser = user;
+                break;
+            }
+        }
+        return wantedUser;
+    }
 }
+

@@ -1,8 +1,8 @@
 package Servlets;
 
 import Manager.LogicEngineManager;
+import Users.PermUserManager;
 import Users.TimeTableHostManager;
-import Users.UserManager;
 import Utils.ServletUtils;
 import Utils.SessionUtils;
 
@@ -31,12 +31,12 @@ public class LoadFileServlet extends HttpServlet {
         {
             //converting the received file content(from client) into string
             TimeTableHostManager hostManager= ServletUtils.getTimeTableInstances(getServletContext());
-            UserManager userManager=ServletUtils.getUserManager(getServletContext());
+            PermUserManager permUserManager =ServletUtils.getPermUserManager(getServletContext());
             LogicEngineManager logicEngineManager=new LogicEngineManager();
             try {
                 logicEngineManager.LoadFile(part.getInputStream());
                 String userID=SessionUtils.getUserID(i_Request);
-                String userName=userManager.getUserNameByID(userID);
+                String userName= permUserManager.getUserNameByID(userID);
                 hostManager.addInstance(userID,userName,logicEngineManager);
                 i_Response.setStatus(200);
                 i_Response.getOutputStream().println("File has been loaded successfully!");

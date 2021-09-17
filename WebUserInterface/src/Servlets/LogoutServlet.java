@@ -1,6 +1,6 @@
 package Servlets;
 
-import Users.UserManager;
+import Users.OnlineUsersManager;
 import Utils.ServletUtils;
 import Utils.SessionUtils;
 
@@ -14,11 +14,11 @@ import java.io.IOException;
 public class LogoutServlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest i_Request, HttpServletResponse i_Response) throws IOException, ServletException {
-        UserManager userManager= ServletUtils.getUserManager(getServletContext());
-        String userID= SessionUtils.getUserID(i_Request);
-        if(userID!=null)
+        OnlineUsersManager onlineUserManager= ServletUtils.getOnlineUserManager(getServletContext());
+        String username= SessionUtils.getUsername(i_Request);
+        if(username!=null)
         {
-            userManager.removeUser(Integer.parseInt(userID));
+            onlineUserManager.removeUser(username);
             SessionUtils.removeSession(i_Request);
             i_Response.sendRedirect(i_Request.getContextPath()+"/index.html");
         }

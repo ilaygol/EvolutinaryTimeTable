@@ -33,4 +33,14 @@ public class User {
         m_EngineList.add(i_LogicEngineManager);
     }
 
+    public boolean isManagerExist(Integer i_ManagerIndex)
+    {
+        boolean retValue;
+        if(m_EngineList.stream().filter(manager-> manager.getProblemIndex().equals(i_ManagerIndex)).count()>0)
+            retValue = true;
+        else
+            retValue = false;
+        return retValue;
+    }
+
 }

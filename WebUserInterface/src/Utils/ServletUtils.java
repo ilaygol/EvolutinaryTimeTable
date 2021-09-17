@@ -1,26 +1,38 @@
 package Utils;
 
 import Constants.Constants;
+import Users.PermUserManager;
 import Users.TimeTableHostManager;
-import Users.UserManager;
+import Users.OnlineUsersManager;
 
 import javax.servlet.ServletContext;
-import java.sql.Time;
 
 public class ServletUtils {
-     private static final Object m_UserManagerLock=new Object();
+     private static final Object m_OnlineUserManagerLock =new Object();
+     private static final Object m_PermUserManagerLock=new Object();
      private static final Object m_TimeTableHostManagerLock=new Object();
 
 
 
-    public static UserManager getUserManager(ServletContext i_ServletContext)
+    public static OnlineUsersManager getOnlineUserManager(ServletContext i_ServletContext)
     {
-        synchronized (m_UserManagerLock) {
-            if (i_ServletContext.getAttribute(Constants.USER_MANAGER) == null) {
-                i_ServletContext.setAttribute(Constants.USER_MANAGER,new UserManager());
+        synchronized (m_OnlineUserManagerLock) {
+            if (i_ServletContext.getAttribute(Constants.ONLINE_USER_MANAGER) == null) {
+                i_ServletContext.setAttribute(Constants.ONLINE_USER_MANAGER,new OnlineUsersManager());
             }
         }
-        return (UserManager) i_ServletContext.getAttribute(Constants.USER_MANAGER);
+        return (OnlineUsersManager) i_ServletContext.getAttribute(Constants.ONLINE_USER_MANAGER);
+
+    }
+
+    public static PermUserManager getPermUserManager(ServletContext i_ServletContext)
+    {
+        synchronized (m_PermUserManagerLock) {
+            if (i_ServletContext.getAttribute(Constants.PERM_USER_MANAGER) == null) {
+                i_ServletContext.setAttribute(Constants.PERM_USER_MANAGER,new PermUserManager());
+            }
+        }
+        return (PermUserManager) i_ServletContext.getAttribute(Constants.PERM_USER_MANAGER);
 
     }
 
