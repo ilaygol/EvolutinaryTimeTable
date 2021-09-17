@@ -5,7 +5,7 @@
     <title>TimeTable</title>
     <link href="../../resources/bootstrap-5.1.1-dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="../../resources/jquery-3.6.0.min.js"></script>
-    <script src="fileData.js"></script>
+    <!-- <script src="fileData.js"></script> -->
 </head>
 <body>
 <!-- Welcome section -->
@@ -17,21 +17,227 @@
     </div>
 </section>
 
+<!-- File Data Section -->
 <section class="p-4 bg-secondary bg-gradient">
     <div class="container">
-    <div class="accordion" id="accordionPanelsStayOpenExample">
+    <div class="accordion" id="fileDataAccordion">
         <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne">
+            <h2 class="accordion-header" id="fileData-headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#fileData-collapseOne">
                     File Data
                 </button>
             </h2>
-            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+            <div id="fileData-collapseOne" class="accordion-collapse collapse">
                 <div id="fileData" class="accordion-body">
                 </div>
             </div>
         </div>
     </div>
+    </div>
+</section>
+
+<!-- Algo Preferences Section -->
+<section class="p-4 bg-light bg-gradient">
+    <div class="container">
+        <div class="accordion" id="algoPrefAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="algoPref-headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#algoPref-collapseOne">
+                        Algorithm Preferences
+                    </button>
+                </h2>
+                <div id="algoPref-collapseOne" class="accordion-collapse collapse">
+                    <div class="container px-4 my-4">
+                        <!-- Stop Conditions -->
+                        <label for="stopConditions" class="form-label">Stop Conditions</label>
+                        <div class="row py-2" id="stopConditions">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-text">
+                                        <span>Generations</span>
+                                    </div>
+                                    <div class="input-group-text">
+                                        <input class="form-check-input mt-0" type="checkbox" value="">
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Number">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-text">
+                                        <span>Fitness</span>
+                                    </div>
+                                    <div class="input-group-text">
+                                        <input class="form-check-input mt-0" type="checkbox" value="">
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="1-100">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-text">
+                                        <span>Time</span>
+                                    </div>
+                                    <div class="input-group-text">
+                                        <input class="form-check-input mt-0" type="checkbox" value="">
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Minutes">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Selection -->
+                        <label for="selection" class="form-label">Selection</label>
+                        <div class="row py-2" id="selection">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="selectionType">Type</label>
+                                    <select class="form-select" id="selectionType">
+                                        <option value="Truncation" selected>Truncation</option>
+                                        <option value="RouletteWheel">RouletteWheel</option>
+                                        <option value="Tournament">Tournament</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label class="form-label" for="elitism">Elitism</label>
+                                <input type="range" class="form-range" min="1" max="100" step="1" id="elitism">
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-text">
+                                        <span>Percent</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="1-100">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="pte">PTE</label>
+                                    <select class="form-select" id="pte">
+                                        <option value="0.1" selected>0.1</option>
+                                        <option value="0.2">0.2</option>
+                                        <option value="0.3">0.3</option>
+                                        <option value="0.4">0.4</option>
+                                        <option value="0.5">0.5</option>
+                                        <option value="0.6">0.6</option>
+                                        <option value="0.7">0.7</option>
+                                        <option value="0.8">0.8</option>
+                                        <option value="0.9">0.9</option>
+                                        <option value="1">1</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Crossover -->
+                        <label for="crossover" class="form-label">Crossover</label>
+                        <div class="row py-2" id="crossover">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="crossoverType">Type</label>
+                                    <select class="form-select" id="crossoverType">
+                                        <option value="DayTimeOriented" selected>DayTimeOriented</option>
+                                        <option value="AspectOriented">AspectOriented</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-text">
+                                        <span>Cutting Points</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Number">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="aspect">Aspect</label>
+                                    <select class="form-select" id="aspect">
+                                        <option value="T" selected>Teacher</option>
+                                        <option value="C">Class</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Mutations -->
+                        <label for="mutations" class="form-label">Mutations</label>
+                        <div class="row py-2 justify-content-center" id="mutations">
+                            <div class="col-xl-2">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="mutationType">Type</label>
+                                    <select class="form-select" id="mutationType">
+                                        <option value="FLIPPING" selected>Flipping</option>
+                                        <option value="SIZER">Sizer</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-2">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="pte">Probability</label>
+                                    <select class="form-select" id="probability">
+                                        <option value="0.1" selected>0.1</option>
+                                        <option value="0.2">0.2</option>
+                                        <option value="0.3">0.3</option>
+                                        <option value="0.4">0.4</option>
+                                        <option value="0.5">0.5</option>
+                                        <option value="0.6">0.6</option>
+                                        <option value="0.7">0.7</option>
+                                        <option value="0.8">0.8</option>
+                                        <option value="0.9">0.9</option>
+                                        <option value="1">1</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-2">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-text">
+                                        <span>Tupples</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Number">
+                                </div>
+                            </div>
+                            <div class="col-xl-3">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="component">Component</label>
+                                    <select class="form-select" id="component">
+                                        <option value="T" selected>Teacher</option>
+                                        <option value="C">Class</option>
+                                        <option value="S" selected>Subject</option>
+                                        <option value="D">Day</option>
+                                        <option value="H" selected>Hour</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-1">
+                                <button class="btn btn-sm btn-primary mb-0" id="addNewMutation">Add New</button>
+                            </div>
+                            <div class="col-xl-5">
+                                <div class="table-responsive pb-0">
+                                    <table class="table table-striped table-responsive table-hover text-center table-bordered align-middle">
+                                        <thead>
+                                        <tr class="table-primary">
+                                            <th>Type</th>
+                                            <th>Probability</th>
+                                            <th>Tupples</th>
+                                            <th>Component</th>
+                                            <th>Update</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="mutationsTableBody"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Submit Button -->
+                        <div class="row justify-content-center mt-4">
+                            <div class="col-2">
+                                <button class="btn btn-primary" type="submit">Set Preferences</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
