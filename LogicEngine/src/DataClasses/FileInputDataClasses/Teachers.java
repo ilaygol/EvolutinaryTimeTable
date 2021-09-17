@@ -20,6 +20,16 @@ public class Teachers {
         }
     }
 
+    public Teachers(Teachers i_Teachers)
+    {
+        m_TeachersList=new ArrayList<>();
+        List<Teacher> teachers = i_Teachers.getTeachersList();
+        for(Teacher teacher:teachers)
+        {
+            m_TeachersList.add(new Teacher(teacher));
+        }
+    }
+
     @Override
     public String toString() {
         return "Teachers{" +

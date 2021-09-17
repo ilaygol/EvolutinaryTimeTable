@@ -27,6 +27,18 @@ public class Rules {
         }
     }
 
+    public Rules(Rules i_Rules)
+    {
+        m_HardRulesWeight=i_Rules.getHardRulesWeight();
+        m_SoftRulesWeight=100-m_HardRulesWeight;
+        m_RulesList=new ArrayList<>();
+        List<Rule> rules = i_Rules.getRulesList();
+        for(Rule rule:rules)
+        {
+            m_RulesList.add(new Rule(rule));
+        }
+    }
+
     public Set<RuleFileData> getRulesData()
     {
         Set<RuleFileData> retRuleSet=new HashSet<>();

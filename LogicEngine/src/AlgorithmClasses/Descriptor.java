@@ -14,6 +14,7 @@ public class Descriptor {
     {
         m_TimeTable=new TimeTable(i_ETTDescriptor.getETTTimeTable());
     }
+    public Descriptor(Descriptor i_Descriptor){ m_TimeTable=new TimeTable(i_Descriptor.getTimeTable()); }
 
     public TimeTable getTimeTable() {
         return m_TimeTable;

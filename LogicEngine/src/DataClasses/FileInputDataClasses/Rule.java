@@ -22,6 +22,13 @@ public class Rule {
         extractConfiguration(configuration);
     }
 
+    public Rule(Rule i_Rule)
+    {
+        m_eRule=eRules.valueOf(i_Rule.getId().name().toUpperCase());
+        m_Type=eType.valueOf(i_Rule.getType().name().toUpperCase());
+        m_TotalHours=i_Rule.getTotalHours();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

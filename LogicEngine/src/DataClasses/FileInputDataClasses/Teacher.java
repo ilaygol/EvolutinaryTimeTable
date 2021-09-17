@@ -26,6 +26,16 @@ public class Teacher {
         }
     }
 
+    public Teacher(Teacher i_Teacher)
+    {
+        m_Id=i_Teacher.getId();
+        m_FullName=i_Teacher.getFullName();
+        m_TeacherHours=i_Teacher.getTeacherWorkingHours();
+        m_SubjectsIDList=new ArrayList<>();
+        List<Integer> subjectsID = i_Teacher.getSubjectsIDList();
+        m_SubjectsIDList.addAll(subjectsID);
+    }
+
     @Override
     public String toString() {
         return "Teacher{" +
@@ -65,5 +75,5 @@ public class Teacher {
         return m_Id;
     }
 
-    public Integer getTeacherHours() { return m_TeacherHours; }
+    public Integer getTeacherWorkingHours() { return m_TeacherHours; }
 }

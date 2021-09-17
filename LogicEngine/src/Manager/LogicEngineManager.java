@@ -22,10 +22,17 @@ public class LogicEngineManager {
     private Descriptor m_Descriptor;
     private EvolutionEngineData m_EvolutionEngineData;
     private AmountOfObjectsCalc m_MaxAmountOfObjects;
+    private Integer m_ProblemIndex;
     private boolean m_IsFileLoaded=false;
     private boolean m_IsAlgoActivated=false;
 
+    public LogicEngineManager() { m_ProblemIndex=0; }
 
+    public LogicEngineManager(LogicEngineManager i_LogicEngineManager)
+    {
+        m_Descriptor=new Descriptor(i_LogicEngineManager.getDescriptor());
+        m_ProblemIndex=i_LogicEngineManager.getProblemIndex();
+    }
     public Map<Integer,Integer> PrintAlgorithmProcess() {
         if(m_IsFileLoaded) {
             if(m_IsAlgoActivated) {
@@ -87,7 +94,13 @@ public class LogicEngineManager {
         }
     }
 
+    public Descriptor getDescriptor() {
+        return m_Descriptor;
+    }
 
+    public Integer getProblemIndex() {
+        return m_ProblemIndex;
+    }
 
     public DataPrinter getFileData() {
         if(m_IsFileLoaded) {
@@ -116,8 +129,7 @@ public class LogicEngineManager {
         }
     }
 
-    public WebFileData getWebFileData()
-    {
+    public WebFileData getWebFileData() {
         WebFileData webFileData=new WebFileData();
         webFileData.setSubjectsData(m_Descriptor.getTimeTable().getSubjects().getSubjectSet());
         webFileData.setTeacherData(m_Descriptor.getTimeTable().getTeachers().getTeachersData(m_Descriptor.getTimeTable().getSubjects()));
@@ -125,8 +137,6 @@ public class LogicEngineManager {
         webFileData.setRuleData(m_Descriptor.getTimeTable().getRules().getRulesData());
         return webFileData;
     }
-
-
 
     public void LoadFile(File i_File) throws  JAXBException {
         try {
@@ -205,6 +215,10 @@ public class LogicEngineManager {
     public Boolean getStopBoolean()
     {
         return m_Descriptor.getEvolutionEngine().getStopBoolean();
+    }
+
+    public void setProblemIndex(Integer i_ProblemIndex) {
+        this.m_ProblemIndex = i_ProblemIndex;
     }
 
     public void updateAlgoData(DataPrinter i_DataPrinter)

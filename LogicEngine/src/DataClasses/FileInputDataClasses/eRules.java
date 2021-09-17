@@ -1,13 +1,10 @@
 package DataClasses.FileInputDataClasses;
 
-import DataClasses.AlgorithmData.Generation;
 import DataClasses.AlgorithmData.Lesson;
 import DataClasses.AlgorithmData.Parent;
-import DataTransferClasses.SubjectData;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public enum eRules {
     TEACHERISHUMAN
@@ -269,7 +266,7 @@ public enum eRules {
             List<Teacher> teachersList=i_TimeTable.getTeachers().getTeachersList();
             for(Teacher t:teachersList)
             {
-                Integer prefHours=t.getTeacherHours();
+                Integer prefHours=t.getTeacherWorkingHours();
                 List<Lesson> teacherLessons=i_Parent.getLessonsList().stream().filter(lesson -> lesson.getTeacherID().equals(t.getId())).collect(Collectors.toList());
                 int lessonsCount=0;
                 for(int i=1;i<=daysInWeek;i++)

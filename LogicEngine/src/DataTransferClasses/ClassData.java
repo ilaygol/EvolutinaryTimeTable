@@ -11,12 +11,14 @@ import java.util.TreeSet;
 
 public class ClassData implements Comparable<ClassData>{
     private Integer m_ClassID;
+    private String m_ClassName;
     private Set<SubjectData> m_ClassSubjects;
 
 
     public ClassData(Clazz i_Class, Subjects i_AllSubjects)
     {
         m_ClassID=i_Class.getId();
+        m_ClassName=i_Class.getFullName();
         m_ClassSubjects=new TreeSet<>();
         fillClassSubjectsData(i_Class.getRequirements().getStudyList(),i_AllSubjects);
     }

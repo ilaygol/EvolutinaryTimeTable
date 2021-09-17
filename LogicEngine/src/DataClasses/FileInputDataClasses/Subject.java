@@ -16,6 +16,12 @@ public class Subject {
         m_FullName=i_ETTSubject.getName();
     }
 
+    public Subject(Subject i_Subject)
+    {
+        m_Id=i_Subject.getId();
+        m_FullName=i_Subject.getFullName();
+    }
+
     @Override
     public String toString() {
         return "Subject{" +

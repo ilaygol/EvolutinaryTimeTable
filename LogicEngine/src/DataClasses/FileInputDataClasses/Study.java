@@ -14,6 +14,14 @@ public class Study{
         m_Hours=i_ETTStudy.getHours();
     }
 
+    public Study(Study i_Study)
+    {
+        m_SubjectId=i_Study.getSubjectID();
+        m_Hours=i_Study.getHours();
+    }
+
+
+
     @Override
     public String toString() {
         return "Study{" +

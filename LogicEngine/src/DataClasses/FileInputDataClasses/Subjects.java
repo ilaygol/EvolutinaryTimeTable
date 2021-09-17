@@ -19,6 +19,16 @@ public class Subjects {
         }
     }
 
+    public Subjects(Subjects i_Subjects)
+    {
+        m_SubjectsList=new ArrayList<>();
+        List<Subject> subjectsList=i_Subjects.getSubjectsList();
+        for(Subject subject:subjectsList)
+        {
+            m_SubjectsList.add(new Subject(subject));
+        }
+    }
+
     public List<Subject> getSubjectsList() {
         return m_SubjectsList;
     }

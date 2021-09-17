@@ -17,6 +17,15 @@ public class Clazz {
         m_FullName=i_ETTClass.getETTName();
     }
 
+    public Clazz(Clazz i_Clazz)
+    {
+        m_Id=i_Clazz.getId();
+        m_Requirements=new Requirements(i_Clazz.getRequirements());
+        m_FullName=i_Clazz.getFullName();
+    }
+
+
+
     @Override
     public String toString() {
         return "Clazz{" +

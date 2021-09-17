@@ -11,7 +11,7 @@ $(function() {
             });
             $("#fileData").append("The teachers are:"+"<br>");
             $.each(webFileData["m_TeacherData"] || [],function (index,teacher){
-                $("#fileData").append("Teacher ID: "+teacher["m_TeacherID"]+" with Preferred working Hours: "+teacher["m_WorkingHours"]+" Subjects he teaches are:"+"<br>");
+                $("#fileData").append("Teacher ID: "+teacher["m_TeacherID"]+" Name: "+teacher["m_TeacherName"]+" Preferred working Hours: "+teacher["m_WorkingHours"]+", Subjects he teaches are:"+"<br>");
                 $.each(teacher["m_TeacherSubjects"] || [],function (index,subject) {
                     $("#fileData").append("ID: "+subject["m_SubjectID"]+" | Name: "+subject["m_SubjectName"]+"<br>");
                 });
@@ -19,7 +19,7 @@ $(function() {
             });
             $("#fileData").append("The classes are:"+"<br>");
             $.each(webFileData["m_ClassData"] || [],function (index,clazz){
-                $("#fileData").append("Class ID: "+clazz["m_ClassID"]+", The subjects taught in this class are:"+"<br>");
+                $("#fileData").append("Class ID: "+clazz["m_ClassID"]+" Name: "+clazz["m_ClassName"]+", The subjects taught in this class are:"+"<br>");
                 $.each(clazz["m_ClassSubjects"] || [],function (index,subject) {
                     $("#fileData").append("ID: "+subject["m_SubjectID"]+" | Name: "+subject["m_SubjectName"]+"<br>");
                 });

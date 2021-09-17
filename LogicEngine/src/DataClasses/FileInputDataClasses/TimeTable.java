@@ -23,6 +23,16 @@ public class TimeTable {
         m_Days=i_ETTTimeTable.getDays();
     }
 
+    public TimeTable(TimeTable i_TimeTable)
+    {
+        m_Teachers=new Teachers(i_TimeTable.getTeachers());
+        m_Subjects=new Subjects(i_TimeTable.getSubjects());
+        m_Clazzes=new Clazzes(i_TimeTable.getClazzes());
+        m_Rules=new Rules(i_TimeTable.getRules());
+        m_Hours=i_TimeTable.getHours();
+        m_Days=i_TimeTable.getDays();
+    }
+
     @Override
     public String toString() {
         return "TimeTable{" +

@@ -3,20 +3,21 @@ package DataTransferClasses;
 import DataClasses.FileInputDataClasses.Subjects;
 import DataClasses.FileInputDataClasses.Teacher;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class TeacherData implements Comparable<TeacherData>{
     private Integer m_TeacherID;
+    private String m_TeacherName;
     private Integer m_WorkingHours;
     private Set<SubjectData> m_TeacherSubjects;
 
     public TeacherData(Teacher i_Teacher, Subjects i_AllSubjects)
     {
         m_TeacherID=i_Teacher.getId();
-        m_WorkingHours=i_Teacher.getTeacherHours();
+        m_TeacherName=i_Teacher.getFullName();
+        m_WorkingHours=i_Teacher.getTeacherWorkingHours();
         m_TeacherSubjects=new TreeSet<>();
         fillTeacherSubjectsData(i_Teacher.getSubjectsIDList(),i_AllSubjects);
     }

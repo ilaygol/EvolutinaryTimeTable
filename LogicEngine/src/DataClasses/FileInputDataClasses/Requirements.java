@@ -18,6 +18,16 @@ public class Requirements {
         }
     }
 
+    public Requirements(Requirements i_Requirements)
+    {
+        m_StudyList=new ArrayList<>();
+        List<Study> studies = i_Requirements.getStudyList();
+        for(Study study:studies)
+        {
+            m_StudyList.add(new Study(study));
+        }
+    }
+
     public Integer getReqHoursBySubjId(Integer i_Id)
     {
         Optional<Study> study = m_StudyList.stream().filter(lesson -> lesson.getHours().equals(i_Id)).findFirst();

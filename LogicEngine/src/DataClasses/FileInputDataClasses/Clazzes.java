@@ -22,6 +22,18 @@ public class Clazzes {
         }
     }
 
+    public Clazzes(Clazzes i_Clazzes)
+    {
+        m_ClassesList=new ArrayList<>();
+        List<Clazz> clazzes = i_Clazzes.getClassesList();
+        for(Clazz clazz:clazzes)
+        {
+            m_ClassesList.add(new Clazz(clazz));
+        }
+    }
+
+
+
     @Override
     public String toString() {
         return "Clazzes{" +
