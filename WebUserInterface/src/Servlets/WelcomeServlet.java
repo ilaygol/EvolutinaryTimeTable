@@ -16,8 +16,8 @@ import java.io.IOException;
 public class WelcomeServlet extends HttpServlet {
     private void processRequest(HttpServletRequest i_Request, HttpServletResponse i_Response) throws IOException, ServletException {
         i_Response.setContentType("text/plain;charset=UTF-8");
-        String userID= SessionUtils.getUserID(i_Request);
         PermUserManager permUserManager= ServletUtils.getPermUserManager(getServletContext());
+        String userID= SessionUtils.getUserID(i_Request);
         if(userID!=null)
         {
             i_Response.getOutputStream().println(permUserManager.getUserNameByID(userID));

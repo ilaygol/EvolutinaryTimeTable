@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet{
                     //checking if the user exist in the permUserManager, which means he already logged into our site in the past
                     if(!permUserManager.isUserExists(newBrowserUserName))
                         permUserManager.addUser(newBrowserUserName);
-                    //when we reach here, the user has a perm instance with id in our website
+                    //when we reach here, the user has a perm instance with id and logicEngineArray in our website
                     i_Request.getSession().setAttribute(Constants.USER_ID,permUserManager.getUserIdByName(newBrowserUserName));
                     i_Response.setStatus(200);
                     i_Response.getOutputStream().println(Constants.HOME_PAGE_PATH);
