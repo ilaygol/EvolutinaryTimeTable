@@ -61,9 +61,27 @@ function refreshMutationTableRows(mutationDataList) {
             "</td><td>" + mutation["m_Probability"] +
             "</td><td>" + mutation["m_Tupples"] +
             "</td><td>" + mutation["m_Component"] +
-            "</td><td><button class='btn btn-primary updateMutation' id='" + index + "'>Update</button></td>" +
-            "</td><td><button class='btn btn-danger deleteMutation' id='" + index + "'>Delete</button></td></tr>").appendTo($("#mutationsTableBody"))
+            "</td><td><button class='btn btn-primary updateMutation' id='" + index + "' type='button'>Update</button></td>" +
+            "</td><td><button class='btn btn-danger deleteMutation' id='" + index + "' type='button'>Delete</button></td></tr>").appendTo($("#mutationsTableBody"))
     })
+    $(".deleteMutation").click(function () {
+        $.ajax({
+            data: "mutationIndex="+this.getAttribute("id"),
+            url: "deleteMutation",
+            timeout: 2000,
+            success: (function () {
+                var myModal = new bootstrap.Modal(document.getElementById('algoRefModal'));
+                $("#titleModalLabel").text("SUCCESS!");
+                $("#bodyModalLabel").text("Mutation has been deleted successfully");
+                myModal.show();
+            }),
+            error: function () {
+                console.log("Error deleting mutation");
+            }
+
+        })
+
+    });
 
 }
 

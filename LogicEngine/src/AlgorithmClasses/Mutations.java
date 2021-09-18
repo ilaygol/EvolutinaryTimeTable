@@ -76,7 +76,7 @@ public class Mutations {
 
     public void deleteMutationByIndex(Integer i_MutationIndex)
     {
-        m_MutationsList.remove(i_MutationIndex);
+        m_MutationsList.remove(i_MutationIndex.intValue());
     }
 
 

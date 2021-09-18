@@ -56,43 +56,5 @@ public class MutationsServlet extends HttpServlet {
         i_Response.setStatus(200);
     }
 
-    @Override
-    protected void doPut(HttpServletRequest i_Request, HttpServletResponse i_Response)
-    {}
 
-
-    @Override
-    protected void doDelete(HttpServletRequest i_Request, HttpServletResponse i_Response) throws IOException {
-        i_Response.setContentType("text/plain;charset=UTF-8");
-        String mutationIndex=i_Request.getParameter(Constants.MUTATION_INDEX);
-        String userID= SessionUtils.getUserID(i_Request);
-        String managerIndex=SessionUtils.getManagerIndex(i_Request);
-        PermUserManager permUserManager= ServletUtils.getPermUserManager(getServletContext());
-        User user= permUserManager.getUserByID(userID);
-        user.deleteMutationByIndex(Integer.parseInt(managerIndex),Integer.parseInt(mutationIndex));
-        i_Response.setStatus(200);
-        i_Response.getOutputStream().println("Mutation has been deleted successfully");
-    }
 }
-
-/*
-$(".deleteMutation").click(function () {
-        $.ajax({
-            data: "mutationIndex="+this.getAttribute("id"),
-            url: "mutation",
-            method: 'DELETE',
-            timeout: 2000,
-            success: (function () {
-                var myModal = new bootstrap.Modal(document.getElementById('algoRefModal'));
-                $("#titleModalLabel").text("SUCCESS!");
-                $("#bodyModalLabel").text("Mutation has been deleted successfully");
-                myModal.show();
-            }),
-            error: function () {
-                console.log("Error deleting mutation");
-            }
-
-        })
-
-    });
- */

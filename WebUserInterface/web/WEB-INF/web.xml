@@ -49,7 +49,10 @@
         <servlet-name>WelcomeServlet</servlet-name>
         <servlet-class>Servlets.WelcomeServlet</servlet-class>
     </servlet>
-
+    <servlet>
+        <servlet-name>DeleteMutationServlet</servlet-name>
+        <servlet-class>Servlets.DeleteMutationServlet</servlet-class>
+    </servlet>
 
 
 
@@ -98,6 +101,11 @@
         <servlet-name>WelcomeServlet</servlet-name>
         <url-pattern>/pages/homepage/welcome</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteMutationServlet</servlet-name>
+        <url-pattern>/pages/algopage/deleteMutation</url-pattern>
+    </servlet-mapping>
+
 
 
 
