@@ -13,8 +13,12 @@ public class Descriptor {
     public Descriptor(ETTDescriptor i_ETTDescriptor)
     {
         m_TimeTable=new TimeTable(i_ETTDescriptor.getETTTimeTable());
+        m_EvolutionEngine=new EvolutionEngine();
     }
-    public Descriptor(Descriptor i_Descriptor){ m_TimeTable=new TimeTable(i_Descriptor.getTimeTable()); }
+    public Descriptor(Descriptor i_Descriptor){
+        m_TimeTable=new TimeTable(i_Descriptor.getTimeTable());
+        m_EvolutionEngine=new EvolutionEngine();
+    }
 
     public TimeTable getTimeTable() {
         return m_TimeTable;

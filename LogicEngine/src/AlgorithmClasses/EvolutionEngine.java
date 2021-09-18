@@ -31,6 +31,12 @@ public class EvolutionEngine {
     private Generation m_Generation;
     private Boolean m_isStop;
 
+    public EvolutionEngine()
+    {
+        m_InitialPopulationAmount=200;
+        m_Mutations=new Mutations();
+
+    }
     public Integer getInitialPopulation() {
         return m_InitialPopulationAmount;
     }

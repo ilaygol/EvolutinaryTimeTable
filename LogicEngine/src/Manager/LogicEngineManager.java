@@ -218,7 +218,7 @@ public class LogicEngineManager {
         return webFileData;
     }
 
-    public List<MutationData> getMutationData()
+    public List<MutationData> getMutationDataList()
     {
         return m_Descriptor.getEvolutionEngine().getMutations().getMutationsDataList();
     }
@@ -321,5 +321,12 @@ public class LogicEngineManager {
     {
         m_Descriptor.getEvolutionEngine().setStopBoolean(i_Boolean);
     }
+
+    public void addNewMutationToList(String i_Name,String i_Tupples,String i_Char,String i_Probability)
+    {
+        m_Descriptor.getEvolutionEngine().getMutations().createAndAddMutationToList(i_Name,i_Tupples,i_Char,i_Probability);
+    }
+
+
 
 }

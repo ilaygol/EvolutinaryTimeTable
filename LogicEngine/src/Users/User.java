@@ -1,5 +1,6 @@
 package Users;
 
+import DataTransferClasses.MutationData;
 import Manager.LogicEngineManager;
 
 import java.util.ArrayList;
@@ -41,6 +42,32 @@ public class User {
         else
             retValue = false;
         return retValue;
+    }
+
+    public void addNewMutationToManager(Integer i_ManagerIndex,String i_Name,String i_Tupples,String i_Char,String i_Probability)
+    {
+        LogicEngineManager wantedManager=null;
+        for(LogicEngineManager manager:m_EngineList)
+        {
+            if(manager.getProblemIndex().equals(i_ManagerIndex)) {
+                wantedManager = manager;
+                break;
+            }
+        }
+        wantedManager.addNewMutationToList(i_Name,i_Tupples,i_Char,i_Probability);
+    }
+
+    public List<MutationData> getMutationDataListByManagerIndex(Integer i_ManagerIndex)
+    {
+        LogicEngineManager wantedManager=null;
+        for(LogicEngineManager manager:m_EngineList)
+        {
+            if(manager.getProblemIndex().equals(i_ManagerIndex)) {
+                wantedManager = manager;
+                break;
+            }
+        }
+        return wantedManager.getMutationDataList();
     }
 
 }

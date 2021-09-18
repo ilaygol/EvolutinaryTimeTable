@@ -15,7 +15,11 @@ public class Mutations {
     private List<Mutation> m_MutationsList;
     private Random m_Roller;
 
-
+    public Mutations()
+    {
+        m_MutationsList=new ArrayList<>();
+        m_Roller=new Random();
+    }
     public Mutations(List<MutationData> i_MutationDataList)
     {
         m_MutationsList=new ArrayList<>();

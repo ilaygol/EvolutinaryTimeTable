@@ -89,9 +89,9 @@ public class Mutation {
     }
     public void setChar(String i_Char)
     {
-        if(i_Char.toUpperCase().equals("CLASS")||i_Char.toUpperCase().equals("TEACHER")
-            ||i_Char.toUpperCase().equals("SUBJECT")||i_Char.toUpperCase().equals("DAY")||
-                i_Char.toUpperCase().equals("HOUR"))
+        if(i_Char.toUpperCase().equals("C")||i_Char.toUpperCase().equals("T")
+            ||i_Char.toUpperCase().equals("S")||i_Char.toUpperCase().equals("D")||
+                i_Char.toUpperCase().equals("H"))
             m_Char=i_Char.charAt(0);
         else
             throw new RuntimeException("Error: Invalid Mutation Component.");
