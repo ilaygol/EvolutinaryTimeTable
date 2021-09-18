@@ -66,8 +66,9 @@ function refreshMutationTableRows(mutationDataList) {
     })
     $(".deleteMutation").click(function () {
         $.ajax({
-            data: "mutationIndex="+this.getAttribute("id"),
-            url: "deleteMutation",
+            headers: {"mutationIndex":this.getAttribute("id")},
+            url: "mutation",
+            method:"DELETE",
             timeout: 2000,
             success: (function () {
                 var myModal = new bootstrap.Modal(document.getElementById('algoRefModal'));

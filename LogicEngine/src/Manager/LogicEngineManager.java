@@ -143,8 +143,6 @@ public class LogicEngineManager {
 
     public void LoadFile(InputStream i_InputStream) throws  JAXBException {
         try {
-            if(i_InputStream.toString().equals("")||i_InputStream.toString()==null)
-                throw new RuntimeException("Please select a file first");
             JAXBContext jaxbContext = JAXBContext.newInstance("ParsedClasses");
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             ETTDescriptor ettDescriptor = (ETTDescriptor) jaxbUnmarshaller.unmarshal(i_InputStream);
@@ -156,7 +154,7 @@ public class LogicEngineManager {
             m_IsAlgoActivated=false;
         }
         catch (JAXBException e) {
-            throw new JAXBException("An error with unmarshalling the file");
+            throw new JAXBException("Please pick XML File");
         }
     }
 
