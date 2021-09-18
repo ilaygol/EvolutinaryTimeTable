@@ -46,28 +46,34 @@ public class User {
 
     public void addNewMutationToManager(Integer i_ManagerIndex,String i_Name,String i_Tupples,String i_Char,String i_Probability)
     {
-        LogicEngineManager wantedManager=null;
-        for(LogicEngineManager manager:m_EngineList)
-        {
-            if(manager.getProblemIndex().equals(i_ManagerIndex)) {
-                wantedManager = manager;
-                break;
-            }
-        }
+        LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
         wantedManager.addNewMutationToList(i_Name,i_Tupples,i_Char,i_Probability);
     }
 
     public List<MutationData> getMutationDataListByManagerIndex(Integer i_ManagerIndex)
     {
-        LogicEngineManager wantedManager=null;
-        for(LogicEngineManager manager:m_EngineList)
-        {
-            if(manager.getProblemIndex().equals(i_ManagerIndex)) {
-                wantedManager = manager;
-                break;
-            }
-        }
+        LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
         return wantedManager.getMutationDataList();
     }
 
+    public void deleteMutationByIndex(Integer i_ManagerIndex,Integer i_MutationIndex)
+    {
+        LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
+        wantedManager.deleteMutationByIndex(i_MutationIndex);
+
+    }
+
+
+    private LogicEngineManager getManagerByProblemIndex(Integer i_ProblemIndex)
+    {
+        LogicEngineManager retManager=null;
+        for(LogicEngineManager manager:m_EngineList)
+        {
+            if(manager.getProblemIndex().equals(i_ProblemIndex)) {
+                retManager = manager;
+                break;
+            }
+        }
+        return retManager;
+    }
 }

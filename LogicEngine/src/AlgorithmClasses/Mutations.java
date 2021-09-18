@@ -74,5 +74,10 @@ public class Mutations {
 
     public void addMutationToList(Mutation i_Mutation){m_MutationsList.add(i_Mutation);}
 
+    public void deleteMutationByIndex(Integer i_MutationIndex)
+    {
+        m_MutationsList.remove(i_MutationIndex);
+    }
+
 
 }

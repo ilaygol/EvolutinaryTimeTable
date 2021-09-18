@@ -8,6 +8,7 @@ public class Constants {
     public static final String TIMETABLE_HOST_MANAGER="timeTableHostManager";
     public static final String USER_ID="userID";
     public static final String MANAGER_INDEX="managerIndex";
+    public static final String MUTATION_INDEX="mutationIndex";
 
 
 

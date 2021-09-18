@@ -327,6 +327,11 @@ public class LogicEngineManager {
         m_Descriptor.getEvolutionEngine().getMutations().createAndAddMutationToList(i_Name,i_Tupples,i_Char,i_Probability);
     }
 
+    public void deleteMutationByIndex(Integer i_MutationIndex)
+    {
+        m_Descriptor.getEvolutionEngine().getMutations().deleteMutationByIndex(i_MutationIndex);
+    }
+
 
 
 }
