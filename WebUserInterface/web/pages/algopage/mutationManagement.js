@@ -19,3 +19,35 @@ $(function(){
         })
     })
 })
+
+$(function (){
+    setInterval(AlgoPageContentUpdate,2000);
+});
+
+function AlgoPageContentUpdate()
+{
+    $.ajax({
+        url:"mutation",
+        type:'GET',
+
+        success:function (mutationDataList){
+            refreshMutationTableRows(mutationDataList)
+        }
+    });
+
+}
+
+function refreshMutationTableRows(mutationDataList)
+{
+    $("#mutationsTableBody").empty();
+    $.each(mutationDataList || [],function (index,mutation){
+        $("<tr><td>"+mutation["m_Name"]+
+            "</td><td>"+mutation["m_Probability"]+
+            "</td><td>"+mutation["m_Tupples"]+
+            "</td><td>"+mutation["m_Component"]+
+            "</td><td><button class='btn btn-primary updateMutation' id='"+index+"'>Update</button></td></tr>"+
+            "</td><td><button class='btn btn-danger deleteMutation' id='"+index+"'>Delete</button></td></tr>").appendTo($("#mutationsTableBody"))
+    })
+
+}
+

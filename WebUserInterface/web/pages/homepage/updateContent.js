@@ -15,40 +15,40 @@ $(function() {
     $.ajax({
         url: "userList",
         success: function (usersList) {
-            refreshUsersList(usersList);
+            refreshOnlineUsersList(usersList);
         }
     });
     $.ajax({
         url:"rows",
         success:function(rowsList){
-            refreshRows(rowsList);
+            refreshHostTableRows(rowsList);
         }
     });
 });
 
 $(function (){
-    setInterval(contentUpdate,2000);
+    setInterval(homepageContentUpdate,2000);
 });
 
 
-function contentUpdate()
+function homepageContentUpdate()
 {
     $.ajax({
         url:"userList",
         success:function (usersList){
-            refreshUsersList(usersList)
+            refreshOnlineUsersList(usersList)
         }
     });
 
     $.ajax({
         url:"rows",
         success:function(rowsList){
-            refreshRows(rowsList);
+            refreshHostTableRows(rowsList);
         }
     })
 }
 
-function refreshUsersList(usersList){
+function refreshOnlineUsersList(usersList){
     $("#usersList").empty();
     $.each(usersList || [],function (index,username){
         $("<tr><td>"+username+"</td></tr>").appendTo($("#usersList"));
@@ -56,7 +56,7 @@ function refreshUsersList(usersList){
 }
 
 
-function refreshRows(rowsList){
+function refreshHostTableRows(rowsList){
     $("#tableBody").empty();
     $.each(rowsList || [],function (index,row){
         $("<tr><td>"+row["m_HostName"]+
