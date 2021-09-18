@@ -14,7 +14,6 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 
 
@@ -46,20 +45,6 @@ public class LogicEngineManager {
         }
     }
 
-    public BestSolutionsData getBestSolutionData() {
-        if(m_IsFileLoaded) {
-            if(m_IsAlgoActivated) {
-                return m_EvolutionEngineData.getBestSolutionData();
-            }
-            else {
-                throw new RuntimeException("ERROR: Please activate the algorithm first");
-            }
-        }
-        else {
-            throw new RuntimeException("ERROR: Please load a file, then activate the algorithm before choosing this option");
-        }
-    }
-
     public void ActivateAlgorithm(Integer i_ReqGenerations, Integer i_PrintingReq,Integer i_ReqFitness,Integer i_ReqTimeInMinutes, Consumer<ProgressData> i_ProgressDataConsumer,  Collection<eStoppingCondition> i_StopConditions) {
         if(m_IsFileLoaded)
         {
@@ -79,7 +64,7 @@ public class LogicEngineManager {
     public void ActivateAlgorithm(String i_ReqGenerations, String i_PrintingReq,String i_ReqFitness,String i_ReqTimeInMinutes, Consumer<ProgressData> i_ProgressDataConsumer,  Collection<eStoppingCondition> i_StopConditions) {
         if(m_IsFileLoaded)
         {
-            checkArguements(i_ReqGenerations,i_PrintingReq,i_ReqFitness,i_ReqTimeInMinutes);
+            checkArguments(i_ReqGenerations,i_PrintingReq,i_ReqFitness,i_ReqTimeInMinutes);
             m_EvolutionEngineData=new EvolutionEngineData();
             m_Descriptor.getEvolutionEngine().setNumOfGenerations(Integer.parseInt(i_ReqGenerations));
             m_Descriptor.getEvolutionEngine().setPrintingReq(Integer.parseInt(i_PrintingReq));
@@ -90,6 +75,102 @@ public class LogicEngineManager {
         }
         else {
             throw new RuntimeException("ERROR: No file has been loaded, Please load a file before choosing this option.");
+        }
+    }
+
+    public void resumeAlgo()
+    {
+        m_Descriptor.getEvolutionEngine().resumeAlgo();
+    }
+
+    private void checkArguments(String i_reqGenerations, String i_printingReq, String i_reqFitness, String i_reqTimeInMinutes) {
+        try {
+            if(i_reqGenerations!=null) {
+                int reqGeneraions = Integer.parseInt(i_reqGenerations);
+                if (reqGeneraions <= 0)
+                    throw new RuntimeException("Error, Number of generations must be positive");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error, Generations to make must be a number.");
+        }
+        try {
+            if (i_printingReq != null) {
+                int printingReq = Integer.parseInt(i_printingReq);
+                if (printingReq <= 0)
+                    throw new RuntimeException("Error, Show every must be a positive number.");
+                if (printingReq > Integer.parseInt(i_reqGenerations))
+                    throw new RuntimeException("Error: Show every parameter cant be bigger than Generations number");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error, Show Every must be a number.");
+        }
+        try {
+            int reqFitness = Integer.parseInt(i_reqFitness);
+            if(reqFitness<0 || reqFitness>100)
+                throw new RuntimeException("Error: Req fitness must be between 1-100");
+        } catch (Exception e) {
+            throw new RuntimeException("Error, Req fitness must be a number.");
+        }
+        try {
+            if(i_reqFitness!=null) {
+                int reqTime = Integer.parseInt(i_reqTimeInMinutes);
+                if (reqTime <= 0)
+                    throw new RuntimeException("Error, Req time must be a positive number.");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error, Req time must be an Integer.");
+        }
+
+    }
+
+    public void LoadFile(File i_File) throws  JAXBException {
+        try {
+
+            JAXBContext jaxbContext = JAXBContext.newInstance("ParsedClasses");
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            ETTDescriptor ettDescriptor = (ETTDescriptor) jaxbUnmarshaller.unmarshal(i_File);
+            CheckValidData checker=new CheckValidData(ettDescriptor);
+            checker.checkFile();
+            m_Descriptor=new Descriptor(ettDescriptor);
+            m_MaxAmountOfObjects =getAmountOfData();
+            m_IsFileLoaded=true;
+            m_IsAlgoActivated=false;
+        }
+        catch (JAXBException e) {
+            throw new JAXBException("An error with unmarshalling the file");
+        }
+    }
+
+    public void LoadFile(InputStream i_InputStream) throws  JAXBException {
+        try {
+            if(i_InputStream.toString().equals("")||i_InputStream.toString()==null)
+                throw new RuntimeException("Please select a file first");
+            JAXBContext jaxbContext = JAXBContext.newInstance("ParsedClasses");
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            ETTDescriptor ettDescriptor = (ETTDescriptor) jaxbUnmarshaller.unmarshal(i_InputStream);
+            CheckValidData checker=new CheckValidData(ettDescriptor);
+            checker.checkFile();
+            m_Descriptor=new Descriptor(ettDescriptor);
+            m_MaxAmountOfObjects =getAmountOfData();
+            m_IsFileLoaded=true;
+            m_IsAlgoActivated=false;
+        }
+        catch (JAXBException e) {
+            throw new JAXBException("An error with unmarshalling the file");
+        }
+    }
+
+    public BestSolutionsData getBestSolutionData() {
+        if(m_IsFileLoaded) {
+            if(m_IsAlgoActivated) {
+                return m_EvolutionEngineData.getBestSolutionData();
+            }
+            else {
+                throw new RuntimeException("ERROR: Please activate the algorithm first");
+            }
+        }
+        else {
+            throw new RuntimeException("ERROR: Please load a file, then activate the algorithm before choosing this option");
         }
     }
 
@@ -137,41 +218,9 @@ public class LogicEngineManager {
         return webFileData;
     }
 
-    public void LoadFile(File i_File) throws  JAXBException {
-        try {
-
-            JAXBContext jaxbContext = JAXBContext.newInstance("ParsedClasses");
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            ETTDescriptor ettDescriptor = (ETTDescriptor) jaxbUnmarshaller.unmarshal(i_File);
-            CheckValidData checker=new CheckValidData(ettDescriptor);
-            checker.checkFile();
-            m_Descriptor=new Descriptor(ettDescriptor);
-            m_MaxAmountOfObjects =getAmountOfData();
-            m_IsFileLoaded=true;
-            m_IsAlgoActivated=false;
-        }
-        catch (JAXBException e) {
-            throw new JAXBException("An error with unmarshalling the file");
-        }
-    }
-
-    public void LoadFile(InputStream i_InputStream) throws  JAXBException {
-        try {
-            if(i_InputStream.toString().equals("")||i_InputStream.toString()==null)
-                throw new RuntimeException("Please select a file first");
-            JAXBContext jaxbContext = JAXBContext.newInstance("ParsedClasses");
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            ETTDescriptor ettDescriptor = (ETTDescriptor) jaxbUnmarshaller.unmarshal(i_InputStream);
-            CheckValidData checker=new CheckValidData(ettDescriptor);
-            checker.checkFile();
-            m_Descriptor=new Descriptor(ettDescriptor);
-            m_MaxAmountOfObjects =getAmountOfData();
-            m_IsFileLoaded=true;
-            m_IsAlgoActivated=false;
-        }
-        catch (JAXBException e) {
-            throw new JAXBException("An error with unmarshalling the file");
-        }
+    public List<MutationData> getMutationData()
+    {
+        return m_Descriptor.getEvolutionEngine().getMutations().getMutationsDataList();
     }
 
     public AmountOfObjectsCalc getAmountOfData() {
@@ -216,6 +265,21 @@ public class LogicEngineManager {
         return m_Descriptor.getEvolutionEngine().getStopBoolean();
     }
 
+    public String getTeacherNameById(Integer i_ID)
+    {
+        return m_Descriptor.getTimeTable().getTeachers().getTeacherNameById(i_ID);
+    }
+
+    public String getClassNameById(Integer i_ID)
+    {
+        return m_Descriptor.getTimeTable().getClazzes().getClassNameById(i_ID);
+    }
+
+    public String getSubjectNameById(Integer i_ID)
+    {
+        return m_Descriptor.getTimeTable().getSubjects().getSubjectNameById(i_ID);
+    }
+
     public void setProblemIndex(Integer i_ProblemIndex) {
         this.m_ProblemIndex = i_ProblemIndex;
     }
@@ -258,63 +322,4 @@ public class LogicEngineManager {
         m_Descriptor.getEvolutionEngine().setStopBoolean(i_Boolean);
     }
 
-    public void resumeAlgo()
-    {
-        m_Descriptor.getEvolutionEngine().resumeAlgo();
-    }
-
-    public String getTeacherNameById(Integer i_ID)
-    {
-        return m_Descriptor.getTimeTable().getTeachers().getTeacherNameById(i_ID);
-    }
-
-    public String getClassNameById(Integer i_ID)
-    {
-        return m_Descriptor.getTimeTable().getClazzes().getClassNameById(i_ID);
-    }
-
-    public String getSubjectNameById(Integer i_ID)
-    {
-        return m_Descriptor.getTimeTable().getSubjects().getSubjectNameById(i_ID);
-    }
-
-    private void checkArguements(String i_reqGenerations, String i_printingReq, String i_reqFitness, String i_reqTimeInMinutes) {
-        try {
-            if(i_reqGenerations!=null) {
-                int reqGeneraions = Integer.parseInt(i_reqGenerations);
-                if (reqGeneraions <= 0)
-                    throw new RuntimeException("Error, Number of generations must be positive");
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Error, Generations to make must be a number.");
-        }
-        try {
-            if (i_printingReq != null) {
-                int printingReq = Integer.parseInt(i_printingReq);
-                if (printingReq <= 0)
-                    throw new RuntimeException("Error, Show every must be a positive number.");
-                if (printingReq > Integer.parseInt(i_reqGenerations))
-                    throw new RuntimeException("Error: Show every parameter cant be bigger than Generations number");
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Error, Show Every must be a number.");
-        }
-        try {
-            int reqFitness = Integer.parseInt(i_reqFitness);
-            if(reqFitness<0 || reqFitness>100)
-                throw new RuntimeException("Error: Req fitness must be between 1-100");
-        } catch (Exception e) {
-            throw new RuntimeException("Error, Req fitness must be a number.");
-        }
-        try {
-            if(i_reqFitness!=null) {
-                int reqTime = Integer.parseInt(i_reqTimeInMinutes);
-                if (reqTime <= 0)
-                    throw new RuntimeException("Error, Req time must be a positive number.");
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Error, Req time must be an Integer.");
-        }
-
-    }
 }

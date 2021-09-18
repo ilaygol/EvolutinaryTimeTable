@@ -6,6 +6,7 @@
     <link href="../../resources/bootstrap-5.1.1-dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="../../resources/jquery-3.6.0.min.js"></script>
     <script src="fileData.js"></script>
+    <script src="mutationManagement.js"></script>
 </head>
 <body>
 <!-- Welcome section -->
@@ -38,7 +39,7 @@
 
 <!-- Algo Preferences Section -->
 <section class="p-4 bg-light bg-gradient">
-    <div class="container">
+    <form class="container">
         <div class="accordion" id="algoPrefAccordion">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="algoPref-headingOne">
@@ -208,7 +209,7 @@
                                 </div>
                             </div>
                             <div class="col-xl-1">
-                                <button class="btn btn-sm btn-primary mb-0" id="addNewMutation">Add New</button>
+                                <button class="btn btn-sm btn-primary mb-0" id="addNewMutations">Add New</button>
                             </div>
                             <div class="col-xl-5">
                                 <div class="table-responsive pb-0">
@@ -238,11 +239,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </section>
-
+<button class="btn btn-sm btn-primary mb-0" id="addNewMutation">Add New</button>
 <!-- Modal -->
-<div class="modal fade" id="fileModal" tabindex="-1">
+<div class="modal fade" id="algoRefModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
