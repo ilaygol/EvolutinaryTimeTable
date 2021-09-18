@@ -188,7 +188,7 @@ public class ArgumentsFiller {
 
         if(m_DataPrinter.getMutationsDataList().get(0).getName().toUpperCase().equals("FLIPPING"))
         {
-            Character component=m_DataPrinter.getMutationsDataList().get(0).getComponent();
+            Character component=m_DataPrinter.getMutationsDataList().get(0).getComponent().charAt(0);
             switch (component)
             {
                 case 'T':
@@ -211,7 +211,7 @@ public class ArgumentsFiller {
     }
     public void updateMutationComponentCombo(ComboBox i_ComboBox,Integer i_MutationIndex)
     {
-        Character component=m_DataPrinter.getMutationsDataList().get(i_MutationIndex).getComponent();
+        Character component=m_DataPrinter.getMutationsDataList().get(i_MutationIndex).getComponent().charAt(0);
         switch (component)
         {
             case 'T':

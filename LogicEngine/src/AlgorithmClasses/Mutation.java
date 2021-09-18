@@ -35,7 +35,7 @@ public class Mutation {
     {
         m_Name=i_MutationData.getName();
         m_Tupples=i_MutationData.getTupples();
-        m_Char=i_MutationData.getComponent();
+        m_Char=i_MutationData.getComponent().charAt(0);
         m_Probability=i_MutationData.getProbability();
         m_eType=eMutation.valueOf(m_Name.toUpperCase());
         m_Roller=new Random();

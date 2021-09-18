@@ -9,16 +9,18 @@ public class MutationData {
     private double m_Probability;
     private String m_Name;
     private Integer m_Tupples;
-    private Character m_Component;
+    private String m_Component;
 
-    public MutationData(Mutation i_Mutation)
-    {
-        m_Name=i_Mutation.getName();
-        m_Probability=i_Mutation.getProbability();
-        m_Tupples=i_Mutation.getMaxTupples();
-        m_Component=i_Mutation.getChar();
-
+    public MutationData(Mutation i_Mutation) {
+        m_Name = i_Mutation.getName();
+        m_Probability = i_Mutation.getProbability();
+        m_Tupples = i_Mutation.getMaxTupples();
+        if (m_Name.toUpperCase().equals("FLIPPING"))
+            setComponent(i_Mutation.getChar());
+        else
+            m_Component = " ";
     }
+
 
     public double getProbability() {
         return m_Probability;
@@ -32,7 +34,7 @@ public class MutationData {
         return m_Tupples;
     }
 
-    public Character getComponent() {
+    public String getComponent() {
         return m_Component;
     }
 
@@ -45,12 +47,31 @@ public class MutationData {
     }
 
     public void setComponent(Character i_Component) {
-        m_Component = i_Component;
+        switch(i_Component)
+        {
+            case 'H':
+                m_Component="Hour";
+                break;
+            case 'D':
+                m_Component="Day";
+                break;
+            case 'C':
+                m_Component="Class";
+                break;
+            case 'T':
+                m_Component="Teacher";
+                break;
+            case 'S':
+                m_Component="Subject";
+                break;
+            default:
+                throw new RuntimeException("Error, Invalid mutation component!");
+        }
     }
 
     @Override
     public String toString() {
         eMutation eType=eMutation.valueOf(m_Name.toUpperCase());
-        return eType.toString(m_Tupples,m_Component);
+        return eType.toString(m_Tupples,m_Component.charAt(0));
     }
 }
