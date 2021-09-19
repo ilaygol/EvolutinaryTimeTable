@@ -5,8 +5,8 @@
     <title>TimeTable</title>
     <link href="../../resources/bootstrap-5.1.1-dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="../../resources/jquery-3.6.0.min.js"></script>
-    <script src="fileData.js"></script>
-    <script src="mutationManagement.js"></script>
+<!--    <script src="fileData.js"></script>-->
+<!--    <script src="mutationManagement.js"></script>-->
 </head>
 <body>
 <!-- Welcome section -->
@@ -20,7 +20,7 @@
 
 <!-- File Data Section -->
 <section class="p-4 bg-secondary bg-gradient">
-    <div class="container">
+    <div class="container-fluid">
     <div class="accordion" id="fileDataAccordion">
         <div class="accordion-item">
             <h2 class="accordion-header" id="fileData-headingOne">
@@ -39,7 +39,7 @@
 
 <!-- Algo Preferences Section -->
 <section class="p-4 bg-light bg-gradient">
-    <div class="container">
+    <div class="container-fluid">
         <div class="accordion" id="algoPrefAccordion">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="algoPref-headingOne">
@@ -48,11 +48,13 @@
                     </button>
                 </h2>
                 <div id="algoPref-collapseOne" class="accordion-collapse collapse">
-                    <div class="container px-4 my-4">
+                    <div class="container-fluid px-4 my-4">
+                        <div class="row">
+                            <div class="col">
                         <!-- Stop Conditions -->
                         <label for="stopConditions" class="form-label">Stop Conditions</label>
                         <div class="row py-2" id="stopConditions">
-                            <div class="col">
+                            <div class="col-4">
                                 <div class="input-group mb-3">
                                     <div class="input-group-text">
                                         <span>Generations</span>
@@ -63,7 +65,7 @@
                                     <input type="text" class="form-control" placeholder="Number">
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-4">
                                 <div class="input-group mb-3">
                                     <div class="input-group-text">
                                         <span>Fitness</span>
@@ -74,7 +76,7 @@
                                     <input type="text" class="form-control" placeholder="1-100">
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-4">
                                 <div class="input-group mb-3">
                                     <div class="input-group-text">
                                         <span>Time</span>
@@ -100,8 +102,12 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <label class="form-label" for="elitism">Elitism</label>
-                                <input type="range" class="form-range" min="1" max="100" step="1" id="elitism">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-text">
+                                        <span>Elitism</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Number" id="elitism">
+                                </div>
                             </div>
                             <div class="col">
                                 <div class="input-group mb-3">
@@ -158,11 +164,19 @@
                                     </select>
                                 </div>
                             </div>
+                            <!-- Submit Button -->
+                            <div class="row justify-content-center mt-4">
+                                <div class="col-3">
+                                    <button class="btn btn-primary" type="submit">Set Preferences</button>
+                                </div>
+                            </div>
                         </div>
+                            </div>
+                            <div class="col">
                         <!-- Mutations -->
                         <label for="mutationsForm" class="form-label">Mutations</label>
                         <form action="mutation" class="row py-2 justify-content-center" id="mutationsForm" method="POST">
-                            <div class="col-xl-2">
+                            <div class="col-3">
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="mutationType">Type</label>
                                     <select class="form-select" id="mutationType" name="mutationName">
@@ -171,7 +185,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-xl-2">
+                            <div class="col-3">
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="pte">Probability</label>
                                     <select class="form-select" id="probability" name="mutationProbability">
@@ -188,7 +202,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-xl-2">
+                            <div class="col-3">
                                 <div class="input-group mb-3">
                                     <div class="input-group-text">
                                         <span>Tupples</span>
@@ -196,7 +210,7 @@
                                     <input type="text" class="form-control" placeholder="Number" name="mutationTupples">
                                 </div>
                             </div>
-                            <div class="col-xl-3">
+                            <div class="col-3">
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="component">Component</label>
                                     <select class="form-select" id="component" name="mutationComponent">
@@ -208,10 +222,11 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-xl-1">
+                            <div class="col">
                                 <button class="btn btn-sm btn-primary mb-0" id="addNewMutation" type="submit">Add New</button>
                             </div>
-                            <div class="col-xl-5">
+                            <div class="row mt-4 justify-content-center">
+                            <div class="col">
                                 <div class="table-responsive pb-0">
                                     <table class="table table-striped table-responsive table-hover text-center table-bordered align-middle">
                                         <thead>
@@ -220,19 +235,16 @@
                                             <th>Probability</th>
                                             <th>Tupples</th>
                                             <th>Component</th>
-                                            <th>Update</th>
-                                            <th>Delete</th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody id="mutationsTableBody"></tbody>
                                     </table>
                                 </div>
                             </div>
+                            </div>
                         </form>
-                        <!-- Submit Button -->
-                        <div class="row justify-content-center mt-4">
-                            <div class="col-2">
-                                <button class="btn btn-primary" type="submit">Set Preferences</button>
                             </div>
                         </div>
                     </div>

@@ -154,7 +154,7 @@ public class LogicEngineManager {
             m_IsAlgoActivated=false;
         }
         catch (JAXBException e) {
-            throw new JAXBException("Please pick XML File");
+            throw new JAXBException("Please choose XML file");
         }
     }
 
