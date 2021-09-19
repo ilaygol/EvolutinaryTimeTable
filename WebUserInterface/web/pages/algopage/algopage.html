@@ -5,8 +5,8 @@
     <title>TimeTable</title>
     <link href="../../resources/bootstrap-5.1.1-dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="../../resources/jquery-3.6.0.min.js"></script>
-<!--    <script src="fileData.js"></script>-->
-<!--    <script src="mutationManagement.js"></script>-->
+    <script src="fileData.js"></script>
+    <script src="mutationManagement.js"></script>
 </head>
 <body>
 <!-- Welcome section -->
@@ -50,11 +50,11 @@
                 <div id="algoPref-collapseOne" class="accordion-collapse collapse">
                     <div class="container-fluid px-4 my-4">
                         <div class="row">
-                            <div class="col">
+                            <div class="col border-end">
                         <!-- Stop Conditions -->
                         <label for="stopConditions" class="form-label">Stop Conditions</label>
                         <div class="row py-2" id="stopConditions">
-                            <div class="col-4">
+                            <div class="col-5">
                                 <div class="input-group mb-3">
                                     <div class="input-group-text">
                                         <span>Generations</span>
@@ -91,7 +91,7 @@
                         <!-- Selection -->
                         <label for="selection" class="form-label">Selection</label>
                         <div class="row py-2" id="selection">
-                            <div class="col">
+                            <div class="col-4">
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="selectionType">Type</label>
                                     <select class="form-select" id="selectionType">
@@ -101,7 +101,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-3">
                                 <div class="input-group mb-3">
                                     <div class="input-group-text">
                                         <span>Elitism</span>
@@ -109,7 +109,7 @@
                                     <input type="text" class="form-control" placeholder="Number" id="elitism">
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-3">
                                 <div class="input-group mb-3">
                                     <div class="input-group-text">
                                         <span>Percent</span>
@@ -117,7 +117,7 @@
                                     <input type="text" class="form-control" placeholder="1-100">
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-3">
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="pte">PTE</label>
                                     <select class="form-select" id="pte">
@@ -138,7 +138,7 @@
                         <!-- Crossover -->
                         <label for="crossover" class="form-label">Crossover</label>
                         <div class="row py-2" id="crossover">
-                            <div class="col">
+                            <div class="col-4">
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="crossoverType">Type</label>
                                     <select class="form-select" id="crossoverType">
@@ -147,7 +147,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-4">
                                 <div class="input-group mb-3">
                                     <div class="input-group-text">
                                         <span>Cutting Points</span>
@@ -155,7 +155,7 @@
                                     <input type="text" class="form-control" placeholder="Number">
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-4">
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="aspect">Aspect</label>
                                     <select class="form-select" id="aspect">
@@ -175,8 +175,8 @@
                             <div class="col">
                         <!-- Mutations -->
                         <label for="mutationsForm" class="form-label">Mutations</label>
-                        <form action="mutation" class="row py-2 justify-content-center" id="mutationsForm" method="POST">
-                            <div class="col-3">
+                        <form action="mutation" class="row py-2" id="mutationsForm" method="POST">
+                            <div class="col-auto">
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="mutationType">Type</label>
                                     <select class="form-select" id="mutationType" name="mutationName">
@@ -185,7 +185,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-auto">
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="pte">Probability</label>
                                     <select class="form-select" id="probability" name="mutationProbability">
@@ -202,7 +202,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-md-4">
                                 <div class="input-group mb-3">
                                     <div class="input-group-text">
                                         <span>Tupples</span>
@@ -210,7 +210,7 @@
                                     <input type="text" class="form-control" placeholder="Number" name="mutationTupples">
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-auto">
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="component">Component</label>
                                     <select class="form-select" id="component" name="mutationComponent">
