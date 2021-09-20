@@ -12,6 +12,7 @@ public class Constants {
 
 
 
+
     //PAGES PATH
     public static final String LOGIN_PAGE_PATH="/TimeTable/pages/loginpage/loginpage.html";
     public static final String HOME_PAGE_PATH="/TimeTable/pages/homepage/homepage.html";

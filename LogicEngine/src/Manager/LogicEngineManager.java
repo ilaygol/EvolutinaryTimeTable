@@ -103,8 +103,6 @@ public class LogicEngineManager {
                                                 String i_SelectionType, String i_Percent, String i_PTE, String i_Elitism,String i_InitialPopulation) {
         m_Descriptor.getEvolutionEngine().setCrossover(new Crossover(i_CrossoverName,i_NumOfCuttingPoints,i_CrossoverComponent));
         m_Descriptor.getEvolutionEngine().setSelection(new Selection(i_SelectionType,i_Percent,i_PTE,i_Elitism,Integer.parseInt(i_InitialPopulation)));
-
-
     }
 
     private void checkAndUpdateStoppingArguments(String i_InitialPopulation,String i_reqGenerations, String i_printingReq, String i_reqFitness, String i_reqTimeInMinutes) {

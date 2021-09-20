@@ -14,6 +14,10 @@
         <servlet-class>Servlets.AlgoPageLeavingServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AlgoReferenceServlet</servlet-name>
+        <servlet-class>Servlets.AlgoReferenceServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>FileDataServlet</servlet-name>
         <servlet-class>Servlets.FileDataServlet</servlet-class>
     </servlet>
@@ -62,6 +66,10 @@
         <url-pattern>/pages/algopage/algo-leave</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>AlgoReferenceServlet</servlet-name>
+        <url-pattern>/pages/algopage/algoReferences</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>FileDataServlet</servlet-name>
         <url-pattern>/pages/algopage/filedata</url-pattern>
     </servlet-mapping>
@@ -97,10 +105,6 @@
         <servlet-name>WelcomeServlet</servlet-name>
         <url-pattern>/pages/homepage/welcome</url-pattern>
     </servlet-mapping>
-
-
-
-
 </web-app>
 
 
