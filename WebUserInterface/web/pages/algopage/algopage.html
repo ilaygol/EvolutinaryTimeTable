@@ -5,8 +5,8 @@
     <title>TimeTable</title>
     <link href="../../resources/bootstrap-5.1.1-dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="../../resources/jquery-3.6.0.min.js"></script>
-<!--    <script src="fileData.js"></script>-->
-<!--    <script src="mutationManagement.js"></script>-->
+    <script src="fileData.js"></script>
+    <script src="mutationManagement.js"></script>
 </head>
 <body>
 <!-- Welcome section -->
@@ -199,7 +199,7 @@
                             </div>
                             <div class="col-auto">
                                 <div class="input-group mb-3">
-                                    <label class="input-group-text" for="pte">Probability</label>
+                                    <label class="input-group-text" for="probability">Probability</label>
                                     <select class="form-select" id="probability" name="mutationProbability">
                                         <option value="0.1" selected>0.1</option>
                                         <option value="0.2">0.2</option>
@@ -267,7 +267,7 @@
 </section>
 
 
-<!-- Modal -->
+<!-- Main Modal -->
 <div class="modal fade" id="algoRefModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -282,6 +282,68 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Update Mutation Modal -->
+<div class="modal fade" id="mutationModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <form class="modal-content" id="updateMutationForm" action="mutation" method="PUT">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Mutation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="mutationUpdateType">Type</label>
+                        <select class="form-select" id="mutationUpdateType" name="mutationName">
+                            <option value="FLIPPING" selected>Flipping</option>
+                            <option value="SIZER">Sizer</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="probabilityUpdate">Probability</label>
+                        <select class="form-select" id="probabilityUpdate" name="mutationProbability">
+                            <option value="0.1" selected>0.1</option>
+                            <option value="0.2">0.2</option>
+                            <option value="0.3">0.3</option>
+                            <option value="0.4">0.4</option>
+                            <option value="0.5">0.5</option>
+                            <option value="0.6">0.6</option>
+                            <option value="0.7">0.7</option>
+                            <option value="0.8">0.8</option>
+                            <option value="0.9">0.9</option>
+                            <option value="1">1</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-text">
+                            <span>Tupples</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Number" name="mutationTupples" id="tupplesUpdate">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="componentUpdate">Component</label>
+                        <select class="form-select" id="componentUpdate" name="mutationComponent">
+                            <option value="T" selected>Teacher</option>
+                            <option value="C">Class</option>
+                            <option value="S" selected>Subject</option>
+                            <option value="D">Day</option>
+                            <option value="H" selected>Hour</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
     </div>
 </div>
 <script src="../../resources/bootstrap-5.1.1-dist/js/bootstrap.bundle.min.js"></script>
