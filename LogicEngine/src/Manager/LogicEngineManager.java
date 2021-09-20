@@ -61,15 +61,10 @@ public class LogicEngineManager {
         }
     }
 
-    public void ActivateAlgorithm(String i_ReqGenerations, String i_PrintingReq,String i_ReqFitness,String i_ReqTimeInMinutes, Consumer<ProgressData> i_ProgressDataConsumer,  Collection<eStoppingCondition> i_StopConditions) {
+    public void ActivateAlgorithm(Consumer<ProgressData> i_ProgressDataConsumer,  Collection<eStoppingCondition> i_StopConditions) {
         if(m_IsFileLoaded)
         {
-            checkArguments(i_ReqGenerations,i_PrintingReq,i_ReqFitness,i_ReqTimeInMinutes);
             m_EvolutionEngineData=new EvolutionEngineData();
-            m_Descriptor.getEvolutionEngine().setNumOfGenerations(Integer.parseInt(i_ReqGenerations));
-            m_Descriptor.getEvolutionEngine().setPrintingReq(Integer.parseInt(i_PrintingReq));
-            m_Descriptor.getEvolutionEngine().setReqFitness(Integer.parseInt(i_ReqFitness));
-            m_Descriptor.getEvolutionEngine().setReqMinutes(Integer.parseInt(i_ReqTimeInMinutes));
             m_IsAlgoActivated=true;
             m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),m_MaxAmountOfObjects,m_EvolutionEngineData,i_ProgressDataConsumer,i_StopConditions);
         }
@@ -83,12 +78,57 @@ public class LogicEngineManager {
         m_Descriptor.getEvolutionEngine().resumeAlgo();
     }
 
-    private void checkArguments(String i_reqGenerations, String i_printingReq, String i_reqFitness, String i_reqTimeInMinutes) {
+    public void addNewMutationToList(String i_Name,String i_Tupples,String i_Char,String i_Probability)
+    {
+        m_Descriptor.getEvolutionEngine().getMutations().createAndAddMutationToList(i_Name,i_Tupples,i_Char,i_Probability);
+    }
+
+    public void deleteMutationByIndex(Integer i_MutationIndex)
+    {
+        m_Descriptor.getEvolutionEngine().getMutations().deleteMutationByIndex(i_MutationIndex);
+    }
+
+    public void updateAlgoReference(String i_InitialPopulation,String i_ReqGenerations,String i_PrintingReq,String i_ReqFitness,String i_ReqTimeInMinutes,
+                              String i_CrossoverName,String i_NumOfCuttingPoints,String i_CrossoverComponent,
+                              String i_SelectionType, String i_Percent, String i_PTE, String i_Elitism)
+    {
+        //checking stop conditions client chose and updating them(it also check elitism)
+        checkAndUpdateStoppingArguments(i_InitialPopulation,i_ReqGenerations,i_PrintingReq,i_ReqFitness,i_ReqTimeInMinutes);
+        //checking crossover and selections arguments and updating them
+        checkAndUpdateAlgoRefArguments(i_CrossoverName,i_NumOfCuttingPoints,i_CrossoverComponent,i_SelectionType,i_Percent,i_PTE,i_Elitism,i_InitialPopulation);
+
+
+    }
+    private void checkAndUpdateAlgoRefArguments(String i_CrossoverName,String i_NumOfCuttingPoints,String i_CrossoverComponent,
+                                                String i_SelectionType, String i_Percent, String i_PTE, String i_Elitism,String i_InitialPopulation) {
+        m_Descriptor.getEvolutionEngine().setCrossover(new Crossover(i_CrossoverName,i_NumOfCuttingPoints,i_CrossoverComponent));
+        m_Descriptor.getEvolutionEngine().setSelection(new Selection(i_SelectionType,i_Percent,i_PTE,i_Elitism,Integer.parseInt(i_InitialPopulation)));
+
+
+    }
+
+    private void checkAndUpdateStoppingArguments(String i_InitialPopulation,String i_reqGenerations, String i_printingReq, String i_reqFitness, String i_reqTimeInMinutes) {
+        i_InitialPopulation="200";
+        try {
+            int initialPopulation = Integer.parseInt(i_InitialPopulation);
+            if (initialPopulation <= 0) {
+                throw new RuntimeException("Error, Initial Population must be positive");
+            }
+            else {
+                m_Descriptor.getEvolutionEngine().setInitialPopulationAmount(initialPopulation);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error, Initial Population must be a number.");
+        }
         try {
             if(i_reqGenerations!=null) {
-                int reqGeneraions = Integer.parseInt(i_reqGenerations);
-                if (reqGeneraions <= 0)
+                int reqGenerations = Integer.parseInt(i_reqGenerations);
+                if (reqGenerations <= 0) {
                     throw new RuntimeException("Error, Number of generations must be positive");
+                }
+                else {
+                    m_Descriptor.getEvolutionEngine().setNumOfGenerations(reqGenerations);
+                }
             }
         } catch (Exception e) {
             throw new RuntimeException("Error, Generations to make must be a number.");
@@ -100,6 +140,8 @@ public class LogicEngineManager {
                     throw new RuntimeException("Error, Show every must be a positive number.");
                 if (printingReq > Integer.parseInt(i_reqGenerations))
                     throw new RuntimeException("Error: Show every parameter cant be bigger than Generations number");
+                else
+                    m_Descriptor.getEvolutionEngine().setPrintingReq(printingReq);
             }
         } catch (Exception e) {
             throw new RuntimeException("Error, Show Every must be a number.");
@@ -108,6 +150,8 @@ public class LogicEngineManager {
             int reqFitness = Integer.parseInt(i_reqFitness);
             if(reqFitness<0 || reqFitness>100)
                 throw new RuntimeException("Error: Req fitness must be between 1-100");
+            else
+                m_Descriptor.getEvolutionEngine().setReqFitness(reqFitness);
         } catch (Exception e) {
             throw new RuntimeException("Error, Req fitness must be a number.");
         }
@@ -115,11 +159,14 @@ public class LogicEngineManager {
             if(i_reqFitness!=null) {
                 int reqTime = Integer.parseInt(i_reqTimeInMinutes);
                 if (reqTime <= 0)
-                    throw new RuntimeException("Error, Req time must be a positive number.");
+                    throw new RuntimeException("Error, Req time must be a positive number!");
+                else
+                    m_Descriptor.getEvolutionEngine().setReqMinutes(reqTime);
             }
         } catch (Exception e) {
             throw new RuntimeException("Error, Req time must be an Integer.");
         }
+
 
     }
 
@@ -319,17 +366,4 @@ public class LogicEngineManager {
     {
         m_Descriptor.getEvolutionEngine().setStopBoolean(i_Boolean);
     }
-
-    public void addNewMutationToList(String i_Name,String i_Tupples,String i_Char,String i_Probability)
-    {
-        m_Descriptor.getEvolutionEngine().getMutations().createAndAddMutationToList(i_Name,i_Tupples,i_Char,i_Probability);
-    }
-
-    public void deleteMutationByIndex(Integer i_MutationIndex)
-    {
-        m_Descriptor.getEvolutionEngine().getMutations().deleteMutationByIndex(i_MutationIndex);
-    }
-
-
-
 }

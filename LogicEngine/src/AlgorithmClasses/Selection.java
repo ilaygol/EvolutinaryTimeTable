@@ -16,9 +16,9 @@ public class Selection {
     private eSelection m_eType;
     private Random m_Roller;
 
-    public Selection(String i_Type, String i_Percent, String i_PTE, String i_Elitism) {
+    public Selection(String i_Type, String i_Percent, String i_PTE, String i_Elitism,Integer i_InitialPopulation) {
         this.setType(i_Type);
-        this.setElitism(i_Elitism);
+        this.setElitism(i_Elitism,i_InitialPopulation);
         switch(i_Type.toUpperCase()) {
             case "TRUNCATION":
                 this.setPercent(i_Percent);
@@ -36,20 +36,6 @@ public class Selection {
         m_eType=eSelection.valueOf(i_Type.toUpperCase());
         m_Roller=new Random();
     }
-
-//    public Selection(ETTSelection i_ETTSelection) {
-//        m_Type = i_ETTSelection.getType();
-//        m_Configuration = i_ETTSelection.getConfiguration();
-//        extractConfiguration();
-//        if (i_ETTSelection.getETTElitism() != null) {
-//            m_Elitism = i_ETTSelection.getETTElitism();
-//        } else {
-//            m_Elitism = 0;
-//        }
-//
-//        m_eType = eSelection.valueOf(m_Type.toUpperCase());
-//        m_Roller = new Random();
-//    }
 
     public Selection(SelectionData i_SelectionData) {
         m_Type = i_SelectionData.getType();
@@ -93,15 +79,17 @@ public class Selection {
             throw new RuntimeException("Error: Invalid Selection type!");
     }
 
-    public void setElitism(String i_Elitism) {
+    public void setElitism(String i_Elitism,Integer i_InitialPopulation) {
         try {
             Integer elitism=Integer.parseInt(i_Elitism);
-            if(elitism>=0)
-                m_Elitism=elitism;
-            else
+            if(elitism<0)
                 throw new RuntimeException("Error: Elitism Must be Positive");
-        } catch(Exception e)
-        {
+            else if(elitism>=i_InitialPopulation)
+                throw new RuntimeException("Error: Elitism cant be equal or bigger than initial population!");
+            else
+                m_Elitism=elitism;
+        }
+        catch(Exception e) {
             throw new RuntimeException("Error: Elitism must be a number.");
         }
     }

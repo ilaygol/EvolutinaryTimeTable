@@ -82,7 +82,9 @@ public class EvolutionEngine {
         }
     }
 
-
+    public void setInitialPopulationAmount(Integer i_InitialPopulationAmount) {
+        this.m_InitialPopulationAmount = i_InitialPopulationAmount;
+    }
 
     public void setNumOfGenerations(Integer i_NumOfGenerations) {
         m_NumOfGenerations = i_NumOfGenerations;
