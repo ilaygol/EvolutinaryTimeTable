@@ -23,3 +23,34 @@ $(function(){
         return false;
     })
 });
+
+$(function(){
+    $.ajax({
+        url:"algoReferences",
+        timeout: 2000,
+        success: function (algoRefObj){
+            document.getElementById("reqGenerationTXT").value=algoRefObj["m_Generations"];
+            if(algoRefObj["m_Generations"]!=="")
+                document.getElementById("reqGenerationCHK").value="true";
+            document.getElementById("reqFitnessTXT").value=algoRefObj["m_Fitness"];
+            if(algoRefObj["m_Fitness"]!=="")
+                document.getElementById("reqFitnessCHK").value="true";
+            document.getElementById("reqTimeTXT").value=algoRefObj["m_Time"];
+            if(algoRefObj["m_Time"]!=="")
+                document.getElementById("reqTimeCHK").value="true";
+
+            document.getElementById("selectionType").value=algoRefObj["m_SelectionType"];
+            document.getElementById("elitism").value=algoRefObj["m_Elitism"];
+            document.getElementById("selectionPercent").value=algoRefObj["m_Percent"];
+            document.getElementById("pte").value=algoRefObj["m_PTE"];
+            document.getElementById("crossoverType").value=algoRefObj["m_CrossoverType"];
+            document.getElementById("cuttingPoints").value=algoRefObj["m_CuttingPoints"];
+            document.getElementById("aspect").value=algoRefObj["m_Aspect"];
+            document.getElementById("initial").value=algoRefObj["m_Initial"];
+        },
+        error: function () {
+            console.log("failed to get algoRefData object");
+        }
+    });
+});
+

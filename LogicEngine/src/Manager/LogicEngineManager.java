@@ -78,6 +78,11 @@ public class LogicEngineManager {
         m_Descriptor.getEvolutionEngine().resumeAlgo();
     }
 
+    public AlgorithmReferenceData getAlgoRefData()
+    {
+        return m_Descriptor.getEvolutionEngine().getAlgoReferenceData();
+    }
+
     public MutationData getMutationDataByIndex(Integer i_Index)
     {
         return m_Descriptor.getEvolutionEngine().getMutations().getMutationDataByIndex(i_Index);

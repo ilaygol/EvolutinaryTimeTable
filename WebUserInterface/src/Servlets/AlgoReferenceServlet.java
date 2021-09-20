@@ -1,22 +1,47 @@
 package Servlets;
 
 import Constants.Constants;
+import DataTransferClasses.AlgorithmReferenceData;
 import Users.PermUserManager;
 import Users.User;
 import Utils.ServletUtils;
 import Utils.SessionUtils;
+import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.invoke.ConstantCallSite;
 
 
 //url: LocalHost:8080/TimeTable/pages/algopage/algoReferences
 public class AlgoReferenceServlet extends HttpServlet {
-    private void processRequest(HttpServletRequest i_Request,HttpServletResponse i_Response) throws IOException, ServletException {
+
+    @Override
+    protected void doGet(HttpServletRequest i_Request, HttpServletResponse i_Response)
+            throws ServletException, IOException {
+        i_Response.setContentType("application/json");
+        String userID = SessionUtils.getUserID(i_Request);
+        String managerIndex = SessionUtils.getManagerIndex(i_Request);
+        PermUserManager permUserManager = ServletUtils.getPermUserManager(getServletContext());
+        User user = permUserManager.getUserByID(userID);
+        AlgorithmReferenceData algorithmData=user.getAlgorithmReferenceData(Integer.parseInt(managerIndex));
+        try(PrintWriter out=i_Response.getWriter()) {
+            Gson gson = new Gson();
+            String json = gson.toJson(algorithmData);
+            out.println(json);
+            out.flush();
+        }
+        i_Response.setStatus(200);
+    }
+
+
+    @Override
+    protected void doPost(HttpServletRequest i_Request, HttpServletResponse i_Response)
+            throws ServletException, IOException {
         i_Response.setContentType("text/plain;charset=UTF-8");
         //String initialPopulation, reqGenerations, printingReq, reqFitness, reqTimeInMinutes, crossoverName, i_NumOfCuttingPoints, i_CrossoverComponent, i_SelectionType,i_Percent,i_PTE,i_Elitism;
         String userID = SessionUtils.getUserID(i_Request);
@@ -47,17 +72,5 @@ public class AlgoReferenceServlet extends HttpServlet {
 
     }
 
-
-
-    @Override
-    protected void doPost(HttpServletRequest i_Request, HttpServletResponse i_Response)
-            throws ServletException, IOException {
-        processRequest(i_Request, i_Response);
-    }
-    @Override
-    protected void doGet(HttpServletRequest i_Request, HttpServletResponse i_Response)
-            throws ServletException, IOException {
-        processRequest(i_Request, i_Response);
-    }
 
 }

@@ -5,6 +5,7 @@ import DataClasses.AlgorithmData.AmountOfObjectsCalc;
 import DataClasses.AlgorithmData.Parent;
 import DataClasses.AlgorithmData.Generation;
 import DataClasses.FileInputDataClasses.TimeTable;
+import DataTransferClasses.AlgorithmReferenceData;
 import DataTransferClasses.EvolutionEngineData;
 import DataTransferClasses.MutationData;
 import DataTransferClasses.ProgressData;
@@ -33,9 +34,17 @@ public class EvolutionEngine {
 
     public EvolutionEngine()
     {
-        m_InitialPopulationAmount=200;
         m_Mutations=new Mutations();
 
+    }
+
+    public AlgorithmReferenceData getAlgoReferenceData()
+    {
+        Integer minutes=null;
+        if(m_ReqMinutesInMillis!=null) {
+             minutes = (int) TimeUnit.MILLISECONDS.toMinutes(m_ReqMinutesInMillis);
+        }
+        return new AlgorithmReferenceData(m_InitialPopulationAmount,m_NumOfGenerations,m_ReqFitness,minutes,m_Crossover,m_Selection);
     }
     public Integer getInitialPopulation() {
         return m_InitialPopulationAmount;

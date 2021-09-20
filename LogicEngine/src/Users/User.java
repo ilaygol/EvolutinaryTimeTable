@@ -1,5 +1,6 @@
 package Users;
 
+import DataTransferClasses.AlgorithmReferenceData;
 import DataTransferClasses.MutationData;
 import Manager.LogicEngineManager;
 
@@ -51,6 +52,12 @@ public class User {
         LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
         wantedManager.updateAlgoReference(i_InitialPopulation,i_ReqGenerations,i_ReqFitness,
                 i_ReqTimeInMinutes,i_CrossoverName,i_NumOfCuttingPoints,i_CrossoverComponent,i_SelectionType,i_Percent,i_PTE,i_Elitism);
+    }
+
+    public AlgorithmReferenceData getAlgorithmReferenceData(Integer i_ManagerIndex)
+    {
+        LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
+        return wantedManager.getAlgoRefData();
     }
     public void addNewMutationToManager(Integer i_ManagerIndex,String i_Name,String i_Tupples,String i_Char,String i_Probability)
     {
