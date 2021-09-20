@@ -44,12 +44,12 @@ public class User {
         return retValue;
     }
 
-    public void updateAlgoReferences(Integer i_ManagerIndex,String i_InitialPopulation,String i_ReqGenerations,String i_PrintingReq,String i_ReqFitness,String i_ReqTimeInMinutes,
+    public void updateAlgoReferences(Integer i_ManagerIndex,String i_InitialPopulation,String i_ReqGenerations,String i_ReqFitness,String i_ReqTimeInMinutes,
                                      String i_CrossoverName,String i_NumOfCuttingPoints,String i_CrossoverComponent,
                                      String i_SelectionType, String i_Percent, String i_PTE, String i_Elitism)
     {
         LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
-        wantedManager.updateAlgoReference(i_InitialPopulation,i_ReqGenerations,i_PrintingReq,i_ReqFitness,
+        wantedManager.updateAlgoReference(i_InitialPopulation,i_ReqGenerations,i_ReqFitness,
                 i_ReqTimeInMinutes,i_CrossoverName,i_NumOfCuttingPoints,i_CrossoverComponent,i_SelectionType,i_Percent,i_PTE,i_Elitism);
     }
     public void addNewMutationToManager(Integer i_ManagerIndex,String i_Name,String i_Tupples,String i_Char,String i_Probability)

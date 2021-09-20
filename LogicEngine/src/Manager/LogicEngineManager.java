@@ -97,12 +97,12 @@ public class LogicEngineManager {
         m_Descriptor.getEvolutionEngine().getMutations().updateMutation(i_Index,i_Name,i_Tupples,i_Char,i_Probability);
     }
 
-    public void updateAlgoReference(String i_InitialPopulation,String i_ReqGenerations,String i_PrintingReq,String i_ReqFitness,String i_ReqTimeInMinutes,
+    public void updateAlgoReference(String i_InitialPopulation,String i_ReqGenerations,String i_ReqFitness,String i_ReqTimeInMinutes,
                               String i_CrossoverName,String i_NumOfCuttingPoints,String i_CrossoverComponent,
                               String i_SelectionType, String i_Percent, String i_PTE, String i_Elitism)
     {
         //checking stop conditions client chose and updating them(it also check elitism)
-        checkAndUpdateStoppingArguments(i_InitialPopulation,i_ReqGenerations,i_PrintingReq,i_ReqFitness,i_ReqTimeInMinutes);
+        checkAndUpdateStoppingArguments(i_InitialPopulation,i_ReqGenerations,i_ReqFitness,i_ReqTimeInMinutes);
         //checking crossover and selections arguments and updating them
         checkAndUpdateAlgoRefArguments(i_CrossoverName,i_NumOfCuttingPoints,i_CrossoverComponent,i_SelectionType,i_Percent,i_PTE,i_Elitism,i_InitialPopulation);
 
@@ -114,8 +114,9 @@ public class LogicEngineManager {
         m_Descriptor.getEvolutionEngine().setSelection(new Selection(i_SelectionType,i_Percent,i_PTE,i_Elitism,Integer.parseInt(i_InitialPopulation)));
     }
 
-    private void checkAndUpdateStoppingArguments(String i_InitialPopulation,String i_reqGenerations, String i_printingReq, String i_reqFitness, String i_reqTimeInMinutes) {
-        i_InitialPopulation="200";
+    private void checkAndUpdateStoppingArguments(String i_InitialPopulation,String i_reqGenerations, String i_reqFitness, String i_reqTimeInMinutes) {
+        if(i_InitialPopulation.isEmpty())
+            throw new RuntimeException("Error, Please enter initial population size");
         try {
             int initialPopulation = Integer.parseInt(i_InitialPopulation);
             if (initialPopulation <= 0) {
@@ -128,42 +129,32 @@ public class LogicEngineManager {
             throw new RuntimeException("Error, Initial Population must be a number.");
         }
         try {
-            if(i_reqGenerations!=null) {
+            if (!i_reqGenerations.isEmpty()) {
                 int reqGenerations = Integer.parseInt(i_reqGenerations);
                 if (reqGenerations <= 0) {
                     throw new RuntimeException("Error, Number of generations must be positive");
-                }
-                else {
+                } else {
                     m_Descriptor.getEvolutionEngine().setNumOfGenerations(reqGenerations);
                 }
             }
-        } catch (Exception e) {
-            throw new RuntimeException("Error, Generations to make must be a number.");
+            } catch (Exception e) {
+                throw new RuntimeException("Error, Generations to make must be a number.");
+
         }
+
         try {
-            if (i_printingReq != null) {
-                int printingReq = Integer.parseInt(i_printingReq);
-                if (printingReq <= 0)
-                    throw new RuntimeException("Error, Show every must be a positive number.");
-                if (printingReq > Integer.parseInt(i_reqGenerations))
-                    throw new RuntimeException("Error: Show every parameter cant be bigger than Generations number");
+            if(!i_reqFitness.isEmpty()) {
+                int reqFitness = Integer.parseInt(i_reqFitness);
+                if (reqFitness < 0 || reqFitness > 100)
+                    throw new RuntimeException("Error: Req fitness must be between 1-100");
                 else
-                    m_Descriptor.getEvolutionEngine().setPrintingReq(printingReq);
+                    m_Descriptor.getEvolutionEngine().setReqFitness(reqFitness);
             }
-        } catch (Exception e) {
-            throw new RuntimeException("Error, Show Every must be a number.");
-        }
-        try {
-            int reqFitness = Integer.parseInt(i_reqFitness);
-            if(reqFitness<0 || reqFitness>100)
-                throw new RuntimeException("Error: Req fitness must be between 1-100");
-            else
-                m_Descriptor.getEvolutionEngine().setReqFitness(reqFitness);
         } catch (Exception e) {
             throw new RuntimeException("Error, Req fitness must be a number.");
         }
         try {
-            if(i_reqFitness!=null) {
+            if(!i_reqTimeInMinutes.isEmpty()) {
                 int reqTime = Integer.parseInt(i_reqTimeInMinutes);
                 if (reqTime <= 0)
                     throw new RuntimeException("Error, Req time must be a positive number!");

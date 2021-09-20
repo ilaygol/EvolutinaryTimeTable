@@ -59,6 +59,8 @@ public class Mutation {
     }
 
     public void setName(String i_Name) {
+        if(i_Name.isEmpty())
+            throw new RuntimeException("Error: Please pick mutation type");
         if(i_Name.toUpperCase().equals("FLIPPING")|| i_Name.toUpperCase(Locale.ROOT).equals("SIZER")) {
             this.m_Name = i_Name;
             m_eType=eMutation.valueOf(i_Name.toUpperCase());
@@ -71,32 +73,39 @@ public class Mutation {
     public void setTupples(Integer i_Tupples) {
         m_Tupples = i_Tupples;
     }
-    public void setTupples(String i_Tupples)
-    {
+    public void setTupples(String i_Tupples) {
+        if(i_Tupples.isEmpty())
+            throw new RuntimeException("Error: Please enter number of tupples.");
+        int tupples;
         try
         {
-            Integer tupples=Integer.parseInt(i_Tupples);
-            if(tupples>0)
-                m_Tupples=tupples;
-            else
-                throw new RuntimeException("Error, number of Tupples must be positive.");
-
+            tupples=Integer.parseInt(i_Tupples);
         }catch(Exception e)
         {
             throw new RuntimeException("Error: Tupples amount must be a number.");
         }
+        if(tupples>0)
+            m_Tupples=tupples;
+        else
+            throw new RuntimeException("Error, number of Tupples must be positive.");
+
+
     }
     public void setChar(Character i_Char) {
         m_Char = i_Char;
     }
     public void setChar(String i_Char)
     {
-        if(i_Char.toUpperCase().equals("C")||i_Char.toUpperCase().equals("T")
-            ||i_Char.toUpperCase().equals("S")||i_Char.toUpperCase().equals("D")||
-                i_Char.toUpperCase().equals("H"))
-            m_Char=i_Char.charAt(0);
-        else
-            throw new RuntimeException("Error: Invalid Mutation Component.");
+        if(i_Char.isEmpty())
+            throw new RuntimeException("Error: Please pick mutation component.");
+        if(m_Name.toUpperCase().equals("FLIPPING")) {
+            if (i_Char.toUpperCase().equals("C") || i_Char.toUpperCase().equals("T")
+                    || i_Char.toUpperCase().equals("S") || i_Char.toUpperCase().equals("D") ||
+                    i_Char.toUpperCase().equals("H"))
+                m_Char = i_Char.charAt(0);
+            else
+                throw new RuntimeException("Error: Invalid Mutation Component.");
+        }
     }
 
     public void setProbability(double i_Probability) {
@@ -104,17 +113,21 @@ public class Mutation {
     }
     public void setProbability(String i_Probability)
     {
+        if (i_Probability.isEmpty())
+            throw new RuntimeException("Error: Please enter mutation probability.");
         try
         {
-            Double probability=Double.parseDouble(i_Probability);
-            if(probability>=0 && probability<=1)
-                m_Probability=probability;
-            else
-                throw new RuntimeException("Error, Mutation probability must be between 0-1.");
+            Double.parseDouble(i_Probability);
         }catch(Exception e)
         {
             throw new RuntimeException("Error: Mutation probability must be a number between 0-1");
         }
+        double probability=Double.parseDouble(i_Probability);
+        if(probability>=0 && probability<=1)
+            m_Probability=probability;
+        else
+            throw new RuntimeException("Error, Mutation probability must be between 0-1.");
+
     }
 
     public void activateMutation(Generation i_Generation, AmountOfObjectsCalc i_AmountOfObj) {

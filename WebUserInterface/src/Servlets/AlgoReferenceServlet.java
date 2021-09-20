@@ -1,5 +1,6 @@
 package Servlets;
 
+import Constants.Constants;
 import Users.PermUserManager;
 import Users.User;
 import Utils.ServletUtils;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.invoke.ConstantCallSite;
 
 
 //url: LocalHost:8080/TimeTable/pages/algopage/algoReferences
@@ -21,16 +23,27 @@ public class AlgoReferenceServlet extends HttpServlet {
         String managerIndex = SessionUtils.getManagerIndex(i_Request);
         PermUserManager permUserManager = ServletUtils.getPermUserManager(getServletContext());
         User user = permUserManager.getUserByID(userID);
-        try {
-            //user.updateAlgoReferences(i_Request.getParameter(""));
-            i_Response.setStatus(200);
-
-        }
-        catch (Exception e) {
-            i_Response.getOutputStream().println(e.getMessage());
+        String generationCheck=i_Request.getParameter(Constants.GENERATIONS_CHECK);
+        String timeCheck=i_Request.getParameter(Constants.TIME_CHECK);
+        String fitnessCheck=i_Request.getParameter(Constants.FITNESS_CHECK);
+        if(generationCheck==null&&timeCheck==null&&fitnessCheck==null) {
             i_Response.setStatus(400);
+            String errorMessage="Error, Please choose at least one stopping condition";
+            i_Response.getOutputStream().println(errorMessage);
         }
-
+        else
+        {
+            try {
+                user.updateAlgoReferences(Integer.parseInt(managerIndex), i_Request.getParameter(Constants.INITIAL_POPULATION), i_Request.getParameter(Constants.GENERATIONS_TEXT),
+                        i_Request.getParameter(Constants.FITNESS_TEXT), i_Request.getParameter(Constants.TIME_TEXT), i_Request.getParameter(Constants.CROSSOVER_TYPE),
+                        i_Request.getParameter(Constants.CROSSOVER_CUTTING), i_Request.getParameter(Constants.CROSSOVER_ASPECT), i_Request.getParameter(Constants.SELECTION_TYPE),
+                        i_Request.getParameter(Constants.SELECTION_PERCENT), i_Request.getParameter(Constants.SELECTION_PTE), i_Request.getParameter(Constants.SELECTION_ELITISM));
+                i_Response.setStatus(200);
+            } catch (Exception e) {
+                i_Response.getOutputStream().println(e.getMessage());
+                i_Response.setStatus(400);
+            }
+        }
 
     }
 

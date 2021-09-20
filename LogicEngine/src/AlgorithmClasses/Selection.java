@@ -73,6 +73,8 @@ public class Selection {
     }
 
     public void setType(String i_Type) {
+        if(i_Type.isEmpty())
+            throw new RuntimeException("Error: Please pick Selection type.");
         if (i_Type.toUpperCase().equals("TRUNCATION") || i_Type.toUpperCase().equals("ROULETTEWHEEL") || i_Type.toUpperCase().equals("TOURNAMENT"))
             this.m_Type = i_Type;
         else
@@ -80,37 +82,45 @@ public class Selection {
     }
 
     public void setElitism(String i_Elitism,Integer i_InitialPopulation) {
+        if(i_Elitism.isEmpty())
+            throw new RuntimeException("Error: Please enter selection elitism.");
         try {
-            Integer elitism=Integer.parseInt(i_Elitism);
-            if(elitism<0)
-                throw new RuntimeException("Error: Elitism Must be Positive");
-            else if(elitism>=i_InitialPopulation)
-                throw new RuntimeException("Error: Elitism cant be equal or bigger than initial population!");
-            else
-                m_Elitism=elitism;
+            Integer.parseInt(i_Elitism);
         }
         catch(Exception e) {
             throw new RuntimeException("Error: Elitism must be a number.");
         }
+        int elitism=Integer.parseInt(i_Elitism);
+        if(elitism<0)
+            throw new RuntimeException("Error: Elitism Must be Positive");
+        else if(elitism>=i_InitialPopulation)
+            throw new RuntimeException("Error: Elitism cant be equal or bigger than initial population!");
+        else
+            m_Elitism=elitism;
+
     }
 
     public void setPercent(String i_Percent) {
+        if(i_Percent.isEmpty())
+            throw new RuntimeException("Error: Please enter selection percent.");
         try {
-            Integer percent =Integer.parseInt(i_Percent);
-            if(percent >=1)
-                m_Percent=percent;
-            else
-                throw new RuntimeException("Error: Percent Must be Positive.");
+            Integer.parseInt(i_Percent);
         } catch(Exception e)
         {
             throw new RuntimeException("Error: Percent must be a number.");
         }
-
+        int percent=Integer.parseInt(i_Percent);
+        if(percent >=1 && percent<=100)
+            m_Percent=percent;
+        else
+            throw new RuntimeException("Error: Percent Must be a number between 1-100.");
     }
 
     public void setPTE(String i_PTE) {
+        if(i_PTE.isEmpty())
+            throw new RuntimeException("Error: Please pick selection PTE.");
         try {
-            Double PTE=Double.parseDouble(i_PTE);
+            double PTE=Double.parseDouble(i_PTE);
             if(PTE>=0 && PTE<=1)
                 m_PTE=PTE;
             else

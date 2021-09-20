@@ -64,6 +64,8 @@ public class Crossover {
     }
 
     public void setName(String i_Name) {
+        if(i_Name.isEmpty())
+            throw new RuntimeException("Error: Please pick crossover type.");
         if(i_Name.toUpperCase().equals("DAYTIMEORIENTED") || i_Name.toUpperCase().equals("ASPECTORIENTED"))
             this.m_Name = i_Name;
         else
@@ -71,20 +73,26 @@ public class Crossover {
     }
 
     public void setNumOfCuttingPoints(String i_NumOfCuttingPoints) {
+        if(i_NumOfCuttingPoints.isEmpty())
+            throw new RuntimeException("Error: Please enter number of cutting points.");
         try {
-            Integer cuttingPoints=Integer.parseInt(i_NumOfCuttingPoints);
-            if(cuttingPoints>=1)
-                this.m_NumOfCuttingPoints=cuttingPoints;
-            else
-                throw new RuntimeException("Error: Cutting Points must be positive");
+            Integer.parseInt(i_NumOfCuttingPoints);
         }catch(Exception e)
         {
             throw new RuntimeException("Error: Cutting points Must be an Integer.");
         }
+        int cuttingPoints=Integer.parseInt(i_NumOfCuttingPoints);
+        if(cuttingPoints>=1)
+            this.m_NumOfCuttingPoints=cuttingPoints;
+        else
+            throw new RuntimeException("Error: Cutting Points must be positive");
+
     }
 
     public void setChar(String i_Char) {
-        if(i_Char.toUpperCase().equals("CLASS")||i_Char.toUpperCase().equals("TEACHER"))
+        if(i_Char.isEmpty())
+            throw new RuntimeException("Error: Please pick Crossover Component.");
+        if(i_Char.toUpperCase().equals("C")||i_Char.toUpperCase().equals("T"))
             this.m_Char = i_Char.charAt(0);
         else
             throw new RuntimeException("Error: Invalid AspectOriented Component.");
