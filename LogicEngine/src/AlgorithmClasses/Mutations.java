@@ -72,7 +72,17 @@ public class Mutations {
         m_MutationsList.add(mutation);
     }
 
+    public void updateMutation(Integer i_Index,String i_Name,String i_Tupples,String i_Char,String i_Probability)
+    {
+        Mutation mutation=m_MutationsList.get(i_Index);
+        mutation.setName(i_Name);
+        mutation.setTupples(i_Tupples);
+        mutation.setChar(i_Char);
+        mutation.setProbability(i_Probability);
+    }
+
     public void addMutationToList(Mutation i_Mutation){m_MutationsList.add(i_Mutation);}
+
 
     public void deleteMutationByIndex(Integer i_MutationIndex)
     {

@@ -67,4 +67,28 @@ public class MutationsServlet extends HttpServlet {
         i_Response.setStatus(200);
         i_Response.getOutputStream().println("Mutation has been deleted successfully");
     }
+
+    @Override
+    protected void doPut(HttpServletRequest i_Request, HttpServletResponse i_Response) throws IOException {
+        i_Response.setContentType("text/plain;charset=UTF-8");
+        String name=i_Request.getHeader("mutationName");
+        String probability=i_Request.getHeader("mutationProbability");
+        String component=i_Request.getHeader("mutationComponent");
+        String tupples=i_Request.getHeader("mutationTupples");
+        String mutationIndex=i_Request.getHeader(Constants.MUTATION_INDEX);
+        String userID= SessionUtils.getUserID(i_Request);
+        String managerIndex=SessionUtils.getManagerIndex(i_Request);
+        PermUserManager permUserManager= ServletUtils.getPermUserManager(getServletContext());
+        User user= permUserManager.getUserByID(userID);
+        try
+        {
+            user.updateMutationByIndex(Integer.parseInt(managerIndex),Integer.parseInt(mutationIndex),name,tupples,component,probability);
+            i_Response.getOutputStream().println("Mutation has been updated successfully");
+            i_Response.setStatus(200);
+        }
+        catch(Exception e) {
+            i_Response.getOutputStream().println(e.getMessage());
+            i_Response.setStatus(400);
+        }
+    }
 }

@@ -71,6 +71,12 @@ public class User {
 
     }
 
+    public void updateMutationByIndex(Integer i_ManagerIndex,Integer i_MutationIndex,String i_Name,String i_Tupples,String i_Char,String i_Probability)
+    {
+        LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
+        wantedManager.updateMutation(i_MutationIndex,i_Name,i_Tupples,i_Char,i_Probability);
+    }
+
 
     private LogicEngineManager getManagerByProblemIndex(Integer i_ProblemIndex)
     {

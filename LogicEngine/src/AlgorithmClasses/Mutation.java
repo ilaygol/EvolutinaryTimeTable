@@ -26,7 +26,6 @@ public class Mutation {
             this.setChar(i_Char);
         else
             m_Char=' ';
-        m_eType=eMutation.valueOf(i_Name.toUpperCase());
         m_Roller=new Random();
     }
 
@@ -60,8 +59,11 @@ public class Mutation {
     }
 
     public void setName(String i_Name) {
-        if(i_Name.toUpperCase().equals("FLIPPING")|| i_Name.toUpperCase(Locale.ROOT).equals("SIZER"))
+        if(i_Name.toUpperCase().equals("FLIPPING")|| i_Name.toUpperCase(Locale.ROOT).equals("SIZER")) {
             this.m_Name = i_Name;
+            m_eType=eMutation.valueOf(i_Name.toUpperCase());
+        }
+
         else
             throw new RuntimeException("Error: Invalid mutation name.");
     }

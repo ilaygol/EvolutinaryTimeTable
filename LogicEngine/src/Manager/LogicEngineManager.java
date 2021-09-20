@@ -88,6 +88,11 @@ public class LogicEngineManager {
         m_Descriptor.getEvolutionEngine().getMutations().deleteMutationByIndex(i_MutationIndex);
     }
 
+    public void updateMutation(Integer i_Index,String i_Name,String i_Tupples,String i_Char,String i_Probability)
+    {
+        m_Descriptor.getEvolutionEngine().getMutations().updateMutation(i_Index,i_Name,i_Tupples,i_Char,i_Probability);
+    }
+
     public void updateAlgoReference(String i_InitialPopulation,String i_ReqGenerations,String i_PrintingReq,String i_ReqFitness,String i_ReqTimeInMinutes,
                               String i_CrossoverName,String i_NumOfCuttingPoints,String i_CrossoverComponent,
                               String i_SelectionType, String i_Percent, String i_PTE, String i_Elitism)
