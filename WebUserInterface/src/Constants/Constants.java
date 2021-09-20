@@ -2,6 +2,7 @@ package Constants;
 
 public class Constants {
 
+    //Servlet Names
     public static final String USERNAME="username";
     public static final String ONLINE_USER_MANAGER="onlineUserManager";
     public static final String PERM_USER_MANAGER="permUserManager";
@@ -10,8 +11,28 @@ public class Constants {
     public static final String MANAGER_INDEX="managerIndex";
     public static final String MUTATION_INDEX="mutationIndex";
 
+    //Algo Ref Components Name
+        //Stop conditions
+        public static final String GENERATIONS_TEXT="generationsText";
+        public static final String GENERATIONS_CHECK="generationsCheck";
+        public static final String FITNESS_TEXT="fitnessText";
+        public static final String FITNESS_CHECK="fitnessCheck";
+        public static final String TIME_TEXT="timeText";
+        public static final String TIME_CHECK="timeCheck";
 
+        //Selection
+        public static final String SELECTION_TYPE="selectionType";
+        public static final String SELECTION_ELITISM="selectionElitism";
+        public static final String SELECTION_PERCENT="selectionPercent";
+        public static final String SELECTION_PTE="selectionPTE";
 
+        //Crossover
+        public static final String CROSSOVER_TYPE="crossoverType";
+        public static final String CROSSOVER_CUTTING="crossoverCutting";
+        public static final String CROSSOVER_ASPECT="crossoverAspect";
+
+        //Initial Population
+        public static final String INITIAL_POPULATION="initialPopulation";
 
     //PAGES PATH
     public static final String LOGIN_PAGE_PATH="/TimeTable/pages/loginpage/loginpage.html";

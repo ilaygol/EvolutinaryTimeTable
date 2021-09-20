@@ -5,8 +5,8 @@
     <title>TimeTable</title>
     <link href="../../resources/bootstrap-5.1.1-dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="../../resources/jquery-3.6.0.min.js"></script>
-    <script src="fileData.js"></script>
-    <script src="mutationManagement.js"></script>
+<!--    <script src="fileData.js"></script>-->
+<!--    <script src="mutationManagement.js"></script>-->
 </head>
 <body>
 <!-- Welcome section -->
@@ -49,8 +49,8 @@
                 </h2>
                 <div id="algoPref-collapseOne" class="accordion-collapse collapse">
                     <div class="container-fluid px-4 my-4">
-                        <div class="row">
-                            <div class="col border-end">
+                    <div class="row">
+                    <form class="col border-end" name="algoRefForm" action="algoReferences" method="GET">
                         <!-- Stop Conditions -->
                         <label for="stopConditions" class="form-label">Stop Conditions</label>
                         <div class="row py-2" id="stopConditions">
@@ -60,9 +60,9 @@
                                         <span>Generations</span>
                                     </div>
                                     <div class="input-group-text">
-                                        <input class="form-check-input mt-0" type="checkbox" value="">
+                                        <input class="form-check-input mt-0" type="checkbox" value="true" name="generationsCheck">
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Number">
+                                    <input type="text" class="form-control" placeholder="Number" name="generationsText">
                                 </div>
                             </div>
                             <div class="col-4">
@@ -71,9 +71,9 @@
                                         <span>Fitness</span>
                                     </div>
                                     <div class="input-group-text">
-                                        <input class="form-check-input mt-0" type="checkbox" value="">
+                                        <input class="form-check-input mt-0" type="checkbox" value="true" name="fitnessCheck">
                                     </div>
-                                    <input type="text" class="form-control" placeholder="1-100">
+                                    <input type="text" class="form-control" placeholder="1-100" name="fitnessText">
                                 </div>
                             </div>
                             <div class="col-4">
@@ -82,9 +82,9 @@
                                         <span>Time</span>
                                     </div>
                                     <div class="input-group-text">
-                                        <input class="form-check-input mt-0" type="checkbox" value="">
+                                        <input class="form-check-input mt-0" type="checkbox" value="true" name="timeCheck">
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Minutes">
+                                    <input type="text" class="form-control" placeholder="Minutes" name="timeText">
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                             <div class="col-4">
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="selectionType">Type</label>
-                                    <select class="form-select" id="selectionType">
+                                    <select class="form-select" id="selectionType" name="selectionType">
                                         <option value="Truncation" selected>Truncation</option>
                                         <option value="RouletteWheel">RouletteWheel</option>
                                         <option value="Tournament">Tournament</option>
@@ -106,7 +106,7 @@
                                     <div class="input-group-text">
                                         <span>Elitism</span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Number" id="elitism">
+                                    <input type="text" class="form-control" placeholder="Number" id="elitism" name="selectionElitism">
                                 </div>
                             </div>
                             <div class="col-3">
@@ -114,13 +114,13 @@
                                     <div class="input-group-text">
                                         <span>Percent</span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="1-100">
+                                    <input type="text" class="form-control" placeholder="1-100" name="selectionPercent">
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="pte">PTE</label>
-                                    <select class="form-select" id="pte">
+                                    <select class="form-select" id="pte" name="selectionPTE">
                                         <option value="0.1" selected>0.1</option>
                                         <option value="0.2">0.2</option>
                                         <option value="0.3">0.3</option>
@@ -141,7 +141,7 @@
                             <div class="col-4">
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="crossoverType">Type</label>
-                                    <select class="form-select" id="crossoverType">
+                                    <select class="form-select" id="crossoverType" name="crossoverType">
                                         <option value="DayTimeOriented" selected>DayTimeOriented</option>
                                         <option value="AspectOriented">AspectOriented</option>
                                     </select>
@@ -152,27 +152,39 @@
                                     <div class="input-group-text">
                                         <span>Cutting Points</span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Number">
+                                    <input type="text" class="form-control" placeholder="Number" name="crossoverCutting">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="aspect">Aspect</label>
-                                    <select class="form-select" id="aspect">
+                                    <select class="form-select" id="aspect" name="crossoverAspect">
                                         <option value="T" selected>Teacher</option>
                                         <option value="C">Class</option>
                                     </select>
                                 </div>
                             </div>
-                            <!-- Submit Button -->
-                            <div class="row justify-content-center mt-4">
-                                <div class="col-3">
-                                    <button class="btn btn-primary" type="submit">Set Preferences</button>
+                        </div>
+                        <!-- Initial Population -->
+                        <label for="initialize" class="form-label">Initialize</label>
+                        <div class="row py-2" id="initialize">
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-text">
+                                        <span>Initial Population</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Number" name="initialPopulation">
                                 </div>
                             </div>
                         </div>
+                        <!-- Submit Button -->
+                        <div class="row justify-content-center mt-4">
+                            <div class="col-3">
+                                <button class="btn btn-primary" type="submit">Set Preferences</button>
                             </div>
-                            <div class="col">
+                        </div>
+                    </form>
+                    <div class="col">
                         <!-- Mutations -->
                         <label for="mutationsForm" class="form-label">Mutations</label>
                         <form action="mutation" class="row py-2" id="mutationsForm" method="POST">
@@ -245,7 +257,7 @@
                             </div>
                             </div>
                         </form>
-                            </div>
+                    </div>
                         </div>
                     </div>
                 </div>
@@ -253,6 +265,8 @@
         </div>
     </div>
 </section>
+
+
 <!-- Modal -->
 <div class="modal fade" id="algoRefModal" tabindex="-1">
     <div class="modal-dialog">
