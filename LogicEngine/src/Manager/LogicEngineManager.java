@@ -78,6 +78,10 @@ public class LogicEngineManager {
         m_Descriptor.getEvolutionEngine().resumeAlgo();
     }
 
+    public MutationData getMutationDataByIndex(Integer i_Index)
+    {
+        return m_Descriptor.getEvolutionEngine().getMutations().getMutationDataByIndex(i_Index);
+    }
     public void addNewMutationToList(String i_Name,String i_Tupples,String i_Char,String i_Probability)
     {
         m_Descriptor.getEvolutionEngine().getMutations().createAndAddMutationToList(i_Name,i_Tupples,i_Char,i_Probability);

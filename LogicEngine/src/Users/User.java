@@ -58,6 +58,12 @@ public class User {
         wantedManager.addNewMutationToList(i_Name,i_Tupples,i_Char,i_Probability);
     }
 
+    public MutationData getMutationDataByIndex(Integer i_ManagerIndex,Integer i_MutationIndex)
+    {
+        LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
+        return wantedManager.getMutationDataByIndex(i_MutationIndex);
+    }
+
     public List<MutationData> getMutationDataListByManagerIndex(Integer i_ManagerIndex)
     {
         LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);

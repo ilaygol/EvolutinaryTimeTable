@@ -38,8 +38,13 @@ public class Mutations {
         return retLst;
     }
 
+
     public Mutation getMutationByIndex(Integer i_Index){
         return m_MutationsList.get(i_Index);
+    }
+    public MutationData getMutationDataByIndex(Integer i_Index)
+    {
+        return new MutationData(m_MutationsList.get(i_Index.intValue()));
     }
     public Mutation getMutationByString(String i_String)
     {

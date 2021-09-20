@@ -96,7 +96,11 @@ function refreshMutationTableRows(mutationDataList) {
             data: "mutationIndex="+this.getAttribute("id"),
             url:"mutationUpdate",
             timeout:2000,
-            success: function(){
+            success: function(mutation){
+                document.getElementById("tupplesUpdate").value=mutation["m_Tupples"].toString();
+                document.getElementById("probabilityUpdate").value=mutation["m_Probability"].toString();
+                document.getElementById("mutationUpdateType").value=mutation["m_Name"].toString();
+                document.getElementById("componentUpdate").value=mutation["m_Component"].charAt(0);
                 var updateMutationModal = new bootstrap.Modal(document.getElementById('mutationModal'));
                 updateMutationModal.show();
             },
