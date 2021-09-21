@@ -27,8 +27,6 @@ public class TimeTableHostManager {
         m_InstancesList.add(instance);
     }
 
-
-
     public synchronized void removeUser(Integer i_InstanceIndx) {
         m_InstancesList.remove(i_InstanceIndx.intValue());
     }
@@ -45,5 +43,10 @@ public class TimeTableHostManager {
             retList.add(instance.getRowData());
         }
         return Collections.unmodifiableList(retList);
+    }
+
+    public void addSolverToSolvingManager(Integer i_ManagerIndex,Integer i_SolverID,String i_SolverName)
+    {
+        m_InstancesList.get(i_ManagerIndex).addUserToSolvingUsers(i_SolverID,i_SolverName);
     }
 }

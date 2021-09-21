@@ -55,6 +55,18 @@ public class User {
                 i_ReqTimeInMinutes,i_CrossoverName,i_NumOfCuttingPoints,i_CrossoverComponent,i_SelectionType,i_Percent,i_PTE,i_Elitism);
     }
 
+    public Integer getInitialPopulationByIndex(Integer i_ManagerIndex)
+    {
+        LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
+        return wantedManager.getInitialPopulation();
+    }
+
+    public boolean getIsFileLoaded(Integer i_ManagerIndex)
+    {
+        LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
+        return wantedManager.getIsFileLoaded();
+    }
+
     public AlgorithmReferenceData getAlgorithmReferenceData(Integer i_ManagerIndex)
     {
         LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);

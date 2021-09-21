@@ -83,6 +83,11 @@ public class LogicEngineManager {
         return m_Descriptor.getEvolutionEngine().getAlgoReferenceData();
     }
 
+    public Integer getInitialPopulation()
+    {
+        return m_Descriptor.getEvolutionEngine().getInitialPopulation();
+    }
+
     public MutationData getMutationDataByIndex(Integer i_Index)
     {
         return m_Descriptor.getEvolutionEngine().getMutations().getMutationDataByIndex(i_Index);

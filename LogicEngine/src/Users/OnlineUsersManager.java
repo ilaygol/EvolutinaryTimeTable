@@ -1,30 +1,28 @@
 package Users;
 
-import Manager.LogicEngineManager;
-
 import java.util.*;
 
 public class OnlineUsersManager {
 
-    private final Set<String> usersSet;
+    private final Set<String> m_usersSet;
 
     public OnlineUsersManager() {
-        usersSet = new HashSet<>();
+        m_usersSet = new HashSet<>();
     }
 
     public synchronized void addUser(String username) {
-        usersSet.add(username);
+        m_usersSet.add(username);
     }
 
     public synchronized void removeUser(String username) {
-        usersSet.remove(username);
+        m_usersSet.remove(username);
     }
 
     public synchronized Set<String> getUsers() {
-        return Collections.unmodifiableSet(usersSet);
+        return Collections.unmodifiableSet(m_usersSet);
     }
 
     public boolean isUserExists(String username) {
-        return usersSet.contains(username);
+        return m_usersSet.contains(username);
     }
 }
