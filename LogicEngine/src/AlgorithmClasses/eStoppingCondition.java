@@ -14,6 +14,11 @@ public enum eStoppingCondition {
                         return false;
                     return true;
                 }
+
+                @Override
+                public String stoppingConditionName() {
+                    return "Generation";
+                }
             },
     FITNESS
             {
@@ -24,6 +29,11 @@ public enum eStoppingCondition {
                     if(i_CurrFitness<i_ReqFitness)
                         return false;
                     return true;
+                }
+
+                @Override
+                public String stoppingConditionName() {
+                    return "Fitness";
                 }
             },
     TIME
@@ -36,8 +46,14 @@ public enum eStoppingCondition {
                         return false;
                     return true;
                 }
+
+                @Override
+                public String stoppingConditionName() {
+                    return "Time";
+                }
             };
     public abstract boolean checkStoppingCondition(Integer i_ReqGenerations,Integer i_GenerationsMade,
                                                    Integer i_ReqFitness,Integer i_CurrFitness,
                                                    Long i_ReqMillis,Long i_MillisPassed);
+    public abstract String stoppingConditionName();
 }

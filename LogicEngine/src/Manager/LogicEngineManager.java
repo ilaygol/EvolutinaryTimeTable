@@ -54,19 +54,19 @@ public class LogicEngineManager {
             m_Descriptor.getEvolutionEngine().setReqFitness(i_ReqFitness);
             m_Descriptor.getEvolutionEngine().setReqMinutes(i_ReqTimeInMinutes);
             m_IsAlgoActivated=true;
-            m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),m_MaxAmountOfObjects,m_EvolutionEngineData,i_ProgressDataConsumer,i_StopConditions);
+            //m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),m_MaxAmountOfObjects,m_EvolutionEngineData,i_ProgressDataConsumer,i_StopConditions);
         }
         else {
             throw new RuntimeException("ERROR: No file has been loaded, Please load a file before choosing this option.");
         }
     }
 
-    public void ActivateAlgorithm(Consumer<ProgressData> i_ProgressDataConsumer,  Collection<eStoppingCondition> i_StopConditions) {
+    public void ActivateAlgorithm(Consumer<ProgressData> i_ProgressDataConsumer) {
         if(m_IsFileLoaded)
         {
             m_EvolutionEngineData=new EvolutionEngineData();
             m_IsAlgoActivated=true;
-            m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),m_MaxAmountOfObjects,m_EvolutionEngineData,i_ProgressDataConsumer,i_StopConditions);
+            m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),m_MaxAmountOfObjects,m_EvolutionEngineData,i_ProgressDataConsumer);
         }
         else {
             throw new RuntimeException("ERROR: No file has been loaded, Please load a file before choosing this option.");
@@ -180,6 +180,7 @@ public class LogicEngineManager {
                 m_Descriptor.getEvolutionEngine().setReqMinutes(reqTime);
             }
         }
+
 
     }
 
@@ -338,6 +339,14 @@ public class LogicEngineManager {
         return m_Descriptor.getTimeTable().getSubjects().getSubjectNameById(i_ID);
     }
 
+    public Integer getMaxLessons()
+    {
+        if(m_MaxAmountOfObjects==null)
+            return 0;
+        else
+            return m_MaxAmountOfObjects.getMaxAmountOfLessons();
+    }
+
     public void setProblemIndex(Integer i_ProblemIndex) {
         this.m_ProblemIndex = i_ProblemIndex;
     }
@@ -348,6 +357,12 @@ public class LogicEngineManager {
         setNewSelection(i_DataPrinter.getSelectionData());
         setNewMutations(i_DataPrinter.getMutationsDataList());
     }
+
+    public void setStoppingCondition(List<eStoppingCondition> i_StoppingConditionList)
+    {
+        m_Descriptor.getEvolutionEngine().setStoppingConditionList(i_StoppingConditionList);
+    }
+
 
     private void setNewCrossover(CrossoverData i_CrossoverData)
     {
@@ -367,13 +382,6 @@ public class LogicEngineManager {
         m_Descriptor.getEvolutionEngine().setMutations(mutations);
     }
 
-    public Integer getMaxLessons()
-    {
-        if(m_MaxAmountOfObjects==null)
-            return 0;
-        else
-            return m_MaxAmountOfObjects.getMaxAmountOfLessons();
-    }
 
     public void setStopBoolean(Boolean i_Boolean)
     {

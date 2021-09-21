@@ -1,5 +1,6 @@
 package Users;
 
+import AlgorithmClasses.eStoppingCondition;
 import DataTransferClasses.AlgorithmReferenceData;
 import DataTransferClasses.MutationData;
 import Manager.LogicEngineManager;
@@ -90,6 +91,12 @@ public class User {
         wantedManager.updateMutation(i_MutationIndex,i_Name,i_Tupples,i_Char,i_Probability);
     }
 
+    public void setStoppingConditionByIndex(Integer i_ManagerIndex, List<eStoppingCondition> i_StoppingConditionList)
+    {
+        LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
+        wantedManager.setStoppingCondition(i_StoppingConditionList);
+    }
+
 
     private LogicEngineManager getManagerByProblemIndex(Integer i_ProblemIndex)
     {
@@ -103,4 +110,6 @@ public class User {
         }
         return retManager;
     }
+
+
 }

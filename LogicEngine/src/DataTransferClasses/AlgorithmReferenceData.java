@@ -2,8 +2,9 @@ package DataTransferClasses;
 
 import AlgorithmClasses.Crossover;
 import AlgorithmClasses.Selection;
+import AlgorithmClasses.eStoppingCondition;
 
-import java.util.Locale;
+import java.util.List;
 
 public class AlgorithmReferenceData {
     private String m_Generations;
@@ -19,10 +20,10 @@ public class AlgorithmReferenceData {
     private String m_Initial;
 
     public AlgorithmReferenceData(Integer i_InitialPopulation, Integer i_GenerationsReq, Integer i_FitnessReq, Integer i_MinutesReq,
-                                  Crossover i_Crossover, Selection i_Selection){
+                                  Crossover i_Crossover, Selection i_Selection,List<eStoppingCondition> i_StoppingConditionList){
 
         setInitial(i_InitialPopulation);
-        setStoppingConditions(i_GenerationsReq,i_FitnessReq,i_MinutesReq);
+        setStoppingConditions(i_GenerationsReq,i_FitnessReq,i_MinutesReq,i_StoppingConditionList);
         setCrossover(i_Crossover);
         setSelection(i_Selection);
     }
@@ -60,16 +61,21 @@ public class AlgorithmReferenceData {
         }
     }
 
-    private void setStoppingConditions(Integer i_GenerationsReq, Integer i_FitnessReq, Integer i_MinutesReq) {
-        if(i_GenerationsReq!=null)
+    private void setStoppingConditions(Integer i_GenerationsReq, Integer i_FitnessReq, Integer i_MinutesReq,List<eStoppingCondition> i_StoppingConditionList) {
+
+        if(i_StoppingConditionList.stream().anyMatch(stopCondition -> stopCondition.stoppingConditionName().toUpperCase().equals("GENERATION")))
             m_Generations=i_GenerationsReq.toString();
         else
             m_Generations="";
-        if(i_FitnessReq!=null)
+
+
+        if(i_StoppingConditionList.stream().anyMatch(stopCondition -> stopCondition.stoppingConditionName().toUpperCase().equals("FITNESS")))
             m_Fitness=i_FitnessReq.toString();
         else
             m_Fitness="";
-        if(i_MinutesReq!=null)
+
+
+        if(i_StoppingConditionList.stream().anyMatch(stopCondition->stopCondition.stoppingConditionName().toUpperCase().equals("TIME")))
             m_Time=i_MinutesReq.toString();
         else
             m_Time="";

@@ -23,9 +23,10 @@ import java.util.function.Consumer;
 public class EvolutionEngine {
     private Integer m_InitialPopulationAmount;
     private Integer m_NumOfGenerations;
-    private Integer m_PrintingReq;
     private Integer m_ReqFitness;
     private Long m_ReqMinutesInMillis;
+    private List<eStoppingCondition> m_StoppingConditionList;
+    private Integer m_PrintingReq;
     private Selection m_Selection;
     private Crossover m_Crossover;
     private Mutations m_Mutations;
@@ -44,7 +45,7 @@ public class EvolutionEngine {
         if(m_ReqMinutesInMillis!=null) {
              minutes = (int) TimeUnit.MILLISECONDS.toMinutes(m_ReqMinutesInMillis);
         }
-        return new AlgorithmReferenceData(m_InitialPopulationAmount,m_NumOfGenerations,m_ReqFitness,minutes,m_Crossover,m_Selection);
+        return new AlgorithmReferenceData(m_InitialPopulationAmount,m_NumOfGenerations,m_ReqFitness,minutes,m_Crossover,m_Selection,m_StoppingConditionList);
     }
     public Integer getInitialPopulation() {
         return m_InitialPopulationAmount;
@@ -89,6 +90,10 @@ public class EvolutionEngine {
         synchronized (m_isStop) {
             return m_isStop;
         }
+    }
+
+    public void setStoppingConditionList(List<eStoppingCondition> i_StoppingConditionList) {
+        this.m_StoppingConditionList = i_StoppingConditionList;
     }
 
     public void setInitialPopulationAmount(Integer i_InitialPopulationAmount) {
@@ -141,7 +146,7 @@ public class EvolutionEngine {
 
     }
 
-    public synchronized void activateAlgorithm(TimeTable i_TimeTable, AmountOfObjectsCalc i_AmountOfObj,EvolutionEngineData i_EvolutionEngineData ,Consumer<ProgressData> i_ProgressDataConsumer, Collection<eStoppingCondition> i_StoppingConditions) {
+    public synchronized void activateAlgorithm(TimeTable i_TimeTable, AmountOfObjectsCalc i_AmountOfObj,EvolutionEngineData i_EvolutionEngineData ,Consumer<ProgressData> i_ProgressDataConsumer) {
         setStopBoolean(false);
         ProgressData progressTracker=new ProgressData(0, 0, (long)0);
         Integer counter=0,generationsMade=0,bestFitness=0;
@@ -177,7 +182,7 @@ public class EvolutionEngine {
                 timePassedInMillis+= Duration.between(startCountingTime,endCountingTime).toMillis();
                 progressTracker.setNewValues(generationsMade,bestFitness,timePassedInMillis);
                 if(!getStopBoolean()) {
-                    setStopBoolean(checkStoppingConditions(m_NumOfGenerations, generationsMade, m_ReqFitness, bestFitness, m_ReqMinutesInMillis, timePassedInMillis, i_StoppingConditions));
+                    setStopBoolean(checkStoppingConditions(m_NumOfGenerations, generationsMade, m_ReqFitness, bestFitness, m_ReqMinutesInMillis, timePassedInMillis, m_StoppingConditionList));
                 }
                 i_ProgressDataConsumer.accept(progressTracker);
                 if(Thread.interrupted()) {
