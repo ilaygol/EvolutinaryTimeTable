@@ -352,6 +352,11 @@ public class LogicEngineManager {
             return m_MaxAmountOfObjects.getMaxAmountOfLessons();
     }
 
+    public void setIsFileLoaded(Boolean i_newVal)
+    {
+        m_IsFileLoaded=i_newVal;
+    }
+
     public void setProblemIndex(Integer i_ProblemIndex) {
         this.m_ProblemIndex = i_ProblemIndex;
     }

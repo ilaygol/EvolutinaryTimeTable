@@ -57,6 +57,7 @@ public class AlgoReferenceServlet extends HttpServlet {
                     i_Request.getParameter(Constants.FITNESS_TEXT), i_Request.getParameter(Constants.TIME_TEXT), i_Request.getParameter(Constants.CROSSOVER_TYPE),
                     i_Request.getParameter(Constants.CROSSOVER_CUTTING), i_Request.getParameter(Constants.CROSSOVER_ASPECT), i_Request.getParameter(Constants.SELECTION_TYPE),
                     i_Request.getParameter(Constants.SELECTION_PERCENT), i_Request.getParameter(Constants.SELECTION_PTE), i_Request.getParameter(Constants.SELECTION_ELITISM));
+            user.setIsFileLoaded(Integer.parseInt(managerIndex),true);
             i_Response.setStatus(200);
         } catch (Exception e) {
             i_Response.getOutputStream().println(e.getMessage());

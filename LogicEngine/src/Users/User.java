@@ -103,6 +103,12 @@ public class User {
         wantedManager.updateMutation(i_MutationIndex,i_Name,i_Tupples,i_Char,i_Probability);
     }
 
+    public void setIsFileLoaded(Integer i_ManagerIndex,Boolean i_NewVal)
+    {
+        LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
+        wantedManager.setIsFileLoaded(i_NewVal);
+    }
+
     public void setStoppingConditionByIndex(Integer i_ManagerIndex, List<eStoppingCondition> i_StoppingConditionList)
     {
         LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);

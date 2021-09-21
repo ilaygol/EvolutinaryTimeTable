@@ -37,7 +37,10 @@ public class ActivateAlgoServlet extends HttpServlet {
     private void checkArguments(HttpServletRequest i_Request,User user,String i_ManagerIndex)
     {
         Integer initialPopulation = user.getInitialPopulationByIndex(Integer.parseInt(i_ManagerIndex));
+        Boolean isFileLoaded=user.getIsFileLoaded(Integer.parseInt(i_ManagerIndex));
         String showEvery = i_Request.getParameter(Constants.SHOW_EVERY);
+        if(!isFileLoaded)
+            throw new RuntimeException("Error: Please enter Algorithm preferences first");
         if(showEvery.isEmpty())
             throw new RuntimeException("Error: Please enter show every value");
         Integer showEveryInt;
