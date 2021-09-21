@@ -1,5 +1,7 @@
 package Users;
 
+import DataTransferClasses.SolverData;
+
 import java.util.*;
 
 public class SolvingUserManager {
@@ -26,5 +28,12 @@ public class SolvingUserManager {
     }
 
     public Integer getSolversAmount() { return m_SolversList.size(); }
+
+    public List<SolverData> getSolversDataList()
+    {
+        List<SolverData> retList=new ArrayList<>();
+        m_SolversList.forEach(solver-> retList.add(new SolverData(solver.getSolverName(),solver.getGenerationsMade(),solver.getBestFitness())));
+        return retList;
+    }
 
 }

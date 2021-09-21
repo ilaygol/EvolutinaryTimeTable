@@ -1,9 +1,12 @@
 package Manager;
 
 import DataTransferClasses.HomePageTableRowsData;
+import DataTransferClasses.SolverData;
 import DataTransferClasses.WebFileData;
 import Users.Solver;
 import Users.SolvingUserManager;
+
+import java.util.List;
 
 public class InstanceManager {
     private Integer m_HostID;
@@ -25,6 +28,11 @@ public class InstanceManager {
     {
         HomePageTableRowsData retHomePageTableRowsData =new HomePageTableRowsData(m_HostName, m_Manager.getAmountOfData(),m_SolvingUserManager.getSolversAmount());
         return retHomePageTableRowsData;
+    }
+
+    public List<SolverData> getSolversDataList()
+    {
+        return m_SolvingUserManager.getSolversDataList();
     }
 
     public synchronized void addUserToSolvingUsers(Integer i_SolverID,String i_SolverName)

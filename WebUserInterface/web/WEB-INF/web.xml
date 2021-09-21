@@ -50,6 +50,10 @@
         <servlet-class>Servlets.MutationUpdateServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>SolvingUsersUpdateServlet</servlet-name>
+        <servlet-class>Servlets.SolvingUsersUpdateServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>UsersListServlet</servlet-name>
         <servlet-class>Servlets.UsersListServlet</servlet-class>
     </servlet>
@@ -109,6 +113,11 @@
         <servlet-name>MutationUpdateServlet</servlet-name>
         <url-pattern>/pages/algopage/mutationUpdate</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SolvingUsersUpdateServlet</servlet-name>
+        <url-pattern>/pages/algopage/updateSolvingUsers</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>UsersListServlet</servlet-name>
         <url-pattern>/pages/homepage/userList</url-pattern>

@@ -1,6 +1,7 @@
 package Users;
 
 import DataTransferClasses.HomePageTableRowsData;
+import DataTransferClasses.SolverData;
 import Manager.LogicEngineManager;
 import Manager.InstanceManager;
 
@@ -35,7 +36,10 @@ public class TimeTableHostManager {
         return Collections.unmodifiableList(m_InstancesList);
     }
 
-
+    public List<SolverData> getSolversDataListByIndex(Integer i_InstanceManagerIndex)
+    {
+        return m_InstancesList.get(i_InstanceManagerIndex).getSolversDataList();
+    }
     public List<HomePageTableRowsData> getRowDataList(){
         List<HomePageTableRowsData> retList=new ArrayList<>();
         for(InstanceManager instance:m_InstancesList)
