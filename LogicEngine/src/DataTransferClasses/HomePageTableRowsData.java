@@ -2,7 +2,7 @@ package DataTransferClasses;
 
 import DataClasses.AlgorithmData.AmountOfObjectsCalc;
 
-public class RowData {
+public class HomePageTableRowsData {
     private String m_HostName;
     private Integer m_AmountOfDays;
     private Integer m_AmountOfHours;
@@ -14,7 +14,7 @@ public class RowData {
     private Integer m_SolvingUsers;
     private Integer m_MaxFitness;
 
-    public RowData(String i_Name, AmountOfObjectsCalc i_Amounts)
+    public HomePageTableRowsData(String i_Name, AmountOfObjectsCalc i_Amounts)
     {
         m_HostName=i_Name;
         m_AmountOfDays=i_Amounts.getAmountOfDays();

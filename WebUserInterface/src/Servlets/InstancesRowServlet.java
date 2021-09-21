@@ -1,6 +1,6 @@
 package Servlets;
 
-import DataTransferClasses.RowData;
+import DataTransferClasses.HomePageTableRowsData;
 import Users.TimeTableHostManager;
 import Utils.ServletUtils;
 import com.google.gson.Gson;
@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 //url: LocalHost:8080/TimeTable/pages/homepage/rows
@@ -22,8 +21,8 @@ public class InstancesRowServlet extends HttpServlet {
         try(PrintWriter out=i_Response.getWriter()) {
             Gson gson = new Gson();
             TimeTableHostManager hostManager = ServletUtils.getTimeTableInstances(getServletContext());
-            List<RowData> rowData = hostManager.getRowDataList();
-            String json = gson.toJson(rowData);
+            List<HomePageTableRowsData> homePageTableRowsData = hostManager.getRowDataList();
+            String json = gson.toJson(homePageTableRowsData);
             out.println(json);
             out.flush();
         }

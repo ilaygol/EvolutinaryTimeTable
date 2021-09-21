@@ -1,6 +1,6 @@
 package Manager;
 
-import DataTransferClasses.RowData;
+import DataTransferClasses.HomePageTableRowsData;
 import DataTransferClasses.WebFileData;
 
 public class InstanceManager {
@@ -17,10 +17,10 @@ public class InstanceManager {
         m_fileDataSaver=m_Manager.getWebFileData();
     }
 
-    public RowData getRowData()
+    public HomePageTableRowsData getRowData()
     {
-        RowData retRowData=new RowData(m_HostName, m_Manager.getAmountOfData());
-        return retRowData;
+        HomePageTableRowsData retHomePageTableRowsData =new HomePageTableRowsData(m_HostName, m_Manager.getAmountOfData());
+        return retHomePageTableRowsData;
     }
 
     public Integer getHostID() {

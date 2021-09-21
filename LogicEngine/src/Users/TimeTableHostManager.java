@@ -1,14 +1,12 @@
 package Users;
 
-import DataTransferClasses.RowData;
+import DataTransferClasses.HomePageTableRowsData;
 import Manager.LogicEngineManager;
 import Manager.InstanceManager;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TimeTableHostManager {
     private List<InstanceManager> m_InstancesList;
@@ -40,8 +38,8 @@ public class TimeTableHostManager {
     }
 
 
-    public List<RowData> getRowDataList(){
-        List<RowData> retList=new ArrayList<>();
+    public List<HomePageTableRowsData> getRowDataList(){
+        List<HomePageTableRowsData> retList=new ArrayList<>();
         for(InstanceManager instance:m_InstancesList)
         {
             retList.add(instance.getRowData());
