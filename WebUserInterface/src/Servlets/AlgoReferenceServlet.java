@@ -43,7 +43,6 @@ public class AlgoReferenceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest i_Request, HttpServletResponse i_Response)
             throws ServletException, IOException {
         i_Response.setContentType("text/plain;charset=UTF-8");
-        //String initialPopulation, reqGenerations, printingReq, reqFitness, reqTimeInMinutes, crossoverName, i_NumOfCuttingPoints, i_CrossoverComponent, i_SelectionType,i_Percent,i_PTE,i_Elitism;
         String userID = SessionUtils.getUserID(i_Request);
         String managerIndex = SessionUtils.getManagerIndex(i_Request);
         PermUserManager permUserManager = ServletUtils.getPermUserManager(getServletContext());
@@ -51,9 +50,24 @@ public class AlgoReferenceServlet extends HttpServlet {
         String generationCheck=i_Request.getParameter(Constants.GENERATIONS_CHECK);
         String timeCheck=i_Request.getParameter(Constants.TIME_CHECK);
         String fitnessCheck=i_Request.getParameter(Constants.FITNESS_CHECK);
+        String generationText=i_Request.getParameter(Constants.GENERATIONS_TEXT);
+        String fitnessText= i_Request.getParameter(Constants.FITNESS_TEXT);
+        String timeText=i_Request.getParameter(Constants.TIME_TEXT);
         if(generationCheck==null&&timeCheck==null&&fitnessCheck==null) {
             i_Response.setStatus(400);
             String errorMessage="Error, Please choose at least one stopping condition";
+            i_Response.getOutputStream().println(errorMessage);
+        }
+        else if(generationCheck!=null && generationText.isEmpty() || timeCheck!=null && timeText.isEmpty() || fitnessCheck!=null && fitnessText.isEmpty())
+        {
+            i_Response.setStatus(400);
+            String errorMessage="Error, Please fill the value of the chosen stopping conditions";
+            i_Response.getOutputStream().println(errorMessage);
+        }
+        //we fix with components events later, ill keep this "if" for now
+        else if(generationCheck==null && !generationText.isEmpty() || timeCheck==null && !timeText.isEmpty() || fitnessCheck==null && !fitnessText.isEmpty()) {
+            i_Response.setStatus(400);
+            String errorMessage="Error, Please delete the unmarked stopping conditions text";
             i_Response.getOutputStream().println(errorMessage);
         }
         else

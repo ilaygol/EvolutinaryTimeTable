@@ -122,54 +122,64 @@ public class LogicEngineManager {
     private void checkAndUpdateStoppingArguments(String i_InitialPopulation,String i_reqGenerations, String i_reqFitness, String i_reqTimeInMinutes) {
         if(i_InitialPopulation.isEmpty())
             throw new RuntimeException("Error, Please enter initial population size");
+        int initialPopulation;
         try {
-            int initialPopulation = Integer.parseInt(i_InitialPopulation);
-            if (initialPopulation <= 0) {
-                throw new RuntimeException("Error, Initial Population must be positive");
-            }
-            else {
-                m_Descriptor.getEvolutionEngine().setInitialPopulationAmount(initialPopulation);
-            }
+             initialPopulation = Integer.parseInt(i_InitialPopulation);
         } catch (Exception e) {
             throw new RuntimeException("Error, Initial Population must be a number.");
         }
-        try {
-            if (!i_reqGenerations.isEmpty()) {
-                int reqGenerations = Integer.parseInt(i_reqGenerations);
-                if (reqGenerations <= 0) {
-                    throw new RuntimeException("Error, Number of generations must be positive");
-                } else {
-                    m_Descriptor.getEvolutionEngine().setNumOfGenerations(reqGenerations);
-                }
+        if (initialPopulation <= 0) {
+            throw new RuntimeException("Error, Initial Population must be positive");
             }
+        else {
+            m_Descriptor.getEvolutionEngine().setInitialPopulationAmount(initialPopulation);
+        }
+
+        if (!i_reqGenerations.isEmpty()) {
+            int reqGenerations;
+            try {
+                 reqGenerations = Integer.parseInt(i_reqGenerations);
             } catch (Exception e) {
                 throw new RuntimeException("Error, Generations to make must be a number.");
-
-        }
-
-        try {
-            if(!i_reqFitness.isEmpty()) {
-                int reqFitness = Integer.parseInt(i_reqFitness);
-                if (reqFitness < 0 || reqFitness > 100)
-                    throw new RuntimeException("Error: Req fitness must be between 1-100");
-                else
-                    m_Descriptor.getEvolutionEngine().setReqFitness(reqFitness);
             }
-        } catch (Exception e) {
-            throw new RuntimeException("Error, Req fitness must be a number.");
-        }
-        try {
-            if(!i_reqTimeInMinutes.isEmpty()) {
-                int reqTime = Integer.parseInt(i_reqTimeInMinutes);
-                if (reqTime <= 0)
-                    throw new RuntimeException("Error, Req time must be a positive number!");
-                else
-                    m_Descriptor.getEvolutionEngine().setReqMinutes(reqTime);
+
+            if (reqGenerations <= 0) {
+                throw new RuntimeException("Error, Number of generations must be positive");
+            } else {
+                m_Descriptor.getEvolutionEngine().setNumOfGenerations(reqGenerations);
             }
-        } catch (Exception e) {
-            throw new RuntimeException("Error, Req time must be an Integer.");
         }
 
+
+
+        if(!i_reqFitness.isEmpty()) {
+            int reqFitness;
+            try {
+                 reqFitness = Integer.parseInt(i_reqFitness);
+            } catch (Exception e) {
+                throw new RuntimeException("Error, Req fitness must be a number.");
+            }
+            if (reqFitness < 0 || reqFitness > 100)
+                throw new RuntimeException("Error: Req fitness must be between 1-100");
+            else
+                m_Descriptor.getEvolutionEngine().setReqFitness(reqFitness);
+            }
+
+
+        if(!i_reqTimeInMinutes.isEmpty()) {
+            int reqTime;
+            try {
+                reqTime = Integer.parseInt(i_reqTimeInMinutes);
+            } catch (Exception e) {
+                throw new RuntimeException("Error, Req time must be an Integer.");
+            }
+            if (reqTime <= 0) {
+                throw new RuntimeException("Error, Req time must be a positive number!");
+            }
+            else {
+                m_Descriptor.getEvolutionEngine().setReqMinutes(reqTime);
+            }
+        }
 
     }
 

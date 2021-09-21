@@ -30,14 +30,14 @@ $(function(){
         timeout: 2000,
         success: function (algoRefObj){
             document.getElementById("reqGenerationTXT").value=algoRefObj["m_Generations"];
-            if(algoRefObj["m_Generations"]!=="")
-                document.getElementById("reqGenerationCHK").value="true";
+            if(algoRefObj["m_Generations"])
+                document.getElementById("reqGenerationCHK").checked=true;
             document.getElementById("reqFitnessTXT").value=algoRefObj["m_Fitness"];
-            if(algoRefObj["m_Fitness"]!=="")
-                document.getElementById("reqFitnessCHK").value="true";
+            if(algoRefObj["m_Fitness"])
+                document.getElementById("reqFitnessCHK").checked=true;
             document.getElementById("reqTimeTXT").value=algoRefObj["m_Time"];
-            if(algoRefObj["m_Time"]!=="")
-                document.getElementById("reqTimeCHK").value="true";
+            if(algoRefObj["m_Time"])
+                document.getElementById("reqTimeCHK").checked=true;
 
             document.getElementById("selectionType").value=algoRefObj["m_SelectionType"];
             document.getElementById("elitism").value=algoRefObj["m_Elitism"];
