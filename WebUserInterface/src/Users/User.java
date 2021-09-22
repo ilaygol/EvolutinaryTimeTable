@@ -3,6 +3,7 @@ package Users;
 import AlgorithmClasses.eStoppingCondition;
 import DataTransferClasses.AlgorithmReferenceData;
 import DataTransferClasses.MutationData;
+import DataTransferClasses.ProgressData;
 import Manager.LogicEngineManager;
 import Threads.ActivateAlgoThread;
 import WebManager.LogicEngineWrapper;
@@ -72,10 +73,42 @@ public class User {
         LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
         return wantedManager.getAlgoRefData();
     }
+
+    public void startAlgorithmByIndex(Integer i_ProblemIndex)
+    {
+        LogicEngineWrapper wantedWrapper=getWrapperByProblemIndex(i_ProblemIndex);
+        wantedWrapper.startAlgorithm();
+    }
+
+    public void pauseAlgorithm(Integer i_ProblemIndex)
+    {
+        LogicEngineWrapper wantedWrapper=getWrapperByProblemIndex(i_ProblemIndex);
+        wantedWrapper.pauseAlgorithm();
+    }
+
+    public void stopAlgorithm(Integer i_ProblemIndex)
+    {
+        LogicEngineWrapper wantedWrapper=getWrapperByProblemIndex(i_ProblemIndex);
+        wantedWrapper.stopAlgorithm();
+    }
+
+    public void addThreadToWrapperByIndex(Integer i_ProblemIndex,ActivateAlgoThread i_Thread)
+    {
+        LogicEngineWrapper wantedWrapper=getWrapperByProblemIndex(i_ProblemIndex);
+        wantedWrapper.setThread(i_Thread);
+    }
+
+
     public void addNewMutationToManager(Integer i_ManagerIndex,String i_Name,String i_Tupples,String i_Char,String i_Probability)
     {
         LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
         wantedManager.addNewMutationToList(i_Name,i_Tupples,i_Char,i_Probability);
+    }
+
+    public ProgressData getProgressDataByIndex(Integer i_WrapperIndex)
+    {
+        LogicEngineWrapper wantedWrapper=getWrapperByProblemIndex(i_WrapperIndex);
+        return wantedWrapper.getProgressData();
     }
 
     public MutationData getMutationDataByIndex(Integer i_ManagerIndex,Integer i_MutationIndex)
@@ -128,6 +161,21 @@ public class User {
         }
         return retManager;
     }
+
+    private LogicEngineWrapper getWrapperByProblemIndex(Integer i_ProblemIndex)
+    {
+        LogicEngineWrapper retWrapper=null;
+        for(LogicEngineWrapper wrapper:m_EngineWrapperList)
+        {
+            if(wrapper.getEngineManager().getProblemIndex().equals(i_ProblemIndex)) {
+                retWrapper = wrapper;
+                break;
+            }
+        }
+        return retWrapper;
+    }
+
+
 
 
 }

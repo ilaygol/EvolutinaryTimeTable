@@ -6,6 +6,10 @@
 
 
     <servlet>
+        <servlet-name>AlgoProgressUpdateServlet</servlet-name>
+        <servlet-class>Servlets.AlgoProgressUpdateServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AlgoPageEntry</servlet-name>
         <servlet-class>Servlets.AlgoPageEntry</servlet-class>
     </servlet>
@@ -68,7 +72,10 @@
 
 
 
-
+    <servlet-mapping>
+        <servlet-name>AlgoProgressUpdateServlet</servlet-name>
+        <url-pattern>/page/algopage/progressUpdate</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AlgoPageEntry</servlet-name>
         <url-pattern>/pages/homepage/algo-entry</url-pattern>

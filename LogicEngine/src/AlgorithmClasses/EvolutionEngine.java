@@ -148,7 +148,7 @@ public class EvolutionEngine {
 
     public synchronized void activateAlgorithm(TimeTable i_TimeTable, AmountOfObjectsCalc i_AmountOfObj,EvolutionEngineData i_EvolutionEngineData ,Consumer<ProgressData> i_ProgressDataConsumer) {
         setStopBoolean(false);
-        ProgressData progressTracker=new ProgressData(0, 0, (long)0);
+        ProgressData progressTracker=new ProgressData(0, 0, (long)0,m_PrintingReq);
         Integer counter=0,generationsMade=0,bestFitness=0;
         Long timePassedInMillis=(long)0;
         Instant startCountingTime,endCountingTime;
