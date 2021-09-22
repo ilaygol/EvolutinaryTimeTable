@@ -37,6 +37,7 @@ public class EvolutionEngine {
     {
         m_Mutations=new Mutations();
         m_StoppingConditionList=new ArrayList<>();
+        m_isStop=new Boolean(false);
     }
 
     public AlgorithmReferenceData getAlgoReferenceData()
