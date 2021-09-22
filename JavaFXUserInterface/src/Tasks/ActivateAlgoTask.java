@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 
 public class ActivateAlgoTask extends Task<Boolean> {
 
-    Consumer<ProgressData> m_Consumer;
+    private Consumer<ProgressData> m_Consumer;
     private Collection<eStoppingCondition> m_StoppingCondition;
     private LogicEngineManager m_Engine;
     private Integer m_ReqGeneration;

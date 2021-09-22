@@ -61,10 +61,11 @@ public class LogicEngineManager {
         }
     }
 
-    public void ActivateAlgorithm(Consumer<ProgressData> i_ProgressDataConsumer) {
+    public void ActivateAlgorithm(Consumer<ProgressData> i_ProgressDataConsumer,Integer i_PrintingReq) {
         if(m_IsFileLoaded)
         {
             m_EvolutionEngineData=new EvolutionEngineData();
+            m_Descriptor.getEvolutionEngine().setPrintingReq(i_PrintingReq);
             m_IsAlgoActivated=true;
             m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),m_MaxAmountOfObjects,m_EvolutionEngineData,i_ProgressDataConsumer);
         }
