@@ -13,6 +13,7 @@ public class User {
     private String m_Username;
     private List<LogicEngineManager> m_EngineList;
 
+
     public User(Integer i_ID, String i_Username) {
         this.m_ID = i_ID;
         this.m_Username = i_Username;

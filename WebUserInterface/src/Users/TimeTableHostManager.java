@@ -3,7 +3,7 @@ package Users;
 import DataTransferClasses.HomePageTableRowsData;
 import DataTransferClasses.SolverData;
 import Manager.LogicEngineManager;
-import Manager.InstanceManager;
+import WebManager.InstanceManager;
 
 import java.util.ArrayList;
 import java.util.Collections;

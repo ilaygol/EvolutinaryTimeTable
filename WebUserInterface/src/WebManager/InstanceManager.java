@@ -1,8 +1,9 @@
-package Manager;
+package WebManager;
 
 import DataTransferClasses.HomePageTableRowsData;
 import DataTransferClasses.SolverData;
 import DataTransferClasses.WebFileData;
+import Manager.LogicEngineManager;
 import Users.Solver;
 import Users.SolvingUserManager;
 

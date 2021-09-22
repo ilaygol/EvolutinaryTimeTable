@@ -1,6 +1,6 @@
 package Servlets;
 
-import Manager.InstanceManager;
+import WebManager.InstanceManager;
 import Users.TimeTableHostManager;
 import Utils.ServletUtils;
 import Utils.SessionUtils;
