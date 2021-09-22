@@ -30,6 +30,7 @@ public class LogicEngineManager {
     public LogicEngineManager(LogicEngineManager i_LogicEngineManager)
     {
         m_Descriptor=new Descriptor(i_LogicEngineManager.getDescriptor());
+        m_MaxAmountOfObjects= i_LogicEngineManager.copyAmountOfData();
     }
     public Map<Integer,Integer> PrintAlgorithmProcess() {
         if(m_IsFileLoaded) {
@@ -286,6 +287,10 @@ public class LogicEngineManager {
     public List<MutationData> getMutationDataList()
     {
         return m_Descriptor.getEvolutionEngine().getMutations().getMutationsDataList();
+    }
+
+    public AmountOfObjectsCalc copyAmountOfData(){
+        return m_MaxAmountOfObjects;
     }
 
     public AmountOfObjectsCalc getAmountOfData() {
