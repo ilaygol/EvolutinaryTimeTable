@@ -4,6 +4,8 @@ import AlgorithmClasses.eStoppingCondition;
 import DataTransferClasses.AlgorithmReferenceData;
 import DataTransferClasses.MutationData;
 import Manager.LogicEngineManager;
+import Threads.ActivateAlgoThread;
+import WebManager.LogicEngineWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +13,12 @@ import java.util.List;
 public class User {
     private Integer m_ID;
     private String m_Username;
-    private List<LogicEngineManager> m_EngineList;
-
+    private List<LogicEngineWrapper> m_EngineWrapperList;
 
     public User(Integer i_ID, String i_Username) {
         this.m_ID = i_ID;
         this.m_Username = i_Username;
-        this.m_EngineList = new ArrayList<>();
+        this.m_EngineWrapperList = new ArrayList<>();
     }
 
     public Integer getID() {
@@ -28,19 +29,17 @@ public class User {
         return m_Username;
     }
 
-    public List<LogicEngineManager> getEngineList() {
-        return m_EngineList;
-    }
+
 
     public void addNewManager(LogicEngineManager i_LogicEngineManager)
     {
-        m_EngineList.add(i_LogicEngineManager);
+        m_EngineWrapperList.add(new LogicEngineWrapper(i_LogicEngineManager));
     }
 
     public boolean isManagerExist(Integer i_ManagerIndex)
     {
         boolean retValue;
-        if(m_EngineList.stream().filter(manager-> manager.getProblemIndex().equals(i_ManagerIndex)).count()>0)
+        if(m_EngineWrapperList.stream().filter(wrapper-> wrapper.getEngineManager().getProblemIndex().equals(i_ManagerIndex)).count()>0)
             retValue = true;
         else
             retValue = false;
@@ -120,10 +119,10 @@ public class User {
     private LogicEngineManager getManagerByProblemIndex(Integer i_ProblemIndex)
     {
         LogicEngineManager retManager=null;
-        for(LogicEngineManager manager:m_EngineList)
+        for(LogicEngineWrapper wrapper:m_EngineWrapperList)
         {
-            if(manager.getProblemIndex().equals(i_ProblemIndex)) {
-                retManager = manager;
+            if(wrapper.getEngineManager().getProblemIndex().equals(i_ProblemIndex)) {
+                retManager = wrapper.getEngineManager();
                 break;
             }
         }
