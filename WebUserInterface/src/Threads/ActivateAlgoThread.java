@@ -15,6 +15,7 @@ public class ActivateAlgoThread extends Thread{
     {
         m_EngineManager =i_LogicEngineManager;
         m_Consumer=i_Consumer;
+        m_PrintingReq=i_ShowEvery;
     }
 
     private void setPrintReq(Integer i_PrintingReq)

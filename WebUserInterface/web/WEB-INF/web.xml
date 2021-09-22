@@ -74,7 +74,7 @@
 
     <servlet-mapping>
         <servlet-name>AlgoProgressUpdateServlet</servlet-name>
-        <url-pattern>/page/algopage/progressUpdate</url-pattern>
+        <url-pattern>/pages/algopage/progressUpdate</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AlgoPageEntry</servlet-name>

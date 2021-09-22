@@ -82,8 +82,9 @@ public class LogicEngineWrapper {
     //consumer
     public void updateProgress(ProgressData i_ProgressData)
     {
-        m_ProgressData.setNewValues(i_ProgressData.getGeneration(), i_ProgressData.getFitness(), i_ProgressData.getTimePassedInMillis());
+        m_ProgressData.setGeneration(i_ProgressData.getGeneration());
+        m_ProgressData.setFitness(i_ProgressData.getFitness());
+        m_ProgressData.setTimePassedInMillis(i_ProgressData.getTimePassedInMillis());
+        m_ProgressData.setShowEvery(i_ProgressData.getShowEvery());
     }
-
-
 }

@@ -26,7 +26,7 @@ function algopageContentUpdate()
 function algoProgressUpdate()
 {
     $.ajax({
-        url:"progressUpdate",
+        url:"/TimeTable/pages/algopage/progressUpdate",
         timeout:1000,
         success:function (progressData){
             refreshProgressLabels(progressData)
