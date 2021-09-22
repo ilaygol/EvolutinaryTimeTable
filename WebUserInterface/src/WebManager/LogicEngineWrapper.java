@@ -15,6 +15,7 @@ public class LogicEngineWrapper {
         m_EngineManager=i_Manager;
         m_Thread=null;
         m_IsPaused=false;
+        m_ProgressData=new ProgressData(0,0,(long)0,10);
     }
 
     public ActivateAlgoThread getThread() {
@@ -37,6 +38,12 @@ public class LogicEngineWrapper {
     public void setThread(ActivateAlgoThread i_Thread)
     {
         m_Thread=i_Thread;
+    }
+
+    public void createAndSetThread(Integer i_ShowEvery)
+    {
+        ActivateAlgoThread thread=new ActivateAlgoThread(m_EngineManager,this::updateProgress,i_ShowEvery);
+        setThread(thread);
     }
 
     public void startAlgorithm()

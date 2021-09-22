@@ -15,7 +15,7 @@ $(function() {
                 myModal.show();
             }
 
-        })
-
+        });
+        setInterval(algoProgressUpdate,1000);
     })
 })

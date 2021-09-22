@@ -1,9 +1,7 @@
 $(function (){
     setInterval(algopageContentUpdate,2000);
 });
-$(function (){
-    setInterval(algoProgressUpdate,1000);
-});
+
 
 
 $(function() {

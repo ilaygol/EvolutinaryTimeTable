@@ -111,6 +111,7 @@ public class User {
         return wantedWrapper.getProgressData();
     }
 
+
     public MutationData getMutationDataByIndex(Integer i_ManagerIndex,Integer i_MutationIndex)
     {
         LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
@@ -147,6 +148,13 @@ public class User {
         LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
         wantedManager.setStoppingCondition(i_StoppingConditionList);
     }
+
+    public void createAndSetThread(Integer i_WrapperIndex,Integer i_ShowEvery)
+    {
+        LogicEngineWrapper wantedWrapper=getWrapperByProblemIndex(i_WrapperIndex);
+        wantedWrapper.createAndSetThread(i_ShowEvery);
+    }
+
 
 
     private LogicEngineManager getManagerByProblemIndex(Integer i_ProblemIndex)

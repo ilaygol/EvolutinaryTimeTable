@@ -28,7 +28,9 @@ public class ActivateAlgoServlet extends HttpServlet {
             checkArguments(i_Request,user,managerIndex);
             hostManager.addSolverToSolvingManager(Integer.parseInt(managerIndex),Integer.parseInt(userID),username);
 
-
+            user.createAndSetThread(Integer.parseInt(managerIndex),Integer.parseInt(i_Request.getParameter(Constants.SHOW_EVERY)));
+            user.startAlgorithmByIndex(Integer.parseInt(managerIndex));
+            i_Response.setStatus(200);
         }catch(RuntimeException e)
         {
             i_Response.getOutputStream().println(e.getMessage());

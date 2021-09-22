@@ -11,7 +11,7 @@ public class ActivateAlgoThread extends Thread{
     private Integer m_PrintingReq;
 
 
-    public ActivateAlgoThread(LogicEngineManager i_LogicEngineManager,Consumer<ProgressData> i_Consumer)
+    public ActivateAlgoThread(LogicEngineManager i_LogicEngineManager,Consumer<ProgressData> i_Consumer,Integer i_ShowEvery)
     {
         m_EngineManager =i_LogicEngineManager;
         m_Consumer=i_Consumer;
