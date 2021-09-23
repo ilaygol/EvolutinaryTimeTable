@@ -10,6 +10,7 @@ $(function(){
                 $("#titleModalLabel").text("SUCCESS!");
                 $("#bodyModalLabel").text("Mutation has been added successfully");
                 myModal.show();
+                mutationUpdate();
             },
             error: function(errorObject){
                 var myModal = new bootstrap.Modal(document.getElementById('algoRefModal'));
@@ -32,10 +33,13 @@ $(function(){
             method:'POST',
             timeout:2000,
             success: function(){
+                mutationUpdate();
                 var myModal = new bootstrap.Modal(document.getElementById('algoRefModal'));
                 $("#titleModalLabel").text("SUCCESS!");
                 $("#bodyModalLabel").text("Mutation has been updated successfully");
                 myModal.show();
+                mutationUpdate();
+
             },
             error: function(errorObject){
                 var myModal = new bootstrap.Modal(document.getElementById('algoRefModal'));
@@ -63,11 +67,7 @@ $(function (){
 });
 
 
-$(function (){
-    setInterval(AlgoPageContentUpdate,2000);
-});
-
-function AlgoPageContentUpdate()
+function mutationUpdate()
 {
     $.ajax({
         url:"mutation",
@@ -120,6 +120,7 @@ function refreshMutationTableRows(mutationDataList) {
                 $("#titleModalLabel").text("SUCCESS!");
                 $("#bodyModalLabel").text("Mutation has been deleted successfully");
                 myModal.show();
+                mutationUpdate();
             }),
             error: function () {
                 console.log("Error deleting mutation");

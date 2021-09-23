@@ -1,3 +1,5 @@
+
+var labelsUpdate;
 $(function() {
     $("#startBtn").click(function () {
         var showEvery=document.getElementById("showEvery").value;
@@ -8,7 +10,7 @@ $(function() {
             success: function(){
                 console.log("algorithm was activated successfully");
                 playBtnDisabilityManagement()
-                setInterval(algoProgressUpdate,1000);
+                labelsUpdate=setInterval(algoProgressUpdate,1000);
             },
             error: function(errorObject){
                 var myModal = new bootstrap.Modal(document.getElementById('algoRefModal'));
@@ -29,6 +31,7 @@ $(function() {
             success: function(){
                 console.log("paused the algorithm");
                 pauseBtnDisabilityManagement();
+                clearInterval(labelsUpdate);
             },
             error: function(errorObj){
                 console.log("failed to pause algorithm because: "+errorObj.responseText);
@@ -45,6 +48,7 @@ $(function() {
             success: function(progressData){
                 console.log("stopped algorithm");
                 stopBtnDisabilityManagement();
+                clearInterval(labelsUpdate);
                 $("#statusLine").empty().text("Generation made: "+progressData["m_Generation"]);
                 $("#updatesLine").empty().text("After "+progressData["m_Generation"]+" generations, Best fitness: "+progressData["m_Fitness"]);
             },

@@ -38,7 +38,7 @@ function algopageContentUpdate()
 function algoProgressUpdate()
 {
     $.ajax({
-        url:"/TimeTable/pages/algopage/progressUpdate",
+        url:"progressUpdate",
         timeout:1000,
         success:function (progressData){
             refreshProgressLabels(progressData)
@@ -62,8 +62,5 @@ function refreshSolvingUsersList(userList)
 function refreshProgressLabels(progressData)
 {
     $("#statusLine").empty().text("Generation made: "+progressData["m_Generation"]);
-    if(progressData["m_Generation"]%progressData["m_ShowEvery"]===0)
-    {
-        $("#updatesLine").empty().text("After "+progressData["m_Generation"]+" generations, Best fitness: "+progressData["m_Fitness"]);
-    }
+    $("#updatesLine").empty().text("After "+progressData["m_ShowEveryGeneration"]+" generations, Best fitness: "+progressData["m_ShowEveryFitness"]);
 }

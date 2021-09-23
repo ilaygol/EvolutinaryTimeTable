@@ -10,6 +10,7 @@ public class LogicEngineWrapper {
     private Boolean m_IsPaused;
     private ProgressData m_ProgressData;
 
+
     public LogicEngineWrapper(LogicEngineManager i_Manager)
     {
         m_EngineManager=i_Manager;
@@ -99,5 +100,10 @@ public class LogicEngineWrapper {
         m_ProgressData.setFitness(i_ProgressData.getFitness());
         m_ProgressData.setTimePassedInMillis(i_ProgressData.getTimePassedInMillis());
         m_ProgressData.setShowEvery(i_ProgressData.getShowEvery());
+        if(m_ProgressData.getGeneration()%m_ProgressData.getShowEvery()==0)
+        {
+            m_ProgressData.setShowEveryGeneration(m_ProgressData.getGeneration());
+            m_ProgressData.setShowEveryFitness(m_ProgressData.getFitness());
+        }
     }
 }

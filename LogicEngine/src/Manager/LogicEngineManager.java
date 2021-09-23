@@ -24,6 +24,7 @@ public class LogicEngineManager {
     private Integer m_ProblemIndex;
     private boolean m_IsFileLoaded=false;
     private boolean m_IsAlgoActivated=false;
+    private boolean m_IsAlgoRunning=false;
 
     public LogicEngineManager() { m_ProblemIndex=0; }
 
@@ -68,7 +69,9 @@ public class LogicEngineManager {
             m_EvolutionEngineData=new EvolutionEngineData();
             m_Descriptor.getEvolutionEngine().setPrintingReq(i_PrintingReq);
             m_IsAlgoActivated=true;
+            m_IsAlgoRunning=true;
             m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),m_MaxAmountOfObjects,m_EvolutionEngineData,i_ProgressDataConsumer);
+            m_IsAlgoRunning=false;
         }
         else {
             throw new RuntimeException("ERROR: No file has been loaded, Please load a file before choosing this option.");
@@ -83,6 +86,10 @@ public class LogicEngineManager {
     public AlgorithmReferenceData getAlgoRefData()
     {
         return m_Descriptor.getEvolutionEngine().getAlgoReferenceData();
+    }
+
+    public boolean IsAlgoRunning() {
+        return m_IsAlgoRunning;
     }
 
     public Integer getInitialPopulation()
