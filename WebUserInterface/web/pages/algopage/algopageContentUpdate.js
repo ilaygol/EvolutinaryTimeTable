@@ -1,8 +1,20 @@
+$(function() {
+    $.ajax({
+        data: "",
+        url: "welcome",
+        timeout: 2000,
+        error: function (loginURL) {
+            window.location.replace(loginURL);
+        },
+        success: function (clientName) {
+            $("#userName").text(clientName.trim());
+        }
+    });
+});
+
 $(function (){
     setInterval(algopageContentUpdate,2000);
 });
-
-
 
 $(function() {
     $.ajax({
@@ -42,8 +54,8 @@ function refreshSolvingUsersList(userList)
         $("<tr><td>" + solver["m_SolverName"] +
             "</td><td>" + solver["m_GenerationsMade"] +
             "</td><td>" + solver["m_BestFitness"] +
-            "</td><td><button class='btn btn-primary checkSetting' id='" + index + "' type='button'>Check Settings</button></td>" +
-            "</td><td><button class='btn btn-primary watchSolution' id='" + index + "' type='button'>Best Solution</button></td></tr>").appendTo($("#solvingTableBody"))
+            "</td><td><button class='btn btn-primary btn-sm checkSetting' id='" + index + "' type='button'>Check Settings</button></td>" +
+            "</td><td><button class='btn btn-success btn-sm watchSolution' id='" + index + "' type='button'>Best Solution</button></td></tr>").appendTo($("#solvingTableBody"))
     });
 }
 

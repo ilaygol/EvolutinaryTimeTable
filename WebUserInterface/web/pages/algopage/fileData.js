@@ -5,31 +5,48 @@ $(function() {
         url: "filedata",
         timeout: 2000,
         success: (function(webFileData){
-            $("#fileData").empty().text("The subjects are:").append("<br>");
-            $.each(webFileData["m_SubjectsData"] || [],function (index,subject){
-                $("#fileData").append("ID: "+subject["m_SubjectID"]+" | Name: "+subject["m_SubjectName"]+"<br>");
-            });
-            $("#fileData").append("The teachers are:"+"<br>");
-            $.each(webFileData["m_TeacherData"] || [],function (index,teacher){
-                $("#fileData").append("Teacher ID: "+teacher["m_TeacherID"]+" Name: "+teacher["m_TeacherName"]+" Preferred working Hours: "+teacher["m_WorkingHours"]+", Subjects he teaches are:"+"<br>");
+            //Teachers
+            $("#teachersTableBody").empty();
+            $.each(webFileData["m_TeacherData"] || [],function (index,teacher) {
+                var subjectsStr="";
                 $.each(teacher["m_TeacherSubjects"] || [],function (index,subject) {
-                    $("#fileData").append("ID: "+subject["m_SubjectID"]+" | Name: "+subject["m_SubjectName"]+"<br>");
-                });
-
+                    subjectsStr+=subject["m_SubjectName"]+"<br>";
+                })
+                $("<tr><td>" + teacher["m_TeacherID"] +
+                    "</td><td>" + teacher["m_TeacherName"] +
+                    "</td><td>" + teacher["m_WorkingHours"] +
+                    "</td><td>" + subjectsStr +
+                    "</td></tr>").appendTo($("#teachersTableBody"))
             });
-            $("#fileData").append("The classes are:"+"<br>");
-            $.each(webFileData["m_ClassData"] || [],function (index,clazz){
-                $("#fileData").append("Class ID: "+clazz["m_ClassID"]+" Name: "+clazz["m_ClassName"]+", The subjects taught in this class are:"+"<br>");
+
+            //Classes
+            $("#classesTableBody").empty();
+            $.each(webFileData["m_ClassData"] || [],function (index,clazz) {
+                var subjectsStr="";
                 $.each(clazz["m_ClassSubjects"] || [],function (index,subject) {
-                    $("#fileData").append("ID: "+subject["m_SubjectID"]+" | Name: "+subject["m_SubjectName"]+"<br>");
-                });
-            });
-            $("#fileData").append("The rule are:"+"<br>");
-            $.each(webFileData["m_RuleData"] || [],function (index,rule){
-                $("#fileData").append("Rule name: "+rule["m_RuleName"]+" | Rule type: "+rule["m_RuleType"]+"<br>");
+                    subjectsStr+=subject["m_SubjectName"]+"<br>";
+                })
+                $("<tr><td>" + clazz["m_ClassID"] +
+                    "</td><td>" + clazz["m_ClassName"] +
+                    "</td><td>" + subjectsStr +
+                    "</td></tr>").appendTo($("#classesTableBody"))
             });
 
+            //Subjects
+            $("#subjectsTableBody").empty();
+            $.each(webFileData["m_SubjectsData"] || [],function (index,subject) {
+                $("<tr><td>" + subject["m_SubjectID"] +
+                    "</td><td>" + subject["m_SubjectName"] +
+                    "</td></tr>").appendTo($("#subjectsTableBody"))
+            });
 
+            //Rules
+            $("#rulesTableBody").empty();
+            $.each(webFileData["m_RuleData"] || [],function (index,rule) {
+                $("<tr><td>" + rule["m_RuleName"] +
+                    "</td><td>" + rule["m_RuleType"] +
+                    "</td></tr>").appendTo($("#rulesTableBody"))
+            });
         }),
         error: function (){
             console.log("Error printing file");

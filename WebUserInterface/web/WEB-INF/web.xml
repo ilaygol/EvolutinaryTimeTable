@@ -152,6 +152,10 @@
         <servlet-name>WelcomeServlet</servlet-name>
         <url-pattern>/pages/homepage/welcome</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WelcomeServlet</servlet-name>
+        <url-pattern>/pages/algopage/welcome</url-pattern>
+    </servlet-mapping>
 </web-app>
 
 
