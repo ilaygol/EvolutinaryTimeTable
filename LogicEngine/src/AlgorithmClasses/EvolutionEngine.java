@@ -193,6 +193,8 @@ public class EvolutionEngine {
                     try {
                         i_TimeTable.getRules().recheckBestSolution(i_EvolutionEngineData.getBestSolution(),i_TimeTable,i_EvolutionEngineData);
                         i_EvolutionEngineData.updateRulesAverage();
+                        progressTracker.setIsPaused(true);
+                        i_ProgressDataConsumer.accept(progressTracker);
                         this.wait();
                     } catch (InterruptedException e) {
                         System.out.println("Interrupted while waiting");

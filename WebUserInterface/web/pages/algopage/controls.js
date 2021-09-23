@@ -9,7 +9,8 @@ $(function() {
             timeout:2000,
             success: function(){
                 console.log("algorithm was activated successfully");
-                playBtnDisabilityManagement()
+                playBtnDisabilityManagement();
+                $("#updatesLine").empty();
                 labelsUpdate=setInterval(algoProgressUpdate,1000);
             },
             error: function(errorObject){

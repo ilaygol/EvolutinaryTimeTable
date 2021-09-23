@@ -96,15 +96,22 @@ public class LogicEngineWrapper {
     //consumer
     public void updateProgress(ProgressData i_ProgressData)
     {
+        if(i_ProgressData.getGeneration()==1)
+        {
+            m_ProgressData.setShowEveryGeneration(0);
+            m_ProgressData.setShowEveryFitness(0);
+        }
         m_ProgressData.setGeneration(i_ProgressData.getGeneration());
         m_ProgressData.setFitness(i_ProgressData.getFitness());
         m_ProgressData.setTimePassedInMillis(i_ProgressData.getTimePassedInMillis());
         m_ProgressData.setShowEvery(i_ProgressData.getShowEvery());
+        m_ProgressData.setIsPaused(i_ProgressData.getIsPaused());
         m_ProgressData.setIsRunningAlgo(i_ProgressData.getIsRunningAlgo());
-        if(m_ProgressData.getGeneration()%m_ProgressData.getShowEvery()==0)
-        {
+
+        if(m_ProgressData.getGeneration()%m_ProgressData.getShowEvery()==0) {
             m_ProgressData.setShowEveryGeneration(m_ProgressData.getGeneration());
             m_ProgressData.setShowEveryFitness(m_ProgressData.getFitness());
         }
     }
 }
+
