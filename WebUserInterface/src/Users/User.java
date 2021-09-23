@@ -80,13 +80,13 @@ public class User {
         wantedWrapper.startAlgorithm();
     }
 
-    public void pauseAlgorithm(Integer i_ProblemIndex)
+    public void pauseAlgorithmByIndex(Integer i_ProblemIndex)
     {
         LogicEngineWrapper wantedWrapper=getWrapperByProblemIndex(i_ProblemIndex);
         wantedWrapper.pauseAlgorithm();
     }
 
-    public void stopAlgorithm(Integer i_ProblemIndex)
+    public void stopAlgorithmByIndex(Integer i_ProblemIndex)
     {
         LogicEngineWrapper wantedWrapper=getWrapperByProblemIndex(i_ProblemIndex);
         wantedWrapper.stopAlgorithm();
@@ -152,7 +152,9 @@ public class User {
     public void createAndSetThread(Integer i_WrapperIndex,Integer i_ShowEvery)
     {
         LogicEngineWrapper wantedWrapper=getWrapperByProblemIndex(i_WrapperIndex);
-        wantedWrapper.createAndSetThread(i_ShowEvery);
+        if(!wantedWrapper.isPausedAlgo()) {
+            wantedWrapper.createAndSetThread(i_ShowEvery);
+        }
     }
 
 

@@ -54,6 +54,14 @@
         <servlet-class>Servlets.MutationUpdateServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>PauseAlgoServlet</servlet-name>
+        <servlet-class>Servlets.PauseAlgoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StopAlgoServlet</servlet-name>
+        <servlet-class>Servlets.StopAlgoServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>SolvingUsersUpdateServlet</servlet-name>
         <servlet-class>Servlets.SolvingUsersUpdateServlet</servlet-class>
     </servlet>
@@ -121,10 +129,17 @@
         <url-pattern>/pages/algopage/mutationUpdate</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>PauseAlgoServlet</servlet-name>
+        <url-pattern>/pages/algopage/pause</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StopAlgoServlet</servlet-name>
+        <url-pattern>/pages/algopage/stopAlgo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>SolvingUsersUpdateServlet</servlet-name>
         <url-pattern>/pages/algopage/updateSolvingUsers</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>UsersListServlet</servlet-name>
         <url-pattern>/pages/homepage/userList</url-pattern>

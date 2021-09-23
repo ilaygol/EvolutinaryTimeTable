@@ -38,7 +38,14 @@ public class InstanceManager {
 
     public synchronized void addUserToSolvingUsers(Integer i_SolverID,String i_SolverName)
     {
-        m_SolvingUserManager.addSolver(new Solver(i_SolverID,i_SolverName));
+        if(!m_SolvingUserManager.isUserExists(i_SolverName)) {
+            m_SolvingUserManager.addSolver(new Solver(i_SolverID, i_SolverName));
+        }
+    }
+
+    public synchronized void removeSolverFromSolvingUsers(String i_SolverName)
+    {
+        m_SolvingUserManager.removeSolver(i_SolverName);
     }
     public Integer getHostID() {
         return m_HostID;

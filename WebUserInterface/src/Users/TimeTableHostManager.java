@@ -49,8 +49,13 @@ public class TimeTableHostManager {
         return Collections.unmodifiableList(retList);
     }
 
-    public void addSolverToSolvingManager(Integer i_ManagerIndex,Integer i_SolverID,String i_SolverName)
+    public void addSolverToSolvingManager(Integer i_InstanceManagerIndex, Integer i_SolverID, String i_SolverName)
     {
-        m_InstancesList.get(i_ManagerIndex).addUserToSolvingUsers(i_SolverID,i_SolverName);
+        m_InstancesList.get(i_InstanceManagerIndex).addUserToSolvingUsers(i_SolverID,i_SolverName);
+    }
+
+    public void removeSolverFromSolvingManager(Integer i_InstaceManagerIndex, String i_SolverName)
+    {
+        m_InstancesList.get(i_InstaceManagerIndex).removeSolverFromSolvingUsers(i_SolverName);
     }
 }

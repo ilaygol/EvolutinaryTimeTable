@@ -15,16 +15,31 @@ public class SolvingUserManager {
         m_SolversList.add(i_Solver);
     }
 
-    public synchronized void removeUser(Solver i_Solver) {
-        m_SolversList.remove(i_Solver);
+    public synchronized void removeSolver(String i_SolverName) {
+        Solver wantedSolver=null;
+        for(Solver solver:m_SolversList)
+        {
+            if(solver.getSolverName().equals(i_SolverName));
+            wantedSolver=solver;
+        }
+        m_SolversList.remove(wantedSolver);
     }
 
     public synchronized List<Solver> getUsers() {
         return Collections.unmodifiableList(m_SolversList);
     }
 
-    public boolean isUserExists(Solver i_Solver) {
-        return m_SolversList.contains(i_Solver);
+    public boolean isUserExists(String i_SolverName) {
+        boolean retVal=false;
+        for(Solver solver:m_SolversList)
+        {
+            if(solver.getSolverName().equals(i_SolverName))
+            {
+                retVal=true;
+                break;
+            }
+        }
+        return retVal;
     }
 
     public Integer getSolversAmount() { return m_SolversList.size(); }

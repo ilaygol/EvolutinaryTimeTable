@@ -55,3 +55,8 @@ $(function(){
     });
 });
 
+$(function(){
+    document.getElementById("pauseBtn").disabled=true;
+    document.getElementById("stopBtn").disabled=true;
+})
+

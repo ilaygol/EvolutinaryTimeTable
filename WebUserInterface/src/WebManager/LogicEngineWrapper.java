@@ -30,14 +30,22 @@ public class LogicEngineWrapper {
         return m_ProgressData;
     }
 
-    public Boolean getIsPausedFlag()
-    {
-        return m_IsPaused;
-    }
 
     public void setThread(ActivateAlgoThread i_Thread)
     {
         m_Thread=i_Thread;
+    }
+
+    public boolean isThreadExist()
+    {
+        boolean retVal;
+        retVal=m_Thread != null;
+        return retVal;
+    }
+
+    public Boolean isPausedAlgo()
+    {
+        return m_IsPaused;
     }
 
     public void createAndSetThread(Integer i_ShowEvery)
@@ -49,7 +57,12 @@ public class LogicEngineWrapper {
     public void startAlgorithm()
     {
         if(m_Thread!=null) {
-            m_Thread.start();
+            if(isPausedAlgo()) {
+                resumeAlgorithm();
+            }
+            else{
+                m_Thread.start();
+            }
         }
         else
             throw new RuntimeException("Error: Trying to run null thread");
