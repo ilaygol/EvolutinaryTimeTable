@@ -2,15 +2,13 @@
 package AlgorithmClasses;
 
 import DataClasses.AlgorithmData.AmountOfObjectsCalc;
-import DataClasses.AlgorithmData.Parent;
 import DataClasses.AlgorithmData.Generation;
+import DataClasses.AlgorithmData.Parent;
 import DataClasses.FileInputDataClasses.TimeTable;
 import DataTransferClasses.AlgorithmReferenceData;
 import DataTransferClasses.EvolutionEngineData;
 import DataTransferClasses.MutationData;
 import DataTransferClasses.ProgressData;
-import javafx.application.Platform;
-import sun.security.jca.GetInstance;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -154,6 +152,7 @@ public class EvolutionEngine {
     public synchronized void activateAlgorithm(TimeTable i_TimeTable, AmountOfObjectsCalc i_AmountOfObj,EvolutionEngineData i_EvolutionEngineData ,Consumer<ProgressData> i_ProgressDataConsumer) {
         setStopBoolean(false);
         ProgressData progressTracker=new ProgressData(0, 0, (long)0,m_PrintingReq);
+        progressTracker.setIsRunningAlgo(true);
         Integer counter=0,generationsMade=0,bestFitness=0;
         Long timePassedInMillis=(long)0;
         Instant startCountingTime,endCountingTime;
@@ -205,6 +204,8 @@ public class EvolutionEngine {
         }
         i_TimeTable.getRules().recheckBestSolution(i_EvolutionEngineData.getBestSolution(),i_TimeTable,i_EvolutionEngineData);
         i_EvolutionEngineData.updateRulesAverage();
+        progressTracker.setIsRunningAlgo(false);
+        i_ProgressDataConsumer.accept(progressTracker);
     }
 
     public synchronized void resumeAlgo()

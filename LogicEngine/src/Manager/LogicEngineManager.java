@@ -1,8 +1,11 @@
 package Manager;
 
 import AlgorithmClasses.*;
-import DataClasses.FileInputDataClasses.*;
-import DataClasses.AlgorithmData.*;
+import DataClasses.AlgorithmData.AmountOfObjectsCalc;
+import DataClasses.FileInputDataClasses.CheckValidData;
+import DataClasses.FileInputDataClasses.Clazz;
+import DataClasses.FileInputDataClasses.Rule;
+import DataClasses.FileInputDataClasses.TimeTable;
 import DataTransferClasses.*;
 import ParsedClasses.ETTDescriptor;
 
@@ -22,74 +25,77 @@ public class LogicEngineManager {
     private EvolutionEngineData m_EvolutionEngineData;
     private AmountOfObjectsCalc m_MaxAmountOfObjects;
     private Integer m_ProblemIndex;
-    private boolean m_IsFileLoaded=false;
-    private boolean m_IsAlgoActivated=false;
-    private boolean m_IsAlgoRunning=false;
+    private boolean m_IsFileLoaded = false;
+    private boolean m_IsAlgoActivated = false;
+    private Boolean m_IsAlgoRunning = false;
 
-    public LogicEngineManager() { m_ProblemIndex=0; }
-
-    public LogicEngineManager(LogicEngineManager i_LogicEngineManager)
-    {
-        m_Descriptor=new Descriptor(i_LogicEngineManager.getDescriptor());
-        m_MaxAmountOfObjects= i_LogicEngineManager.copyAmountOfData();
+    public LogicEngineManager() {
+        m_ProblemIndex = 0;
     }
-    public Map<Integer,Integer> PrintAlgorithmProcess() {
-        if(m_IsFileLoaded) {
-            if(m_IsAlgoActivated) {
+
+    public LogicEngineManager(LogicEngineManager i_LogicEngineManager) {
+        m_Descriptor = new Descriptor(i_LogicEngineManager.getDescriptor());
+        m_MaxAmountOfObjects = i_LogicEngineManager.copyAmountOfData();
+    }
+
+    public Map<Integer, Integer> PrintAlgorithmProcess() {
+        if (m_IsFileLoaded) {
+            if (m_IsAlgoActivated) {
                 return m_EvolutionEngineData.getGeneration2BestFitnessMap();
-            }
-            else {
+            } else {
                 throw new RuntimeException("ERROR: Please activate the algorithm first");
             }
-        }
-        else {
+        } else {
             throw new RuntimeException("ERROR: Please load a file, then activate the algorithm before choosing this option");
         }
     }
 
-    public void ActivateAlgorithm(Integer i_ReqGenerations, Integer i_PrintingReq,Integer i_ReqFitness,Integer i_ReqTimeInMinutes, Consumer<ProgressData> i_ProgressDataConsumer,  Collection<eStoppingCondition> i_StopConditions) {
-        if(m_IsFileLoaded)
-        {
-            m_EvolutionEngineData=new EvolutionEngineData();
+    public void ActivateAlgorithm(Integer i_ReqGenerations, Integer i_PrintingReq, Integer i_ReqFitness, Integer i_ReqTimeInMinutes, Consumer<ProgressData> i_ProgressDataConsumer, Collection<eStoppingCondition> i_StopConditions) {
+        if (m_IsFileLoaded) {
+            m_EvolutionEngineData = new EvolutionEngineData();
             m_Descriptor.getEvolutionEngine().setNumOfGenerations(i_ReqGenerations);
             m_Descriptor.getEvolutionEngine().setPrintingReq(i_PrintingReq);
             m_Descriptor.getEvolutionEngine().setReqFitness(i_ReqFitness);
             m_Descriptor.getEvolutionEngine().setReqMinutes(i_ReqTimeInMinutes);
-            m_IsAlgoActivated=true;
+            m_IsAlgoActivated = true;
             //m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),m_MaxAmountOfObjects,m_EvolutionEngineData,i_ProgressDataConsumer,i_StopConditions);
-        }
-        else {
+        } else {
             throw new RuntimeException("ERROR: No file has been loaded, Please load a file before choosing this option.");
         }
     }
 
-    public void ActivateAlgorithm(Consumer<ProgressData> i_ProgressDataConsumer,Integer i_PrintingReq) {
-        if(m_IsFileLoaded)
-        {
-            m_EvolutionEngineData=new EvolutionEngineData();
+    public void ActivateAlgorithm(Consumer<ProgressData> i_ProgressDataConsumer, Integer i_PrintingReq) {
+        if (m_IsFileLoaded) {
+            m_EvolutionEngineData = new EvolutionEngineData();
             m_Descriptor.getEvolutionEngine().setPrintingReq(i_PrintingReq);
-            m_IsAlgoActivated=true;
-            m_IsAlgoRunning=true;
-            m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(),m_MaxAmountOfObjects,m_EvolutionEngineData,i_ProgressDataConsumer);
-            m_IsAlgoRunning=false;
-        }
-        else {
+            m_IsAlgoActivated = true;
+            setIsAlgoRunning(true);
+            m_Descriptor.getEvolutionEngine().activateAlgorithm(m_Descriptor.getTimeTable(), m_MaxAmountOfObjects, m_EvolutionEngineData, i_ProgressDataConsumer);
+            setIsAlgoRunning(false);
+        } else {
             throw new RuntimeException("ERROR: No file has been loaded, Please load a file before choosing this option.");
         }
     }
 
-    public void resumeAlgo()
-    {
+    public void resumeAlgo() {
         m_Descriptor.getEvolutionEngine().resumeAlgo();
     }
 
-    public AlgorithmReferenceData getAlgoRefData()
-    {
+    public AlgorithmReferenceData getAlgoRefData() {
         return m_Descriptor.getEvolutionEngine().getAlgoReferenceData();
     }
 
-    public boolean isAlgoRunning() {
-        return m_IsAlgoRunning;
+    public boolean getIsAlgoRunning() {
+        synchronized (m_IsAlgoRunning) {
+            return m_IsAlgoRunning;
+        }
+    }
+
+    public void setIsAlgoRunning(Boolean i_IsAlgoRunning)
+    {
+        synchronized (m_IsAlgoRunning) {
+            m_IsAlgoRunning=i_IsAlgoRunning;
+        }
     }
 
     public Integer getInitialPopulation()
