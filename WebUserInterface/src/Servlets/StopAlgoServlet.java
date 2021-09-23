@@ -28,7 +28,6 @@ public class StopAlgoServlet extends HttpServlet {
 
         try {
             user.stopAlgorithmByIndex(Integer.parseInt(managerIndex));
-            hostManager.removeSolverFromSolvingManager(Integer.parseInt(managerIndex), username);
             try (PrintWriter out = i_Response.getWriter()) {
                 Gson gson = new Gson();
                 String json = gson.toJson(user.getProgressDataByIndex(Integer.parseInt(managerIndex)));
