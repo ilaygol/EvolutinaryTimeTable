@@ -48,6 +48,8 @@ $(function(){
             document.getElementById("cuttingPoints").value=algoRefObj["m_CuttingPoints"];
             document.getElementById("aspect").value=algoRefObj["m_Aspect"];
             document.getElementById("initial").value=algoRefObj["m_Initial"];
+            document.getElementById("showEvery").value=algoRefObj["m_ShowEvery"];
+
         },
         error: function () {
             console.log("failed to get algoRefData object");

@@ -40,7 +40,7 @@ public class ActivateAlgoServlet extends HttpServlet {
     }
     private void checkArguments(HttpServletRequest i_Request,User user,String i_ManagerIndex)
     {
-        Integer initialPopulation = user.getInitialPopulationByIndex(Integer.parseInt(i_ManagerIndex));
+        Integer reqGeneration = user.getReqGenerations(Integer.parseInt(i_ManagerIndex));
         Boolean isFileLoaded=user.getIsFileLoaded(Integer.parseInt(i_ManagerIndex));
         String showEvery = i_Request.getParameter(Constants.SHOW_EVERY);
         if(!isFileLoaded)
@@ -53,8 +53,9 @@ public class ActivateAlgoServlet extends HttpServlet {
         }catch(Exception e){
             throw new RuntimeException("Error: Show every must be a number");
         }
-        if(showEveryInt>initialPopulation)
-            throw new RuntimeException("Error: Show every cant be bigger than initial population");
+
+        if(reqGeneration!=0 && showEveryInt>reqGeneration)
+            throw new RuntimeException("Error: Show every cant be bigger than requirement generations (stop condition).");
 
     }
 

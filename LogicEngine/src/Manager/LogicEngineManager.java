@@ -97,6 +97,15 @@ public class LogicEngineManager {
         return m_Descriptor.getEvolutionEngine().getInitialPopulation();
     }
 
+    public Integer getReqGenerations()
+    {
+        return m_Descriptor.getEvolutionEngine().getNumOfGenerations();
+    }
+
+    public Integer getPrintingReq()
+    {
+        return m_Descriptor.getEvolutionEngine().getPrintingReq();
+    }
     public MutationData getMutationDataByIndex(Integer i_Index)
     {
         return m_Descriptor.getEvolutionEngine().getMutations().getMutationDataByIndex(i_Index);
@@ -162,6 +171,10 @@ public class LogicEngineManager {
             } else {
                 m_Descriptor.getEvolutionEngine().setNumOfGenerations(reqGenerations);
             }
+        }
+        else
+        {
+            m_Descriptor.getEvolutionEngine().setNumOfGenerations(0);
         }
 
 

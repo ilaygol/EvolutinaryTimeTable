@@ -18,11 +18,12 @@ public class AlgorithmReferenceData {
     private String m_CuttingPoints;
     private String m_Aspect;
     private String m_Initial;
+    private String m_ShowEvery;
 
-    public AlgorithmReferenceData(Integer i_InitialPopulation, Integer i_GenerationsReq, Integer i_FitnessReq, Integer i_MinutesReq,
+    public AlgorithmReferenceData(Integer i_InitialPopulation, Integer i_GenerationsReq, Integer i_FitnessReq, Integer i_MinutesReq,Integer i_ShowEvery,
                                   Crossover i_Crossover, Selection i_Selection,List<eStoppingCondition> i_StoppingConditionList){
 
-        setInitial(i_InitialPopulation);
+        setInitialAndPrintingReq(i_InitialPopulation,i_ShowEvery);
         setStoppingConditions(i_GenerationsReq,i_FitnessReq,i_MinutesReq,i_StoppingConditionList);
         setCrossover(i_Crossover);
         setSelection(i_Selection);
@@ -81,12 +82,17 @@ public class AlgorithmReferenceData {
             m_Time="";
     }
 
-    private void setInitial(Integer i_InitialPopulation)
+    private void setInitialAndPrintingReq(Integer i_InitialPopulation,Integer i_ShowEvery)
     {
         if(i_InitialPopulation!=null)
             m_Initial=i_InitialPopulation.toString();
         else
             m_Initial="";
+
+        if(i_ShowEvery!=null)
+            m_ShowEvery=i_ShowEvery.toString();
+        else
+            m_ShowEvery="";
     }
 
 

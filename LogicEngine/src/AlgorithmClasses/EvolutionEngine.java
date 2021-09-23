@@ -46,7 +46,7 @@ public class EvolutionEngine {
         if(m_ReqMinutesInMillis!=null) {
              minutes = (int) TimeUnit.MILLISECONDS.toMinutes(m_ReqMinutesInMillis);
         }
-        return new AlgorithmReferenceData(m_InitialPopulationAmount,m_NumOfGenerations,m_ReqFitness,minutes,m_Crossover,m_Selection,m_StoppingConditionList);
+        return new AlgorithmReferenceData(m_InitialPopulationAmount,m_NumOfGenerations,m_ReqFitness,minutes,m_PrintingReq,m_Crossover,m_Selection,m_StoppingConditionList);
     }
     public Integer getInitialPopulation() {
         return m_InitialPopulationAmount;
@@ -69,7 +69,11 @@ public class EvolutionEngine {
     }
 
     public Integer getPrintingReq() {
-        return m_PrintingReq;
+        if(m_PrintingReq!=null) {
+            return m_PrintingReq;
+        }
+        else
+            return 0;
     }
 
     public Integer getReqFitness() {

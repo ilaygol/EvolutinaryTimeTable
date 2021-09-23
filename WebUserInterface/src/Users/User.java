@@ -62,6 +62,17 @@ public class User {
         return wantedManager.getInitialPopulation();
     }
 
+    public Integer getPrintingReqByIndex(Integer i_ManagerIndex)
+    {
+        LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
+        return wantedManager.getReqGenerations();
+    }
+    public Integer getReqGenerations(Integer i_ManagerIndex)
+    {
+        LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
+        return wantedManager.getReqGenerations();
+    }
+
     public boolean getIsFileLoaded(Integer i_ManagerIndex)
     {
         LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
