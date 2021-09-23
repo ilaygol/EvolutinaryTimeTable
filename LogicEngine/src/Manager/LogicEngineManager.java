@@ -88,7 +88,7 @@ public class LogicEngineManager {
         return m_Descriptor.getEvolutionEngine().getAlgoReferenceData();
     }
 
-    public boolean IsAlgoRunning() {
+    public boolean isAlgoRunning() {
         return m_IsAlgoRunning;
     }
 

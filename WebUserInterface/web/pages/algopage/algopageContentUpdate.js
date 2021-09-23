@@ -63,4 +63,8 @@ function refreshProgressLabels(progressData)
 {
     $("#statusLine").empty().text("Generation made: "+progressData["m_Generation"]);
     $("#updatesLine").empty().text("After "+progressData["m_ShowEveryGeneration"]+" generations, Best fitness: "+progressData["m_ShowEveryFitness"]);
+    if(progressData["m_IsRunningAlgo"]===false) {
+        stopBtnDisabilityManagement()
+        clearInterval(labelsUpdate);
+    }
 }

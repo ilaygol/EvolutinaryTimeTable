@@ -1,5 +1,7 @@
 package DataTransferClasses;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 public class ProgressData {
     private Integer m_Generation;
     private Integer m_Fitness;
@@ -7,6 +9,7 @@ public class ProgressData {
     private Integer m_ShowEveryGeneration;
     private Integer m_ShowEveryFitness;
     private Integer m_ShowEvery;
+    private Boolean m_IsRunningAlgo;
 
     public ProgressData(Integer i_Generation,Integer i_Fitness,Long i_TimePassedInMillis,Integer i_ShowEvery)
     {
@@ -16,6 +19,7 @@ public class ProgressData {
         m_ShowEveryGeneration=0;
         m_ShowEveryFitness=0;
         m_ShowEvery=i_ShowEvery;
+        m_IsRunningAlgo=false;
     }
 
     public Integer getGeneration() { return m_Generation; }
@@ -34,6 +38,10 @@ public class ProgressData {
 
     public Long getTimePassedInMillis() { return m_TimePassedInMillis; }
 
+    public Boolean getIsRunningAlgo() {
+        return m_IsRunningAlgo;
+    }
+
     public void setGeneration(Integer i_Generation) { m_Generation = i_Generation; }
     public void setFitness(Integer i_Fitness) { m_Fitness = i_Fitness; }
     public void setTimePassedInMillis(Long i_TimePassedInMillis) { m_TimePassedInMillis = i_TimePassedInMillis; }
@@ -44,6 +52,10 @@ public class ProgressData {
 
     public void setShowEveryGeneration(Integer i_ShowEveryGeneration) {
         this.m_ShowEveryGeneration = i_ShowEveryGeneration;
+    }
+
+    public void setIsRunningAlgo(Boolean i_IsRunningAlgo) {
+        this.m_IsRunningAlgo = i_IsRunningAlgo;
     }
 
     public void setShowEveryFitness(Integer i_ShowEveryFitness) {
