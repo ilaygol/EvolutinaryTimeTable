@@ -50,8 +50,8 @@ $(function() {
                 console.log("stopped algorithm");
                 stopBtnDisabilityManagement();
                 clearInterval(labelsUpdate);
-                $("#statusLine").empty().text("Generation made: "+progressData["m_Generation"]);
-                $("#updatesLine").empty().text("After "+progressData["m_Generation"]+" generations, Best fitness: "+progressData["m_Fitness"]);
+                $("#statusLine").empty().text("Generation made: "+progressData["m_GenerationMade"]);
+                $("#updatesLine").empty().text("After "+progressData["m_GenerationMade"]+" generations, Best fitness: "+progressData["m_Fitness"]);
             },
             error: function(errorObj){
                 console.log("failed to stop algorithm because: "+errorObj.responseText);

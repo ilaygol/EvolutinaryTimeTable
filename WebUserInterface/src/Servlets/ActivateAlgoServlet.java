@@ -2,7 +2,7 @@ package Servlets;
 
 import Constants.Constants;
 import Users.PermUserManager;
-import Users.SolvingUserManager;
+import Users.Solver;
 import Users.TimeTableHostManager;
 import Users.User;
 import Utils.ServletUtils;
@@ -27,8 +27,9 @@ public class ActivateAlgoServlet extends HttpServlet {
         try{
             checkArguments(i_Request,user,managerIndex);
             hostManager.addSolverToSolvingManager(Integer.parseInt(managerIndex),Integer.parseInt(userID),username);
-
+            Solver solverReference=hostManager.getSolverFromSolvingManager(Integer.parseInt(managerIndex),username);
             user.createAndSetThread(Integer.parseInt(managerIndex),Integer.parseInt(i_Request.getParameter(Constants.SHOW_EVERY)));
+            user.setSolverToWrapperByIndex(Integer.parseInt(managerIndex),solverReference);
             user.startAlgorithmByIndex(Integer.parseInt(managerIndex));
             i_Response.setStatus(200);
         }catch(RuntimeException e)

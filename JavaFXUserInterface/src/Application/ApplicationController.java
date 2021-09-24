@@ -506,7 +506,7 @@ public class ApplicationController {
     {
         double generation,fitness,time;
         if(generationsCheck.isSelected()) {
-            generation = ((double) i_Progress.getGeneration() / (double) m_ReqGenerations);
+            generation = ((double) i_Progress.getGenerationMade() / (double) m_ReqGenerations);
             generationsProgress.setProgress(generation);
         }
         if(fitnessCheck.isSelected())

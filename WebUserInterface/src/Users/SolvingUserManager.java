@@ -2,7 +2,9 @@ package Users;
 
 import DataTransferClasses.SolverData;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class SolvingUserManager {
     private List<Solver> m_SolversList;
@@ -15,6 +17,31 @@ public class SolvingUserManager {
         m_SolversList.add(i_Solver);
     }
 
+    public Solver getSolver(String i_SolverName)
+    {
+        Solver retSolver=null;
+        for(Solver solver:m_SolversList)
+        {
+            if(solver.getSolverName().equals(i_SolverName))
+            {
+                retSolver=solver;
+                break;
+            }
+        }
+        return retSolver;
+    }
+
+    public Integer getBestFitnessFromAllSolvers()
+    {
+        Integer retBestFitness =0;
+        for(Solver solver:m_SolversList)
+        {
+            if(solver.getBestFitness()> retBestFitness)
+                retBestFitness=solver.getBestFitness();
+        }
+        return retBestFitness;
+    }
+
     public synchronized void removeSolver(String i_SolverName) {
         Solver wantedSolver=null;
         for(Solver solver:m_SolversList)
@@ -25,7 +52,7 @@ public class SolvingUserManager {
         m_SolversList.remove(wantedSolver);
     }
 
-    public synchronized List<Solver> getUsers() {
+    public synchronized List<Solver> getSolversList() {
         return Collections.unmodifiableList(m_SolversList);
     }
 

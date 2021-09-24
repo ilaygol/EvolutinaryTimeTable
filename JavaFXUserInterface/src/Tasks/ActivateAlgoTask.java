@@ -41,9 +41,9 @@ public class ActivateAlgoTask extends Task<Boolean> {
     public void updateUIAlgoTask(ProgressData i_Progress)
     {
         Platform.runLater(()->m_Consumer.accept(i_Progress));
-        if(i_Progress.getGeneration()%m_PrintingReq==0 || m_Engine.getStopBoolean())
-            updateMessage("After "+i_Progress.getGeneration()+" generations, The best fitness is: "+i_Progress.getFitness());
-        updateTitle("Generations made: "+i_Progress.getGeneration().toString());
+        if(i_Progress.getGenerationMade()%m_PrintingReq==0 || m_Engine.getStopBoolean())
+            updateMessage("After "+i_Progress.getGenerationMade()+" generations, The best fitness is: "+i_Progress.getFitness());
+        updateTitle("Generations made: "+i_Progress.getGenerationMade().toString());
     }
 
 }

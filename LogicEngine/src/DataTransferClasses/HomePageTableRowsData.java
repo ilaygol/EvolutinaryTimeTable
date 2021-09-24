@@ -14,7 +14,7 @@ public class HomePageTableRowsData {
     private Integer m_SolvingUsers;
     private Integer m_MaxFitness;
 
-    public HomePageTableRowsData(String i_Name, AmountOfObjectsCalc i_Amounts,Integer i_SolvingUsersAmount)
+    public HomePageTableRowsData(String i_Name, AmountOfObjectsCalc i_Amounts,Integer i_SolvingUsersAmount,Integer i_BestFitness)
     {
         m_HostName=i_Name;
         m_AmountOfDays=i_Amounts.getAmountOfDays();
@@ -25,7 +25,7 @@ public class HomePageTableRowsData {
         m_HardRolesCount=i_Amounts.getHardRolesCount();
         m_SoftRolesCount=i_Amounts.getSoftRolesCount();
         m_SolvingUsers=i_SolvingUsersAmount;
-        m_MaxFitness=0;
+        m_MaxFitness=i_BestFitness;
     }
     public String getHostName() {
         return m_HostName;

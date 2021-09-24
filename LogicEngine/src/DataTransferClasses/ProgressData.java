@@ -1,7 +1,7 @@
 package DataTransferClasses;
 
 public class ProgressData {
-    private Integer m_Generation;
+    private Integer m_GenerationMade;
     private Integer m_Fitness;
     private Long m_TimePassedInMillis;
     private Integer m_ShowEveryGeneration;
@@ -13,7 +13,7 @@ public class ProgressData {
 
     public ProgressData(Integer i_ShowEvery)
     {
-        m_Generation=0;
+        m_GenerationMade =0;
         m_Fitness=0;
         m_TimePassedInMillis=(long)0;
         m_ShowEveryGeneration=0;
@@ -24,7 +24,7 @@ public class ProgressData {
         m_AlreadyActivatedAlgo=false;
     }
 
-    public Integer getGeneration() { return m_Generation; }
+    public Integer getGenerationMade() { return m_GenerationMade; }
     public Integer getFitness() { return m_Fitness; }
     public Integer getShowEvery(){return m_ShowEvery;}
     public Integer getShowEveryGeneration() {
@@ -42,7 +42,7 @@ public class ProgressData {
     }
     public Boolean getIsAlreadyActivatedAlgo(){return m_AlreadyActivatedAlgo;}
 
-    public void setGeneration(Integer i_Generation) { m_Generation = i_Generation; }
+    public void setGenerationMade(Integer i_Generation) { m_GenerationMade = i_Generation; }
     public void setFitness(Integer i_Fitness) { m_Fitness = i_Fitness; }
     public void setTimePassedInMillis(Long i_TimePassedInMillis) { m_TimePassedInMillis = i_TimePassedInMillis; }
     public void setShowEvery(Integer i_ShowEvery)
@@ -64,7 +64,7 @@ public class ProgressData {
 
     public void setNewValues(Integer i_Generaion, Integer i_Fitness, Long i_TimePassedInMillis)
     {
-        m_Generation=i_Generaion;
+        m_GenerationMade =i_Generaion;
         m_Fitness=i_Fitness;
         m_TimePassedInMillis=i_TimePassedInMillis;
     }

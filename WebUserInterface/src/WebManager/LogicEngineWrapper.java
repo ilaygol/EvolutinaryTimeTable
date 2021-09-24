@@ -3,11 +3,13 @@ package WebManager;
 import DataTransferClasses.ProgressData;
 import Manager.LogicEngineManager;
 import Threads.ActivateAlgoThread;
+import Users.Solver;
 
 public class LogicEngineWrapper {
     private ActivateAlgoThread m_Thread;
     private LogicEngineManager m_EngineManager;
     private Boolean m_IsPaused;
+    private Solver m_Solver;
     private ProgressData m_ProgressData;
 
 
@@ -35,6 +37,11 @@ public class LogicEngineWrapper {
     public void setThread(ActivateAlgoThread i_Thread)
     {
         m_Thread=i_Thread;
+    }
+
+    public void setSolver(Solver i_Solver)
+    {
+        m_Solver=i_Solver;
     }
 
     public boolean isThreadExist()
@@ -97,23 +104,26 @@ public class LogicEngineWrapper {
     //consumer
     public void updateProgress(ProgressData i_ProgressData)
     {
-        if(i_ProgressData.getGeneration()==1)
+        if(i_ProgressData.getGenerationMade()==1)
         {
             m_ProgressData.setShowEveryGeneration(0);
             m_ProgressData.setShowEveryFitness(0);
         }
-        m_ProgressData.setGeneration(i_ProgressData.getGeneration());
+        m_ProgressData.setGenerationMade(i_ProgressData.getGenerationMade());
+        m_Solver.setGenerationsMade(i_ProgressData.getGenerationMade());
         m_ProgressData.setFitness(i_ProgressData.getFitness());
+        m_Solver.setBestFitness(i_ProgressData.getFitness());
         m_ProgressData.setTimePassedInMillis(i_ProgressData.getTimePassedInMillis());
         m_ProgressData.setShowEvery(i_ProgressData.getShowEvery());
         m_ProgressData.setIsPaused(i_ProgressData.getIsPaused());
         m_ProgressData.setIsRunningAlgo(i_ProgressData.getIsRunningAlgo());
         m_ProgressData.setIsAlreadyActivatedAlgo(i_ProgressData.getIsAlreadyActivatedAlgo());
 
-        if(m_ProgressData.getGeneration()%m_ProgressData.getShowEvery()==0) {
-            m_ProgressData.setShowEveryGeneration(m_ProgressData.getGeneration());
+        if(m_ProgressData.getGenerationMade()%m_ProgressData.getShowEvery()==0) {
+            m_ProgressData.setShowEveryGeneration(m_ProgressData.getGenerationMade());
             m_ProgressData.setShowEveryFitness(m_ProgressData.getFitness());
         }
+
     }
 }
 

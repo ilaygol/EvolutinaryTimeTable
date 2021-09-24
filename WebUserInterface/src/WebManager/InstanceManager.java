@@ -27,7 +27,8 @@ public class InstanceManager {
 
     public HomePageTableRowsData getRowData()
     {
-        HomePageTableRowsData retHomePageTableRowsData =new HomePageTableRowsData(m_HostName, m_Manager.getAmountOfData(),m_SolvingUserManager.getSolversAmount());
+        Integer bestFitness=m_SolvingUserManager.getBestFitnessFromAllSolvers();
+        HomePageTableRowsData retHomePageTableRowsData =new HomePageTableRowsData(m_HostName, m_Manager.getAmountOfData(),m_SolvingUserManager.getSolversAmount(),bestFitness);
         return retHomePageTableRowsData;
     }
 
@@ -41,6 +42,11 @@ public class InstanceManager {
         if(!m_SolvingUserManager.isUserExists(i_SolverName)) {
             m_SolvingUserManager.addSolver(new Solver(i_SolverID, i_SolverName));
         }
+    }
+
+    public Solver getSolverFromSolversList(String i_SolverName)
+    {
+        return m_SolvingUserManager.getSolver(i_SolverName);
     }
 
     public synchronized void removeSolverFromSolvingUsers(String i_SolverName)

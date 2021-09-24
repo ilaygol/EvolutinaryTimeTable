@@ -54,6 +54,11 @@ public class TimeTableHostManager {
         m_InstancesList.get(i_InstanceManagerIndex).addUserToSolvingUsers(i_SolverID,i_SolverName);
     }
 
+    public Solver getSolverFromSolvingManager(Integer i_InstanceManagerIndex,String i_SolverName)
+    {
+        return m_InstancesList.get(i_InstanceManagerIndex).getSolverFromSolversList(i_SolverName);
+    }
+
     public void removeSolverFromSolvingManager(Integer i_InstaceManagerIndex, String i_SolverName)
     {
         m_InstancesList.get(i_InstaceManagerIndex).removeSolverFromSolvingUsers(i_SolverName);

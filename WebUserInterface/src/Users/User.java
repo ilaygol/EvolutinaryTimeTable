@@ -103,6 +103,12 @@ public class User {
         wantedWrapper.stopAlgorithm();
     }
 
+    public void setSolverToWrapperByIndex(Integer i_ProblemIndex,Solver i_Solver)
+    {
+        LogicEngineWrapper wantedWrapper=getWrapperByProblemIndex(i_ProblemIndex);
+        wantedWrapper.setSolver(i_Solver);
+    }
+
     public void addThreadToWrapperByIndex(Integer i_ProblemIndex,ActivateAlgoThread i_Thread)
     {
         LogicEngineWrapper wantedWrapper=getWrapperByProblemIndex(i_ProblemIndex);
