@@ -60,6 +60,7 @@ public class LogicEngineWrapper {
         if(m_Thread!=null) {
             if(isPausedAlgo()) {
                 resumeAlgorithm();
+                m_IsPaused=false;
             }
             else{
                 m_Thread.start();
