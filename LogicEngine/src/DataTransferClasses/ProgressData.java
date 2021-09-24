@@ -9,42 +9,38 @@ public class ProgressData {
     private Integer m_ShowEvery;
     private Boolean m_isPaused;
     private Boolean m_IsRunningAlgo;
+    private Boolean m_AlreadyActivatedAlgo;
 
-    public ProgressData(Integer i_Generation,Integer i_Fitness,Long i_TimePassedInMillis,Integer i_ShowEvery)
+    public ProgressData(Integer i_ShowEvery)
     {
-        m_Generation=i_Generation;
-        m_Fitness=i_Fitness;
-        m_TimePassedInMillis=i_TimePassedInMillis;
+        m_Generation=0;
+        m_Fitness=0;
+        m_TimePassedInMillis=(long)0;
         m_ShowEveryGeneration=0;
         m_ShowEveryFitness=0;
         m_ShowEvery=i_ShowEvery;
         m_IsRunningAlgo=false;
         m_isPaused=false;
+        m_AlreadyActivatedAlgo=false;
     }
 
     public Integer getGeneration() { return m_Generation; }
-
     public Integer getFitness() { return m_Fitness; }
-
     public Integer getShowEvery(){return m_ShowEvery;}
-
     public Integer getShowEveryGeneration() {
         return m_ShowEveryGeneration;
     }
-
     public Integer getShowEveryFitness() {
         return m_ShowEveryFitness;
     }
-
     public Long getTimePassedInMillis() { return m_TimePassedInMillis; }
-
     public Boolean getIsPaused() {
         return m_isPaused;
     }
-
     public Boolean getIsRunningAlgo() {
         return m_IsRunningAlgo;
     }
+    public Boolean getIsAlreadyActivatedAlgo(){return m_AlreadyActivatedAlgo;}
 
     public void setGeneration(Integer i_Generation) { m_Generation = i_Generation; }
     public void setFitness(Integer i_Fitness) { m_Fitness = i_Fitness; }
@@ -54,18 +50,14 @@ public class ProgressData {
         m_ShowEvery=i_ShowEvery;
     }
 
-    public void setShowEveryGeneration(Integer i_ShowEveryGeneration) {
-        this.m_ShowEveryGeneration = i_ShowEveryGeneration;
-    }
-
+    public void setShowEveryGeneration(Integer i_ShowEveryGeneration) { this.m_ShowEveryGeneration = i_ShowEveryGeneration; }
     public void setIsPaused(Boolean i_isPaused) {
         this.m_isPaused = i_isPaused;
     }
-
     public void setIsRunningAlgo(Boolean i_IsRunningAlgo) {
         this.m_IsRunningAlgo = i_IsRunningAlgo;
     }
-
+    public void setIsAlreadyActivatedAlgo(Boolean i_AlreadyActivatedAlgo) { this.m_AlreadyActivatedAlgo = i_AlreadyActivatedAlgo; }
     public void setShowEveryFitness(Integer i_ShowEveryFitness) {
         this.m_ShowEveryFitness = i_ShowEveryFitness;
     }

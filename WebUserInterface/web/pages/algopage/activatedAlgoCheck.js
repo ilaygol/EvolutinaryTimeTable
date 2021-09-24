@@ -15,6 +15,11 @@ $(function() {
                 labelsUpdate=setInterval(algoProgressUpdate,1000);
                 playBtnDisabilityManagement();
             }
+            else if(progressData["m_AlreadyActivatedAlgo"])
+            {
+                $("#statusLine").empty().text("Generation made: "+progressData["m_Generation"]);
+                $("#updatesLine").empty().text("After "+progressData["m_Generation"]+" generations, Best fitness: "+progressData["m_Fitness"]);
+            }
         }
     });
 })

@@ -16,7 +16,7 @@ public class LogicEngineWrapper {
         m_EngineManager=i_Manager;
         m_Thread=null;
         m_IsPaused=false;
-        m_ProgressData=new ProgressData(0,0,(long)0,10);
+        m_ProgressData=new ProgressData(10);
     }
 
     public ActivateAlgoThread getThread() {
@@ -107,6 +107,7 @@ public class LogicEngineWrapper {
         m_ProgressData.setShowEvery(i_ProgressData.getShowEvery());
         m_ProgressData.setIsPaused(i_ProgressData.getIsPaused());
         m_ProgressData.setIsRunningAlgo(i_ProgressData.getIsRunningAlgo());
+        m_ProgressData.setIsAlreadyActivatedAlgo(i_ProgressData.getIsAlreadyActivatedAlgo());
 
         if(m_ProgressData.getGeneration()%m_ProgressData.getShowEvery()==0) {
             m_ProgressData.setShowEveryGeneration(m_ProgressData.getGeneration());
