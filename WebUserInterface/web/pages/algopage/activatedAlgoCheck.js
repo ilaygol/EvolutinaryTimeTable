@@ -19,6 +19,7 @@ $(function() {
             {
                 $("#statusLine").empty().text("Generation made: "+progressData["m_GenerationMade"]);
                 $("#updatesLine").empty().text("After "+progressData["m_GenerationMade"]+" generations, Best fitness: "+progressData["m_Fitness"]);
+                stopBtnDisabilityManagement();
             }
         }
     });

@@ -197,10 +197,13 @@ public class EvolutionEngine {
                         progressTracker.setIsPaused(true);
                         i_ProgressDataConsumer.accept(progressTracker);
                         this.wait();
+                        progressTracker.setIsPaused(false);
+
                     } catch (InterruptedException e) {
                         System.out.println("Interrupted while waiting");
                     }
                 }
+
             }
             i_EvolutionEngineData.addToGeneration2BestFitnessMap(generationsMade,m_Generation.getParentByIndex(0).getFitness());
             counter=0;
