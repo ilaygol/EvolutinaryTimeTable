@@ -1,6 +1,9 @@
 package DataTransferClasses;
 
 public class ProgressData {
+    private Integer m_ReqGeneration;
+    private Integer m_ReqFitness;
+    private Long m_ReqTimeInMillis;
     private Integer m_GenerationMade;
     private Integer m_Fitness;
     private Long m_TimePassedInMillis;
@@ -18,6 +21,9 @@ public class ProgressData {
 
     public ProgressData(Integer i_ShowEvery)
     {
+        m_ReqGeneration=0;
+        m_ReqFitness=0;
+        m_ReqTimeInMillis=(long)0;
         m_GenerationMade =0;
         m_Fitness=0;
         m_TimePassedInMillis=(long)0;
@@ -50,18 +56,19 @@ public class ProgressData {
         return m_IsRunningAlgo;
     }
     public Boolean getIsAlreadyActivatedAlgo(){return m_AlreadyActivatedAlgo;}
-
     public Boolean getIsGenerationStopPicked() {
         return m_IsGenerationStopPicked;
     }
-
     public Boolean getIsFitnessStopPicked() {
         return m_IsFitnessStopPicked;
     }
-
     public Boolean getIsTimeStopPicked() {
         return m_IsTimeStopPicked;
     }
+    public Integer getReqGeneration() { return m_ReqGeneration; }
+    public Integer getReqFitness() { return m_ReqFitness; }
+    public Long getReqTimeInMillis() { return m_ReqTimeInMillis; }
+
 
     public void setGenerationMade(Integer i_Generation) { m_GenerationMade = i_Generation; }
     public void setFitness(Integer i_Fitness) { m_Fitness = i_Fitness; }
@@ -90,6 +97,19 @@ public class ProgressData {
     public void setIsRunningAlgo(Boolean i_IsRunningAlgo) {
         this.m_IsRunningAlgo = i_IsRunningAlgo;
     }
+
+    public void setReqGeneration(Integer i_ReqGeneration) {
+        this.m_ReqGeneration = i_ReqGeneration;
+    }
+
+    public void setReqFitness(Integer i_ReqFitness) {
+        this.m_ReqFitness = i_ReqFitness;
+    }
+
+    public void setReqTimeInMillis(Long i_ReqTimeInMillis) {
+        this.m_ReqTimeInMillis = i_ReqTimeInMillis;
+    }
+
     public void setIsAlreadyActivatedAlgo(Boolean i_AlreadyActivatedAlgo) { this.m_AlreadyActivatedAlgo = i_AlreadyActivatedAlgo; }
     public void setShowEveryFitness(Integer i_ShowEveryFitness) {
         this.m_ShowEveryFitness = i_ShowEveryFitness;

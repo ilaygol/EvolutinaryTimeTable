@@ -235,21 +235,33 @@ public class EvolutionEngine {
 
     private void setStopConditionToProgressData(ProgressData i_ProgressData)
     {
-        if(m_StoppingConditionList.stream().anyMatch(stopCondition -> stopCondition.stoppingConditionName().toUpperCase().equals("GENERATION")))
+        if(m_StoppingConditionList.stream().anyMatch(stopCondition -> stopCondition.stoppingConditionName().toUpperCase().equals("GENERATION"))) {
             i_ProgressData.setIsGenerationStopPicked(true);
-        else
+            i_ProgressData.setReqGeneration(m_NumOfGenerations);
+        }
+        else {
             i_ProgressData.setIsGenerationStopPicked(false);
+            i_ProgressData.setReqGeneration(0);
+        }
 
 
-        if(m_StoppingConditionList.stream().anyMatch(stopCondition -> stopCondition.stoppingConditionName().toUpperCase().equals("FITNESS")))
+        if(m_StoppingConditionList.stream().anyMatch(stopCondition -> stopCondition.stoppingConditionName().toUpperCase().equals("FITNESS"))) {
             i_ProgressData.setIsFitnessStopPicked(true);
-        else
+            i_ProgressData.setReqFitness(m_ReqFitness);
+        }
+        else {
             i_ProgressData.setIsFitnessStopPicked(false);
+            i_ProgressData.setReqFitness(0);
+        }
 
 
-        if(m_StoppingConditionList.stream().anyMatch(stopCondition->stopCondition.stoppingConditionName().toUpperCase().equals("TIME")))
+        if(m_StoppingConditionList.stream().anyMatch(stopCondition->stopCondition.stoppingConditionName().toUpperCase().equals("TIME"))) {
             i_ProgressData.setIsTimeStopPicked(true);
-        else
+            i_ProgressData.setReqTimeInMillis(m_ReqMinutesInMillis);
+        }
+        else {
             i_ProgressData.setIsTimeStopPicked(false);
+            i_ProgressData.setReqTimeInMillis((long)0);
+        }
     }
 }

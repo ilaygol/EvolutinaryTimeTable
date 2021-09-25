@@ -146,6 +146,11 @@ public class LogicEngineWrapper {
         m_ProgressData.setIsFitnessStopPicked(i_ProgressData.getIsFitnessStopPicked());
         m_ProgressData.setIsTimeStopPicked(i_ProgressData.getIsTimeStopPicked());
 
+        m_ProgressData.setReqGeneration(i_ProgressData.getReqGeneration());
+        m_ProgressData.setReqFitness(i_ProgressData.getReqFitness());
+        m_ProgressData.setReqTimeInMillis(i_ProgressData.getReqTimeInMillis());
+
+        
         if(m_ProgressData.getGenerationMade()%m_ProgressData.getShowEvery()==0) {
             m_ProgressData.setShowEveryGeneration(m_ProgressData.getGenerationMade());
             m_ProgressData.setShowEveryFitness(m_ProgressData.getFitness());

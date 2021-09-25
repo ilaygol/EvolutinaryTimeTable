@@ -33,27 +33,24 @@ function resetBars(progressData)
 {
     if(progressData["m_IsGenerationStopPicked"])
     {
-        var reqGeneration=document.getElementById("reqGenerationTXT").value;
-        document.getElementById("generationProgressBar").setAttribute("aria-valuemax",reqGeneration);
+        document.getElementById("generationProgressBar").setAttribute("aria-valuemax",progressData["m_ReqGeneration"]);
         var generationMade=parseInt(progressData["m_GenerationMade"]);
-        var reqGenerationInt=parseInt(reqGeneration);
+        var reqGenerationInt=parseInt(progressData["m_ReqGeneration"]);
         var valueGeneration=(generationMade/reqGenerationInt)*100;
         $("#generationProgressBar").css('width', valueGeneration+'%').attr('aria-valuenow', generationMade);
     }
     if(progressData["m_IsFitnessStopPicked"])
     {
-        var reqFitness=document.getElementById("reqFitnessTXT").value;
-        document.getElementById("fitnessProgressBar").setAttribute("aria-valuemax",reqFitness);
+        document.getElementById("fitnessProgressBar").setAttribute("aria-valuemax",progressData["m_ReqFitness"]);
         var fitness=progressData["m_Fitness"];
-        var reqFitnessInt=parseInt(reqFitness);
+        var reqFitnessInt=parseInt(progressData["m_ReqFitness"]);
         var valueFitness=(fitness/reqFitnessInt)*100;
         $("#fitnessProgressBar").css('width', valueFitness+'%').attr('aria-valuenow', fitness);
     }
     if(progressData["m_IsTimeStopPicked"])
     {
-        var reqTimeInMinutes = parseInt(document.getElementById("reqTimeTXT").value);
-        var reqTimeInMillis = reqTimeInMinutes * 60000;
-        document.getElementById("timeProgressBar").setAttribute("aria-valuemax", reqTimeInMillis.toString());
+        var reqTimeInMillis = parseInt(progressData["m_ReqTimeInMillis"]);
+        document.getElementById("timeProgressBar").setAttribute("aria-valuemax", progressData["m_ReqTimeInMillis"]);
         var time=progressData["m_TimePassedInMillis"];
         var valueTime=(time/reqTimeInMillis)*100;
         $("#timeProgressBar").css('width', valueTime+'%').attr('aria-valuenow', time);
