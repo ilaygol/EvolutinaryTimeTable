@@ -5,16 +5,13 @@ import DataClasses.AlgorithmData.AmountOfObjectsCalc;
 import DataTransferClasses.BestSolutionsData;
 import DataTransferClasses.LessonData;
 import DataTransferClasses.RuleData;
-import RulesPrinter.RuleController;
 import RulesPrinter.RulesPrinter;
-import javafx.animation.FillTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
@@ -22,10 +19,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -124,6 +117,7 @@ public class BestSolutionController {
                 }
             }
         }
+
         mainGridPane.getChildren().removeIf((node1 -> node1 instanceof GridPane));
         mainGridPane.add(gridPane,1,0);
         m_DynamicRoot.setContent(mainGridPane);

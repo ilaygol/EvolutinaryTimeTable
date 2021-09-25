@@ -26,6 +26,10 @@
         <servlet-class>Servlets.ActivateAlgoServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>BestSolutionRawServlet</servlet-name>
+        <servlet-class>Servlets.BestSolutionRawServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>FileDataServlet</servlet-name>
         <servlet-class>Servlets.FileDataServlet</servlet-class>
     </servlet>
@@ -99,6 +103,10 @@
     <servlet-mapping>
         <servlet-name>ActivateAlgoServlet</servlet-name>
         <url-pattern>/pages/algopage/activate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BestSolutionRawServlet</servlet-name>
+        <url-pattern>/pages/algopage/rawSolution</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>FileDataServlet</servlet-name>

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+//url: LocalHost:8080/TimeTable/pages/algopage/rawSolution
 public class BestSolutionRawServlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest i_Request,HttpServletResponse i_Response) throws IOException, ServletException {
@@ -27,7 +28,7 @@ public class BestSolutionRawServlet extends HttpServlet {
             out.println(json);
             out.flush();
         }
-        i_Response.setStatus(200);
+
     }
 
 
