@@ -1,7 +1,3 @@
-var isGenerationChecked=false;
-var isFitnessChecked=false;
-var isTimeChecked=false;
-
 
 $(function(){
     $("#algoRefForm").submit(function(){
@@ -15,34 +11,17 @@ $(function(){
                 if(form.generationsCheck.checked)
                 {
                     var reqGenerations=form.generationsText.value;
-                    var bar=document.getElementById("generationProgressBar");
-                    bar.setAttribute("aria-valuemax",reqGenerations);
-                    isGenerationChecked=true;
+                    document.getElementById("generationProgressBar").setAttribute("aria-valuemax",reqGenerations);;
                 }
-                else
-                {
-                    isGenerationChecked=false;
+
+                if(form.fitnessCheck.checked) {
+                    var reqFitness = form.fitnessText.value;
+                    document.getElementById("fitnessProgressBar").setAttribute("aria-valuemax", reqFitness);
                 }
-                if(form.fitnessCheck.checked)
-                {
-                    var reqFitness=form.fitnessText.value;
-                    document.getElementById("fitnessProgressBar").setAttribute("aria-valuemax",reqFitness);
-                    isFitnessChecked=true;
-                }
-                else
-                {
-                    isFitnessChecked=false;
-                }
-                if(form.timeCheck.checked)
-                {
-                    var reqTimeInMinutes=parseInt(form.timeText.value);
-                    var reqTimeInMillis=reqTimeInMinutes*60000;
-                    document.getElementById("timeProgressBar").setAttribute("aria-valuemax",reqTimeInMillis.toString());
-                    isTimeChecked=true;
-                }
-                else
-                {
-                    isTimeChecked=false;
+                if(form.timeCheck.checked) {
+                    var reqTimeInMinutes = parseInt(form.timeText.value);
+                    var reqTimeInMillis = reqTimeInMinutes * 60000;
+                    document.getElementById("timeProgressBar").setAttribute("aria-valuemax", reqTimeInMillis.toString());
                 }
                 var myModal = new bootstrap.Modal(document.getElementById('algoRefModal'));
                 $("#titleModalLabel").text("SUCCESS!");

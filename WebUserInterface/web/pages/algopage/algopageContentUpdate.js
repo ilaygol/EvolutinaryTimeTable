@@ -72,21 +72,21 @@ function refreshProgressLabels(progressData)
 
 function refreshProgressBars(progressData)
 {
-    if(isGenerationChecked)
+    if(progressData["m_IsGenerationStopPicked"])
     {
         var generationMade=parseInt(progressData["m_GenerationMade"]);
         var reqGeneration=parseInt(document.getElementById("generationProgressBar").getAttribute("aria-valuemax"));
         var valueGeneration=(generationMade/reqGeneration)*100;
         $("#generationProgressBar").css('width', valueGeneration+'%').attr('aria-valuenow', generationMade);
     }
-    if(isFitnessChecked)
+    if(progressData["m_IsFitnessStopPicked"])
     {
         var fitness=progressData["m_Fitness"];
         var reqfitness=parseInt(document.getElementById("fitnessProgressBar").getAttribute("aria-valuemax"));
         var valueFitness=(fitness/reqfitness)*100;
         $("#fitnessProgressBar").css('width', valueFitness+'%').attr('aria-valuenow', fitness);
     }
-    if(isTimeChecked)
+    if(progressData["m_IsTimeStopPicked"])
     {
         var time=progressData["m_TimePassedInMillis"];
         var reqTime=parseInt(document.getElementById("timeProgressBar").getAttribute("aria-valuemax"));

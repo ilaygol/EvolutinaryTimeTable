@@ -4,6 +4,7 @@ import AlgorithmClasses.eStoppingCondition;
 import DataTransferClasses.AlgorithmReferenceData;
 import DataTransferClasses.MutationData;
 import DataTransferClasses.ProgressData;
+import DataTransferClasses.WebLessonData;
 import Manager.LogicEngineManager;
 import Threads.ActivateAlgoThread;
 import WebManager.LogicEngineWrapper;
@@ -174,6 +175,11 @@ public class User {
         }
     }
 
+    public List<WebLessonData> getWebLessonDataListRaw(Integer i_ManagerIndex)
+    {
+        LogicEngineWrapper wantedWrapper=getWrapperByProblemIndex(i_ManagerIndex);
+        return wantedWrapper.getWebLessonDataListRaw();
+    }
 
 
     private LogicEngineManager getManagerByProblemIndex(Integer i_ProblemIndex)

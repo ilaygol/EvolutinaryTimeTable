@@ -152,6 +152,7 @@ public class EvolutionEngine {
     public synchronized void activateAlgorithm(TimeTable i_TimeTable, AmountOfObjectsCalc i_AmountOfObj,EvolutionEngineData i_EvolutionEngineData ,Consumer<ProgressData> i_ProgressDataConsumer) {
         setStopBoolean(false);
         ProgressData progressTracker=new ProgressData(m_PrintingReq);
+        setStopConditionToProgressData(progressTracker);
         progressTracker.setIsRunningAlgo(true);
         progressTracker.setIsAlreadyActivatedAlgo(true);
         Integer counter=0,generationsMade=0,bestFitness=0;
@@ -230,5 +231,25 @@ public class EvolutionEngine {
             retVal= (retVal || checkRes);
         }
         return retVal;
+    }
+
+    private void setStopConditionToProgressData(ProgressData i_ProgressData)
+    {
+        if(m_StoppingConditionList.stream().anyMatch(stopCondition -> stopCondition.stoppingConditionName().toUpperCase().equals("GENERATION")))
+            i_ProgressData.setIsGenerationStopPicked(true);
+        else
+            i_ProgressData.setIsGenerationStopPicked(false);
+
+
+        if(m_StoppingConditionList.stream().anyMatch(stopCondition -> stopCondition.stoppingConditionName().toUpperCase().equals("FITNESS")))
+            i_ProgressData.setIsFitnessStopPicked(true);
+        else
+            i_ProgressData.setIsFitnessStopPicked(false);
+
+
+        if(m_StoppingConditionList.stream().anyMatch(stopCondition->stopCondition.stoppingConditionName().toUpperCase().equals("TIME")))
+            i_ProgressData.setIsTimeStopPicked(true);
+        else
+            i_ProgressData.setIsTimeStopPicked(false);
     }
 }

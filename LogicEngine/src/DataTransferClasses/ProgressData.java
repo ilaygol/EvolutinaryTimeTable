@@ -11,6 +11,11 @@ public class ProgressData {
     private Boolean m_IsRunningAlgo;
     private Boolean m_AlreadyActivatedAlgo;
 
+    private Boolean m_IsGenerationStopPicked;
+    private Boolean m_IsFitnessStopPicked;
+    private Boolean m_IsTimeStopPicked;
+
+
     public ProgressData(Integer i_ShowEvery)
     {
         m_GenerationMade =0;
@@ -22,6 +27,10 @@ public class ProgressData {
         m_IsRunningAlgo=false;
         m_isPaused=false;
         m_AlreadyActivatedAlgo=false;
+
+        m_IsGenerationStopPicked=false;
+        m_IsFitnessStopPicked=false;
+        m_IsTimeStopPicked=false;
     }
 
     public Integer getGenerationMade() { return m_GenerationMade; }
@@ -42,12 +51,36 @@ public class ProgressData {
     }
     public Boolean getIsAlreadyActivatedAlgo(){return m_AlreadyActivatedAlgo;}
 
+    public Boolean getIsGenerationStopPicked() {
+        return m_IsGenerationStopPicked;
+    }
+
+    public Boolean getIsFitnessStopPicked() {
+        return m_IsFitnessStopPicked;
+    }
+
+    public Boolean getIsTimeStopPicked() {
+        return m_IsTimeStopPicked;
+    }
+
     public void setGenerationMade(Integer i_Generation) { m_GenerationMade = i_Generation; }
     public void setFitness(Integer i_Fitness) { m_Fitness = i_Fitness; }
     public void setTimePassedInMillis(Long i_TimePassedInMillis) { m_TimePassedInMillis = i_TimePassedInMillis; }
     public void setShowEvery(Integer i_ShowEvery)
     {
         m_ShowEvery=i_ShowEvery;
+    }
+
+    public void setIsGenerationStopPicked(Boolean i_IsGenerationStopPicked) {
+        this.m_IsGenerationStopPicked = i_IsGenerationStopPicked;
+    }
+
+    public void setIsFitnessStopPicked(Boolean i_IsFitnessStopPicked) {
+        this.m_IsFitnessStopPicked = i_IsFitnessStopPicked;
+    }
+
+    public void setIsTimeStopPicked(Boolean i_IsTimeStopPicked) {
+        this.m_IsTimeStopPicked = i_IsTimeStopPicked;
     }
 
     public void setShowEveryGeneration(Integer i_ShowEveryGeneration) { this.m_ShowEveryGeneration = i_ShowEveryGeneration; }

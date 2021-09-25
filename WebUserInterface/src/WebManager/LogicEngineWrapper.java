@@ -1,9 +1,16 @@
 package WebManager;
 
+import DataTransferClasses.BestSolutionsData;
+import DataTransferClasses.LessonData;
 import DataTransferClasses.ProgressData;
+import DataTransferClasses.WebLessonData;
 import Manager.LogicEngineManager;
 import Threads.ActivateAlgoThread;
 import Users.Solver;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class LogicEngineWrapper {
     private ActivateAlgoThread m_Thread;
@@ -62,6 +69,22 @@ public class LogicEngineWrapper {
         setThread(thread);
     }
 
+    public List<WebLessonData> getWebLessonDataListRaw()
+    {
+        List<WebLessonData> retList=new ArrayList<>();
+        BestSolutionsData bestSolutionsData=m_EngineManager.getBestSolutionData();
+        bestSolutionsData.getLessonsDataList().sort(Comparator
+                .comparing(LessonData::getDay)
+                .thenComparing(LessonData::getHour)
+                .thenComparing(LessonData::getClassID)
+                .thenComparing(LessonData::getTeacherID));
+        for(LessonData lessonData: bestSolutionsData.getLessonsDataList())
+        {
+            retList.add(m_EngineManager.getWebLessonData(lessonData));
+        }
+        return  retList;
+
+    }
     public void startAlgorithm()
     {
         if(m_Thread!=null) {
@@ -94,9 +117,9 @@ public class LogicEngineWrapper {
             resumeAlgorithm();
             m_IsPaused=false;
         }
-
-
     }
+
+
     public void resumeAlgorithm()
     {
         m_EngineManager.resumeAlgo();
@@ -118,6 +141,10 @@ public class LogicEngineWrapper {
         m_ProgressData.setIsPaused(i_ProgressData.getIsPaused());
         m_ProgressData.setIsRunningAlgo(i_ProgressData.getIsRunningAlgo());
         m_ProgressData.setIsAlreadyActivatedAlgo(i_ProgressData.getIsAlreadyActivatedAlgo());
+
+        m_ProgressData.setIsGenerationStopPicked(i_ProgressData.getIsGenerationStopPicked());
+        m_ProgressData.setIsFitnessStopPicked(i_ProgressData.getIsFitnessStopPicked());
+        m_ProgressData.setIsTimeStopPicked(i_ProgressData.getIsTimeStopPicked());
 
         if(m_ProgressData.getGenerationMade()%m_ProgressData.getShowEvery()==0) {
             m_ProgressData.setShowEveryGeneration(m_ProgressData.getGenerationMade());

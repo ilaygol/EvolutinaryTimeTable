@@ -197,6 +197,10 @@ public class LogicEngineManager {
             else
                 m_Descriptor.getEvolutionEngine().setReqFitness(reqFitness);
             }
+        else
+        {
+            m_Descriptor.getEvolutionEngine().setReqFitness(0);
+        }
 
 
         if(!i_reqTimeInMinutes.isEmpty()) {
@@ -212,6 +216,10 @@ public class LogicEngineManager {
             else {
                 m_Descriptor.getEvolutionEngine().setReqMinutes(reqTime);
             }
+        }
+        else
+        {
+            m_Descriptor.getEvolutionEngine().setReqMinutes(0);
         }
 
 
@@ -429,4 +437,13 @@ public class LogicEngineManager {
     {
         m_Descriptor.getEvolutionEngine().setStopBoolean(i_Boolean);
     }
+
+    public WebLessonData getWebLessonData(LessonData i_LessonData)
+    {
+        String className=getClassNameById(i_LessonData.getClassID());
+        String subjectName=getSubjectNameById(i_LessonData.getSubjectID());
+        String teacherName=getTeacherNameById(i_LessonData.getTeacherID());
+        return new WebLessonData(i_LessonData.getDay(),i_LessonData.getHour(),className,teacherName,subjectName);
+    }
+
 }
