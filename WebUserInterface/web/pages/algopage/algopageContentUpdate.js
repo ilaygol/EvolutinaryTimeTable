@@ -41,7 +41,8 @@ function algoProgressUpdate()
         url:"progressUpdate",
         timeout:1000,
         success:function (progressData){
-            refreshProgressLabels(progressData)
+            refreshProgressLabels(progressData);
+            refreshProgressBars(progressData);
         }
     });
 }
@@ -68,3 +69,30 @@ function refreshProgressLabels(progressData)
         clearInterval(labelsUpdate);
     }
 }
+
+function refreshProgressBars(progressData)
+{
+    if(isGenerationChecked)
+    {
+        var generationMade=parseInt(progressData["m_GenerationMade"]);
+        var reqGeneration=parseInt(document.getElementById("generationProgressBar").getAttribute("aria-valuemax"));
+        var valueGeneration=(generationMade/reqGeneration)*100;
+        $("#generationProgressBar").css('width', valueGeneration+'%').attr('aria-valuenow', generationMade);
+    }
+    if(isFitnessChecked)
+    {
+        var fitness=progressData["m_Fitness"];
+        var reqfitness=parseInt(document.getElementById("fitnessProgressBar").getAttribute("aria-valuemax"));
+        var valueFitness=(fitness/reqfitness)*100;
+        $("#fitnessProgressBar").css('width', valueFitness+'%').attr('aria-valuenow', fitness);
+    }
+    if(isTimeChecked)
+    {
+        var time=progressData["m_TimePassedInMillis"];
+        var reqTime=parseInt(document.getElementById("timeProgressBar").getAttribute("aria-valuemax"));
+        var valueTime=(time/reqTime)*100;
+        $("#timeProgressBar").css('width', valueTime+'%').attr('aria-valuenow', time);
+    }
+
+}
+

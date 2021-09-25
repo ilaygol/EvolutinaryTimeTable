@@ -59,6 +59,9 @@ $(function() {
         })
     })
 })
+
+
+
 function playBtnDisabilityManagement()
 {
     document.getElementById("startBtn").disabled = true;
@@ -66,7 +69,6 @@ function playBtnDisabilityManagement()
     document.getElementById("stopBtn").disabled=false;
     document.getElementById("addNewMutation").disabled = true;
     document.getElementById("submitBtn").disabled = true;
-
 }
 
 function pauseBtnDisabilityManagement()
