@@ -98,33 +98,7 @@ public class BestSolutionController {
         valuesListView.getSelectionModel().selectFirst();
     }
 
-    private void printSelectedClass(String i_Choice) {
-        Integer classID=Integer.parseInt(i_Choice.substring(0,1));
-        GridPane gridPane=initialGridPane();
 
-        List<LessonData> lessonsOfClassList = m_BestSolutionData.getLessonsDataList().stream().filter(lesson -> lesson.getClassID().equals(classID)).collect(Collectors.toList());
-        for(int h=0;h<m_MaxAmounts.getAmountOfHours();h++)
-        {
-            for (int d=0;d<m_MaxAmounts.getAmountOfDays();d++)
-            {
-                Integer day=d+1;
-                Integer hour=h+1;
-                List<LessonData> dayHourLessons = lessonsOfClassList.stream().filter(
-                        lesson -> lesson.getDay().equals(day) && lesson.getHour().equals(hour)).collect(Collectors.toList());
-                if(!dayHourLessons.isEmpty()) {
-                    StackPane newLessonComponent = createNewLessonComponent(dayHourLessons.get(0),m_AppController.isAnimated());
-                    gridPane.add(newLessonComponent,day,hour);
-                }
-            }
-        }
-
-        mainGridPane.getChildren().removeIf((node1 -> node1 instanceof GridPane));
-        mainGridPane.add(gridPane,1,0);
-        m_DynamicRoot.setContent(mainGridPane);
-        List<RuleData> rulesDataList = m_BestSolutionData.getRulesDataList();
-        RulesPrinter rulesPrinter=new RulesPrinter(rulesDataList,m_RulesRoot);
-        rulesPrinter.showRules(m_AppController.isAnimated());
-    }
 
     private StackPane createNewLessonComponent(LessonData i_LessonData, Boolean i_IsAnimated)
     {
@@ -159,6 +133,34 @@ public class BestSolutionController {
         }
         valuesListView.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> printSelectedTeacher(newValue)));
         valuesListView.getSelectionModel().selectFirst();
+    }
+
+    private void printSelectedClass(String i_Choice) {
+        Integer classID=Integer.parseInt(i_Choice.substring(0,1));
+        GridPane gridPane=initialGridPane();
+
+        List<LessonData> lessonsOfClassList = m_BestSolutionData.getLessonsDataList().stream().filter(lesson -> lesson.getClassID().equals(classID)).collect(Collectors.toList());
+        for(int h=0;h<m_MaxAmounts.getAmountOfHours();h++)
+        {
+            for (int d=0;d<m_MaxAmounts.getAmountOfDays();d++)
+            {
+                Integer day=d+1;
+                Integer hour=h+1;
+                List<LessonData> dayHourLessons = lessonsOfClassList.stream().filter(
+                        lesson -> lesson.getDay().equals(day) && lesson.getHour().equals(hour)).collect(Collectors.toList());
+                if(!dayHourLessons.isEmpty()) {
+                    StackPane newLessonComponent = createNewLessonComponent(dayHourLessons.get(0),m_AppController.isAnimated());
+                    gridPane.add(newLessonComponent,day,hour);
+                }
+            }
+        }
+
+        mainGridPane.getChildren().removeIf((node1 -> node1 instanceof GridPane));
+        mainGridPane.add(gridPane,1,0);
+        m_DynamicRoot.setContent(mainGridPane);
+        List<RuleData> rulesDataList = m_BestSolutionData.getRulesDataList();
+        RulesPrinter rulesPrinter=new RulesPrinter(rulesDataList,m_RulesRoot);
+        rulesPrinter.showRules(m_AppController.isAnimated());
     }
 
     private void printSelectedTeacher(String i_Choice)
