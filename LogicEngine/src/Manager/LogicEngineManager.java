@@ -103,6 +103,10 @@ public class LogicEngineManager {
         return m_Descriptor.getEvolutionEngine().getInitialPopulation();
     }
 
+    public Integer getAmountOfDays() { return m_Descriptor.getTimeTable().getDays(); }
+
+    public Integer getAmountOfHours() { return m_Descriptor.getTimeTable().getHours(); }
+
     public Integer getReqGenerations()
     {
         return m_Descriptor.getEvolutionEngine().getNumOfGenerations();

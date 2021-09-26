@@ -8,6 +8,7 @@ import Users.Solver;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LogicEngineWrapper {
     private ActivateAlgoThread m_Thread;
@@ -84,23 +85,72 @@ public class LogicEngineWrapper {
 
     public List<DayWebLessonsData> getBestSolutionByTeacherID(Integer i_TeacherID)
     {
-        List<DayWebLessonsData> retList=new ArrayList<>();
-        DayWebLessonsData dayWebLessonsData=new DayWebLessonsData();
+        List<DayWebLessonsData> retBestSolutionByTeacher =new ArrayList<>();
+        Integer amountOfDays=m_EngineManager.getAmountOfDays();
+        Integer amountOfHours=m_EngineManager.getAmountOfHours();
+        BestSolutionsData bestSolutionsData=m_EngineManager.getBestSolutionData();
+        List<LessonData> lessonsOfTeacherList = bestSolutionsData.getLessonsDataList().stream().filter(lesson -> lesson.getTeacherID().equals(i_TeacherID)).collect(Collectors.toList());
 
-
-
-        return retList;
+        for(int d=0;d<amountOfDays;d++)
+        {
+            DayWebLessonsData lessonsInDay=new DayWebLessonsData();
+            for(int h=0;h<amountOfHours;h++)
+            {
+                Integer day=d+1;
+                Integer hour=h+1;
+                List<LessonData> dayHourLessons = lessonsOfTeacherList.stream().filter(
+                        lesson -> lesson.getDay().equals(day) && lesson.getHour().equals(hour)).collect(Collectors.toList());
+                if(!dayHourLessons.isEmpty()){
+                    LessonData lessonData=dayHourLessons.get(0);
+                    WebLessonData webLessonData=m_EngineManager.getWebLessonData(lessonData);
+                    lessonsInDay.addLessonToDay(webLessonData);
+                }
+                else
+                {
+                    //free lesson
+                    lessonsInDay.addLessonToDay(null);
+                }
+            }
+            retBestSolutionByTeacher.add(lessonsInDay);
+        }
+        return retBestSolutionByTeacher;
     }
+
 
     public List<DayWebLessonsData> getBestSolutionByClassID(Integer i_ClassID)
     {
-        List<DayWebLessonsData> retList=new ArrayList<>();
-        DayWebLessonsData dayWebLessonsData=new DayWebLessonsData();
+        List<DayWebLessonsData> retBestSolutionByClass =new ArrayList<>();
+        Integer amountOfDays=m_EngineManager.getAmountOfDays();
+        Integer amountOfHours=m_EngineManager.getAmountOfHours();
+        BestSolutionsData bestSolutionsData=m_EngineManager.getBestSolutionData();
+        List<LessonData> lessonsOfClassList = bestSolutionsData.getLessonsDataList().stream().filter(lesson -> lesson.getTeacherID().equals(i_ClassID)).collect(Collectors.toList());
 
-
-
-        return retList;
+        for(int d=0;d<amountOfDays;d++)
+        {
+            DayWebLessonsData lessonsInDay=new DayWebLessonsData();
+            for(int h=0;h<amountOfHours;h++)
+            {
+                Integer day=d+1;
+                Integer hour=h+1;
+                List<LessonData> dayHourLessons = lessonsOfClassList.stream().filter(
+                        lesson -> lesson.getDay().equals(day) && lesson.getHour().equals(hour)).collect(Collectors.toList());
+                if(!dayHourLessons.isEmpty()){
+                    LessonData lessonData=dayHourLessons.get(0);
+                    WebLessonData webLessonData=m_EngineManager.getWebLessonData(lessonData);
+                    lessonsInDay.addLessonToDay(webLessonData);
+                }
+                else
+                {
+                    //free lesson
+                    lessonsInDay.addLessonToDay(null);
+                }
+            }
+            retBestSolutionByClass.add(lessonsInDay);
+        }
+        return retBestSolutionByClass;
     }
+
+
     public void startAlgorithm()
     {
         if(m_Thread!=null) {
