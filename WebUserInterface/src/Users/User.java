@@ -1,10 +1,7 @@
 package Users;
 
 import AlgorithmClasses.eStoppingCondition;
-import DataTransferClasses.AlgorithmReferenceData;
-import DataTransferClasses.MutationData;
-import DataTransferClasses.ProgressData;
-import DataTransferClasses.WebLessonData;
+import DataTransferClasses.*;
 import Manager.LogicEngineManager;
 import Threads.ActivateAlgoThread;
 import WebManager.LogicEngineWrapper;
@@ -85,6 +82,19 @@ public class User {
         LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
         return wantedManager.getAlgoRefData();
     }
+
+    public List<TeacherIdNameData> getTeachersIdNamesList(Integer i_ManagerIndex)
+    {
+        LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
+        return wantedManager.getDescriptor().getTimeTable().getTeachers().getTeachersIdNamesList();
+    }
+
+    public List<ClassIdNameData> getClassIdNamesList(Integer i_ManagerIndex)
+    {
+        LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
+        return wantedManager.getDescriptor().getTimeTable().getClazzes().getClassesIdNamesList();
+    }
+
 
     public void startAlgorithmByIndex(Integer i_ProblemIndex)
     {

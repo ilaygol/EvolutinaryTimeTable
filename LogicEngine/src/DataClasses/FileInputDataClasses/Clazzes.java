@@ -1,9 +1,9 @@
 package DataClasses.FileInputDataClasses;
 
 import DataTransferClasses.ClassData;
+import DataTransferClasses.ClassIdNameData;
 import DataTransferClasses.StudyData;
 import DataTransferClasses.SubjectData;
-import DataTransferClasses.TeacherData;
 import ParsedClasses.ETTClass;
 import ParsedClasses.ETTClasses;
 
@@ -81,4 +81,15 @@ public class Clazzes {
         String name=m_ClassesList.stream().filter(clazz->clazz.getId().equals(i_ID)).findFirst().get().getFullName();
         return name;
     }
+
+    public List<ClassIdNameData> getClassesIdNamesList()
+    {
+        List<ClassIdNameData> retList=new ArrayList<>();
+        for(Clazz clazz:m_ClassesList)
+        {
+            retList.add(new ClassIdNameData(clazz));
+        }
+        return retList;
+    }
+
 }

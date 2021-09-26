@@ -30,6 +30,18 @@
         <servlet-class>Servlets.BestSolutionRawServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>BestSolutionByTeacherNameServlet</servlet-name>
+        <servlet-class>Servlets.BestSolutionByTeacherNameServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BestSolutionByClassNameServlet</servlet-name>
+        <servlet-class>Servlets.BestSolutionByClassNameServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ClassesIdNamesServlet</servlet-name>
+        <servlet-class>Servlets.ClassesIdNamesServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>FileDataServlet</servlet-name>
         <servlet-class>Servlets.FileDataServlet</servlet-class>
     </servlet>
@@ -68,6 +80,10 @@
     <servlet>
         <servlet-name>SolvingUsersUpdateServlet</servlet-name>
         <servlet-class>Servlets.SolvingUsersUpdateServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TeachersIdNamesServlet</servlet-name>
+        <servlet-class>Servlets.TeachersIdNamesServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UsersListServlet</servlet-name>
@@ -109,6 +125,18 @@
         <url-pattern>/pages/algopage/rawSolution</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>BestSolutionByTeacherNameServlet</servlet-name>
+        <url-pattern>/pages/algopage/teacherSolution</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BestSolutionByClassNameServlet</servlet-name>
+        <url-pattern>/pages/algopage/classSolution</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClassesIdNamesServlet</servlet-name>
+        <url-pattern>/pages/algopage/classesNamesList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>FileDataServlet</servlet-name>
         <url-pattern>/pages/algopage/filedata</url-pattern>
     </servlet-mapping>
@@ -147,6 +175,10 @@
     <servlet-mapping>
         <servlet-name>SolvingUsersUpdateServlet</servlet-name>
         <url-pattern>/pages/algopage/updateSolvingUsers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TeachersIdNamesServlet</servlet-name>
+        <url-pattern>/pages/algopage/teachersNamesList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UsersListServlet</servlet-name>

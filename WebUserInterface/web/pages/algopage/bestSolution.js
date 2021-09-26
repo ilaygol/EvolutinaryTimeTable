@@ -23,11 +23,33 @@ $(function(){
               })
               break;
           case "Teacher":
-
-              //teachers name and id's
+              console.log("sending ajax to get Teachers ID Names List");
+              $.ajax({
+                  url:"teachersNamesList",
+                  timeout: 2000,
+                  success:function (teachersList){
+                     //m_TeacherID ---> teacher id member
+                     //m_TeacherName ---> teacher name member
+                  },
+                  error:function (){
+                      console.log("failed to get Teachers id names list")
+                  }
+              })
               break;
+
           case "Class":
-              console.log("Class");
+              console.log("sending ajax to get Teachers ID Names List");
+              $.ajax({
+                  url:"classesNamesList",
+                  timeout: 2000,
+                  success:function (classesList){
+                      //m_ClassID -->class id member
+                      //m_ClassName --->class name member
+                  },
+                  error:function (){
+                      console.log("failed to get classes id names list")
+                  }
+              })
               break;
       }
     })

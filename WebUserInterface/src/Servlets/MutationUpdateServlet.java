@@ -17,15 +17,25 @@ import java.io.PrintWriter;
 
 public class MutationUpdateServlet extends HttpServlet {
 
-    private void processRequest(HttpServletRequest i_Request,HttpServletResponse i_Response) throws IOException, ServletException {
-
+    @Override
+    protected void doGet(HttpServletRequest i_Request, HttpServletResponse i_Response)
+            throws ServletException, IOException {
+        i_Response.setContentType("application/json");
+        String mutationIndex=i_Request.getParameter(Constants.MUTATION_INDEX);
+        i_Request.getSession().setAttribute(Constants.MUTATION_INDEX,mutationIndex);
+        String userID= SessionUtils.getUserID(i_Request);
+        String managerIndex=SessionUtils.getManagerIndex(i_Request);
+        PermUserManager permUserManager= ServletUtils.getPermUserManager(getServletContext());
+        User user= permUserManager.getUserByID(userID);
+        MutationData mutationData=user.getMutationDataByIndex(Integer.parseInt(managerIndex),Integer.parseInt(mutationIndex));
+        try(PrintWriter out=i_Response.getWriter()) {
+            Gson gson = new Gson();
+            String json = gson.toJson(mutationData);
+            out.println(json);
+            out.flush();
+        }
+        i_Response.setStatus(200);
     }
-
-
-
-
-
-
 
     @Override
     protected void doPost(HttpServletRequest i_Request, HttpServletResponse i_Response)
@@ -51,23 +61,5 @@ public class MutationUpdateServlet extends HttpServlet {
             i_Response.setStatus(400);
         }
     }
-    @Override
-    protected void doGet(HttpServletRequest i_Request, HttpServletResponse i_Response)
-            throws ServletException, IOException {
-        i_Response.setContentType("application/json");
-        String mutationIndex=i_Request.getParameter(Constants.MUTATION_INDEX);
-        i_Request.getSession().setAttribute(Constants.MUTATION_INDEX,mutationIndex);
-        String userID= SessionUtils.getUserID(i_Request);
-        String managerIndex=SessionUtils.getManagerIndex(i_Request);
-        PermUserManager permUserManager= ServletUtils.getPermUserManager(getServletContext());
-        User user= permUserManager.getUserByID(userID);
-        MutationData mutationData=user.getMutationDataByIndex(Integer.parseInt(managerIndex),Integer.parseInt(mutationIndex));
-        try(PrintWriter out=i_Response.getWriter()) {
-            Gson gson = new Gson();
-            String json = gson.toJson(mutationData);
-            out.println(json);
-            out.flush();
-        }
-        i_Response.setStatus(200);
-    }
+
 }

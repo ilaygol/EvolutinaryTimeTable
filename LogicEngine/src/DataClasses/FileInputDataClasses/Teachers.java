@@ -2,6 +2,7 @@ package DataClasses.FileInputDataClasses;
 
 import DataTransferClasses.SubjectData;
 import DataTransferClasses.TeacherData;
+import DataTransferClasses.TeacherIdNameData;
 import ParsedClasses.ETTTeacher;
 import ParsedClasses.ETTTeachers;
 
@@ -73,5 +74,15 @@ public class Teachers {
     public String getTeacherNameById(Integer i_ID)
     {
         return m_TeachersList.stream().filter(teacher->teacher.getId().equals(i_ID)).findFirst().get().getFullName();
+    }
+
+    public List<TeacherIdNameData> getTeachersIdNamesList()
+    {
+        List<TeacherIdNameData> retList=new ArrayList<>();
+        for(Teacher teacher:m_TeachersList)
+        {
+            retList.add(new TeacherIdNameData(teacher));
+        }
+        return retList;
     }
 }

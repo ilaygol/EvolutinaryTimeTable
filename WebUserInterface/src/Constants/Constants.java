@@ -11,6 +11,10 @@ public class Constants {
     public static final String MANAGER_INDEX="managerIndex";
     public static final String MUTATION_INDEX="mutationIndex";
 
+    //best solution keys
+    public static final String CLASS_ID="classID";
+    public static final String TEACHER_ID="teacherID";
+
 
     //Algo Ref Components Name
         //Stop conditions
@@ -35,6 +39,7 @@ public class Constants {
         //Initial Population
         public static final String INITIAL_POPULATION="initialPopulation";
         public static final String SHOW_EVERY="showEvery";
+
 
     //PAGES PATH
     public static final String LOGIN_PAGE_PATH="/TimeTable/pages/loginpage/loginpage.html";
