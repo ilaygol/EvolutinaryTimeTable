@@ -54,3 +54,9 @@ $(function(){
       }
     })
 })
+
+// private Integer m_Day;
+// private Integer m_Hour;
+// private String m_ClassName;
+// private String m_TeacherName;
+// private String m_SubjectName;

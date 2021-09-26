@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 //url: LocalHost:8080/TimeTable/pages/algopage/classSolution
-public class BestSolutionByClassNameServlet extends HttpServlet {
+public class BestSolutionByClassIDServlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest i_Request, HttpServletResponse i_Response) throws IOException {
         i_Response.setContentType("application/json");

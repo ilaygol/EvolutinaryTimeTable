@@ -30,12 +30,12 @@
         <servlet-class>Servlets.BestSolutionRawServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>BestSolutionByTeacherNameServlet</servlet-name>
-        <servlet-class>Servlets.BestSolutionByTeacherNameServlet</servlet-class>
+        <servlet-name>BestSolutionByTeacherIDServlet</servlet-name>
+        <servlet-class>Servlets.BestSolutionByTeacherIDServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>BestSolutionByClassNameServlet</servlet-name>
-        <servlet-class>Servlets.BestSolutionByClassNameServlet</servlet-class>
+        <servlet-name>BestSolutionByClassIDServlet</servlet-name>
+        <servlet-class>Servlets.BestSolutionByClassIDServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ClassesIdNamesServlet</servlet-name>
@@ -125,11 +125,11 @@
         <url-pattern>/pages/algopage/rawSolution</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>BestSolutionByTeacherNameServlet</servlet-name>
+        <servlet-name>BestSolutionByTeacherIDServlet</servlet-name>
         <url-pattern>/pages/algopage/teacherSolution</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>BestSolutionByClassNameServlet</servlet-name>
+        <servlet-name>BestSolutionByClassIDServlet</servlet-name>
         <url-pattern>/pages/algopage/classSolution</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
