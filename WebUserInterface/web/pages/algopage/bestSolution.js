@@ -39,7 +39,16 @@ $(function(){
                   success:function (teachersList){
                      //m_TeacherID ---> teacher id member
                      //m_TeacherName ---> teacher name member
-
+                      $("<div class='row p-3'>" +
+                          "<div class='col-auto border-end'><h6>Teacher Selection</h6><div id='teachersList' class='list-group'></div></div>" +
+                          "<div class='col' id='teacherSolutionContent'></div>" +
+                          "</div>")
+                          .appendTo($("#bestSolutionContent").empty());
+                      $.each(teachersList || [],function (index,teacher) {
+                          $("<button type='button' class='list-group-item list-group-item-action list-group-item-light'" + " id='"+teacher["m_TeacherID"]+"'>" +
+                              teacher["m_TeacherName"] +
+                          "</button>").appendTo($("#teachersList"));
+                      });
                   },
                   error:function (){
                       console.log("failed to get Teachers id names list")
@@ -55,6 +64,16 @@ $(function(){
                   success:function (classesList){
                       //m_ClassID -->class id member
                       //m_ClassName --->class name member
+                      $("<div class='row p-3'>" +
+                          "<div class='col-auto border-end'><h6>Class Selection</h6><div id='classesList' class='list-group'></div></div>" +
+                          "<div class='col' id='classSolutionContent'></div>" +
+                          "</div>")
+                          .appendTo($("#bestSolutionContent").empty());
+                      $.each(classesList || [],function (index,clazz) {
+                          $("<button type='button' class='list-group-item list-group-item-action list-group-item-light'" + " id='"+clazz["m_ClassID"]+"'>" +
+                              clazz["m_ClassName"] +
+                              "</button>").appendTo($("#classesList"));
+                      });
                   },
                   error:function (){
                       console.log("failed to get classes id names list")
