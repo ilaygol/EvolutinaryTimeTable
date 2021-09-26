@@ -1,9 +1,6 @@
 package WebManager;
 
-import DataTransferClasses.BestSolutionsData;
-import DataTransferClasses.LessonData;
-import DataTransferClasses.ProgressData;
-import DataTransferClasses.WebLessonData;
+import DataTransferClasses.*;
 import Manager.LogicEngineManager;
 import Threads.ActivateAlgoThread;
 import Users.Solver;
@@ -68,7 +65,6 @@ public class LogicEngineWrapper {
         ActivateAlgoThread thread=new ActivateAlgoThread(m_EngineManager,this::updateProgress,i_ShowEvery);
         setThread(thread);
     }
-
     public List<WebLessonData> getWebLessonDataListRaw()
     {
         List<WebLessonData> retList=new ArrayList<>();
@@ -84,6 +80,26 @@ public class LogicEngineWrapper {
         }
         return  retList;
 
+    }
+
+    public List<DayWebLessonsData> getBestSolutionByTeacherID(Integer i_TeacherID)
+    {
+        List<DayWebLessonsData> retList=new ArrayList<>();
+        DayWebLessonsData dayWebLessonsData=new DayWebLessonsData();
+
+
+
+        return retList;
+    }
+
+    public List<DayWebLessonsData> getBestSolutionByClassID(Integer i_ClassID)
+    {
+        List<DayWebLessonsData> retList=new ArrayList<>();
+        DayWebLessonsData dayWebLessonsData=new DayWebLessonsData();
+
+
+
+        return retList;
     }
     public void startAlgorithm()
     {

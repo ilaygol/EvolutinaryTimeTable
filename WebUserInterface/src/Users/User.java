@@ -190,6 +190,20 @@ public class User {
         LogicEngineWrapper wantedWrapper=getWrapperByProblemIndex(i_ManagerIndex);
         return wantedWrapper.getWebLessonDataListRaw();
     }
+    public List<DayWebLessonsData> getBestSolutionByTeacherID(Integer i_ManagerIndex,Integer i_TeacherID)
+    {
+        LogicEngineWrapper wantedWrapper=getWrapperByProblemIndex(i_ManagerIndex);
+        return wantedWrapper.getBestSolutionByTeacherID(i_TeacherID);
+    }
+    public List<DayWebLessonsData> getBestSolutionByClassID(Integer i_ManagerIndex,Integer i_ClassID)
+    {
+        LogicEngineWrapper wantedWrapper=getWrapperByProblemIndex(i_ManagerIndex);
+        return wantedWrapper.getBestSolutionByClassID(i_ClassID);
+    }
+
+
+
+
 
 
     private LogicEngineManager getManagerByProblemIndex(Integer i_ProblemIndex)
