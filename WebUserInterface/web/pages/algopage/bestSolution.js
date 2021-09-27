@@ -98,7 +98,7 @@ $(function(){
                               data:"classID="+this.getAttribute("id"),
                               url:"classSolution",
                               timeout:2000,
-                              success:function(teacherTimeTable){
+                              success:function(ClassTimeTable){
                                   //day --->m_Day
                                   //hour --->m_Hour
                                   //class name --->m_ClassName
@@ -106,7 +106,7 @@ $(function(){
                                   //subject name --->m_SubjectName
                               },
                               error:function(){
-                                  console.log("failed to get teacher schedule");
+                                  console.log("failed to get Class schedule");
                               }
                           })
                       })
