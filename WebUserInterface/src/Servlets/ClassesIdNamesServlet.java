@@ -22,13 +22,21 @@ public class ClassesIdNamesServlet extends HttpServlet {
         String managerIndex=SessionUtils.getManagerIndex(i_Request);
         PermUserManager permUserManager= ServletUtils.getPermUserManager(getServletContext());
         User user= permUserManager.getUserByID(userID);
-        try(PrintWriter out=i_Response.getWriter()) {
-            Gson gson = new Gson();
-            String json = gson.toJson(user.getClassIdNamesList(Integer.parseInt(managerIndex)));
-            out.println(json);
-            out.flush();
+        if(!user.getIsAlgoActivated(Integer.parseInt(managerIndex)))
+        {
+            String errorMsg="Error: Please activate algorithm first.";
+            i_Response.getOutputStream().println(errorMsg);
+            i_Response.setStatus(400);
         }
-        i_Response.setStatus(200);
+        else {
+            try (PrintWriter out = i_Response.getWriter()) {
+                Gson gson = new Gson();
+                String json = gson.toJson(user.getClassIdNamesList(Integer.parseInt(managerIndex)));
+                out.println(json);
+                out.flush();
+            }
+            i_Response.setStatus(200);
+        }
 
     }
 

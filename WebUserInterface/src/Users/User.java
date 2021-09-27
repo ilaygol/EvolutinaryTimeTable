@@ -77,6 +77,12 @@ public class User {
         return wantedManager.getIsFileLoaded();
     }
 
+    public boolean getIsAlgoActivated(Integer i_ManagerIndex)
+    {
+        LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
+        return wantedManager.getIsAlgoActivated();
+    }
+
     public AlgorithmReferenceData getAlgorithmReferenceData(Integer i_ManagerIndex)
     {
         LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);

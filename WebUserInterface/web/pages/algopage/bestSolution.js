@@ -68,8 +68,12 @@ $(function(){
                           })
                       })
                   },
-                  error:function (){
+                  error:function (errorObject){
                       console.log("failed to get Teachers id names list")
+                      var myModal = new bootstrap.Modal(document.getElementById('algoRefModal'));
+                      $("#titleModalLabel").text("ERROR!");
+                      $("#bodyModalLabel").text(errorObject.responseText);
+                      myModal.show();
                   }
               })
               break;
@@ -111,8 +115,12 @@ $(function(){
                           })
                       })
                   },
-                  error:function (){
+                  error:function (errorObject){
                       console.log("failed to get classes id names list")
+                      var myModal = new bootstrap.Modal(document.getElementById('algoRefModal'));
+                      $("#titleModalLabel").text("ERROR!");
+                      $("#bodyModalLabel").text(errorObject.responseText);
+                      myModal.show();
                   }
               })
               break;
