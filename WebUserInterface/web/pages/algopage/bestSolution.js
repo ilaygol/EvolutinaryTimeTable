@@ -61,6 +61,51 @@ $(function(){
                                   //class name --->m_ClassName
                                   //teacher name --->m_TeacherName
                                   //subject name --->m_SubjectName
+                                  let numOfDays=teacherTimeTable.length;
+                                  var daysStr="";
+                                  for(let i=0; i<numOfDays;i++)
+                                  {
+                                      daysStr+="<th>"+(i+1)+"</th>";
+                                  }
+                                  let numOfHours=teacherTimeTable[0]["m_LessonsInDay"].length;
+                                  var hoursStr="";
+                                  for(let i=0; i<numOfHours;i++)
+                                  {
+                                      hoursStr+="<th>"+(i+1)+"</th>";
+                                  }
+
+                                  $("<table class='table table-striped table-hover text-center table-bordered align-middle w-auto'>" +
+                                      "<thead>" +
+                                      "<tr class='table-primary'>" +
+                                      "<th>Hour / Day</th>" +
+                                      daysStr +
+                                      "</tr>" +
+                                      "</thead>" +
+                                      "<tbody id='lessonsTableBody'></tbody>" +
+                                      "</table>").appendTo($("#teacherSolutionContent").empty());
+
+                                  var rowStr="";
+                                  for(let h=0; h<numOfHours;h++)
+                                  {
+                                      rowStr+="<tr><th>"+(h+1)+"</th>";
+                                      for(let d=0; d<numOfDays;d++)
+                                      {
+                                          rowStr+="<td>";
+                                          if(teacherTimeTable[d]["m_LessonsInDay"][h]) {
+                                              rowStr += "<table class='table table-sm table-striped w-auto text-center align-middle table-bordered border'>" +
+                                                  "<tbody><tr><td>" + "Day" + "</td><td>" + teacherTimeTable[d]["m_LessonsInDay"][h]["m_Day"] + "</td></tr>" +
+                                                  "<tr><td>" + "Hour" + "</td><td>" + teacherTimeTable[d]["m_LessonsInDay"][h]["m_Hour"] + "</td></tr>" +
+                                                  "<tr><td>" + "Class" + "</td><td>" + teacherTimeTable[d]["m_LessonsInDay"][h]["m_ClassName"] + "</td></tr>" +
+                                                  "<tr><td>" + "Teacher" + "</td><td>" + teacherTimeTable[d]["m_LessonsInDay"][h]["m_TeacherName"] + "</td></tr>" +
+                                                  "<tr><td>" + "Subject" + "</td><td>" + teacherTimeTable[d]["m_LessonsInDay"][h]["m_SubjectName"] + "</td></tr>" +
+                                                  "</tbody></table>";
+                                          }
+                                          rowStr+="</td>";
+                                      }
+                                      rowStr+="</tr>"
+                                      $(rowStr).appendTo($("#lessonsTableBody"));
+                                      rowStr="";
+                                  }
                               },
                               error:function(){
                                   console.log("failed to get teacher schedule");
