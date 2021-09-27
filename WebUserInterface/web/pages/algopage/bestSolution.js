@@ -45,10 +45,28 @@ $(function(){
                           "</div>")
                           .appendTo($("#bestSolutionContent").empty());
                       $.each(teachersList || [],function (index,teacher) {
-                          $("<button type='button' class='list-group-item list-group-item-action list-group-item-light'" + " id='"+teacher["m_TeacherID"]+"'>" +
+                          $("<button type='button' class='list-group-item list-group-item-action list-group-item-light bestSolutionTeacherBTN'" + " id='"+teacher["m_TeacherID"]+"'>" +
                               teacher["m_TeacherName"] +
                           "</button>").appendTo($("#teachersList"));
                       });
+                      $(".bestSolutionTeacherBTN").click(function(){
+                          console.log("clicked on teacher "+this.getAttribute("id"));
+                          $.ajax({
+                              data:"teacherID="+this.getAttribute("id"),
+                              url:"teacherSolution",
+                              timeout:2000,
+                              success:function(teacherTimeTable){
+                                  //day --->m_Day
+                                  //hour --->m_Hour
+                                  //class name --->m_ClassName
+                                  //teacher name --->m_TeacherName
+                                  //subject name --->m_SubjectName
+                              },
+                              error:function(){
+                                  console.log("failed to get teacher schedule");
+                              }
+                          })
+                      })
                   },
                   error:function (){
                       console.log("failed to get Teachers id names list")
@@ -70,10 +88,28 @@ $(function(){
                           "</div>")
                           .appendTo($("#bestSolutionContent").empty());
                       $.each(classesList || [],function (index,clazz) {
-                          $("<button type='button' class='list-group-item list-group-item-action list-group-item-light'" + " id='"+clazz["m_ClassID"]+"'>" +
+                          $("<button type='button' class='list-group-item list-group-item-action list-group-item-light bestSolutionClassBTN'" + " id='"+clazz["m_ClassID"]+"'>" +
                               clazz["m_ClassName"] +
                               "</button>").appendTo($("#classesList"));
                       });
+                      $(".bestSolutionClassBTN").click(function(){
+                          console.log("clicked on class with id "+this.getAttribute("id"));
+                          $.ajax({
+                              data:"classID="+this.getAttribute("id"),
+                              url:"classSolution",
+                              timeout:2000,
+                              success:function(teacherTimeTable){
+                                  //day --->m_Day
+                                  //hour --->m_Hour
+                                  //class name --->m_ClassName
+                                  //teacher name --->m_TeacherName
+                                  //subject name --->m_SubjectName
+                              },
+                              error:function(){
+                                  console.log("failed to get teacher schedule");
+                              }
+                          })
+                      })
                   },
                   error:function (){
                       console.log("failed to get classes id names list")
@@ -84,8 +120,3 @@ $(function(){
     })
 })
 
-// private Integer m_Day;
-// private Integer m_Hour;
-// private String m_ClassName;
-// private String m_TeacherName;
-// private String m_SubjectName;

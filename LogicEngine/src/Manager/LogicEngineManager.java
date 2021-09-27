@@ -176,8 +176,8 @@ public class LogicEngineManager {
                 throw new RuntimeException("Error, Generations to make must be a number.");
             }
 
-            if (reqGenerations <= 0) {
-                throw new RuntimeException("Error, Number of generations must be positive");
+            if (reqGenerations < 100) {
+                throw new RuntimeException("Error, Req generation stop condition cant be lower than 100.");
             } else {
                 m_Descriptor.getEvolutionEngine().setNumOfGenerations(reqGenerations);
             }
