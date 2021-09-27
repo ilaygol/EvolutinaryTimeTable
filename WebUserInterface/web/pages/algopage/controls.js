@@ -11,6 +11,9 @@ $(function() {
                 console.log("algorithm was activated successfully");
                 playBtnDisabilityManagement();
                 $("#updatesLine").empty();
+                $("#generationProgressBar").css('width', 0+'%').attr('aria-valuenow', 0);
+                $("#fitnessProgressBar").css('width', 0+'%').attr('aria-valuenow', 0);
+                $("#timeProgressBar").css('width', 0+'%').attr('aria-valuenow', 0);
                 labelsUpdate=setInterval(algoProgressUpdate,1000);
             },
             error: function(errorObject){
