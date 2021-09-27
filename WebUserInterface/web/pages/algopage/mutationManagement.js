@@ -36,7 +36,7 @@ $(function(){
                 mutationUpdate();
                 var myModal = new bootstrap.Modal(document.getElementById('algoRefModal'));
                 $("#titleModalLabel").text("SUCCESS!");
-                $("#bodyModalLabel").text("Mutation has been updated successfully");
+                $("#bodyModalLabel").text("Mutation has been Edited successfully");
                 myModal.show();
                 mutationUpdate();
 
@@ -87,7 +87,7 @@ function refreshMutationTableRows(mutationDataList) {
             "</td><td>" + mutation["m_Probability"] +
             "</td><td>" + mutation["m_Tupples"] +
             "</td><td>" + mutation["m_Component"] +
-            "</td><td><button class='btn btn-primary updateMutation' id='" + index + "' type='button'>Update</button></td>" +
+            "</td><td><button class='btn btn-primary updateMutation' id='" + index + "' type='button'>Edit</button></td>" +
             "</td><td><button class='btn btn-danger deleteMutation' id='" + index + "' type='button'>Delete</button></td></tr>").appendTo($("#mutationsTableBody"))
     });
 

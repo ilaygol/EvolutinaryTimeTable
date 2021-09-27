@@ -4,11 +4,9 @@ import DataClasses.AlgorithmData.AmountOfObjectsCalc;
 import DataClasses.AlgorithmData.Generation;
 import DataTransferClasses.MutationData;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 public class Mutations {
 
@@ -82,7 +80,13 @@ public class Mutations {
         Mutation mutation=m_MutationsList.get(i_Index);
         mutation.setName(i_Name);
         mutation.setTupples(i_Tupples);
-        mutation.setChar(i_Char);
+        if(i_Name.toUpperCase().equals("FLIPPING"))
+            mutation.setChar(i_Char);
+        else //sizer, no need char so enter empty char
+        {
+            char ch=' ';
+            mutation.setChar(ch);
+        }
         mutation.setProbability(i_Probability);
     }
 
