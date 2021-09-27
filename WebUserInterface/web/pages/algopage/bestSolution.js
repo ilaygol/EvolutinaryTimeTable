@@ -11,9 +11,9 @@ $(function(){
               $.ajax({
                   url:"rawSolution",
                   timeout:2000,
-                  success: function(webLessonsList){
+                  success: function(rawSolutionData){
                       $("<div id='rawSolutionContent' class='d-flex flex-row flex-wrap justify-content-between p-3 gap-1'></div>").appendTo($("#bestSolutionContent").empty());
-                      $.each(webLessonsList || [],function (index,lesson) {
+                      $.each(rawSolutionData["m_RawSolution"] || [],function (index,lesson) {
                           $("<table class='table table-sm table-striped w-auto text-center align-middle table-bordered border'>" +
                               "<tbody><tr><td>" + "Day" + "</td><td>" + lesson["m_Day"] + "</td></tr>" +
                               "<tr><td>" + "Hour" + "</td><td>" + lesson["m_Hour"] + "</td></tr>" +
@@ -55,12 +55,13 @@ $(function(){
                               data:"teacherID="+this.getAttribute("id"),
                               url:"teacherSolution",
                               timeout:2000,
-                              success:function(teacherTimeTable){
+                              success:function(teacherSolution){
                                   //day --->m_Day
                                   //hour --->m_Hour
                                   //class name --->m_ClassName
                                   //teacher name --->m_TeacherName
                                   //subject name --->m_SubjectName
+                                  var teacherTimeTable=teacherSolution["m_Solution"];
                                   let numOfDays=teacherTimeTable.length;
                                   var daysStr="";
                                   for(let i=0; i<numOfDays;i++)

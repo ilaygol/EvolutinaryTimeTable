@@ -191,17 +191,17 @@ public class User {
         }
     }
 
-    public List<WebLessonData> getWebLessonDataListRaw(Integer i_ManagerIndex)
+    public RawSolutionData getWebLessonDataListRaw(Integer i_ManagerIndex)
     {
         LogicEngineWrapper wantedWrapper=getWrapperByProblemIndex(i_ManagerIndex);
         return wantedWrapper.getWebLessonDataListRaw();
     }
-    public List<DayWebLessonsData> getBestSolutionByTeacherID(Integer i_ManagerIndex,Integer i_TeacherID)
+    public TeacherClassSolutionData getBestSolutionByTeacherID(Integer i_ManagerIndex,Integer i_TeacherID)
     {
         LogicEngineWrapper wantedWrapper=getWrapperByProblemIndex(i_ManagerIndex);
         return wantedWrapper.getBestSolutionByTeacherID(i_TeacherID);
     }
-    public List<DayWebLessonsData> getBestSolutionByClassID(Integer i_ManagerIndex,Integer i_ClassID)
+    public TeacherClassSolutionData getBestSolutionByClassID(Integer i_ManagerIndex,Integer i_ClassID)
     {
         LogicEngineWrapper wantedWrapper=getWrapperByProblemIndex(i_ManagerIndex);
         return wantedWrapper.getBestSolutionByClassID(i_ClassID);

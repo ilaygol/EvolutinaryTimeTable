@@ -66,9 +66,9 @@ public class LogicEngineWrapper {
         ActivateAlgoThread thread=new ActivateAlgoThread(m_EngineManager,this::updateProgress,i_ShowEvery);
         setThread(thread);
     }
-    public List<WebLessonData> getWebLessonDataListRaw()
+    public RawSolutionData getWebLessonDataListRaw()
     {
-        List<WebLessonData> retList=new ArrayList<>();
+        List<WebLessonData> RawSolutionList =new ArrayList<>();
         BestSolutionsData bestSolutionsData=m_EngineManager.getBestSolutionData();
         bestSolutionsData.getLessonsDataList().sort(Comparator
                 .comparing(LessonData::getDay)
@@ -77,15 +77,15 @@ public class LogicEngineWrapper {
                 .thenComparing(LessonData::getTeacherID));
         for(LessonData lessonData: bestSolutionsData.getLessonsDataList())
         {
-            retList.add(m_EngineManager.getWebLessonData(lessonData));
+            RawSolutionList.add(m_EngineManager.getWebLessonData(lessonData));
         }
-        return  retList;
 
+        return new RawSolutionData(RawSolutionList, bestSolutionsData.getRulesDataList(), bestSolutionsData.getFitness(), bestSolutionsData.getSoftRulesAverage(), bestSolutionsData.getHardRulesAverage());
     }
 
-    public List<DayWebLessonsData> getBestSolutionByTeacherID(Integer i_TeacherID)
+    public TeacherClassSolutionData getBestSolutionByTeacherID(Integer i_TeacherID)
     {
-        List<DayWebLessonsData> retBestSolutionByTeacher =new ArrayList<>();
+        List<DayWebLessonsData> bestSolutionByTeacher =new ArrayList<>();
         Integer amountOfDays=m_EngineManager.getAmountOfDays();
         Integer amountOfHours=m_EngineManager.getAmountOfHours();
         BestSolutionsData bestSolutionsData=m_EngineManager.getBestSolutionData();
@@ -111,15 +111,15 @@ public class LogicEngineWrapper {
                     lessonsInDay.addLessonToDay(null);
                 }
             }
-            retBestSolutionByTeacher.add(lessonsInDay);
+            bestSolutionByTeacher.add(lessonsInDay);
         }
-        return retBestSolutionByTeacher;
+        return new TeacherClassSolutionData(bestSolutionByTeacher, bestSolutionsData.getRulesDataList(), bestSolutionsData.getFitness(), bestSolutionsData.getSoftRulesAverage(), bestSolutionsData.getHardRulesAverage());
     }
 
 
-    public List<DayWebLessonsData> getBestSolutionByClassID(Integer i_ClassID)
+    public TeacherClassSolutionData getBestSolutionByClassID(Integer i_ClassID)
     {
-        List<DayWebLessonsData> retBestSolutionByClass =new ArrayList<>();
+        List<DayWebLessonsData> bestSolutionByClass =new ArrayList<>();
         Integer amountOfDays=m_EngineManager.getAmountOfDays();
         Integer amountOfHours=m_EngineManager.getAmountOfHours();
         BestSolutionsData bestSolutionsData=m_EngineManager.getBestSolutionData();
@@ -145,9 +145,9 @@ public class LogicEngineWrapper {
                     lessonsInDay.addLessonToDay(null);
                 }
             }
-            retBestSolutionByClass.add(lessonsInDay);
+            bestSolutionByClass.add(lessonsInDay);
         }
-        return retBestSolutionByClass;
+        return new TeacherClassSolutionData(bestSolutionByClass, bestSolutionsData.getRulesDataList(), bestSolutionsData.getFitness(), bestSolutionsData.getSoftRulesAverage(), bestSolutionsData.getHardRulesAverage());
     }
 
 
