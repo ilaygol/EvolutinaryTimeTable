@@ -1,5 +1,24 @@
 
 $(function (){
+    $("#reqGenerationCHK").change(function(){
+        if(!this.checked)
+        {
+            document.getElementById("reqGenerationTXT").value="";
+        }
+    })
+    $("#reqFitnessCHK").change(function(){
+        if(!this.checked)
+        {
+            document.getElementById("reqFitnessTXT").value="";
+        }
+    })
+    $("#reqTimeCHK").change(function(){
+        if(!this.checked)
+        {
+            document.getElementById("reqTimeTXT").value="";
+        }
+    })
+
     $("#selectionType").change(function(){
         var selectedValue=$(this).val();
         switch(selectedValue.toUpperCase())
@@ -29,10 +48,6 @@ $(function (){
 
         }
     })
-
-})
-
-$(function (){
     $("#crossoverType").change(function(){
         var selectedValue=$(this).val();
         switch(selectedValue.toUpperCase())
@@ -51,10 +66,6 @@ $(function (){
 
         }
     })
-
-})
-
-$(function (){
     $("#mutationType").change(function(){
         var selectedValue=$(this).val();
         switch(selectedValue.toUpperCase())
@@ -74,8 +85,8 @@ $(function (){
 
         }
     })
-
 })
+
 
 
 
