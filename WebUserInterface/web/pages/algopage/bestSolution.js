@@ -6,10 +6,6 @@ function printRulesData(rulesDataList)
             "<tbody><tr><th>" + "Name" + "</th><td>" + rule["m_Name"] + "</td></tr>" +
             "<tr><th>" + "Type" + "</th><td>" + rule["m_Type"] + "</td></tr>" +
             "<tr><th>" + "Grade" + "</th><td>" + rule["m_Grade"] + "</td></tr>";
-        if(rule["m_Name"]==="WORKINGHOURSPREFERENCE")
-        {
-            rulesStr+="<tr><th>" + "Working Hours" + "</th><td>" + rule["m_TotalHours"] + "</td></tr>";
-        }
         rulesStr+= "</tbody></table></td></tr>";
     });
 
