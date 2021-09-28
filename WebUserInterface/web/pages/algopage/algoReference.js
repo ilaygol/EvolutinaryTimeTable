@@ -1,4 +1,84 @@
 
+$(function (){
+    $("#selectionType").change(function(){
+        var selectedValue=$(this).val();
+        switch(selectedValue.toUpperCase())
+        {
+            case "TRUNCATION":
+                document.getElementById("pteOption").style.visibility = "hidden";
+                document.getElementById("pte").value="";
+                document.getElementById("percentOption").style.visibility = "visible";
+                break;
+            case"ROULETTEWHEEL":
+                document.getElementById("pteOption").style.visibility = "hidden";
+                document.getElementById("pte").value="";
+                document.getElementById("percentOption").style.visibility = "hidden";
+                document.getElementById("selectionPercent").value="";
+                break;
+            case "TOURNAMENT":
+                document.getElementById("percentOption").style.visibility = "hidden";
+                document.getElementById("selectionPercent").value="";
+                document.getElementById("pteOption").style.visibility = "visible";
+                break;
+            case "":
+                document.getElementById("pteOption").style.visibility = "hidden";
+                document.getElementById("pte").value="";
+                document.getElementById("percentOption").style.visibility = "hidden";
+                document.getElementById("selectionPercent").value="";
+                break;
+
+        }
+    })
+
+})
+
+$(function (){
+    $("#crossoverType").change(function(){
+        var selectedValue=$(this).val();
+        switch(selectedValue.toUpperCase())
+        {
+            case "DAYTIMEORIENTED":
+                document.getElementById("aspectOption").style.visibility = "hidden";
+                document.getElementById("aspect").value="";
+                break;
+            case"ASPECTORIENTED":
+                document.getElementById("aspectOption").style.visibility = "visible";
+                break;
+            case "":
+                document.getElementById("aspectOption").style.visibility = "hidden";
+                document.getElementById("aspect").value="";
+                break;
+
+        }
+    })
+
+})
+
+$(function (){
+    $("#mutationType").change(function(){
+        var selectedValue=$(this).val();
+        switch(selectedValue.toUpperCase())
+        {
+            case "FLIPPING":
+                document.getElementById("componentOption").style.visibility = "visible";
+
+                break;
+            case"SIZER":
+                document.getElementById("componentOption").style.visibility = "hidden";
+                document.getElementById("component").value="";
+                break;
+            case "":
+                document.getElementById("componentOption").style.visibility = "hidden";
+                document.getElementById("component").value="";
+                break;
+
+        }
+    })
+
+})
+
+
+
 $(function(){
     $("#algoRefForm").submit(function(){
         var form=this;
@@ -56,13 +136,46 @@ $(function(){
             if(algoRefObj["m_Time"])
                 document.getElementById("reqTimeCHK").checked=true;
 
+
             document.getElementById("selectionType").value=algoRefObj["m_SelectionType"];
             document.getElementById("elitism").value=algoRefObj["m_Elitism"];
             document.getElementById("selectionPercent").value=algoRefObj["m_Percent"];
             document.getElementById("pte").value=algoRefObj["m_PTE"];
+            switch(algoRefObj["m_SelectionType"].toUpperCase())
+            {
+                case "TRUNCATION":
+                    document.getElementById("pteOption").style.visibility = "hidden";
+                    document.getElementById("percentOption").style.visibility = "visible";
+                    break;
+                case"ROULETTEWHEEL":
+                    document.getElementById("pteOption").style.visibility = "hidden";
+                    document.getElementById("percentOption").style.visibility = "hidden";
+                    break;
+                case "TOURNAMENT":
+                    document.getElementById("percentOption").style.visibility = "hidden";
+                    document.getElementById("pteOption").style.visibility = "visible";
+                    break;
+                case "":
+                    document.getElementById("pteOption").style.visibility = "hidden";
+                    document.getElementById("percentOption").style.visibility = "hidden";
+                    break;
+            }
             document.getElementById("crossoverType").value=algoRefObj["m_CrossoverType"];
             document.getElementById("cuttingPoints").value=algoRefObj["m_CuttingPoints"];
             document.getElementById("aspect").value=algoRefObj["m_Aspect"];
+            switch(algoRefObj["m_CrossoverType"].toUpperCase())
+            {
+                case "DAYTIMEORIENTED":
+                    document.getElementById("aspectOption").style.visibility = "hidden";
+                    break;
+                case"ASPECTORIENTED":
+                    document.getElementById("aspectOption").style.visibility = "visible";
+                    break;
+                case "":
+                    document.getElementById("aspectOption").style.visibility = "hidden";
+                    break;
+            }
+            document.getElementById("componentOption").style.visibility = "hidden";
             document.getElementById("initial").value=algoRefObj["m_Initial"];
             document.getElementById("showEvery").value=algoRefObj["m_ShowEvery"];
 
