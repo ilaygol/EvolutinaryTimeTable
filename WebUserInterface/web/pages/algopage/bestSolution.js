@@ -42,11 +42,11 @@ $(function(){
                           "<div class='col-3' id='solutionRules'></div></div>").appendTo($("#bestSolutionContent").empty());
                       $.each(rawSolutionData["m_RawSolution"] || [],function (index,lesson) {
                           $("<table class='table table-sm table-striped w-auto text-center align-middle table-bordered border'>" +
-                              "<tbody><tr><td>" + "Day" + "</td><td>" + lesson["m_Day"] + "</td></tr>" +
-                              "<tr><td>" + "Hour" + "</td><td>" + lesson["m_Hour"] + "</td></tr>" +
-                              "<tr><td>" + "Class" + "</td><td>" + lesson["m_ClassName"] + "</td></tr>" +
-                              "<tr><td>" + "Teacher" + "</td><td>" + lesson["m_TeacherName"] + "</td></tr>" +
-                              "<tr><td>" + "Subject" + "</td><td>" + lesson["m_SubjectName"] + "</td></tr>" +
+                              "<tbody><tr><th>" + "Day" + "</th><td>" + lesson["m_Day"] + "</td></tr>" +
+                              "<tr><th>" + "Hour" + "</th><td>" + lesson["m_Hour"] + "</td></tr>" +
+                              "<tr><th>" + "Class" + "</th><td>" + lesson["m_ClassName"] + "</td></tr>" +
+                              "<tr><th>" + "Teacher" + "</th><td>" + lesson["m_TeacherName"] + "</td></tr>" +
+                              "<tr><th>" + "Subject" + "</th><td>" + lesson["m_SubjectName"] + "</td></tr>" +
                               "</tbody></table>").appendTo($("#rawSolutionContent"));
                       });
                       printRulesData(rawSolutionData["m_RuleDataList"]);
@@ -123,11 +123,9 @@ $(function(){
                                           rowStr+="<td>";
                                           if(teacherTimeTable[d]["m_LessonsInDay"][h]) {
                                               rowStr += "<table style='margin: auto;' class='table table-sm table-striped w-auto text-center align-middle table-bordered border'>" +
-                                                  "<tbody><tr><td>" + "Day" + "</td><td>" + teacherTimeTable[d]["m_LessonsInDay"][h]["m_Day"] + "</td></tr>" +
-                                                  "<tr><td>" + "Hour" + "</td><td>" + teacherTimeTable[d]["m_LessonsInDay"][h]["m_Hour"] + "</td></tr>" +
-                                                  "<tr><td>" + "Class" + "</td><td>" + teacherTimeTable[d]["m_LessonsInDay"][h]["m_ClassName"] + "</td></tr>" +
-                                                  "<tr><td>" + "Teacher" + "</td><td>" + teacherTimeTable[d]["m_LessonsInDay"][h]["m_TeacherName"] + "</td></tr>" +
-                                                  "<tr><td>" + "Subject" + "</td><td>" + teacherTimeTable[d]["m_LessonsInDay"][h]["m_SubjectName"] + "</td></tr>" +
+                                                  "<tbody>" +
+                                                  "<tr><th>" + "Class" + "</th><td>" + teacherTimeTable[d]["m_LessonsInDay"][h]["m_ClassName"] + "</td></tr>" +
+                                                  "<tr><th>" + "Subject" + "</th><td>" + teacherTimeTable[d]["m_LessonsInDay"][h]["m_SubjectName"] + "</td></tr>" +
                                                   "</tbody></table>";
                                           }
                                           rowStr+="</td>";
@@ -220,11 +218,9 @@ $(function(){
                                           rowStr+="<td>";
                                           if(classTimeTable[d]["m_LessonsInDay"][h]) {
                                               rowStr += "<table style='margin: auto;' class='table table-sm table-striped w-auto text-center align-middle table-bordered border'>" +
-                                                  "<tbody><tr><td>" + "Day" + "</td><td>" + classTimeTable[d]["m_LessonsInDay"][h]["m_Day"] + "</td></tr>" +
-                                                  "<tr><td>" + "Hour" + "</td><td>" + classTimeTable[d]["m_LessonsInDay"][h]["m_Hour"] + "</td></tr>" +
-                                                  "<tr><td>" + "Class" + "</td><td>" + classTimeTable[d]["m_LessonsInDay"][h]["m_ClassName"] + "</td></tr>" +
-                                                  "<tr><td>" + "Teacher" + "</td><td>" + classTimeTable[d]["m_LessonsInDay"][h]["m_TeacherName"] + "</td></tr>" +
-                                                  "<tr><td>" + "Subject" + "</td><td>" + classTimeTable[d]["m_LessonsInDay"][h]["m_SubjectName"] + "</td></tr>" +
+                                                  "<tbody>" +
+                                                  "<tr><th>" + "Teacher" + "</th><td>" + classTimeTable[d]["m_LessonsInDay"][h]["m_TeacherName"] + "</td></tr>" +
+                                                  "<tr><th>" + "Subject" + "</th><td>" + classTimeTable[d]["m_LessonsInDay"][h]["m_SubjectName"] + "</td></tr>" +
                                                   "</tbody></table>";
                                           }
                                           rowStr+="</td>";
