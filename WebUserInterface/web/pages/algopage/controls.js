@@ -2,30 +2,55 @@
 var labelsUpdate;
 $(function() {
     $("#startBtn").click(function () {
-        var showEvery=document.getElementById("showEvery").value;
         $.ajax({
-            data:"showEvery="+showEvery.toString(),
             url:"activate",
             timeout:2000,
-            success: function(){
-                console.log("algorithm was activated successfully");
-                playBtnDisabilityManagement();
-                $("#updatesLine").empty();
-                $("#generationProgressBar").css('width', 0+'%').attr('aria-valuenow', 0);
-                $("#fitnessProgressBar").css('width', 0+'%').attr('aria-valuenow', 0);
-                $("#timeProgressBar").css('width', 0+'%').attr('aria-valuenow', 0);
-                labelsUpdate=setInterval(algoProgressUpdate,1000);
+            success:function(){
+                activateAlgo();
             },
-            error: function(errorObject){
-                var myModal = new bootstrap.Modal(document.getElementById('algoRefModal'));
-                $("#titleModalLabel").text("ERROR!");
-                $("#bodyModalLabel").text(errorObject.responseText);
+            error:function()
+            {
+                var myModal = new bootstrap.Modal(document.getElementById('activateModal'));
                 myModal.show();
             }
+        })
 
-        });
     })
 })
+
+$(function() {
+    $("#modalActivateBTN").click(function(){
+        activateAlgo();
+    })
+})
+
+
+
+function activateAlgo(){
+    var showEvery=document.getElementById("showEvery").value;
+    $.ajax({
+        data:"showEvery="+showEvery.toString(),
+        url:"activate",
+        method:'POST',
+        timeout:2000,
+        success: function(){
+            console.log("algorithm was activated successfully");
+            playBtnDisabilityManagement();
+            $("#updatesLine").empty();
+            $("#generationProgressBar").css('width', 0+'%').attr('aria-valuenow', 0);
+            $("#fitnessProgressBar").css('width', 0+'%').attr('aria-valuenow', 0);
+            $("#timeProgressBar").css('width', 0+'%').attr('aria-valuenow', 0);
+            labelsUpdate=setInterval(algoProgressUpdate,1000);
+        },
+        error: function(errorObject){
+            var myModal = new bootstrap.Modal(document.getElementById('algoRefModal'));
+            $("#titleModalLabel").text("ERROR!");
+            $("#bodyModalLabel").text(errorObject.responseText);
+            myModal.show();
+        }
+
+    });
+}
 
 $(function() {
     $("#pauseBtn").click(function () {
@@ -72,6 +97,9 @@ function playBtnDisabilityManagement()
     document.getElementById("stopBtn").disabled=false;
     document.getElementById("addNewMutation").disabled = true;
     document.getElementById("submitBtn").disabled = true;
+    $(".updateMutation").prop('disabled', true);
+    $(".deleteMutation").prop('disabled', true);
+
 }
 
 function pauseBtnDisabilityManagement()
@@ -81,6 +109,8 @@ function pauseBtnDisabilityManagement()
     document.getElementById("stopBtn").disabled=false;
     document.getElementById("addNewMutation").disabled = false;
     document.getElementById("submitBtn").disabled = false;
+    $(".updateMutation").prop('disabled', false);
+    $(".deleteMutation").prop('disabled', false);
 
 }
 
@@ -91,5 +121,7 @@ function stopBtnDisabilityManagement()
     document.getElementById("stopBtn").disabled=true;
     document.getElementById("addNewMutation").disabled = false;
     document.getElementById("submitBtn").disabled = false;
+    $(".updateMutation").prop('disabled', false);
+    $(".deleteMutation").prop('disabled', false);
 
 }
