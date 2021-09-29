@@ -8,7 +8,7 @@ public class RuleFileData {
 
     public RuleFileData(Rule i_Rule)
     {
-        m_RuleName=i_Rule.getId().name();
+        m_RuleName=i_Rule.getId().getRuleName();
         m_RuleType=i_Rule.getType().name();
     }
 }

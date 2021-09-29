@@ -10,7 +10,7 @@ public class RuleData {
 
     public RuleData(Rule i_Rule)
     {
-        m_Name=i_Rule.getId().name();
+        m_Name=i_Rule.getId().getRuleName();
         m_Type=i_Rule.getType().name();
         m_TotalHours= i_Rule.getTotalHours();
     }

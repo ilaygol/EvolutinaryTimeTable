@@ -30,6 +30,11 @@ public enum eRules {
                     fitness = 100-(badTeachersIDSet.size() * 100 / numOfTeachers);
                     return fitness;
                 }
+
+                @Override
+                public String getRuleName() {
+                    return "Teacher is human";
+                }
             },
     SINGULARITY
             {
@@ -54,6 +59,11 @@ public enum eRules {
                     }
                     fitness = 100-(badClassesIDSet.size() * 100 / numOfClasses);
                     return fitness;
+                }
+
+                @Override
+                public String getRuleName() {
+                    return "Singularity";
                 }
             },
     KNOWLEDGEABLE
@@ -92,6 +102,11 @@ public enum eRules {
                     }
                     fitness=(teacherGradesInRule.stream().mapToInt(grade->grade).sum())/(teacherGradesInRule.size());
                     return fitness;
+                }
+
+                @Override
+                public String getRuleName() {
+                    return "Knowledgeable";
                 }
             },
     SATISFACTORY
@@ -135,6 +150,11 @@ public enum eRules {
                     }
                     return classesGrades.stream().mapToInt(i->i).sum()/classesGrades.size();
                 }
+
+                @Override
+                public String getRuleName() {
+                    return "Satisfactory";
+                }
             },
     DAYOFFTEACHER
             {
@@ -164,6 +184,11 @@ public enum eRules {
                     }
                     retFitnessForRule=(teachersWhoHaveBreakList.size()/numOfTeachers)*100;
                     return retFitnessForRule;
+                }
+
+                @Override
+                public String getRuleName() {
+                    return "Day-off teacher";
                 }
             },
     SEQUENTIALITY
@@ -224,6 +249,11 @@ public enum eRules {
 
                     return (classesGrades.stream().mapToInt(i->i).sum()/classesGrades.size());
                 }
+
+                @Override
+                public String getRuleName() {
+                    return "Sequentiality";
+                }
             },
     DAYOFFCLASS
     {
@@ -253,6 +283,11 @@ public enum eRules {
             }
             retFitnessForRule=(classesThatHaveBreakList.size()/numOfClasses)*100;
             return retFitnessForRule;
+        }
+
+        @Override
+        public String getRuleName() {
+            return "Day-off class";
         }
     },
     WORKINGHOURSPREFERENCE
@@ -284,7 +319,13 @@ public enum eRules {
             retFitnessForRule=(teachersIDWithGoodTeachingHours.size()/i_TimeTable.getTeachers().getTeacherListSize())*100;
             return retFitnessForRule;
         }
+
+        @Override
+        public String getRuleName() {
+            return "Working hours preference";
+        }
     };
 
     public abstract Integer CheckRule(Parent i_Parent, TimeTable i_TimeTable,Integer i_TotalHours);
+    public abstract String getRuleName();
 }
