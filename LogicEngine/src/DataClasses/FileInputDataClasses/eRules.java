@@ -269,14 +269,14 @@ public enum eRules {
                 Integer prefHours=t.getTeacherWorkingHours();
                 List<Lesson> teacherLessons=i_Parent.getLessonsList().stream().filter(lesson -> lesson.getTeacherID().equals(t.getId())).collect(Collectors.toList());
                 int lessonsCount=0;
-                for(int i=1;i<=daysInWeek;i++)
-                    for (int j=1;j<=hoursInDay;j++)
-                    {
-                        int day=i;
-                        int hour=j;
-                        if(teacherLessons.stream().filter(lesson -> lesson.getDay().equals(day)).filter(lesson -> lesson.getHour().equals(hour)).count()>0)
+                for(int i=1;i<=daysInWeek;i++) {
+                    for (int j = 1; j <= hoursInDay; j++) {
+                        int day = i;
+                        int hour = j;
+                        if (teacherLessons.stream().filter(lesson -> lesson.getDay().equals(day)).filter(lesson -> lesson.getHour().equals(hour)).count() > 0)
                             lessonsCount++;
                     }
+                }
                 if(lessonsCount==prefHours)
                     teachersIDWithGoodTeachingHours.add(t.getId());
 
