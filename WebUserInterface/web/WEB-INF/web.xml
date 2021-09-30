@@ -22,6 +22,10 @@
         <servlet-class>Servlets.AlgoReferenceServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AnotherUserAlgoRefServlet</servlet-name>
+        <servlet-class>Servlets.AnotherUserAlgoRefServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ActivateAlgoServlet</servlet-name>
         <servlet-class>Servlets.ActivateAlgoServlet</servlet-class>
     </servlet>
@@ -115,6 +119,10 @@
     <servlet-mapping>
         <servlet-name>AlgoReferenceServlet</servlet-name>
         <url-pattern>/pages/algopage/algoReferences</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AnotherUserAlgoRefServlet</servlet-name>
+        <url-pattern>/pages/algopage/otherUserAlgoRef</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ActivateAlgoServlet</servlet-name>

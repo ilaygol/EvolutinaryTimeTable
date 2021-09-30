@@ -55,9 +55,34 @@ function refreshSolvingUsersList(userList)
         $("<tr><td>" + solver["m_SolverName"] +
             "</td><td>" + solver["m_GenerationsMade"] +
             "</td><td>" + solver["m_BestFitness"] +
-            "</td><td><button class='btn btn-primary btn-sm checkSetting' id='" + index + "' type='button'>Check Settings</button></td>" +
-            "</td><td><button class='btn btn-success btn-sm watchSolution' id='" + index + "' type='button'>Best Solution</button></td></tr>").appendTo($("#solvingTableBody"))
+            "</td><td><button class='btn btn-primary btn-sm checkSetting' id='" + solver["m_SolverID"] + "' name='"+index+"' type='button'>Check Settings</button></td>" +
+            "</td><td><button class='btn btn-success btn-sm watchSolution' id='" + solver["m_SolverID"] + "' name='"+index+"' type='button'>Best Solution</button></td></tr>").appendTo($("#solvingTableBody"))
     });
+    $(".checkSetting").click(function(){
+        var myModal = new bootstrap.Modal(document.getElementById('anotherUserModal'));
+        $("#anotherUserHeader").text("Algorithm references of "+userList[this.getAttribute("name")]["m_SolverName"]);
+        var id=this.getAttribute("id");
+        $.ajax({
+            data:"otherUserID="+id,
+            url:"otherUserAlgoRef",
+            timeout: 2000,
+            success: function (algoRefObj){
+                $("#anotherUserBody").text(algoRefObj["m_SelectionType"]);
+            }
+        });
+        myModal.show();
+    })
+
+    $(".watchSolution").click(function(){
+        var myModal = new bootstrap.Modal(document.getElementById('anotherUserModal'));
+        $("#anotherUserHeader").text("Best solution of "+userList[this.getAttribute("id")]["m_SolverName"]);
+        $(".checkSetting").click(function(){
+            var myModal = new bootstrap.Modal(document.getElementById('anotherUserModal'));
+            $("#anotherUserHeader").text("Algorithm references of "+userList[this.getAttribute("id")]["m_SolverName"]);
+        myModal.show();
+    });
+
+});
 }
 
 function refreshProgressLabels(progressData)

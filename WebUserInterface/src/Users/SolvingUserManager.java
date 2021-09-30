@@ -74,7 +74,7 @@ public class SolvingUserManager {
     public List<SolverData> getSolversDataList()
     {
         List<SolverData> retList=new ArrayList<>();
-        m_SolversList.forEach(solver-> retList.add(new SolverData(solver.getSolverName(),solver.getGenerationsMade(),solver.getBestFitness())));
+        m_SolversList.forEach(solver-> retList.add(new SolverData(solver.getSolverID(),solver.getSolverName(),solver.getGenerationsMade(),solver.getBestFitness())));
         return retList;
     }
 
