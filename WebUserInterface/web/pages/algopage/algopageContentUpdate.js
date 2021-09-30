@@ -67,7 +67,38 @@ function refreshSolvingUsersList(userList)
             url:"otherUserAlgoRef",
             timeout: 2000,
             success: function (algoRefObj){
-                $("#anotherUserBody").text(algoRefObj["m_SelectionType"]);
+                $("<table class='table table-striped w-auto text-center align-middle table-bordered border' style='margin: auto'>" +
+                    "<tbody><tr><th rowspan='4'>" + "Selection" + "</th><th>" + "Type" + "</th><td>"+algoRefObj["m_SelectionType"]+"</td></tr>" +
+                    "<tr><th>" + "Elitism" + "</th><td>" + algoRefObj["m_Elitism"] + "</td></tr>" +
+                    "<tr><th>" + "Percent" + "</th><td>" + algoRefObj["m_Percent"] + "</td></tr>" +
+                    "<tr><th>" + "PTE" + "</th><td>" + algoRefObj["m_PTE"] + "</td></tr>" +
+                    "<tr><th rowspan='3'>" + "Crossover" + "</th><th>" + "Type" + "</th><td>" + algoRefObj["m_CrossoverType"] + "</td></tr>" +
+                    "<tr><th>" + "Cutting Points" + "</th><td>" + algoRefObj["m_CuttingPoints"] + "</td></tr>" +
+                    "<tr><th>" + "Aspect" + "</th><td>" + algoRefObj["m_Aspect"] + "</td></tr>" +
+                    "</tbody></table>").appendTo($("#anotherUserBody").empty());
+                $.ajax({
+                    url:"mutation",
+                    type:'GET',
+
+                    success:function (mutationDataList){
+                        var mutationsStr="";
+                        $.each(mutationDataList || [], function (index, mutation) {
+                            mutationsStr+="<tr><td>" + mutation["m_Name"] +
+                                "</td><td>" + mutation["m_Probability"] +
+                                "</td><td>" + mutation["m_Tupples"] +
+                                "</td><td>" + mutation["m_Component"] +
+                                "</td></tr>"
+                        });
+                        $("<table class='table table-striped table-responsive table-hover text-center table-bordered align-middle mt-3 caption-top'>" +
+                            "<caption>Mutations</caption><thead>"+
+                            "<tr class='table-primary'>"+
+                            "<th>Type</th>"+
+                            "<th>Probability</th>"+
+                            "<th>Tupples</th>"+
+                            "<th>Component</th>"+
+                            "</tr></thead><tbody>"+mutationsStr+"</tbody></table>").appendTo($("#anotherUserBody"));
+                    }
+                });
             }
         });
         myModal.show();
@@ -75,13 +106,24 @@ function refreshSolvingUsersList(userList)
 
     $(".watchSolution").click(function(){
         var myModal = new bootstrap.Modal(document.getElementById('anotherUserModal'));
-        $("#anotherUserHeader").text("Best solution of "+userList[this.getAttribute("id")]["m_SolverName"]);
-        $(".checkSetting").click(function(){
-            var myModal = new bootstrap.Modal(document.getElementById('anotherUserModal'));
-            $("#anotherUserHeader").text("Algorithm references of "+userList[this.getAttribute("id")]["m_SolverName"]);
-        myModal.show();
-    });
-
+        $("#anotherUserHeader").text("Algorithm preferences of "+userList[this.getAttribute("id")]["m_SolverName"]);
+        $("<div class='row justify-content-center'>" +
+            "<div class='col-9'>" +
+                "<div class='input-group mb-3'>" +
+                    "<label class='input-group-text' for='showValue'>Show Results By</label>" +
+                    "<select class='form-select' id='showValueModal' name='showValue'>" +
+                        "<option value='' selected></option>" +
+                        "<option value='Raw'>Raw</option>" +
+                        "<option value='Teacher'>Teacher</option>" +
+                        "<option value='Class'>Class</option>" +
+                    "</select>" +
+                "</div>" +
+            "</div>" +
+            "<div class='col-3 align-bottom'>" +
+                "<button id='bestSolutionButtonModal' type='button' class='btn btn-success'>Show</button>" +
+            "</div>" +
+        "</div>").appendTo($("#anotherUserBody").empty());
+    myModal.show();
 });
 }
 
