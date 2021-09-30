@@ -1,7 +1,6 @@
 package Servlets;
 
 import Constants.Constants;
-import Manager.LogicEngineManager;
 import Users.PermUserManager;
 import Users.User;
 import Utils.ServletUtils;
@@ -56,6 +55,7 @@ public class MutationsServlet extends HttpServlet {
         i_Response.setStatus(200);
     }
 
+    @Override
     protected void doDelete(HttpServletRequest i_Request, HttpServletResponse i_Response) throws IOException {
         i_Response.setContentType("text/plain;charset=UTF-8");
         String mutationIndex=i_Request.getHeader(Constants.MUTATION_INDEX);

@@ -26,6 +26,10 @@
         <servlet-class>Servlets.AnotherUserAlgoRefServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AnotherUserMutationsServlet</servlet-name>
+        <servlet-class>Servlets.AnotherUserMutationsServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ActivateAlgoServlet</servlet-name>
         <servlet-class>Servlets.ActivateAlgoServlet</servlet-class>
     </servlet>
@@ -123,6 +127,10 @@
     <servlet-mapping>
         <servlet-name>AnotherUserAlgoRefServlet</servlet-name>
         <url-pattern>/pages/algopage/otherUserAlgoRef</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AnotherUserMutationsServlet</servlet-name>
+        <url-pattern>/pages/algopage/otherUserMutations</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ActivateAlgoServlet</servlet-name>

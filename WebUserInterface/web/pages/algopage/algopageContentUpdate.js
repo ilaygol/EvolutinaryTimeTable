@@ -77,9 +77,10 @@ function refreshSolvingUsersList(userList)
                     "<tr><th>" + "Aspect" + "</th><td>" + algoRefObj["m_Aspect"] + "</td></tr>" +
                     "</tbody></table>").appendTo($("#anotherUserBody").empty());
                 $.ajax({
-                    url:"mutation",
-                    type:'GET',
 
+                    url:"otherUserMutations",
+                    type:'GET',
+                    data:"otherUserID="+id,
                     success:function (mutationDataList){
                         var mutationsStr="";
                         $.each(mutationDataList || [], function (index, mutation) {
@@ -102,11 +103,11 @@ function refreshSolvingUsersList(userList)
             }
         });
         myModal.show();
-    })
+    });
 
     $(".watchSolution").click(function(){
         var myModal = new bootstrap.Modal(document.getElementById('anotherUserModal'));
-        $("#anotherUserHeader").text("Algorithm preferences of "+userList[this.getAttribute("id")]["m_SolverName"]);
+        $("#anotherUserHeader").text("Best solution of "+userList[this.getAttribute("name")]["m_SolverName"]);
         $("<div class='row justify-content-center'>" +
             "<div class='col-9'>" +
                 "<div class='input-group mb-3'>" +
@@ -123,6 +124,8 @@ function refreshSolvingUsersList(userList)
                 "<button id='bestSolutionButtonModal' type='button' class='btn btn-success'>Show</button>" +
             "</div>" +
         "</div>").appendTo($("#anotherUserBody").empty());
+
+
     myModal.show();
 });
 }
