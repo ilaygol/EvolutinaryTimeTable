@@ -107,9 +107,10 @@ function refreshSolvingUsersList(userList)
 
     $(".watchSolution").click(function(){
         var myModal = new bootstrap.Modal(document.getElementById('anotherUserModal'));
+        var id=this.getAttribute("id");
         $("#anotherUserHeader").text("Best solution of "+userList[this.getAttribute("name")]["m_SolverName"]);
         $("<div class='row justify-content-center'>" +
-            "<div class='col-9'>" +
+            "<div class='col-4'>" +
                 "<div class='input-group mb-3'>" +
                     "<label class='input-group-text' for='showValue'>Show Results By</label>" +
                     "<select class='form-select' id='showValueModal' name='showValue'>" +
@@ -120,11 +121,77 @@ function refreshSolvingUsersList(userList)
                     "</select>" +
                 "</div>" +
             "</div>" +
-            "<div class='col-3 align-bottom'>" +
+            "<div class='col-auto align-bottom'>" +
                 "<button id='bestSolutionButtonModal' type='button' class='btn btn-success'>Show</button>" +
             "</div>" +
-        "</div>").appendTo($("#anotherUserBody").empty());
+        "</div><div id='anotherUserSolution'></div>").appendTo($("#anotherUserBody").empty());
 
+        $("#bestSolutionButtonModal").click(function(){
+            var select = document.getElementById('showValueModal');
+            var value = select.options[select.selectedIndex].value;
+            switch(value)
+            {
+                case "":
+                    break;
+                case "Raw":
+                    console.log("Raw");
+                    $.ajax({
+                        data:"otherUserID="+id,
+                        url:"rawSolution",
+                        method: "POST",
+                        timeout:2000,
+                        success: function(rawSolutionData){
+                            printRawSolution(rawSolutionData, "anotherUserSolution", "Modal");
+                        },
+                        error:function(errorObj){
+                            var myModal = new bootstrap.Modal(document.getElementById('algoRefModal'));
+                            $("#titleModalLabel").text("Error!");
+                            $("#bodyModalLabel").text(errorObj.responseText);
+                            myModal.show();
+                        }
+                    })
+                    break;
+                case "Teacher":
+                    console.log("sending ajax to get Teachers ID Names List");
+                    $.ajax({
+                        data:"otherUserID="+id,
+                        url:"teachersNamesList",
+                        method: "POST",
+                        timeout: 2000,
+                        success:function (teachersList){
+                            printTeachersSolution(teachersList, "anotherUserSolution", "Modal");
+                        },
+                        error:function (errorObject){
+                            console.log("failed to get Teachers id names list")
+                            var myModal = new bootstrap.Modal(document.getElementById('algoRefModal'));
+                            $("#titleModalLabel").text("ERROR!");
+                            $("#bodyModalLabel").text(errorObject.responseText);
+                            myModal.show();
+                        }
+                    })
+                    break;
+
+                case "Class":
+                    console.log("sending ajax to get Teachers ID Names List");
+                    $.ajax({
+                        data:"otherUserID="+id,
+                        url:"classesNamesList",
+                        method: "POST",
+                        timeout: 2000,
+                        success:function (classesList){
+                            printClassesSolution(classesList, "anotherUserSolution", "Modal");
+                        },
+                        error:function (errorObject){
+                            console.log("failed to get classes id names list")
+                            var myModal = new bootstrap.Modal(document.getElementById('algoRefModal'));
+                            $("#titleModalLabel").text("ERROR!");
+                            $("#bodyModalLabel").text(errorObject.responseText);
+                            myModal.show();
+                        }
+                    })
+                    break;
+            }
+        });
 
     myModal.show();
 });
