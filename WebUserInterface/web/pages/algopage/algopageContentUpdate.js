@@ -159,7 +159,7 @@ function refreshSolvingUsersList(userList)
                         method: "POST",
                         timeout: 2000,
                         success:function (teachersList){
-                            printTeachersSolution(teachersList, "anotherUserSolution", "Modal");
+                            printTeachersSolution(teachersList, "anotherUserSolution", "Modal", "POST", id);
                         },
                         error:function (errorObject){
                             console.log("failed to get Teachers id names list")
@@ -179,7 +179,7 @@ function refreshSolvingUsersList(userList)
                         method: "POST",
                         timeout: 2000,
                         success:function (classesList){
-                            printClassesSolution(classesList, "anotherUserSolution", "Modal");
+                            printClassesSolution(classesList, "anotherUserSolution", "Modal", "POST", id);
                         },
                         error:function (errorObject){
                             console.log("failed to get classes id names list")

@@ -28,7 +28,7 @@ $(function(){
                   url:"teachersNamesList",
                   timeout: 2000,
                   success:function (teachersList){
-                     printTeachersSolution(teachersList, "bestSolutionContent", "Main");
+                     printTeachersSolution(teachersList, "bestSolutionContent", "Main", "GET");
                   },
                   error:function (errorObject){
                       console.log("failed to get Teachers id names list")
@@ -46,7 +46,7 @@ $(function(){
                   url:"classesNamesList",
                   timeout: 2000,
                   success:function (classesList){
-                      printClassesSolution(classesList, "bestSolutionContent", "Main");
+                      printClassesSolution(classesList, "bestSolutionContent", "Main", "GET");
                   },
                   error:function (errorObject){
                       console.log("failed to get classes id names list")

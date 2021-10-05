@@ -35,9 +35,11 @@ function printRawSolution(rawSolutionData, appendToID){
         "<div class='col-3'>"+getRulesDataStr(rawSolutionData["m_RuleDataList"])+"</div></div>").appendTo($("#"+appendToID).empty());
 }
 
-function printTeachersSolution (teachersList, appendToID, senderID){
+function printTeachersSolution (teachersList, appendToID, senderID, methodStr, userID){
     //m_TeacherID ---> teacher id member
     //m_TeacherName ---> teacher name member
+    if(userID===undefined)
+        userID=-1;
     var solutionContentID="solutionContent"+senderID;
     var solutionRulesID="solutionRules"+senderID;
 
@@ -56,8 +58,9 @@ function printTeachersSolution (teachersList, appendToID, senderID){
     $(".bestSolutionTeacherBTN").click(function(){
         console.log("clicked on teacher "+this.getAttribute("id"));
         $.ajax({
-            data:"teacherID="+this.getAttribute("id"),
+            data:"teacherID="+this.getAttribute("id")+"&"+"otherUserID="+userID,
             url:"teacherSolution",
+            method: methodStr,
             timeout:2000,
             success:function(teacherSolution){
                 //day --->m_Day
@@ -121,9 +124,11 @@ function printTeachersSolution (teachersList, appendToID, senderID){
     })
 }
 
-function printClassesSolution (classesList, appendToID, senderID){
+function printClassesSolution (classesList, appendToID, senderID, methodStr, userID){
     //m_ClassID -->class id member
     //m_ClassName --->class name member
+    if(userID===undefined)
+        userID=-1;
     var solutionContentID="solutionContent"+senderID;
     var solutionRulesID="solutionRules"+senderID;
 
@@ -144,8 +149,9 @@ function printClassesSolution (classesList, appendToID, senderID){
     $(".bestSolutionClassBTN").click(function(){
         console.log("clicked on class with id "+this.getAttribute("id"));
         $.ajax({
-            data:"classID="+this.getAttribute("id"),
+            data:"classID="+this.getAttribute("id")+"&"+"otherUserID="+userID,
             url:"classSolution",
+            method: methodStr,
             timeout:2000,
             success:function(classSolution){
                 //day --->m_Day

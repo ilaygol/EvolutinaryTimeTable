@@ -16,7 +16,9 @@ import java.io.PrintWriter;
 //url: LocalHost:8080/TimeTable/pages/algopage/teachersNamesList
 public class TeachersIdNamesServlet extends HttpServlet {
 
-    private void processRequest(HttpServletRequest i_Request, HttpServletResponse i_Response) throws IOException {
+    @Override
+    protected void doGet(HttpServletRequest i_Request, HttpServletResponse i_Response)
+            throws ServletException, IOException {
         i_Response.setContentType("application/json");
         String userID= SessionUtils.getUserID(i_Request);
         String managerIndex=SessionUtils.getManagerIndex(i_Request);
@@ -37,19 +39,31 @@ public class TeachersIdNamesServlet extends HttpServlet {
             }
             i_Response.setStatus(200);
         }
-
     }
-
 
     @Override
     protected void doPost(HttpServletRequest i_Request, HttpServletResponse i_Response)
             throws ServletException, IOException {
-        processRequest(i_Request, i_Response);
+        i_Response.setContentType("application/json");
+        String userID= i_Request.getParameter("otherUserID");
+        String managerIndex=SessionUtils.getManagerIndex(i_Request);
+        PermUserManager permUserManager= ServletUtils.getPermUserManager(getServletContext());
+        User user= permUserManager.getUserByID(userID);
+        if(!user.getIsAlgoActivated(Integer.parseInt(managerIndex)))
+        {
+            String errorMsg="Error: Please activate algorithm first.";
+            i_Response.getOutputStream().println(errorMsg);
+            i_Response.setStatus(400);
+        }
+        else {
+            try (PrintWriter out = i_Response.getWriter()) {
+                Gson gson = new Gson();
+                String json = gson.toJson(user.getTeachersIdNamesList(Integer.parseInt(managerIndex)));
+                out.println(json);
+                out.flush();
+            }
+            i_Response.setStatus(200);
+        }
     }
 
-    @Override
-    protected void doGet(HttpServletRequest i_Request, HttpServletResponse i_Response)
-            throws ServletException, IOException {
-        processRequest(i_Request, i_Response);
-    }
 }
