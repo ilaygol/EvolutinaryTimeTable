@@ -43,6 +43,7 @@ function algoProgressUpdate()
         success:function (progressData){
             refreshProgressLabels(progressData);
             refreshProgressBars(progressData);
+            refreshProgressGraph(progressData);
         }
     });
 }
@@ -231,5 +232,18 @@ function refreshProgressBars(progressData)
         $("#timeProgressBar").css('width', valueTime+'%').attr('aria-valuenow', time);
     }
 
+}
+
+function refreshProgressGraph(progressData)
+{
+    var newFitness=progressData["m_Fitness"];
+    var currGeneration=progressData["m_GenerationMade"];
+    const data = mainChart.data;
+    if (data.datasets.length > 0) {
+        data.labels.push(currGeneration);
+        data.datasets[0].data.push(newFitness);
+
+        mainChart.update();
+    }
 }
 

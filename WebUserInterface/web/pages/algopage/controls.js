@@ -41,6 +41,8 @@ function activateAlgo(){
             $("#fitnessProgressBar").css('width', 0+'%').attr('aria-valuenow', 0);
             $("#timeProgressBar").css('width', 0+'%').attr('aria-valuenow', 0);
             labelsUpdate=setInterval(algoProgressUpdate,1000);
+            mainChart.data.datasets[0].data=[];
+            mainChart.data.labels=[];
         },
         error: function(errorObject){
             var myModal = new bootstrap.Modal(document.getElementById('algoRefModal'));
