@@ -24,7 +24,7 @@ public class ActivateAlgoServlet extends HttpServlet {
         String managerIndex = SessionUtils.getManagerIndex(i_Request);
         PermUserManager permUserManager = ServletUtils.getPermUserManager(getServletContext());
         User user = permUserManager.getUserByID(userID);
-        if(user.getIsAlgoActivated(Integer.parseInt(managerIndex)))
+        if(user.getIsAlgoActivated(Integer.parseInt(managerIndex))&&!user.getIsAlgoRunning(Integer.parseInt(managerIndex)))
         {
             i_Response.setStatus(400);
         }

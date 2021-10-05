@@ -83,6 +83,13 @@ public class User {
         return wantedManager.getIsAlgoActivated();
     }
 
+    public boolean getIsAlgoRunning(Integer i_ManagerIndex)
+    {
+        LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
+        return wantedManager.getIsAlgoRunning();
+    }
+
+
     public AlgorithmReferenceData getAlgorithmReferenceData(Integer i_ManagerIndex)
     {
         LogicEngineManager wantedManager=getManagerByProblemIndex(i_ManagerIndex);
